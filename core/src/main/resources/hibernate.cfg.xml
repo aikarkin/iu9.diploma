@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+    <session-factory>
+
+        <property name="connection.driver_class">org.postgresql.Driver</property>
+        <property name="connection.url">jdbc:postgresql://localhost:5432/schedule</property>
+        <property name="connection.username">alex</property>
+        <property name="connection.password">h2rh4cid</property>
+        <property name="connection.pool_size">1</property>
+        <property name="dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+        <property name="current_session_context_class">thread</property>
+        <property name="show_sql">true</property>
+        <property name="hbm2ddl.auto">validate</property>
+
+        <mapping class="ru.bmstu.schedule.entity.CalendarItem"/>
+        <mapping class="ru.bmstu.schedule.entity.CalendarItemCell"/>
+        <mapping class="ru.bmstu.schedule.entity.ClassTime"/>
+        <mapping class="ru.bmstu.schedule.entity.ClassType"/>
+        <mapping class="ru.bmstu.schedule.entity.Classroom"/>
+        <mapping class="ru.bmstu.schedule.entity.DayOfWeak"/>
+        <mapping class="ru.bmstu.schedule.entity.Department"/>
+        <mapping class="ru.bmstu.schedule.entity.EduDegree"/>
+        <mapping class="ru.bmstu.schedule.entity.Faculty"/>
+        <mapping class="ru.bmstu.schedule.entity.HoursPerClass"/>
+        <mapping class="ru.bmstu.schedule.entity.Lecturer"/>
+        <mapping class="ru.bmstu.schedule.entity.ScheduleDay"/>
+        <mapping class="ru.bmstu.schedule.entity.ScheduleItem"/>
+        <mapping class="ru.bmstu.schedule.entity.ScheduleItemParity"/>
+        <mapping class="ru.bmstu.schedule.entity.Specialization"/>
+        <mapping class="ru.bmstu.schedule.entity.StudyFlow"/>
+        <mapping class="ru.bmstu.schedule.entity.StudyGroup"/>
+        <mapping class="ru.bmstu.schedule.entity.Subject"/>
+        <mapping class="ru.bmstu.schedule.entity.Term"/>
+
+
+    </session-factory>
+</hibernate-configuration>
