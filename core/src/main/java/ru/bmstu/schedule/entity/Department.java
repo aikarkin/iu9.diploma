@@ -48,8 +48,14 @@ public class Department {
         this.number = number;
     }
 
+
+    @SuppressWarnings("JpaAttributeMemberSignatureInspection")
+    public String getCipher() {
+        return String.format("%s%d", getFaculty().getCipher(), getNumber());
+    }
+
     @Basic
-    @Column(name = "title", nullable = false, length = -1)
+    @Column(name = "title", length = -1)
     public String getTitle() {
         return title;
     }
@@ -70,7 +76,6 @@ public class Department {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(id, number, title);
     }
 
@@ -84,12 +89,17 @@ public class Department {
         this.faculty = faculty;
     }
 
-    @OneToMany(mappedBy = "department")
+    @ManyToMany
+    @JoinTable(
+            name="dep_to_spec",
+            joinColumns = { @JoinColumn(name="department_id") },
+            inverseJoinColumns = { @JoinColumn(name="spec_id") }
+    )
     public Collection<Specialization> getSpecializations() {
         return specializations;
     }
 
-    public void setSpecializations(Collection<Specialization> specializations) {
+    void setSpecializations(Collection<Specialization> specializations) {
         this.specializations = specializations;
     }
 }

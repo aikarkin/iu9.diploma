@@ -11,7 +11,22 @@ public class StudyFlow {
     private int enrollmentYear;
     private Collection<CalendarItem> calendarItems;
     private Specialization specialization;
+    private Department department;
     private Collection<StudyGroup> studyGroups;
+
+    @ManyToOne
+    @JoinTable(
+            name = "dep_to_spec",
+            joinColumns = @JoinColumn(name = "department_id"),
+            inverseJoinColumns = @JoinColumn(name = "id")
+    )
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
 
     @Id
     @Column(name = "flow_id", nullable = false)
@@ -59,13 +74,17 @@ public class StudyFlow {
     }
 
     @ManyToOne
-    @JoinColumn(name = "spec_id", referencedColumnName = "spec_id")
+    @JoinTable(
+            name = "dep_to_spec",
+            joinColumns = @JoinColumn(name = "spec_id"),
+            inverseJoinColumns = @JoinColumn(name = "id")
+    )
     public Specialization getSpecialization() {
         return specialization;
     }
 
-    public void setSpecialization(Specialization specialization) {
-        this.specialization = specialization;
+    public void setSpecialization(Specialization spec) {
+        this.specialization = spec;
     }
 
     @OneToMany(mappedBy = "studyFlow")

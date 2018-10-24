@@ -24,7 +24,6 @@ public class Repository<E, K extends Serializable> {
             throw new IllegalArgumentException("Provided entity type is not annotated with @Entity");
         }
 
-
         this.entityClass = entityClass;
         this.sessionFactory = sessionFactory;
     }

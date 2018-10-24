@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="parser:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/parser_jar</output-path>
+    <root id="archive" name="parser.jar">
+      <element id="module-output" name="parser" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/jsoup/jsoup/1.11.3/jsoup-1.11.3.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

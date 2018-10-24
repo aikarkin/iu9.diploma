@@ -75,7 +75,7 @@
         <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
         <item name="public: schema" type="a16502c0:PostgresImplModel$Schema" />
         <item name="tables" type="d4e8921:DatabaseStructure$FamilyGroup" />
-        <item name="faculty: table" type="a93d6ac6:PostgresImplModel$LocalTable" />
+        <item name="dep_to_spec: table" type="a93d6ac6:PostgresImplModel$LocalTable" />
       </path>
     </expand>
     <select />
@@ -85,29 +85,75 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="EntitiesTest.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/java/EntitiesTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="530">
-              <caret line="110" selection-end-line="159" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Faculty.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/Faculty.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="17" column="5" selection-start-line="17" selection-start-column="5" selection-end-line="17" selection-end-column="5" />
+            <state relative-caret-position="180">
+              <caret line="45" column="10" lean-forward="true" selection-start-line="45" selection-start-column="10" selection-end-line="45" selection-end-column="10" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Repository.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/repository/Repository.java">
+      <file leaf-file-name="StudyFlow.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/StudyFlow.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="510">
-              <caret line="34" selection-start-line="34" selection-end-line="34" />
+            <state relative-caret-position="36">
+              <caret line="46" lean-forward="true" selection-start-line="46" selection-end-line="46" />
+              <folding>
+                <element signature="e#407#408#0" expanded="true" />
+                <element signature="e#440#441#0" expanded="true" />
+                <element signature="e#496#497#0" expanded="true" />
+                <element signature="e#540#541#0" expanded="true" />
+                <element signature="e#2182#2183#0" expanded="true" />
+                <element signature="e#2215#2216#0" expanded="true" />
+                <element signature="e#1879#1880#0" expanded="true" />
+                <element signature="e#1898#1899#0" expanded="true" />
+                <element signature="e#2144#2145#0" expanded="true" />
+                <element signature="e#2178#2179#0" expanded="true" />
+                <element signature="e#2248#2249#0" expanded="true" />
+                <element signature="e#2294#2295#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="create_tables.sql" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/postrgres/create_tables.sql">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="286">
+              <caret line="84" column="2" lean-forward="true" selection-start-line="84" selection-start-column="2" selection-end-line="84" selection-end-column="2" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="remove_tables.sql" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/postrgres/remove_tables.sql">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="270">
+              <caret line="18" column="32" selection-end-line="28" selection-end-column="40" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Department.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/Department.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="795">
+              <caret line="67" column="13" selection-start-line="67" selection-start-column="13" selection-end-line="67" selection-end-column="13" />
+              <folding>
+                <element signature="e#1066#1124#0" expanded="true" />
+                <element signature="e#1089#1090#0" expanded="true" />
+                <element signature="e#1128#1129#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="135">
+              <caret line="9" column="24" selection-start-line="9" selection-start-column="24" selection-end-line="9" selection-end-column="24" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -115,29 +161,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="test.sql" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/postrgres/test.sql">
+      <file leaf-file-name="Specialization.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/Specialization.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="73" selection-end-column="73" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pom.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-205">
-              <caret line="9" column="4" selection-start-line="9" selection-start-column="4" selection-end-line="20" selection-end-column="12" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="core.iml" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/core.iml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="13" column="9" selection-start-line="13" selection-start-column="9" selection-end-line="13" selection-end-column="9" />
+            <state relative-caret-position="645">
+              <caret line="73" column="43" selection-start-line="73" selection-start-column="43" selection-end-line="73" selection-end-column="43" />
             </state>
           </provider>
         </entry>
@@ -148,20 +176,13 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="AnnotationType" />
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>add</find>
-      <find>oneto</find>
-      <find>item_p</find>
-      <find>room_number</find>
-      <find>day_of</find>
-      <find>day_pari</find>
-      <find>schedule_item_parit</find>
       <find>references</find>
       <find>AND</find>
       <find>day_of_weak</find>
@@ -182,19 +203,31 @@
       <find>id</find>
       <find>K</find>
       <find>Serializa</find>
+      <find>faculty</find>
+      <find>specializ</find>
+      <find>lecturer</find>
+      <find>department</find>
+      <find>classroom</find>
+      <find>facult</find>
+      <find>@ManyToMan</find>
+      <find>de</find>
+      <find>getDepar</find>
+      <find>dep_to_spec</find>
     </findStrings>
     <replaceStrings>
       <replace>AND</replace>
       <replace />
       <replace>Department</replace>
     </replaceStrings>
+    <dirStrings>
+      <dir>$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity</dir>
+    </dirStrings>
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/ru/bmstu/schedule/entity/Department.java" />
         <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/Spec.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Main.java" />
         <option value="$PROJECT_DIR$/src/test/java/TestER.java" />
         <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/FacultyEntity.hbm.xml" />
         <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/DepartmentEntity.hbm.xml" />
@@ -208,32 +241,36 @@
         <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/ScheduleItemParityEntity.java" />
         <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/LecturerEntity.java" />
         <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/FacultyEntity.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/postrgres/remove_tables.sql" />
-        <option value="$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/Classroom.java" />
         <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/DayOfWeak.java" />
         <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/EduDegree.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/postrgres/create_tables.sql" />
         <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/ScheduleItemParity.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/Lecturer.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/Department.java" />
         <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/BaseRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/CalendarItemCell.java" />
         <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/Tag.java" />
         <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/BaseEntity.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/Specialization.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/Faculty.java" />
         <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/repository/FacultyRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/repository/FacultyService.java" />
         <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/repository/BaseRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/repository/BasicRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/CalendarItem.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/repository/Repository.java" />
         <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/repository/IRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/repository/RepositoryFactory.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/postrgres/test.sql" />
-        <option value="$PROJECT_DIR$/src/test/java/EntitiesTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/repository/Repository.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/Lecturer.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/Subject.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/Classroom.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/Faculty.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/postrgres/clear_data.sql" />
+        <option value="$PROJECT_DIR$/src/main/resources/postrgres/test.sql" />
+        <option value="$PROJECT_DIR$/src/main/resources/postrgres/remove_tables.sql" />
+        <option value="$PROJECT_DIR$/src/main/resources/postrgres/create_tables.sql" />
+        <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/StudyFlow.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/Specialization.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/Department.java" />
+        <option value="$PROJECT_DIR$/src/test/java/EntitiesTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Main.java" />
       </list>
     </option>
   </component>
@@ -264,6 +301,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -322,7 +360,7 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="schedule" type="462c0819:PsiDirectoryNode" />
-              <item name="repository" type="462c0819:PsiDirectoryNode" />
+              <item name="entity" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="core" type="b2602c69:ProjectViewProjectNode" />
@@ -356,9 +394,8 @@
           <select />
         </subPane>
       </pane>
-      <pane id="AndroidView" />
-      <pane id="PackagesPane" />
       <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -367,7 +404,8 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.intellij.database.dataSource.DataSourceTemplate" value="PostgreSQL" />
     <property name="database.console.LAST_STATE" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="database.data.extractors.current.id" value="Comma-separated (CSV)_id" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="project.structure.last.edited" value="Artifacts" />
@@ -395,16 +433,14 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.EntitiesTest">
-    <configuration default="true" type="Application" factoryName="Application">
+  <component name="RunManager" selected="Application.Main">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="core" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
     </configuration>
-    <configuration name="Generate POJOs" type="GroovyScriptRunConfiguration" factoryName="Groovy" temporary="true">
-      <setting name="path" value="file://$APPLICATION_CONFIG_DIR$/extensions/com.intellij.database/schema/Generate POJOs.groovy" />
-      <setting name="vmparams" value="" />
-      <setting name="params" value="" />
-      <setting name="workDir" value="file://$APPLICATION_CONFIG_DIR$/extensions/com.intellij.database/schema" />
-      <setting name="debug" value="false" />
+    <configuration default="true" type="Application" factoryName="Application">
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
     </configuration>
     <configuration name="EntitiesTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="core" />
@@ -513,19 +549,19 @@
       <listeners />
     </configuration>
     <list>
-      <item itemvalue="Groovy.Generate POJOs" />
       <item itemvalue="JUnit.EntitiesTest.testFaculty" />
       <item itemvalue="JUnit.EntitiesTest" />
       <item itemvalue="JUnit.EntitiesTest.testChildDepartments" />
       <item itemvalue="JUnit.EntitiesTest.testRepository" />
+      <item itemvalue="Application.Main" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Main" />
         <item itemvalue="JUnit.EntitiesTest" />
         <item itemvalue="JUnit.EntitiesTest.testRepository" />
         <item itemvalue="JUnit.EntitiesTest.testChildDepartments" />
         <item itemvalue="JUnit.EntitiesTest.testFaculty" />
-        <item itemvalue="Groovy.Generate POJOs" />
       </list>
     </recent_temporary>
   </component>
@@ -545,7 +581,13 @@
       <workItem from="1539861453471" duration="5641000" />
       <workItem from="1539868613498" duration="2521000" />
       <workItem from="1539887195625" duration="31021000" />
-      <workItem from="1539950035126" duration="1064000" />
+      <workItem from="1539950035126" duration="4560000" />
+      <workItem from="1539972356774" duration="5430000" />
+      <workItem from="1540232894282" duration="494000" />
+      <workItem from="1540233443796" duration="10082000" />
+      <workItem from="1540254789479" duration="4226000" />
+      <workItem from="1540306452781" duration="15101000" />
+      <workItem from="1540382775439" duration="7261000" />
     </task>
     <servers />
   </component>
@@ -582,7 +624,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="67893000" />
+    <option name="totallyTimeSpent" value="113983000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -614,21 +656,21 @@
       <window_info id="Image Layers" order="3" />
       <window_info anchor="bottom" id="Java Enterprise" order="9" weight="0.32843137" />
       <window_info anchor="right" id="Capture Analysis" order="4" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.3627451" />
       <window_info anchor="bottom" id="Version Control" order="12" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3627451" />
       <window_info anchor="bottom" id="Terminal" order="8" weight="0.32843137" />
       <window_info id="Persistence" order="6" sideWeight="0.5604575" side_tool="true" weight="0.26177174" />
-      <window_info active="true" content_ui="combo" id="Project" order="5" sideWeight="0.4375" visible="true" weight="0.25219473" />
+      <window_info anchor="bottom" id="Database Console" order="11" weight="0.498366" />
+      <window_info active="true" content_ui="combo" id="Project" order="5" sideWeight="0.4375" visible="true" weight="0.26895452" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32843137" />
       <window_info anchor="right" id="SciView" order="6" weight="0.32960895" />
       <window_info anchor="right" id="Theme Preview" order="8" />
       <window_info id="Favorites" order="4" sideWeight="0.5625" side_tool="true" weight="0.2482043" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="bottom" id="Database Console" order="11" weight="0.32843137" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32843137" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -643,364 +685,13 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/ScheduleItemParityToLecturerEntity.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/resources/realational-diagram.svg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="uml://JAVA/ru.bmstu.schedule.entity">
-      <provider selected="true" editor-type-id="UmlEditorProvider">
-        <state>
-          <ID>JAVA</ID>
-          <OriginalElement>ru.bmstu.schedule.entity</OriginalElement>
-          <nodes>
-            <node x="330.93678160919535" y="1121.0">ru.bmstu.schedule.entity.DepartmentEntity</node>
-            <node x="245.3125" y="303.0">ru.bmstu.schedule.entity.LecturerEntity</node>
-            <node x="378.38433908045977" y="808.0">ru.bmstu.schedule.entity.CalendarItemEntity</node>
-            <node x="226.31178160919538" y="1020.0">ru.bmstu.schedule.entity.SpecializationEntity</node>
-            <node x="281.9367816091953" y="444.0">ru.bmstu.schedule.entity.ScheduleItemParityEntity</node>
-            <node x="430.3117816091954" y="1020.0">ru.bmstu.schedule.entity.FacultyEntity</node>
-            <node x="0.0" y="101.0">ru.bmstu.schedule.entity.StudyGroupEntity</node>
-            <node x="155.86494252873564" y="919.0">ru.bmstu.schedule.entity.EduDegreeEntity</node>
-            <node x="314.93678160919524" y="525.0">ru.bmstu.schedule.entity.ClassTypeEntity</node>
-            <node x="341.86494252873564" y="919.0">ru.bmstu.schedule.entity.StudyFlowEntity</node>
-            <node x="85.3125" y="303.0">ru.bmstu.schedule.entity.SubjectEntity</node>
-            <node x="412.3125" y="303.0">ru.bmstu.schedule.entity.ClassroomEntity</node>
-            <node x="505.8117816091954" y="202.0">ru.bmstu.schedule.entity.ClassTimeEntity</node>
-            <node x="760.9992816091954" y="101.0">ru.bmstu.schedule.entity.DayOfWeakEntity</node>
-            <node x="523.6343390804597" y="707.0">ru.bmstu.schedule.entity.CalendarItemCellEntity</node>
-            <node x="437.3125" y="0.0">ru.bmstu.schedule.entity.TermEntity</node>
-            <node x="682.8117816091954" y="202.0">ru.bmstu.schedule.entity.ScheduleDayEntity</node>
-            <node x="593.3125" y="303.0">ru.bmstu.schedule.entity.ScheduleItemEntity</node>
-            <node x="298.43678160919524" y="606.0">ru.bmstu.schedule.entity.HoursPerClassEntity</node>
-          </nodes>
-          <notes />
-          <edges>
-            <edge source="ru.bmstu.schedule.entity.CalendarItemEntity" target="ru.bmstu.schedule.entity.CalendarItemCellEntity">
-              <point x="33.9375" y="-15.5" />
-              <point x="502.82183908045977" y="768.0" />
-              <point x="600.8843390804597" y="768.0" />
-              <point x="-25.75" y="15.5" />
-            </edge>
-            <edge source="ru.bmstu.schedule.entity.SpecializationEntity" target="ru.bmstu.schedule.entity.StudyFlowEntity">
-              <point x="11.5" y="-15.5" />
-              <point x="329.81178160919535" y="970.0" />
-              <point x="361.98994252873564" y="970.0" />
-              <point x="-60.375" y="15.5" />
-            </edge>
-            <edge source="ru.bmstu.schedule.entity.StudyGroupEntity" target="ru.bmstu.schedule.entity.StudyFlowEntity">
-              <point x="-10.6875" y="15.5" />
-              <point x="74.8125" y="869.0" />
-              <point x="412.30244252873564" y="869.0" />
-              <point x="-10.0625" y="-15.5" />
-            </edge>
-            <edge source="ru.bmstu.schedule.entity.StudyFlowEntity" target="ru.bmstu.schedule.entity.StudyGroupEntity">
-              <point x="-70.4375" y="-15.5" />
-              <point x="351.92744252873564" y="899.0" />
-              <point x="41.8125" y="899.0" />
-              <point x="41.8125" y="182.0" />
-              <point x="10.6875" y="182.0" />
-              <point x="-74.8125" y="15.5" />
-            </edge>
-            <edge source="ru.bmstu.schedule.entity.SubjectEntity" target="ru.bmstu.schedule.entity.ScheduleItemParityEntity">
-              <point x="43.75" y="15.5" />
-              <point x="199.0625" y="404.0" />
-              <point x="316.62428160919535" y="404.0" />
-              <point x="-76.31249999999994" y="-15.5" />
-            </edge>
-            <edge source="ru.bmstu.schedule.entity.TermEntity" target="ru.bmstu.schedule.entity.StudyGroupEntity">
-              <point x="-7.75" y="15.5" />
-              <point x="491.5625" y="81.0" />
-              <point x="149.625" y="81.0" />
-              <point x="64.125" y="-15.5" />
-            </edge>
-            <edge source="ru.bmstu.schedule.entity.ClassTypeEntity" target="ru.bmstu.schedule.entity.ScheduleItemParityEntity">
-              <point x="-19.499999999999943" y="-15.5" />
-              <point x="373.4367816091953" y="500.0" />
-              <point x="365.1867816091953" y="500.0" />
-              <point x="-27.75" y="15.5" />
-            </edge>
-            <edge source="ru.bmstu.schedule.entity.CalendarItemEntity" target="ru.bmstu.schedule.entity.SubjectEntity">
-              <point x="-11.3125" y="-15.5" />
-              <point x="457.57183908045977" y="758.0" />
-              <point x="146.5625" y="758.0" />
-              <point x="-8.75" y="15.5" />
-            </edge>
-            <edge source="ru.bmstu.schedule.entity.StudyGroupEntity" target="ru.bmstu.schedule.entity.TermEntity">
-              <point x="-21.375" y="-15.5" />
-              <point x="64.125" y="61.0" />
-              <point x="460.5625" y="61.0" />
-              <point x="-38.75" y="15.5" />
-            </edge>
-            <edge source="ru.bmstu.schedule.entity.ScheduleItemEntity" target="ru.bmstu.schedule.entity.ClassTimeEntity">
-              <point x="-56.875" y="-15.5" />
-              <point x="627.4375" y="273.0" />
-              <point x="564.6867816091954" y="273.0" />
-              <point x="-19.625" y="15.5" />
-            </edge>
-            <edge source="ru.bmstu.schedule.entity.FacultyEntity" target="ru.bmstu.schedule.entity.DepartmentEntity">
-              <point x="17.25" y="15.5" />
-              <point x="516.5617816091954" y="1091.0" />
-              <point x="471.49928160919535" y="1091.0" />
-              <point x="54.0625" y="-15.5" />
-            </edge>
-            <edge source="ru.bmstu.schedule.entity.CalendarItemCellEntity" target="ru.bmstu.schedule.entity.TermEntity">
-              <point x="90.125" y="-15.5" />
-              <point x="716.7593390804597" y="687.0" />
-              <point x="975.4992816091954" y="687.0" />
-              <point x="975.4992816091954" y="51.0" />
-              <point x="553.5625" y="51.0" />
-              <point x="54.25" y="15.5" />
-            </edge>
-            <edge source="ru.bmstu.schedule.entity.StudyFlowEntity" target="ru.bmstu.schedule.entity.SpecializationEntity">
-              <point x="60.375" y="15.5" />
-              <point x="482.73994252873564" y="1000.0" />
-              <point x="398.81178160919535" y="1000.0" />
-              <point x="80.5" y="-15.5" />
-            </edge>
-            <edge source="ru.bmstu.schedule.entity.ClassTypeEntity" target="ru.bmstu.schedule.entity.HoursPerClassEntity">
-              <point x="19.5" y="15.5" />
-              <point x="412.43678160919524" y="581.0" />
-              <point x="416.56178160919524" y="581.0" />
-              <point x="23.625" y="-15.5" />
-            </edge>
-            <edge source="ru.bmstu.schedule.entity.ClassTimeEntity" target="ru.bmstu.schedule.entity.ScheduleItemEntity">
-              <point x="58.875" y="15.5" />
-              <point x="643.1867816091954" y="253.0" />
-              <point x="672.9375" y="253.0" />
-              <point x="-11.375" y="-15.5" />
-            </edge>
-            <edge source="ru.bmstu.schedule.entity.ClassroomEntity" target="ru.bmstu.schedule.entity.ScheduleItemParityEntity">
-              <point x="60.375" y="15.5" />
-              <point x="553.1875" y="384.0" />
-              <point x="441.49928160919535" y="384.0" />
-              <point x="48.56250000000006" y="-15.5" />
-            </edge>
-            <edge source="ru.bmstu.schedule.entity.ScheduleItemParityEntity" target="ru.bmstu.schedule.entity.LecturerEntity">
-              <point x="-48.56249999999994" y="-15.5" />
-              <point x="344.37428160919535" y="384.0" />
-              <point x="263.6875" y="384.0" />
-              <point x="-55.125" y="15.5" />
-            </edge>
-            <edge source="ru.bmstu.schedule.entity.HoursPerClassEntity" target="ru.bmstu.schedule.entity.CalendarItemCellEntity">
-              <point x="23.625" y="15.5" />
-              <point x="416.56178160919524" y="667.0" />
-              <point x="588.0093390804597" y="667.0" />
-              <point x="-38.625" y="-15.5" />
-            </edge>
-            <edge source="ru.bmstu.schedule.entity.ScheduleItemParityEntity" target="ru.bmstu.schedule.entity.ClassTypeEntity">
-              <point x="27.75" y="15.5" />
-              <point x="420.6867816091953" y="500.0" />
-              <point x="412.4367816091953" y="500.0" />
-              <point x="19.500000000000057" y="-15.5" />
-            </edge>
-            <edge source="ru.bmstu.schedule.entity.DepartmentEntity" target="ru.bmstu.schedule.entity.FacultyEntity">
-              <point x="10.8125" y="-15.5" />
-              <point x="428.24928160919535" y="1071.0" />
-              <point x="447.5617816091954" y="1071.0" />
-              <point x="-51.75" y="15.5" />
-            </edge>
-            <edge source="ru.bmstu.schedule.entity.ScheduleItemParityEntity" target="ru.bmstu.schedule.entity.ClassroomEntity">
-              <point x="6.937500000000057" y="-15.5" />
-              <point x="399.87428160919535" y="354.0" />
-              <point x="432.4375" y="354.0" />
-              <point x="-60.375" y="15.5" />
-            </edge>
-            <edge source="ru.bmstu.schedule.entity.LecturerEntity" target="ru.bmstu.schedule.entity.ScheduleItemParityEntity">
-              <point x="55.12499999999994" y="15.5" />
-              <point x="373.93749999999994" y="354.0" />
-              <point x="385.99928160919535" y="354.0" />
-              <point x="-6.937499999999943" y="-15.5" />
-            </edge>
-            <edge source="ru.bmstu.schedule.entity.SpecializationEntity" target="ru.bmstu.schedule.entity.DepartmentEntity">
-              <point x="69.0" y="15.5" />
-              <point x="387.31178160919535" y="1071.0" />
-              <point x="406.62428160919535" y="1071.0" />
-              <point x="-10.8125" y="-15.5" />
-            </edge>
-            <edge source="ru.bmstu.schedule.entity.HoursPerClassEntity" target="ru.bmstu.schedule.entity.ClassTypeEntity">
-              <point x="-23.625" y="-15.5" />
-              <point x="369.31178160919524" y="581.0" />
-              <point x="373.43678160919524" y="581.0" />
-              <point x="-19.5" y="15.5" />
-            </edge>
-            <edge source="ru.bmstu.schedule.entity.ScheduleItemParityEntity" target="ru.bmstu.schedule.entity.ScheduleItemEntity">
-              <point x="62.43750000000006" y="-15.5" />
-              <point x="455.37428160919535" y="394.0" />
-              <point x="616.0625" y="394.0" />
-              <point x="-68.25" y="15.5" />
-            </edge>
-            <edge source="ru.bmstu.schedule.entity.SpecializationEntity" target="ru.bmstu.schedule.entity.EduDegreeEntity">
-              <point x="-57.5" y="-15.5" />
-              <point x="260.81178160919535" y="990.0" />
-              <point x="218.11494252873564" y="990.0" />
-              <point x="-20.75" y="15.5" />
-            </edge>
-            <edge source="ru.bmstu.schedule.entity.StudyFlowEntity" target="ru.bmstu.schedule.entity.CalendarItemEntity">
-              <point x="10.0625" y="-15.5" />
-              <point x="432.42744252873564" y="859.0" />
-              <point x="401.00933908045977" y="859.0" />
-              <point x="-67.875" y="15.5" />
-            </edge>
-            <edge source="ru.bmstu.schedule.entity.DepartmentEntity" target="ru.bmstu.schedule.entity.SpecializationEntity">
-              <point x="-54.0625" y="-15.5" />
-              <point x="363.37428160919535" y="1091.0" />
-              <point x="295.31178160919535" y="1091.0" />
-              <point x="-23.0" y="15.5" />
-            </edge>
-            <edge source="ru.bmstu.schedule.entity.ScheduleDayEntity" target="ru.bmstu.schedule.entity.StudyGroupEntity">
-              <point x="-55.3125" y="-15.5" />
-              <point x="715.9992816091954" y="172.0" />
-              <point x="117.5625" y="172.0" />
-              <point x="32.0625" y="15.5" />
-            </edge>
-            <edge source="ru.bmstu.schedule.entity.StudyGroupEntity" target="ru.bmstu.schedule.entity.ScheduleDayEntity">
-              <point x="74.8125" y="15.5" />
-              <point x="160.3125" y="152.0" />
-              <point x="760.2492816091954" y="152.0" />
-              <point x="-11.0625" y="-15.5" />
-            </edge>
-            <edge source="ru.bmstu.schedule.entity.CalendarItemCellEntity" target="ru.bmstu.schedule.entity.CalendarItemEntity">
-              <point x="25.75" y="15.5" />
-              <point x="652.3843390804597" y="778.0" />
-              <point x="525.4468390804598" y="778.0" />
-              <point x="56.5625" y="-15.5" />
-            </edge>
-            <edge source="ru.bmstu.schedule.entity.ScheduleItemParityEntity" target="ru.bmstu.schedule.entity.SubjectEntity">
-              <point x="-104.06249999999994" y="-15.5" />
-              <point x="288.87428160919535" y="424.0" />
-              <point x="164.0625" y="424.0" />
-              <point x="8.75" y="15.5" />
-            </edge>
-            <edge source="ru.bmstu.schedule.entity.ScheduleDayEntity" target="ru.bmstu.schedule.entity.DayOfWeakEntity">
-              <point x="33.1875" y="-15.5" />
-              <point x="804.4992816091954" y="162.0" />
-              <point x="825.1242816091954" y="162.0" />
-              <point x="-21.375" y="15.5" />
-            </edge>
-            <edge source="ru.bmstu.schedule.entity.ScheduleItemEntity" target="ru.bmstu.schedule.entity.ScheduleItemParityEntity">
-              <point x="68.25" y="15.5" />
-              <point x="752.5625" y="424.0" />
-              <point x="496.99928160919535" y="424.0" />
-              <point x="104.06250000000006" y="-15.5" />
-            </edge>
-            <edge source="ru.bmstu.schedule.entity.TermEntity" target="ru.bmstu.schedule.entity.CalendarItemCellEntity">
-              <point x="38.75" y="15.5" />
-              <point x="538.0625" y="61.0" />
-              <point x="964.4992816091954" y="61.0" />
-              <point x="964.4992816091954" y="677.0" />
-              <point x="691.0093390804597" y="677.0" />
-              <point x="64.375" y="-15.5" />
-            </edge>
-            <edge source="ru.bmstu.schedule.entity.CalendarItemEntity" target="ru.bmstu.schedule.entity.StudyFlowEntity">
-              <point x="22.625" y="15.5" />
-              <point x="491.50933908045977" y="889.0" />
-              <point x="472.67744252873564" y="889.0" />
-              <point x="50.3125" y="-15.5" />
-            </edge>
-            <edge source="ru.bmstu.schedule.entity.ScheduleItemEntity" target="ru.bmstu.schedule.entity.ScheduleDayEntity">
-              <point x="34.125" y="-15.5" />
-              <point x="718.4375" y="263.0" />
-              <point x="749.1867816091954" y="263.0" />
-              <point x="-22.125" y="15.5" />
-            </edge>
-            <edge source="ru.bmstu.schedule.entity.CalendarItemCellEntity" target="ru.bmstu.schedule.entity.HoursPerClassEntity">
-              <point x="-90.125" y="-15.5" />
-              <point x="536.5093390804597" y="687.0" />
-              <point x="322.06178160919524" y="687.0" />
-              <point x="-70.875" y="15.5" />
-            </edge>
-            <edge source="ru.bmstu.schedule.entity.SubjectEntity" target="ru.bmstu.schedule.entity.CalendarItemEntity">
-              <point x="-43.75" y="15.5" />
-              <point x="111.5625" y="424.0" />
-              <point x="115.25933908045977" y="424.0" />
-              <point x="115.25933908045977" y="778.0" />
-              <point x="412.32183908045977" y="778.0" />
-              <point x="-56.5625" y="-15.5" />
-            </edge>
-            <edge source="ru.bmstu.schedule.entity.ScheduleDayEntity" target="ru.bmstu.schedule.entity.ScheduleItemEntity">
-              <point x="66.375" y="15.5" />
-              <point x="837.6867816091954" y="283.0" />
-              <point x="763.9375" y="283.0" />
-              <point x="79.625" y="-15.5" />
-            </edge>
-            <edge source="ru.bmstu.schedule.entity.EduDegreeEntity" target="ru.bmstu.schedule.entity.SpecializationEntity">
-              <point x="20.75" y="15.5" />
-              <point x="259.61494252873564" y="980.0" />
-              <point x="283.81178160919535" y="980.0" />
-              <point x="-34.5" y="-15.5" />
-            </edge>
-            <edge source="ru.bmstu.schedule.entity.DayOfWeakEntity" target="ru.bmstu.schedule.entity.ScheduleDayEntity">
-              <point x="64.125" y="15.5" />
-              <point x="910.6242816091954" y="182.0" />
-              <point x="848.7492816091954" y="182.0" />
-              <point x="77.4375" y="-15.5" />
-            </edge>
-          </edges>
-          <settings layout="Hierarchic Group" zoom="0.9571183533447685" x="106.0" y="231.0" />
-          <SelectedNodes>
-            <node>ru.bmstu.schedule.entity.DepartmentEntity</node>
-          </SelectedNodes>
-          <Categories />
-          <SCOPE>All</SCOPE>
-          <VISIBILITY>private</VISIBILITY>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/FacultyEntity.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/ScheduleItemEntity.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/ScheduleItemParityEntity.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/LecturerEntity.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/EduDegree.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="25" column="61" selection-start-line="25" selection-start-column="61" selection-end-line="25" selection-end-column="61" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/ScheduleItemParity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="350">
           <caret line="92" column="46" selection-start-line="92" selection-start-column="46" selection-end-line="92" selection-end-column="46" />
-          <folding>
-            <element signature="e#2297#2298#0" expanded="true" />
-            <element signature="e#2347#2348#0" expanded="true" />
-            <element signature="e#2388#2389#0" expanded="true" />
-            <element signature="e#2420#2421#0" expanded="true" />
-            <element signature="e#2484#2485#0" expanded="true" />
-            <element signature="e#2526#2527#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/Lecturer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="35">
-          <caret line="81" column="80" lean-forward="true" selection-start-line="81" selection-start-column="80" selection-end-line="81" selection-end-column="80" />
-          <folding>
-            <element signature="e#2012#2013#0" expanded="true" />
-            <element signature="e#2055#2056#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/postrgres/remove_tables.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="14" lean-forward="true" selection-end-line="27" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="20" column="60" selection-start-line="20" selection-start-column="60" selection-end-line="20" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/Department.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="23" column="66" selection-start-line="23" selection-start-column="66" selection-end-line="23" selection-end-column="66" />
         </state>
       </provider>
     </entry>
@@ -1019,20 +710,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/hibernate/hibernate-core/5.1.0.Final/hibernate-core-5.1.0.Final.jar!/org/hibernate/Session.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="128">
-          <caret line="67" column="17" selection-start-line="67" selection-start-column="17" selection-end-line="67" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/StudyFlow.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/Term.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
@@ -1048,13 +725,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/Tag.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/resources/postrgres/create_tables.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="148">
-          <caret line="61" column="25" lean-forward="true" selection-start-line="61" selection-start-column="25" selection-end-line="61" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/ClassTime.java">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -1083,16 +753,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/Classroom.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5">
-          <caret line="28" lean-forward="true" selection-start-line="28" selection-end-line="28" />
-          <folding>
-            <element signature="e#675#676#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$PROJECT_DIR$/../../../../../../libs/jdk1.8.0_181/src.zip!/java/beans/PropertyDescriptor.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="176">
@@ -1110,26 +770,12 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/StudyGroup.java">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/Specialization.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="16" column="47" lean-forward="true" selection-start-line="16" selection-start-column="47" selection-end-line="16" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/repository/FacultyService.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/BaseEntity.java" />
     <entry file="jar://$MAVEN_REPOSITORY$/org/hibernate/hibernate-core/5.1.0.Final/hibernate-core-5.1.0.Final.jar!/org/hibernate/cfg/AnnotatedClassType.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
           <caret line="13" column="34" lean-forward="true" selection-start-line="13" selection-start-column="34" selection-end-line="13" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/DayOfWeak.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="354">
-          <caret line="35" column="10" lean-forward="true" selection-start-line="35" selection-start-column="10" selection-end-line="35" selection-end-column="10" />
         </state>
       </provider>
     </entry>
@@ -1165,9 +811,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="186">
           <caret line="225" selection-start-line="225" selection-end-line="225" />
-          <folding>
-            <element signature="e#7109#7110#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1193,49 +836,188 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/repository/IRepository.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/repository/RepositoryFactory.java" />
+    <entry file="file://$PROJECT_DIR$/core.iml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="13" column="9" selection-start-line="13" selection-start-column="9" selection-end-line="13" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/postrgres/fill_data.sql">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/DayOfWeak.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="12" column="49" selection-start-line="12" selection-start-column="49" selection-end-line="12" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/hibernate/hibernate-core/5.1.0.Final/hibernate-core-5.1.0.Final.jar!/org/hibernate/Session.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="14" column="17" selection-start-line="14" selection-start-column="17" selection-end-line="14" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/Subject.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+          <folding>
+            <element signature="e#451#452#0" expanded="true" />
+            <element signature="e#476#477#0" expanded="true" />
+            <element signature="e#509#510#0" expanded="true" />
+            <element signature="e#537#538#0" expanded="true" />
+            <element signature="e#645#646#0" expanded="true" />
+            <element signature="e#672#673#0" expanded="true" />
+            <element signature="e#712#713#0" expanded="true" />
+            <element signature="e#744#745#0" expanded="true" />
+            <element signature="e#1216#1217#0" expanded="true" />
+            <element signature="e#1252#1253#0" expanded="true" />
+            <element signature="e#1328#1329#0" expanded="true" />
+            <element signature="e#1378#1379#0" expanded="true" />
+            <element signature="e#1486#1487#0" expanded="true" />
+            <element signature="e#1529#1530#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="15" column="42" selection-start-line="15" selection-start-column="42" selection-end-line="15" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/Classroom.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="25" column="63" selection-start-line="25" selection-start-column="63" selection-end-line="25" selection-end-column="63" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="350">
+          <caret line="47" selection-start-line="47" selection-end-line="53" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/repository/Repository.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="34" selection-start-line="34" selection-end-line="34" />
+        <state relative-caret-position="170">
+          <caret line="86" column="5" lean-forward="true" selection-start-line="86" selection-start-column="5" selection-end-line="86" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/repository/RepositoryFactory.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/Faculty.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/Lecturer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="17" column="5" selection-start-line="17" selection-start-column="5" selection-end-line="17" selection-end-column="5" />
+        <state relative-caret-position="300">
+          <caret line="91" column="49" selection-start-line="91" selection-start-column="49" selection-end-line="91" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/postrgres/clear_data.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="13" lean-forward="true" selection-end-line="8" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/EduDegree.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="130">
+          <caret line="33" column="5" lean-forward="true" selection-start-line="33" selection-start-column="5" selection-end-line="33" selection-end-column="5" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/postrgres/test.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="73" selection-end-column="73" />
+        <state relative-caret-position="75">
+          <caret line="5" column="25" lean-forward="true" selection-start-line="5" selection-start-column="25" selection-end-line="5" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/postrgres/remove_tables.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="18" column="32" selection-end-line="28" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/Faculty.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="45" column="10" lean-forward="true" selection-start-line="45" selection-start-column="10" selection-end-line="45" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/postrgres/create_tables.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="286">
+          <caret line="84" column="2" lean-forward="true" selection-start-line="84" selection-start-column="2" selection-end-line="84" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/Specialization.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="645">
+          <caret line="73" column="43" selection-start-line="73" selection-start-column="43" selection-end-line="73" selection-end-column="43" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/EntitiesTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="530">
-          <caret line="110" selection-end-line="159" />
+        <state relative-caret-position="135">
+          <caret line="36" selection-start-line="36" selection-end-line="36" selection-end-column="81" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
+    <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-205">
-          <caret line="9" column="4" selection-start-line="9" selection-start-column="4" selection-end-line="20" selection-end-column="12" />
+        <state relative-caret-position="135">
+          <caret line="9" column="24" selection-start-line="9" selection-start-column="24" selection-end-line="9" selection-end-column="24" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core.iml">
+    <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/Department.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="13" column="9" selection-start-line="13" selection-start-column="9" selection-end-line="13" selection-end-column="9" />
+        <state relative-caret-position="795">
+          <caret line="67" column="13" selection-start-line="67" selection-start-column="13" selection-end-line="67" selection-end-column="13" />
+          <folding>
+            <element signature="e#1066#1124#0" expanded="true" />
+            <element signature="e#1089#1090#0" expanded="true" />
+            <element signature="e#1128#1129#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/StudyFlow.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="36">
+          <caret line="46" lean-forward="true" selection-start-line="46" selection-end-line="46" />
+          <folding>
+            <element signature="e#407#408#0" expanded="true" />
+            <element signature="e#440#441#0" expanded="true" />
+            <element signature="e#496#497#0" expanded="true" />
+            <element signature="e#540#541#0" expanded="true" />
+            <element signature="e#2182#2183#0" expanded="true" />
+            <element signature="e#2215#2216#0" expanded="true" />
+            <element signature="e#1879#1880#0" expanded="true" />
+            <element signature="e#1898#1899#0" expanded="true" />
+            <element signature="e#2144#2145#0" expanded="true" />
+            <element signature="e#2178#2179#0" expanded="true" />
+            <element signature="e#2248#2249#0" expanded="true" />
+            <element signature="e#2294#2295#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1317,7 +1099,7 @@
       </state>
       <state key="ProjectLibrariesConfigurable.UI">
         <settings>
-          <last-edited />
+          <last-edited>Maven: antlr:antlr:2.7.7</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>

@@ -9,7 +9,7 @@ public class Specialization {
     private int id;
     private String code;
     private String title;
-    private Department department;
+    private Collection<Department> departments;
     private EduDegree eduDegree;
     private Collection<StudyFlow> studyFlows;
 
@@ -60,14 +60,18 @@ public class Specialization {
         return Objects.hash(id, code, title);
     }
 
-    @ManyToOne
-    @JoinColumn(name = "department_id", referencedColumnName = "department_id")
-    public Department getDepartment() {
-        return department;
+    @ManyToMany(mappedBy = "specializations")
+    public Collection<Department> getDepartments() {
+        return departments;
     }
 
-    public void setDepartment(Department department) {
-        this.department = department;
+    void setDepartments(Collection<Department> departments) {
+        this.departments = departments;
+    }
+
+    public void addDepartment(Department dep) {
+        this.getDepartments().add(dep);
+        dep.getSpecializations().add(this);
     }
 
     @ManyToOne

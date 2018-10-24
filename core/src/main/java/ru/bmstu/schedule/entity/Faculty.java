@@ -1,6 +1,7 @@
 package ru.bmstu.schedule.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -10,7 +11,16 @@ public class Faculty {
     private int id;
     private String cipher;
     private String title;
-    private Collection<Department> departments;
+    private Collection<Department> departments = new ArrayList<>();
+
+    @Override
+    public String toString() {
+        return "Faculty{" +
+                "id=" + id +
+                ", cipher='" + cipher + '\'' +
+                ", title='" + title + '\'' +
+                '}';
+    }
 
     public Faculty(String cipher, String title) {
         this.cipher = cipher;

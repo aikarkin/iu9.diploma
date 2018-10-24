@@ -12,6 +12,18 @@ public class Lecturer {
     private String middleName;
     private String lastName;
     private String eduDegree;
+
+    @Override
+    public String toString() {
+        return "Lecturer{" +
+                "email='" + email + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", middleName='" + middleName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", eduDegree='" + eduDegree + '\'' +
+                '}';
+    }
+
     private Collection<ScheduleItemParity> scheduleItemParities;
 
     @Id

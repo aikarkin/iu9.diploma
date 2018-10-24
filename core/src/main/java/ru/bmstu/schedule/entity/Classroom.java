@@ -23,7 +23,7 @@ public class Classroom {
     }
 
     @Basic
-    @Column(name = "room_number", columnDefinition = "bpchar", nullable = false, length = 5)
+    @Column(name = "room_number", nullable = false, length = 10)
     public String getRoomNumber() {
         return roomNumber;
     }
