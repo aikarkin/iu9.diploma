@@ -8,3 +8,11 @@ SELECT * FROM lecturer;
 SELECT * FROM specialization;
 
 SELECT * FROM classroom;
+
+SELECT * FROM study_flow;
+
+SELECT * FROM dep_to_spec;
+
+DELETE FROM study_flow;
+DELETE FROM dep_to_spec;
+

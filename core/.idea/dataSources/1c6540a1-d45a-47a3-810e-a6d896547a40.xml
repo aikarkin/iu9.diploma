@@ -79,8 +79,8 @@
     <schema id="16" parent="3" name="public">
       <ObjectId>2200</ObjectId>
       <Comment>standard public schema</Comment>
-      <IntrospectionTimestamp>2018-10-25.00:46:43.595</IntrospectionTimestamp>
-      <IntrospectionStateNumber>49492</IntrospectionStateNumber>
+      <IntrospectionTimestamp>2018-10-26.18:17:11.909</IntrospectionTimestamp>
+      <IntrospectionStateNumber>49860</IntrospectionStateNumber>
       <Current>1</Current>
       <Visible>1</Visible>
     </schema>
@@ -126,7 +126,15 @@
       <HandlerId>335</HandlerId>
       <Type>index</Type>
     </access-method>
-    <sequence id="23" parent="16" name="calendar_item_calendar_item_id_seq">
+    <sequence id="23" parent="16" name="study_flow_flow_id_seq">
+      <ObjectId>42491</ObjectId>
+      <StateNumber>49860</StateNumber>
+      <SequenceIdentity>1..2147483647</SequenceIdentity>
+      <BelongsToColumn>1</BelongsToColumn>
+      <CacheSize>1</CacheSize>
+      <DataType>integer</DataType>
+    </sequence>
+    <sequence id="24" parent="16" name="calendar_item_calendar_item_id_seq">
       <ObjectId>36073</ObjectId>
       <StateNumber>49490</StateNumber>
       <SequenceIdentity>1..2147483647</SequenceIdentity>
@@ -134,7 +142,7 @@
       <CacheSize>1</CacheSize>
       <DataType>integer</DataType>
     </sequence>
-    <sequence id="24" parent="16" name="calendar_item_cell_cell_id_seq">
+    <sequence id="25" parent="16" name="calendar_item_cell_cell_id_seq">
       <ObjectId>36091</ObjectId>
       <StateNumber>49491</StateNumber>
       <SequenceIdentity>1..2147483647</SequenceIdentity>
@@ -142,7 +150,7 @@
       <CacheSize>1</CacheSize>
       <DataType>integer</DataType>
     </sequence>
-    <sequence id="25" parent="16" name="class_time_class_time_id_seq">
+    <sequence id="26" parent="16" name="class_time_class_time_id_seq">
       <ObjectId>35840</ObjectId>
       <StateNumber>49477</StateNumber>
       <SequenceIdentity>1..2147483647</SequenceIdentity>
@@ -150,7 +158,7 @@
       <CacheSize>1</CacheSize>
       <DataType>integer</DataType>
     </sequence>
-    <sequence id="26" parent="16" name="class_type_type_id_seq">
+    <sequence id="27" parent="16" name="class_type_type_id_seq">
       <ObjectId>35793</ObjectId>
       <StateNumber>49473</StateNumber>
       <SequenceIdentity>1..2147483647</SequenceIdentity>
@@ -158,7 +166,7 @@
       <CacheSize>1</CacheSize>
       <DataType>integer</DataType>
     </sequence>
-    <sequence id="27" parent="16" name="classroom_room_id_seq">
+    <sequence id="28" parent="16" name="classroom_room_id_seq">
       <ObjectId>35806</ObjectId>
       <StateNumber>49474</StateNumber>
       <SequenceIdentity>1..2147483647</SequenceIdentity>
@@ -166,7 +174,7 @@
       <CacheSize>1</CacheSize>
       <DataType>integer</DataType>
     </sequence>
-    <sequence id="28" parent="16" name="day_of_weak_weak_id_seq">
+    <sequence id="29" parent="16" name="day_of_weak_weak_id_seq">
       <ObjectId>35828</ObjectId>
       <StateNumber>49476</StateNumber>
       <SequenceIdentity>1..2147483647</SequenceIdentity>
@@ -174,7 +182,7 @@
       <CacheSize>1</CacheSize>
       <DataType>integer</DataType>
     </sequence>
-    <sequence id="29" parent="16" name="dep_to_spec_id_seq">
+    <sequence id="30" parent="16" name="dep_to_spec_id_seq">
       <ObjectId>35920</ObjectId>
       <StateNumber>49483</StateNumber>
       <SequenceIdentity>1..2147483647</SequenceIdentity>
@@ -182,7 +190,7 @@
       <CacheSize>1</CacheSize>
       <DataType>integer</DataType>
     </sequence>
-    <sequence id="30" parent="16" name="department_department_id_seq">
+    <sequence id="31" parent="16" name="department_department_id_seq">
       <ObjectId>35884</ObjectId>
       <StateNumber>49481</StateNumber>
       <SequenceIdentity>1..2147483647</SequenceIdentity>
@@ -190,7 +198,7 @@
       <CacheSize>1</CacheSize>
       <DataType>integer</DataType>
     </sequence>
-    <sequence id="31" parent="16" name="edu_degree_degree_id_seq">
+    <sequence id="32" parent="16" name="edu_degree_degree_id_seq">
       <ObjectId>35860</ObjectId>
       <StateNumber>49479</StateNumber>
       <SequenceIdentity>1..2147483647</SequenceIdentity>
@@ -198,7 +206,7 @@
       <CacheSize>1</CacheSize>
       <DataType>integer</DataType>
     </sequence>
-    <sequence id="32" parent="16" name="faculty_faculty_id_seq">
+    <sequence id="33" parent="16" name="faculty_faculty_id_seq">
       <ObjectId>35871</ObjectId>
       <StateNumber>49480</StateNumber>
       <SequenceIdentity>1..2147483647</SequenceIdentity>
@@ -206,7 +214,7 @@
       <CacheSize>1</CacheSize>
       <DataType>integer</DataType>
     </sequence>
-    <sequence id="33" parent="16" name="hours_per_class_hours_id_seq">
+    <sequence id="34" parent="16" name="hours_per_class_hours_id_seq">
       <ObjectId>36111</ObjectId>
       <StateNumber>49492</StateNumber>
       <SequenceIdentity>1..2147483647</SequenceIdentity>
@@ -214,7 +222,7 @@
       <CacheSize>1</CacheSize>
       <DataType>integer</DataType>
     </sequence>
-    <sequence id="34" parent="16" name="lecturer_lecturer_id_seq">
+    <sequence id="35" parent="16" name="lecturer_lecturer_id_seq">
       <ObjectId>35817</ObjectId>
       <StateNumber>49475</StateNumber>
       <SequenceIdentity>1..2147483647</SequenceIdentity>
@@ -222,7 +230,7 @@
       <CacheSize>1</CacheSize>
       <DataType>integer</DataType>
     </sequence>
-    <sequence id="35" parent="16" name="schedule_day_day_id_seq">
+    <sequence id="36" parent="16" name="schedule_day_day_id_seq">
       <ObjectId>35977</ObjectId>
       <StateNumber>49486</StateNumber>
       <SequenceIdentity>1..2147483647</SequenceIdentity>
@@ -230,7 +238,7 @@
       <CacheSize>1</CacheSize>
       <DataType>integer</DataType>
     </sequence>
-    <sequence id="36" parent="16" name="schedule_item_parity_schedule_item_parity_id_seq">
+    <sequence id="37" parent="16" name="schedule_item_parity_schedule_item_parity_id_seq">
       <ObjectId>36017</ObjectId>
       <StateNumber>49488</StateNumber>
       <SequenceIdentity>1..2147483647</SequenceIdentity>
@@ -238,7 +246,7 @@
       <CacheSize>1</CacheSize>
       <DataType>integer</DataType>
     </sequence>
-    <sequence id="37" parent="16" name="schedule_item_parity_to_lecturer_id_seq">
+    <sequence id="38" parent="16" name="schedule_item_parity_to_lecturer_id_seq">
       <ObjectId>36055</ObjectId>
       <StateNumber>49489</StateNumber>
       <SequenceIdentity>1..2147483647</SequenceIdentity>
@@ -246,7 +254,7 @@
       <CacheSize>1</CacheSize>
       <DataType>integer</DataType>
     </sequence>
-    <sequence id="38" parent="16" name="schedule_item_schedule_item_id_seq">
+    <sequence id="39" parent="16" name="schedule_item_schedule_item_id_seq">
       <ObjectId>35997</ObjectId>
       <StateNumber>49487</StateNumber>
       <SequenceIdentity>1..2147483647</SequenceIdentity>
@@ -254,17 +262,9 @@
       <CacheSize>1</CacheSize>
       <DataType>integer</DataType>
     </sequence>
-    <sequence id="39" parent="16" name="specialization_spec_id_seq">
+    <sequence id="40" parent="16" name="specialization_spec_id_seq">
       <ObjectId>35901</ObjectId>
       <StateNumber>49482</StateNumber>
-      <SequenceIdentity>1..2147483647</SequenceIdentity>
-      <BelongsToColumn>1</BelongsToColumn>
-      <CacheSize>1</CacheSize>
-      <DataType>integer</DataType>
-    </sequence>
-    <sequence id="40" parent="16" name="study_flow_flow_id_seq">
-      <ObjectId>35938</ObjectId>
-      <StateNumber>49484</StateNumber>
       <SequenceIdentity>1..2147483647</SequenceIdentity>
       <BelongsToColumn>1</BelongsToColumn>
       <CacheSize>1</CacheSize>
@@ -320,7 +320,7 @@
     </table>
     <table id="50" parent="16" name="dep_to_spec">
       <ObjectId>35922</ObjectId>
-      <StateNumber>49484</StateNumber>
+      <StateNumber>49860</StateNumber>
     </table>
     <table id="51" parent="16" name="department">
       <ObjectId>35886</ObjectId>
@@ -363,8 +363,8 @@
       <StateNumber>49483</StateNumber>
     </table>
     <table id="61" parent="16" name="study_flow">
-      <ObjectId>35940</ObjectId>
-      <StateNumber>49490</StateNumber>
+      <ObjectId>42493</ObjectId>
+      <StateNumber>49860</StateNumber>
     </table>
     <table id="62" parent="16" name="study_group">
       <ObjectId>35958</ObjectId>
@@ -456,16 +456,7 @@
       <UnderlyingIndexName>calendar_item_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="75" parent="44" name="calendar_item_study_flow_id_fkey">
-      <ObjectId>36081</ObjectId>
-      <ColNames>study_flow_id</ColNames>
-      <RefTableId>35940</RefTableId>
-      <RefColPositions>1</RefColPositions>
-      <RefTableName>study_flow</RefTableName>
-      <RefKeyName>study_flow_pkey</RefKeyName>
-      <RefColNames>flow_id</RefColNames>
-    </foreign-key>
-    <foreign-key id="76" parent="44" name="calendar_item_subject_id_fkey">
+    <foreign-key id="75" parent="44" name="calendar_item_subject_id_fkey">
       <ObjectId>36086</ObjectId>
       <ColNames>subject_id</ColNames>
       <RefTableId>35784</RefTableId>
@@ -474,7 +465,7 @@
       <RefKeyName>subject_pkey</RefKeyName>
       <RefColNames>subject_id</RefColNames>
     </foreign-key>
-    <column id="77" parent="45" name="cell_id">
+    <column id="76" parent="45" name="cell_id">
       <Position>1</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
@@ -483,42 +474,42 @@
       <TypeId>23</TypeId>
       <SequenceName>calendar_item_cell_cell_id_seq</SequenceName>
     </column>
-    <column id="78" parent="45" name="calendar_item_id">
+    <column id="77" parent="45" name="calendar_item_id">
       <Position>2</Position>
       <DataType>integer|0s</DataType>
       <StateNumber>49491</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="79" parent="45" name="term_id">
+    <column id="78" parent="45" name="term_id">
       <Position>3</Position>
       <DataType>integer|0s</DataType>
       <StateNumber>49491</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <index id="80" parent="45" name="calendar_item_cell_pkey">
+    <index id="79" parent="45" name="calendar_item_cell_pkey">
       <ObjectId>36097</ObjectId>
       <ColNames>cell_id</ColNames>
       <Unique>1</Unique>
     </index>
-    <index id="81" parent="45" name="calendar_item_cell_calendar_item_id_term_id_key">
+    <index id="80" parent="45" name="calendar_item_cell_calendar_item_id_term_id_key">
       <ObjectId>36099</ObjectId>
       <ColNames>calendar_item_id
 term_id</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="82" parent="45" name="calendar_item_cell_pkey">
+    <key id="81" parent="45" name="calendar_item_cell_pkey">
       <ObjectId>36098</ObjectId>
       <ColNames>cell_id</ColNames>
       <UnderlyingIndexName>calendar_item_cell_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
     </key>
-    <key id="83" parent="45" name="calendar_item_cell_calendar_item_id_term_id_key">
+    <key id="82" parent="45" name="calendar_item_cell_calendar_item_id_term_id_key">
       <ObjectId>36100</ObjectId>
       <ColNames>calendar_item_id
 term_id</ColNames>
       <UnderlyingIndexName>calendar_item_cell_calendar_item_id_term_id_key</UnderlyingIndexName>
     </key>
-    <foreign-key id="84" parent="45" name="calendar_item_cell_calendar_item_id_fkey">
+    <foreign-key id="83" parent="45" name="calendar_item_cell_calendar_item_id_fkey">
       <ObjectId>36101</ObjectId>
       <ColNames>calendar_item_id</ColNames>
       <RefTableId>36075</RefTableId>
@@ -527,7 +518,7 @@ term_id</ColNames>
       <RefKeyName>calendar_item_pkey</RefKeyName>
       <RefColNames>calendar_item_id</RefColNames>
     </foreign-key>
-    <foreign-key id="85" parent="45" name="calendar_item_cell_term_id_fkey">
+    <foreign-key id="84" parent="45" name="calendar_item_cell_term_id_fkey">
       <ObjectId>36106</ObjectId>
       <ColNames>term_id</ColNames>
       <RefTableId>35853</RefTableId>
@@ -536,7 +527,7 @@ term_id</ColNames>
       <RefKeyName>term_pkey</RefKeyName>
       <RefColNames>term_id</RefColNames>
     </foreign-key>
-    <column id="86" parent="46" name="class_time_id">
+    <column id="85" parent="46" name="class_time_id">
       <Position>1</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
@@ -545,57 +536,57 @@ term_id</ColNames>
       <TypeId>23</TypeId>
       <SequenceName>class_time_class_time_id_seq</SequenceName>
     </column>
-    <column id="87" parent="46" name="no_of_class">
+    <column id="86" parent="46" name="no_of_class">
       <Position>2</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
       <StateNumber>49477</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="88" parent="46" name="starts_at">
+    <column id="87" parent="46" name="starts_at">
       <Position>3</Position>
       <DataType>time|0s</DataType>
       <NotNull>1</NotNull>
       <StateNumber>49477</StateNumber>
       <TypeId>1083</TypeId>
     </column>
-    <column id="89" parent="46" name="ends_at">
+    <column id="88" parent="46" name="ends_at">
       <Position>4</Position>
       <DataType>time|0s</DataType>
       <NotNull>1</NotNull>
       <StateNumber>49477</StateNumber>
       <TypeId>1083</TypeId>
     </column>
-    <index id="90" parent="46" name="class_time_pkey">
+    <index id="89" parent="46" name="class_time_pkey">
       <ObjectId>35847</ObjectId>
       <ColNames>class_time_id</ColNames>
       <Unique>1</Unique>
     </index>
-    <index id="91" parent="46" name="class_time_starts_at_ends_at_key">
+    <index id="90" parent="46" name="class_time_starts_at_ends_at_key">
       <ObjectId>35849</ObjectId>
       <ColNames>starts_at
 ends_at</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="92" parent="46" name="class_time_pkey">
+    <key id="91" parent="46" name="class_time_pkey">
       <ObjectId>35848</ObjectId>
       <ColNames>class_time_id</ColNames>
       <UnderlyingIndexName>class_time_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
     </key>
-    <key id="93" parent="46" name="class_time_starts_at_ends_at_key">
+    <key id="92" parent="46" name="class_time_starts_at_ends_at_key">
       <ObjectId>35850</ObjectId>
       <ColNames>starts_at
 ends_at</ColNames>
       <UnderlyingIndexName>class_time_starts_at_ends_at_key</UnderlyingIndexName>
     </key>
-    <check id="94" parent="46" name="class_time_check">
+    <check id="93" parent="46" name="class_time_check">
       <ObjectId>35846</ObjectId>
       <ColNames>starts_at
 ends_at</ColNames>
       <Predicate>starts_at &lt; ends_at</Predicate>
     </check>
-    <column id="95" parent="47" name="type_id">
+    <column id="94" parent="47" name="type_id">
       <Position>1</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
@@ -604,35 +595,35 @@ ends_at</ColNames>
       <TypeId>23</TypeId>
       <SequenceName>class_type_type_id_seq</SequenceName>
     </column>
-    <column id="96" parent="47" name="type_name">
+    <column id="95" parent="47" name="type_name">
       <Position>2</Position>
       <DataType>text|0s</DataType>
       <NotNull>1</NotNull>
       <StateNumber>49473</StateNumber>
       <TypeId>25</TypeId>
     </column>
-    <index id="97" parent="47" name="class_type_pkey">
+    <index id="96" parent="47" name="class_type_pkey">
       <ObjectId>35802</ObjectId>
       <ColNames>type_id</ColNames>
       <Unique>1</Unique>
     </index>
-    <index id="98" parent="47" name="class_type_type_name_key">
+    <index id="97" parent="47" name="class_type_type_name_key">
       <ObjectId>35804</ObjectId>
       <ColNames>type_name</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="99" parent="47" name="class_type_pkey">
+    <key id="98" parent="47" name="class_type_pkey">
       <ObjectId>35803</ObjectId>
       <ColNames>type_id</ColNames>
       <UnderlyingIndexName>class_type_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
     </key>
-    <key id="100" parent="47" name="class_type_type_name_key">
+    <key id="99" parent="47" name="class_type_type_name_key">
       <ObjectId>35805</ObjectId>
       <ColNames>type_name</ColNames>
       <UnderlyingIndexName>class_type_type_name_key</UnderlyingIndexName>
     </key>
-    <column id="101" parent="48" name="room_id">
+    <column id="100" parent="48" name="room_id">
       <Position>1</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
@@ -641,46 +632,46 @@ ends_at</ColNames>
       <TypeId>23</TypeId>
       <SequenceName>classroom_room_id_seq</SequenceName>
     </column>
-    <column id="102" parent="48" name="room_number">
+    <column id="101" parent="48" name="room_number">
       <Position>2</Position>
       <DataType>varchar(10)|0s</DataType>
       <NotNull>1</NotNull>
       <StateNumber>49474</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="103" parent="48" name="capacity">
+    <column id="102" parent="48" name="capacity">
       <Position>3</Position>
       <DataType>integer|0s</DataType>
       <StateNumber>49474</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <index id="104" parent="48" name="classroom_pkey">
+    <index id="103" parent="48" name="classroom_pkey">
       <ObjectId>35813</ObjectId>
       <ColNames>room_id</ColNames>
       <Unique>1</Unique>
     </index>
-    <index id="105" parent="48" name="classroom_room_number_key">
+    <index id="104" parent="48" name="classroom_room_number_key">
       <ObjectId>35815</ObjectId>
       <ColNames>room_number</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="106" parent="48" name="classroom_pkey">
+    <key id="105" parent="48" name="classroom_pkey">
       <ObjectId>35814</ObjectId>
       <ColNames>room_id</ColNames>
       <UnderlyingIndexName>classroom_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
     </key>
-    <key id="107" parent="48" name="classroom_room_number_key">
+    <key id="106" parent="48" name="classroom_room_number_key">
       <ObjectId>35816</ObjectId>
       <ColNames>room_number</ColNames>
       <UnderlyingIndexName>classroom_room_number_key</UnderlyingIndexName>
     </key>
-    <check id="108" parent="48" name="classroom_capacity_check">
+    <check id="107" parent="48" name="classroom_capacity_check">
       <ObjectId>35812</ObjectId>
       <ColNames>capacity</ColNames>
       <Predicate>capacity &gt;= 0</Predicate>
     </check>
-    <column id="109" parent="49" name="weak_id">
+    <column id="108" parent="49" name="weak_id">
       <Position>1</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
@@ -689,51 +680,51 @@ ends_at</ColNames>
       <TypeId>23</TypeId>
       <SequenceName>day_of_weak_weak_id_seq</SequenceName>
     </column>
-    <column id="110" parent="49" name="short_title">
+    <column id="109" parent="49" name="short_title">
       <Position>2</Position>
       <DataType>char(3)|0s</DataType>
       <StateNumber>49476</StateNumber>
       <TypeId>1042</TypeId>
     </column>
-    <column id="111" parent="49" name="full_title">
+    <column id="110" parent="49" name="full_title">
       <Position>3</Position>
       <DataType>char(12)|0s</DataType>
       <NotNull>1</NotNull>
       <StateNumber>49476</StateNumber>
       <TypeId>1042</TypeId>
     </column>
-    <index id="112" parent="49" name="day_of_weak_pkey">
+    <index id="111" parent="49" name="day_of_weak_pkey">
       <ObjectId>35834</ObjectId>
       <ColNames>weak_id</ColNames>
       <Unique>1</Unique>
     </index>
-    <index id="113" parent="49" name="day_of_weak_short_title_key">
+    <index id="112" parent="49" name="day_of_weak_short_title_key">
       <ObjectId>35838</ObjectId>
       <ColNames>short_title</ColNames>
       <Unique>1</Unique>
     </index>
-    <index id="114" parent="49" name="day_of_weak_full_title_key">
+    <index id="113" parent="49" name="day_of_weak_full_title_key">
       <ObjectId>35836</ObjectId>
       <ColNames>full_title</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="115" parent="49" name="day_of_weak_pkey">
+    <key id="114" parent="49" name="day_of_weak_pkey">
       <ObjectId>35835</ObjectId>
       <ColNames>weak_id</ColNames>
       <UnderlyingIndexName>day_of_weak_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
     </key>
-    <key id="116" parent="49" name="day_of_weak_short_title_key">
+    <key id="115" parent="49" name="day_of_weak_short_title_key">
       <ObjectId>35839</ObjectId>
       <ColNames>short_title</ColNames>
       <UnderlyingIndexName>day_of_weak_short_title_key</UnderlyingIndexName>
     </key>
-    <key id="117" parent="49" name="day_of_weak_full_title_key">
+    <key id="116" parent="49" name="day_of_weak_full_title_key">
       <ObjectId>35837</ObjectId>
       <ColNames>full_title</ColNames>
       <UnderlyingIndexName>day_of_weak_full_title_key</UnderlyingIndexName>
     </key>
-    <column id="118" parent="50" name="id">
+    <column id="117" parent="50" name="id">
       <Position>1</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
@@ -742,30 +733,30 @@ ends_at</ColNames>
       <TypeId>23</TypeId>
       <SequenceName>dep_to_spec_id_seq</SequenceName>
     </column>
-    <column id="119" parent="50" name="department_id">
+    <column id="118" parent="50" name="department_id">
       <Position>2</Position>
       <DataType>integer|0s</DataType>
       <StateNumber>49483</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="120" parent="50" name="spec_id">
+    <column id="119" parent="50" name="spec_id">
       <Position>3</Position>
       <DataType>integer|0s</DataType>
       <StateNumber>49483</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <index id="121" parent="50" name="dep_to_spec_pkey">
+    <index id="120" parent="50" name="dep_to_spec_pkey">
       <ObjectId>35926</ObjectId>
       <ColNames>id</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="122" parent="50" name="dep_to_spec_pkey">
+    <key id="121" parent="50" name="dep_to_spec_pkey">
       <ObjectId>35927</ObjectId>
       <ColNames>id</ColNames>
       <UnderlyingIndexName>dep_to_spec_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="123" parent="50" name="dep_to_spec_department_id_fkey">
+    <foreign-key id="122" parent="50" name="dep_to_spec_department_id_fkey">
       <ObjectId>35928</ObjectId>
       <ColNames>department_id</ColNames>
       <RefTableId>35886</RefTableId>
@@ -774,7 +765,7 @@ ends_at</ColNames>
       <RefKeyName>department_pkey</RefKeyName>
       <RefColNames>department_id</RefColNames>
     </foreign-key>
-    <foreign-key id="124" parent="50" name="dep_to_spec_spec_id_fkey">
+    <foreign-key id="123" parent="50" name="dep_to_spec_spec_id_fkey">
       <ObjectId>35933</ObjectId>
       <ColNames>spec_id</ColNames>
       <RefTableId>35903</RefTableId>
@@ -783,7 +774,7 @@ ends_at</ColNames>
       <RefKeyName>specialization_pkey</RefKeyName>
       <RefColNames>spec_id</RefColNames>
     </foreign-key>
-    <column id="125" parent="51" name="department_id">
+    <column id="124" parent="51" name="department_id">
       <Position>1</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
@@ -792,37 +783,37 @@ ends_at</ColNames>
       <TypeId>23</TypeId>
       <SequenceName>department_department_id_seq</SequenceName>
     </column>
-    <column id="126" parent="51" name="faculty_id">
+    <column id="125" parent="51" name="faculty_id">
       <Position>2</Position>
       <DataType>integer|0s</DataType>
       <StateNumber>49481</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="127" parent="51" name="department_number">
+    <column id="126" parent="51" name="department_number">
       <Position>3</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
       <StateNumber>49481</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="128" parent="51" name="title">
+    <column id="127" parent="51" name="title">
       <Position>4</Position>
       <DataType>text|0s</DataType>
       <StateNumber>49481</StateNumber>
       <TypeId>25</TypeId>
     </column>
-    <index id="129" parent="51" name="department_pkey">
+    <index id="128" parent="51" name="department_pkey">
       <ObjectId>35894</ObjectId>
       <ColNames>department_id</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="130" parent="51" name="department_pkey">
+    <key id="129" parent="51" name="department_pkey">
       <ObjectId>35895</ObjectId>
       <ColNames>department_id</ColNames>
       <UnderlyingIndexName>department_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="131" parent="51" name="department_faculty_id_fkey">
+    <foreign-key id="130" parent="51" name="department_faculty_id_fkey">
       <ObjectId>35896</ObjectId>
       <ColNames>faculty_id</ColNames>
       <RefTableId>35873</RefTableId>
@@ -831,12 +822,12 @@ ends_at</ColNames>
       <RefKeyName>faculty_pkey</RefKeyName>
       <RefColNames>faculty_id</RefColNames>
     </foreign-key>
-    <check id="132" parent="51" name="department_department_number_check">
+    <check id="131" parent="51" name="department_department_number_check">
       <ObjectId>35890</ObjectId>
       <ColNames>department_number</ColNames>
       <Predicate>department_number &gt; 0</Predicate>
     </check>
-    <column id="133" parent="52" name="degree_id">
+    <column id="132" parent="52" name="degree_id">
       <Position>1</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
@@ -845,47 +836,47 @@ ends_at</ColNames>
       <TypeId>23</TypeId>
       <SequenceName>edu_degree_degree_id_seq</SequenceName>
     </column>
-    <column id="134" parent="52" name="degree_name">
+    <column id="133" parent="52" name="degree_name">
       <Position>2</Position>
       <DataType>char(14)|0s</DataType>
       <NotNull>1</NotNull>
       <StateNumber>49479</StateNumber>
       <TypeId>1042</TypeId>
     </column>
-    <column id="135" parent="52" name="min_number_of_study_years">
+    <column id="134" parent="52" name="min_number_of_study_years">
       <Position>3</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
       <StateNumber>49479</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <index id="136" parent="52" name="edu_degree_pkey">
+    <index id="135" parent="52" name="edu_degree_pkey">
       <ObjectId>35867</ObjectId>
       <ColNames>degree_id</ColNames>
       <Unique>1</Unique>
     </index>
-    <index id="137" parent="52" name="edu_degree_degree_name_key">
+    <index id="136" parent="52" name="edu_degree_degree_name_key">
       <ObjectId>35869</ObjectId>
       <ColNames>degree_name</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="138" parent="52" name="edu_degree_pkey">
+    <key id="137" parent="52" name="edu_degree_pkey">
       <ObjectId>35868</ObjectId>
       <ColNames>degree_id</ColNames>
       <UnderlyingIndexName>edu_degree_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
     </key>
-    <key id="139" parent="52" name="edu_degree_degree_name_key">
+    <key id="138" parent="52" name="edu_degree_degree_name_key">
       <ObjectId>35870</ObjectId>
       <ColNames>degree_name</ColNames>
       <UnderlyingIndexName>edu_degree_degree_name_key</UnderlyingIndexName>
     </key>
-    <check id="140" parent="52" name="edu_degree_min_number_of_study_years_check">
+    <check id="139" parent="52" name="edu_degree_min_number_of_study_years_check">
       <ObjectId>35866</ObjectId>
       <ColNames>min_number_of_study_years</ColNames>
       <Predicate>min_number_of_study_years &gt; 0</Predicate>
     </check>
-    <column id="141" parent="53" name="faculty_id">
+    <column id="140" parent="53" name="faculty_id">
       <Position>1</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
@@ -894,41 +885,41 @@ ends_at</ColNames>
       <TypeId>23</TypeId>
       <SequenceName>faculty_faculty_id_seq</SequenceName>
     </column>
-    <column id="142" parent="53" name="faculty_cipher">
+    <column id="141" parent="53" name="faculty_cipher">
       <Position>2</Position>
       <DataType>char(8)|0s</DataType>
       <StateNumber>49480</StateNumber>
       <TypeId>1042</TypeId>
     </column>
-    <column id="143" parent="53" name="title">
+    <column id="142" parent="53" name="title">
       <Position>3</Position>
       <DataType>text|0s</DataType>
       <NotNull>1</NotNull>
       <StateNumber>49480</StateNumber>
       <TypeId>25</TypeId>
     </column>
-    <index id="144" parent="53" name="faculty_pkey">
+    <index id="143" parent="53" name="faculty_pkey">
       <ObjectId>35880</ObjectId>
       <ColNames>faculty_id</ColNames>
       <Unique>1</Unique>
     </index>
-    <index id="145" parent="53" name="faculty_faculty_cipher_key">
+    <index id="144" parent="53" name="faculty_faculty_cipher_key">
       <ObjectId>35882</ObjectId>
       <ColNames>faculty_cipher</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="146" parent="53" name="faculty_pkey">
+    <key id="145" parent="53" name="faculty_pkey">
       <ObjectId>35881</ObjectId>
       <ColNames>faculty_id</ColNames>
       <UnderlyingIndexName>faculty_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
     </key>
-    <key id="147" parent="53" name="faculty_faculty_cipher_key">
+    <key id="146" parent="53" name="faculty_faculty_cipher_key">
       <ObjectId>35883</ObjectId>
       <ColNames>faculty_cipher</ColNames>
       <UnderlyingIndexName>faculty_faculty_cipher_key</UnderlyingIndexName>
     </key>
-    <column id="148" parent="54" name="hours_id">
+    <column id="147" parent="54" name="hours_id">
       <Position>1</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
@@ -937,49 +928,49 @@ ends_at</ColNames>
       <TypeId>23</TypeId>
       <SequenceName>hours_per_class_hours_id_seq</SequenceName>
     </column>
-    <column id="149" parent="54" name="calendar_cell_id">
+    <column id="148" parent="54" name="calendar_cell_id">
       <Position>2</Position>
       <DataType>integer|0s</DataType>
       <StateNumber>49492</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="150" parent="54" name="class_type_id">
+    <column id="149" parent="54" name="class_type_id">
       <Position>3</Position>
       <DataType>integer|0s</DataType>
       <StateNumber>49492</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="151" parent="54" name="no_of_hours">
+    <column id="150" parent="54" name="no_of_hours">
       <Position>4</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
       <StateNumber>49492</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <index id="152" parent="54" name="hours_per_class_pkey">
+    <index id="151" parent="54" name="hours_per_class_pkey">
       <ObjectId>36118</ObjectId>
       <ColNames>hours_id</ColNames>
       <Unique>1</Unique>
     </index>
-    <index id="153" parent="54" name="hours_per_class_calendar_cell_id_class_type_id_key">
+    <index id="152" parent="54" name="hours_per_class_calendar_cell_id_class_type_id_key">
       <ObjectId>36120</ObjectId>
       <ColNames>calendar_cell_id
 class_type_id</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="154" parent="54" name="hours_per_class_pkey">
+    <key id="153" parent="54" name="hours_per_class_pkey">
       <ObjectId>36119</ObjectId>
       <ColNames>hours_id</ColNames>
       <UnderlyingIndexName>hours_per_class_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
     </key>
-    <key id="155" parent="54" name="hours_per_class_calendar_cell_id_class_type_id_key">
+    <key id="154" parent="54" name="hours_per_class_calendar_cell_id_class_type_id_key">
       <ObjectId>36121</ObjectId>
       <ColNames>calendar_cell_id
 class_type_id</ColNames>
       <UnderlyingIndexName>hours_per_class_calendar_cell_id_class_type_id_key</UnderlyingIndexName>
     </key>
-    <foreign-key id="156" parent="54" name="hours_per_class_calendar_cell_id_fkey">
+    <foreign-key id="155" parent="54" name="hours_per_class_calendar_cell_id_fkey">
       <ObjectId>36122</ObjectId>
       <ColNames>calendar_cell_id</ColNames>
       <RefTableId>36093</RefTableId>
@@ -988,7 +979,7 @@ class_type_id</ColNames>
       <RefKeyName>calendar_item_cell_pkey</RefKeyName>
       <RefColNames>cell_id</RefColNames>
     </foreign-key>
-    <foreign-key id="157" parent="54" name="hours_per_class_class_type_id_fkey">
+    <foreign-key id="156" parent="54" name="hours_per_class_class_type_id_fkey">
       <ObjectId>36127</ObjectId>
       <ColNames>class_type_id</ColNames>
       <RefTableId>35795</RefTableId>
@@ -997,12 +988,12 @@ class_type_id</ColNames>
       <RefKeyName>class_type_pkey</RefKeyName>
       <RefColNames>type_id</RefColNames>
     </foreign-key>
-    <check id="158" parent="54" name="hours_per_class_no_of_hours_check">
+    <check id="157" parent="54" name="hours_per_class_no_of_hours_check">
       <ObjectId>36117</ObjectId>
       <ColNames>no_of_hours</ColNames>
       <Predicate>no_of_hours &gt; 0</Predicate>
     </check>
-    <column id="159" parent="55" name="lecturer_id">
+    <column id="158" parent="55" name="lecturer_id">
       <Position>1</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
@@ -1011,51 +1002,51 @@ class_type_id</ColNames>
       <TypeId>23</TypeId>
       <SequenceName>lecturer_lecturer_id_seq</SequenceName>
     </column>
-    <column id="160" parent="55" name="lecturer_email">
+    <column id="159" parent="55" name="lecturer_email">
       <Position>2</Position>
       <DataType>text|0s</DataType>
       <StateNumber>49475</StateNumber>
       <TypeId>25</TypeId>
     </column>
-    <column id="161" parent="55" name="first_name">
+    <column id="160" parent="55" name="first_name">
       <Position>3</Position>
       <DataType>text|0s</DataType>
       <NotNull>1</NotNull>
       <StateNumber>49475</StateNumber>
       <TypeId>25</TypeId>
     </column>
-    <column id="162" parent="55" name="middle_name">
+    <column id="161" parent="55" name="middle_name">
       <Position>4</Position>
       <DataType>text|0s</DataType>
       <NotNull>1</NotNull>
       <StateNumber>49475</StateNumber>
       <TypeId>25</TypeId>
     </column>
-    <column id="163" parent="55" name="last_name">
+    <column id="162" parent="55" name="last_name">
       <Position>5</Position>
       <DataType>text|0s</DataType>
       <NotNull>1</NotNull>
       <StateNumber>49475</StateNumber>
       <TypeId>25</TypeId>
     </column>
-    <column id="164" parent="55" name="edu_degree">
+    <column id="163" parent="55" name="edu_degree">
       <Position>6</Position>
       <DataType>text|0s</DataType>
       <StateNumber>49475</StateNumber>
       <TypeId>25</TypeId>
     </column>
-    <index id="165" parent="55" name="lecturer_pkey">
+    <index id="164" parent="55" name="lecturer_pkey">
       <ObjectId>35826</ObjectId>
       <ColNames>lecturer_id</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="166" parent="55" name="lecturer_pkey">
+    <key id="165" parent="55" name="lecturer_pkey">
       <ObjectId>35827</ObjectId>
       <ColNames>lecturer_id</ColNames>
       <UnderlyingIndexName>lecturer_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
     </key>
-    <column id="167" parent="56" name="day_id">
+    <column id="166" parent="56" name="day_id">
       <Position>1</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
@@ -1064,42 +1055,42 @@ class_type_id</ColNames>
       <TypeId>23</TypeId>
       <SequenceName>schedule_day_day_id_seq</SequenceName>
     </column>
-    <column id="168" parent="56" name="weak_id">
+    <column id="167" parent="56" name="weak_id">
       <Position>2</Position>
       <DataType>integer|0s</DataType>
       <StateNumber>49486</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="169" parent="56" name="group_id">
+    <column id="168" parent="56" name="group_id">
       <Position>3</Position>
       <DataType>integer|0s</DataType>
       <StateNumber>49486</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <index id="170" parent="56" name="schedule_day_pkey">
+    <index id="169" parent="56" name="schedule_day_pkey">
       <ObjectId>35983</ObjectId>
       <ColNames>day_id</ColNames>
       <Unique>1</Unique>
     </index>
-    <index id="171" parent="56" name="schedule_day_weak_id_group_id_key">
+    <index id="170" parent="56" name="schedule_day_weak_id_group_id_key">
       <ObjectId>35985</ObjectId>
       <ColNames>weak_id
 group_id</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="172" parent="56" name="schedule_day_pkey">
+    <key id="171" parent="56" name="schedule_day_pkey">
       <ObjectId>35984</ObjectId>
       <ColNames>day_id</ColNames>
       <UnderlyingIndexName>schedule_day_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
     </key>
-    <key id="173" parent="56" name="schedule_day_weak_id_group_id_key">
+    <key id="172" parent="56" name="schedule_day_weak_id_group_id_key">
       <ObjectId>35986</ObjectId>
       <ColNames>weak_id
 group_id</ColNames>
       <UnderlyingIndexName>schedule_day_weak_id_group_id_key</UnderlyingIndexName>
     </key>
-    <foreign-key id="174" parent="56" name="schedule_day_weak_id_fkey">
+    <foreign-key id="173" parent="56" name="schedule_day_weak_id_fkey">
       <ObjectId>35987</ObjectId>
       <ColNames>weak_id</ColNames>
       <RefTableId>35830</RefTableId>
@@ -1108,7 +1099,7 @@ group_id</ColNames>
       <RefKeyName>day_of_weak_pkey</RefKeyName>
       <RefColNames>weak_id</RefColNames>
     </foreign-key>
-    <foreign-key id="175" parent="56" name="schedule_day_group_id_fkey">
+    <foreign-key id="174" parent="56" name="schedule_day_group_id_fkey">
       <ObjectId>35992</ObjectId>
       <ColNames>group_id</ColNames>
       <RefTableId>35958</RefTableId>
@@ -1117,7 +1108,7 @@ group_id</ColNames>
       <RefKeyName>study_group_pkey</RefKeyName>
       <RefColNames>group_id</RefColNames>
     </foreign-key>
-    <column id="176" parent="57" name="schedule_item_id">
+    <column id="175" parent="57" name="schedule_item_id">
       <Position>1</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
@@ -1126,42 +1117,42 @@ group_id</ColNames>
       <TypeId>23</TypeId>
       <SequenceName>schedule_item_schedule_item_id_seq</SequenceName>
     </column>
-    <column id="177" parent="57" name="day_id">
+    <column id="176" parent="57" name="day_id">
       <Position>2</Position>
       <DataType>integer|0s</DataType>
       <StateNumber>49487</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="178" parent="57" name="class_time_id">
+    <column id="177" parent="57" name="class_time_id">
       <Position>3</Position>
       <DataType>integer|0s</DataType>
       <StateNumber>49487</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <index id="179" parent="57" name="schedule_item_pkey">
+    <index id="178" parent="57" name="schedule_item_pkey">
       <ObjectId>36003</ObjectId>
       <ColNames>schedule_item_id</ColNames>
       <Unique>1</Unique>
     </index>
-    <index id="180" parent="57" name="schedule_item_day_id_class_time_id_key">
+    <index id="179" parent="57" name="schedule_item_day_id_class_time_id_key">
       <ObjectId>36005</ObjectId>
       <ColNames>day_id
 class_time_id</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="181" parent="57" name="schedule_item_pkey">
+    <key id="180" parent="57" name="schedule_item_pkey">
       <ObjectId>36004</ObjectId>
       <ColNames>schedule_item_id</ColNames>
       <UnderlyingIndexName>schedule_item_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
     </key>
-    <key id="182" parent="57" name="schedule_item_day_id_class_time_id_key">
+    <key id="181" parent="57" name="schedule_item_day_id_class_time_id_key">
       <ObjectId>36006</ObjectId>
       <ColNames>day_id
 class_time_id</ColNames>
       <UnderlyingIndexName>schedule_item_day_id_class_time_id_key</UnderlyingIndexName>
     </key>
-    <foreign-key id="183" parent="57" name="schedule_item_day_id_fkey">
+    <foreign-key id="182" parent="57" name="schedule_item_day_id_fkey">
       <ObjectId>36007</ObjectId>
       <ColNames>day_id</ColNames>
       <RefTableId>35979</RefTableId>
@@ -1170,7 +1161,7 @@ class_time_id</ColNames>
       <RefKeyName>schedule_day_pkey</RefKeyName>
       <RefColNames>day_id</RefColNames>
     </foreign-key>
-    <foreign-key id="184" parent="57" name="schedule_item_class_time_id_fkey">
+    <foreign-key id="183" parent="57" name="schedule_item_class_time_id_fkey">
       <ObjectId>36012</ObjectId>
       <ColNames>class_time_id</ColNames>
       <RefTableId>35842</RefTableId>
@@ -1179,7 +1170,7 @@ class_time_id</ColNames>
       <RefKeyName>class_time_pkey</RefKeyName>
       <RefColNames>class_time_id</RefColNames>
     </foreign-key>
-    <column id="185" parent="58" name="schedule_item_parity_id">
+    <column id="184" parent="58" name="schedule_item_parity_id">
       <Position>1</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
@@ -1188,103 +1179,103 @@ class_time_id</ColNames>
       <TypeId>23</TypeId>
       <SequenceName>schedule_item_parity_schedule_item_parity_id_seq</SequenceName>
     </column>
-    <column id="186" parent="58" name="schedule_item_id">
+    <column id="185" parent="58" name="schedule_item_id">
       <Position>2</Position>
       <DataType>integer|0s</DataType>
       <StateNumber>49488</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="187" parent="58" name="day_parity">
+    <column id="186" parent="58" name="day_parity">
       <Position>3</Position>
       <DataType>char(5)|0s</DataType>
       <StateNumber>49488</StateNumber>
       <DefaultExpression>&apos;ЧС/ЗН&apos;::bpchar</DefaultExpression>
       <TypeId>1042</TypeId>
     </column>
-    <column id="188" parent="58" name="classroom_id">
+    <column id="187" parent="58" name="classroom_id">
       <Position>4</Position>
       <DataType>integer|0s</DataType>
       <StateNumber>49488</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="189" parent="58" name="class_type_id">
+    <column id="188" parent="58" name="class_type_id">
       <Position>5</Position>
       <DataType>integer|0s</DataType>
       <StateNumber>49488</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="190" parent="58" name="subject_id">
+    <column id="189" parent="58" name="subject_id">
       <Position>6</Position>
       <DataType>integer|0s</DataType>
       <StateNumber>49488</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <index id="191" parent="58" name="schedule_item_parity_pkey">
+    <index id="190" parent="58" name="schedule_item_parity_pkey">
       <ObjectId>36025</ObjectId>
       <ColNames>schedule_item_parity_id</ColNames>
       <Unique>1</Unique>
     </index>
-    <index id="192" parent="58" name="unq_cr">
+    <index id="191" parent="58" name="unq_cr">
       <ObjectId>36027</ObjectId>
       <ColNames>schedule_item_id
 day_parity
 classroom_id</ColNames>
       <Unique>1</Unique>
     </index>
-    <index id="193" parent="58" name="unq_cl_type">
+    <index id="192" parent="58" name="unq_cl_type">
       <ObjectId>36031</ObjectId>
       <ColNames>schedule_item_id
 day_parity
 class_type_id</ColNames>
       <Unique>1</Unique>
     </index>
-    <index id="194" parent="58" name="unq_subj">
+    <index id="193" parent="58" name="unq_subj">
       <ObjectId>36029</ObjectId>
       <ColNames>schedule_item_id
 day_parity
 subject_id</ColNames>
       <Unique>1</Unique>
     </index>
-    <index id="195" parent="58" name="unq_parity">
+    <index id="194" parent="58" name="unq_parity">
       <ObjectId>36033</ObjectId>
       <ColNames>schedule_item_id
 day_parity</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="196" parent="58" name="schedule_item_parity_pkey">
+    <key id="195" parent="58" name="schedule_item_parity_pkey">
       <ObjectId>36026</ObjectId>
       <ColNames>schedule_item_parity_id</ColNames>
       <UnderlyingIndexName>schedule_item_parity_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
     </key>
-    <key id="197" parent="58" name="unq_cr">
+    <key id="196" parent="58" name="unq_cr">
       <ObjectId>36028</ObjectId>
       <ColNames>schedule_item_id
 day_parity
 classroom_id</ColNames>
       <UnderlyingIndexName>unq_cr</UnderlyingIndexName>
     </key>
-    <key id="198" parent="58" name="unq_cl_type">
+    <key id="197" parent="58" name="unq_cl_type">
       <ObjectId>36032</ObjectId>
       <ColNames>schedule_item_id
 day_parity
 class_type_id</ColNames>
       <UnderlyingIndexName>unq_cl_type</UnderlyingIndexName>
     </key>
-    <key id="199" parent="58" name="unq_subj">
+    <key id="198" parent="58" name="unq_subj">
       <ObjectId>36030</ObjectId>
       <ColNames>schedule_item_id
 day_parity
 subject_id</ColNames>
       <UnderlyingIndexName>unq_subj</UnderlyingIndexName>
     </key>
-    <key id="200" parent="58" name="unq_parity">
+    <key id="199" parent="58" name="unq_parity">
       <ObjectId>36034</ObjectId>
       <ColNames>schedule_item_id
 day_parity</ColNames>
       <UnderlyingIndexName>unq_parity</UnderlyingIndexName>
     </key>
-    <foreign-key id="201" parent="58" name="schedule_item_parity_schedule_item_id_fkey">
+    <foreign-key id="200" parent="58" name="schedule_item_parity_schedule_item_id_fkey">
       <ObjectId>36035</ObjectId>
       <ColNames>schedule_item_id</ColNames>
       <RefTableId>35999</RefTableId>
@@ -1293,7 +1284,7 @@ day_parity</ColNames>
       <RefKeyName>schedule_item_pkey</RefKeyName>
       <RefColNames>schedule_item_id</RefColNames>
     </foreign-key>
-    <foreign-key id="202" parent="58" name="schedule_item_parity_classroom_id_fkey">
+    <foreign-key id="201" parent="58" name="schedule_item_parity_classroom_id_fkey">
       <ObjectId>36040</ObjectId>
       <ColNames>classroom_id</ColNames>
       <RefTableId>35808</RefTableId>
@@ -1302,7 +1293,7 @@ day_parity</ColNames>
       <RefKeyName>classroom_pkey</RefKeyName>
       <RefColNames>room_id</RefColNames>
     </foreign-key>
-    <foreign-key id="203" parent="58" name="schedule_item_parity_class_type_id_fkey">
+    <foreign-key id="202" parent="58" name="schedule_item_parity_class_type_id_fkey">
       <ObjectId>36045</ObjectId>
       <ColNames>class_type_id</ColNames>
       <RefTableId>35795</RefTableId>
@@ -1311,7 +1302,7 @@ day_parity</ColNames>
       <RefKeyName>class_type_pkey</RefKeyName>
       <RefColNames>type_id</RefColNames>
     </foreign-key>
-    <foreign-key id="204" parent="58" name="schedule_item_parity_subject_id_fkey">
+    <foreign-key id="203" parent="58" name="schedule_item_parity_subject_id_fkey">
       <ObjectId>36050</ObjectId>
       <ColNames>subject_id</ColNames>
       <RefTableId>35784</RefTableId>
@@ -1320,12 +1311,12 @@ day_parity</ColNames>
       <RefKeyName>subject_pkey</RefKeyName>
       <RefColNames>subject_id</RefColNames>
     </foreign-key>
-    <check id="205" parent="58" name="schedule_item_parity_day_parity_check">
+    <check id="204" parent="58" name="schedule_item_parity_day_parity_check">
       <ObjectId>36024</ObjectId>
       <ColNames>day_parity</ColNames>
       <Predicate>(day_parity = &apos;ЧС&apos;::bpchar) OR (day_parity = &apos;ЗН&apos;::bpchar) OR (day_parity = &apos;ЧС/ЗН&apos;::bpchar)</Predicate>
     </check>
-    <column id="206" parent="59" name="id">
+    <column id="205" parent="59" name="id">
       <Position>1</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
@@ -1334,30 +1325,30 @@ day_parity</ColNames>
       <TypeId>23</TypeId>
       <SequenceName>schedule_item_parity_to_lecturer_id_seq</SequenceName>
     </column>
-    <column id="207" parent="59" name="schedule_item_parity_id">
+    <column id="206" parent="59" name="schedule_item_parity_id">
       <Position>2</Position>
       <DataType>integer|0s</DataType>
       <StateNumber>49489</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="208" parent="59" name="lecturer_id">
+    <column id="207" parent="59" name="lecturer_id">
       <Position>3</Position>
       <DataType>integer|0s</DataType>
       <StateNumber>49489</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <index id="209" parent="59" name="schedule_item_parity_to_lecturer_pkey">
+    <index id="208" parent="59" name="schedule_item_parity_to_lecturer_pkey">
       <ObjectId>36061</ObjectId>
       <ColNames>id</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="210" parent="59" name="schedule_item_parity_to_lecturer_pkey">
+    <key id="209" parent="59" name="schedule_item_parity_to_lecturer_pkey">
       <ObjectId>36062</ObjectId>
       <ColNames>id</ColNames>
       <UnderlyingIndexName>schedule_item_parity_to_lecturer_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="211" parent="59" name="schedule_item_parity_to_lecturer_schedule_item_parity_id_fkey">
+    <foreign-key id="210" parent="59" name="schedule_item_parity_to_lecturer_schedule_item_parity_id_fkey">
       <ObjectId>36063</ObjectId>
       <ColNames>schedule_item_parity_id</ColNames>
       <RefTableId>36019</RefTableId>
@@ -1366,7 +1357,7 @@ day_parity</ColNames>
       <RefKeyName>schedule_item_parity_pkey</RefKeyName>
       <RefColNames>schedule_item_parity_id</RefColNames>
     </foreign-key>
-    <foreign-key id="212" parent="59" name="schedule_item_parity_to_lecturer_lecturer_id_fkey">
+    <foreign-key id="211" parent="59" name="schedule_item_parity_to_lecturer_lecturer_id_fkey">
       <ObjectId>36068</ObjectId>
       <ColNames>lecturer_id</ColNames>
       <RefTableId>35819</RefTableId>
@@ -1375,7 +1366,7 @@ day_parity</ColNames>
       <RefKeyName>lecturer_pkey</RefKeyName>
       <RefColNames>lecturer_id</RefColNames>
     </foreign-key>
-    <column id="213" parent="60" name="spec_id">
+    <column id="212" parent="60" name="spec_id">
       <Position>1</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
@@ -1384,47 +1375,47 @@ day_parity</ColNames>
       <TypeId>23</TypeId>
       <SequenceName>specialization_spec_id_seq</SequenceName>
     </column>
-    <column id="214" parent="60" name="spec_code">
+    <column id="213" parent="60" name="spec_code">
       <Position>2</Position>
       <DataType>char(8)|0s</DataType>
       <StateNumber>49482</StateNumber>
       <TypeId>1042</TypeId>
     </column>
-    <column id="215" parent="60" name="degree_id">
+    <column id="214" parent="60" name="degree_id">
       <Position>3</Position>
       <DataType>integer|0s</DataType>
       <StateNumber>49482</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="216" parent="60" name="title">
+    <column id="215" parent="60" name="title">
       <Position>4</Position>
       <DataType>text|0s</DataType>
       <NotNull>1</NotNull>
       <StateNumber>49482</StateNumber>
       <TypeId>25</TypeId>
     </column>
-    <index id="217" parent="60" name="specialization_pkey">
+    <index id="216" parent="60" name="specialization_pkey">
       <ObjectId>35911</ObjectId>
       <ColNames>spec_id</ColNames>
       <Unique>1</Unique>
     </index>
-    <index id="218" parent="60" name="specialization_spec_code_key">
+    <index id="217" parent="60" name="specialization_spec_code_key">
       <ObjectId>35913</ObjectId>
       <ColNames>spec_code</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="219" parent="60" name="specialization_pkey">
+    <key id="218" parent="60" name="specialization_pkey">
       <ObjectId>35912</ObjectId>
       <ColNames>spec_id</ColNames>
       <UnderlyingIndexName>specialization_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
     </key>
-    <key id="220" parent="60" name="specialization_spec_code_key">
+    <key id="219" parent="60" name="specialization_spec_code_key">
       <ObjectId>35914</ObjectId>
       <ColNames>spec_code</ColNames>
       <UnderlyingIndexName>specialization_spec_code_key</UnderlyingIndexName>
     </key>
-    <foreign-key id="221" parent="60" name="specialization_degree_id_fkey">
+    <foreign-key id="220" parent="60" name="specialization_degree_id_fkey">
       <ObjectId>35915</ObjectId>
       <ColNames>degree_id</ColNames>
       <RefTableId>35862</RefTableId>
@@ -1433,68 +1424,58 @@ day_parity</ColNames>
       <RefKeyName>edu_degree_pkey</RefKeyName>
       <RefColNames>degree_id</RefColNames>
     </foreign-key>
-    <check id="222" parent="60" name="specialization_spec_code_check">
+    <check id="221" parent="60" name="specialization_spec_code_check">
       <ObjectId>35907</ObjectId>
       <ColNames>spec_code</ColNames>
       <Predicate>(char_length(spec_code) = 8) AND (spec_code ~~ &apos;%.%.%&apos;::text)</Predicate>
     </check>
-    <column id="223" parent="61" name="flow_id">
+    <column id="222" parent="61" name="flow_id">
       <Position>1</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>49484</StateNumber>
+      <StateNumber>49860</StateNumber>
       <DefaultExpression>nextval(&apos;study_flow_flow_id_seq&apos;::regclass)</DefaultExpression>
       <TypeId>23</TypeId>
       <SequenceName>study_flow_flow_id_seq</SequenceName>
     </column>
-    <column id="224" parent="61" name="dep_to_spec_id">
+    <column id="223" parent="61" name="dep_to_spec_id">
       <Position>2</Position>
       <DataType>integer|0s</DataType>
-      <StateNumber>49484</StateNumber>
+      <StateNumber>49860</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="225" parent="61" name="start_year">
+    <column id="224" parent="61" name="start_year">
       <Position>3</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>49484</StateNumber>
+      <StateNumber>49860</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <index id="226" parent="61" name="study_flow_pkey">
-      <ObjectId>35945</ObjectId>
+    <index id="225" parent="61" name="study_flow_pkey">
+      <ObjectId>42498</ObjectId>
       <ColNames>flow_id</ColNames>
       <Unique>1</Unique>
     </index>
-    <index id="227" parent="61" name="study_flow_dep_to_spec_id_start_year_key">
-      <ObjectId>35949</ObjectId>
+    <index id="226" parent="61" name="study_flow_dep_to_spec_id_start_year_key">
+      <ObjectId>42500</ObjectId>
       <ColNames>dep_to_spec_id
 start_year</ColNames>
       <Unique>1</Unique>
     </index>
-    <index id="228" parent="61" name="study_flow_dep_to_spec_id_key">
-      <ObjectId>35947</ObjectId>
-      <ColNames>dep_to_spec_id</ColNames>
-      <Unique>1</Unique>
-    </index>
-    <key id="229" parent="61" name="study_flow_pkey">
-      <ObjectId>35946</ObjectId>
+    <key id="227" parent="61" name="study_flow_pkey">
+      <ObjectId>42499</ObjectId>
       <ColNames>flow_id</ColNames>
       <UnderlyingIndexName>study_flow_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
     </key>
-    <key id="230" parent="61" name="study_flow_dep_to_spec_id_start_year_key">
-      <ObjectId>35950</ObjectId>
+    <key id="228" parent="61" name="study_flow_dep_to_spec_id_start_year_key">
+      <ObjectId>42501</ObjectId>
       <ColNames>dep_to_spec_id
 start_year</ColNames>
       <UnderlyingIndexName>study_flow_dep_to_spec_id_start_year_key</UnderlyingIndexName>
     </key>
-    <key id="231" parent="61" name="study_flow_dep_to_spec_id_key">
-      <ObjectId>35948</ObjectId>
-      <ColNames>dep_to_spec_id</ColNames>
-      <UnderlyingIndexName>study_flow_dep_to_spec_id_key</UnderlyingIndexName>
-    </key>
-    <foreign-key id="232" parent="61" name="study_flow_dep_to_spec_id_fkey">
-      <ObjectId>35951</ObjectId>
+    <foreign-key id="229" parent="61" name="study_flow_dep_to_spec_id_fkey">
+      <ObjectId>42502</ObjectId>
       <ColNames>dep_to_spec_id</ColNames>
       <RefTableId>35922</RefTableId>
       <RefColPositions>1</RefColPositions>
@@ -1502,12 +1483,12 @@ start_year</ColNames>
       <RefKeyName>dep_to_spec_pkey</RefKeyName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <check id="233" parent="61" name="study_flow_start_year_check">
-      <ObjectId>35944</ObjectId>
+    <check id="230" parent="61" name="study_flow_start_year_check">
+      <ObjectId>42497</ObjectId>
       <ColNames>start_year</ColNames>
       <Predicate>(start_year &gt; 1900) AND (start_year &lt; 2100)</Predicate>
     </check>
-    <column id="234" parent="62" name="group_id">
+    <column id="231" parent="62" name="group_id">
       <Position>1</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
@@ -1516,64 +1497,55 @@ start_year</ColNames>
       <TypeId>23</TypeId>
       <SequenceName>study_group_group_id_seq</SequenceName>
     </column>
-    <column id="235" parent="62" name="flow_id">
+    <column id="232" parent="62" name="flow_id">
       <Position>2</Position>
       <DataType>integer|0s</DataType>
       <StateNumber>49485</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="236" parent="62" name="term_id">
+    <column id="233" parent="62" name="term_id">
       <Position>3</Position>
       <DataType>integer|0s</DataType>
       <StateNumber>49485</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="237" parent="62" name="group_number">
+    <column id="234" parent="62" name="group_number">
       <Position>4</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
       <StateNumber>49485</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="238" parent="62" name="students_count">
+    <column id="235" parent="62" name="students_count">
       <Position>5</Position>
       <DataType>integer|0s</DataType>
       <StateNumber>49485</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <index id="239" parent="62" name="study_group_pkey">
+    <index id="236" parent="62" name="study_group_pkey">
       <ObjectId>35963</ObjectId>
       <ColNames>group_id</ColNames>
       <Unique>1</Unique>
     </index>
-    <index id="240" parent="62" name="study_group_flow_id_group_number_key">
+    <index id="237" parent="62" name="study_group_flow_id_group_number_key">
       <ObjectId>35965</ObjectId>
       <ColNames>flow_id
 group_number</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="241" parent="62" name="study_group_pkey">
+    <key id="238" parent="62" name="study_group_pkey">
       <ObjectId>35964</ObjectId>
       <ColNames>group_id</ColNames>
       <UnderlyingIndexName>study_group_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
     </key>
-    <key id="242" parent="62" name="study_group_flow_id_group_number_key">
+    <key id="239" parent="62" name="study_group_flow_id_group_number_key">
       <ObjectId>35966</ObjectId>
       <ColNames>flow_id
 group_number</ColNames>
       <UnderlyingIndexName>study_group_flow_id_group_number_key</UnderlyingIndexName>
     </key>
-    <foreign-key id="243" parent="62" name="study_group_flow_id_fkey">
-      <ObjectId>35967</ObjectId>
-      <ColNames>flow_id</ColNames>
-      <RefTableId>35940</RefTableId>
-      <RefColPositions>1</RefColPositions>
-      <RefTableName>study_flow</RefTableName>
-      <RefKeyName>study_flow_pkey</RefKeyName>
-      <RefColNames>flow_id</RefColNames>
-    </foreign-key>
-    <foreign-key id="244" parent="62" name="study_group_term_id_fkey">
+    <foreign-key id="240" parent="62" name="study_group_term_id_fkey">
       <ObjectId>35972</ObjectId>
       <ColNames>term_id</ColNames>
       <RefTableId>35853</RefTableId>
@@ -1582,12 +1554,12 @@ group_number</ColNames>
       <RefKeyName>term_pkey</RefKeyName>
       <RefColNames>term_id</RefColNames>
     </foreign-key>
-    <check id="245" parent="62" name="study_group_group_number_check">
+    <check id="241" parent="62" name="study_group_group_number_check">
       <ObjectId>35962</ObjectId>
       <ColNames>group_number</ColNames>
       <Predicate>group_number &gt; 0</Predicate>
     </check>
-    <column id="246" parent="63" name="subject_id">
+    <column id="242" parent="63" name="subject_id">
       <Position>1</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
@@ -1596,25 +1568,25 @@ group_number</ColNames>
       <TypeId>23</TypeId>
       <SequenceName>subject_subject_id_seq</SequenceName>
     </column>
-    <column id="247" parent="63" name="subject_name">
+    <column id="243" parent="63" name="subject_name">
       <Position>2</Position>
       <DataType>text|0s</DataType>
       <NotNull>1</NotNull>
       <StateNumber>49472</StateNumber>
       <TypeId>25</TypeId>
     </column>
-    <index id="248" parent="63" name="subject_pkey">
+    <index id="244" parent="63" name="subject_pkey">
       <ObjectId>35791</ObjectId>
       <ColNames>subject_id</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="249" parent="63" name="subject_pkey">
+    <key id="245" parent="63" name="subject_pkey">
       <ObjectId>35792</ObjectId>
       <ColNames>subject_id</ColNames>
       <UnderlyingIndexName>subject_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
     </key>
-    <column id="250" parent="64" name="term_id">
+    <column id="246" parent="64" name="term_id">
       <Position>1</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
@@ -1623,50 +1595,50 @@ group_number</ColNames>
       <TypeId>23</TypeId>
       <SequenceName>term_term_id_seq</SequenceName>
     </column>
-    <column id="251" parent="64" name="term_no">
+    <column id="247" parent="64" name="term_no">
       <Position>2</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
       <StateNumber>49478</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <index id="252" parent="64" name="term_pkey">
+    <index id="248" parent="64" name="term_pkey">
       <ObjectId>35858</ObjectId>
       <ColNames>term_id</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="253" parent="64" name="term_pkey">
+    <key id="249" parent="64" name="term_pkey">
       <ObjectId>35859</ObjectId>
       <ColNames>term_id</ColNames>
       <UnderlyingIndexName>term_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
     </key>
-    <check id="254" parent="64" name="term_term_no_check">
+    <check id="250" parent="64" name="term_term_no_check">
       <ObjectId>35857</ObjectId>
       <ColNames>term_no</ColNames>
       <Predicate>term_no &gt; 0</Predicate>
     </check>
-    <argument id="255" parent="65">
+    <argument id="251" parent="65">
       <ArgumentDirection>R</ArgumentDirection>
       <DataType>trigger|0s</DataType>
     </argument>
-    <argument id="256" parent="66">
+    <argument id="252" parent="66">
       <ArgumentDirection>R</ArgumentDirection>
       <DataType>trigger|0s</DataType>
     </argument>
-    <argument id="257" parent="67">
+    <argument id="253" parent="67">
       <ArgumentDirection>R</ArgumentDirection>
       <DataType>trigger|0s</DataType>
     </argument>
-    <argument id="258" parent="68">
+    <argument id="254" parent="68">
       <ArgumentDirection>R</ArgumentDirection>
       <DataType>trigger|0s</DataType>
     </argument>
-    <argument id="259" parent="69" name="_item_parity_id">
+    <argument id="255" parent="69" name="_item_parity_id">
       <Position>1</Position>
       <DataType>integer|0s</DataType>
     </argument>
-    <argument id="260" parent="69">
+    <argument id="256" parent="69">
       <ArgumentDirection>R</ArgumentDirection>
       <DataType>boolean|0s</DataType>
     </argument>

@@ -174,4 +174,29 @@ public class DBUtils {
             specRep.update(spec);
         }
     }
+
+    public static void fillDepToSpec(SessionFactory sessionFactory, String csvFile) throws IOException {
+        CSVParser parser = CSVFormat.EXCEL.withHeader().parse(new FileReader(csvFile));
+        Repository<Specialization, Integer> specRep = new Repository<>(Specialization.class, sessionFactory);
+        Repository<Department, Integer> depRep = new Repository<>(Department.class, sessionFactory);
+
+        for(CSVRecord rec : parser) {
+            String specCode = rec.get(SpecToDepartmentsProperty.specCode);
+            String[] departments = rec.get(SpecToDepartmentsProperty.departments).split(";");
+            Specialization spec = specRep.filterByProperty("code", specCode).get(0);
+
+            for(String depCipher : departments) {
+                Optional<Department> dep = depRep.findUniqie(d -> d.getCipher().equals(depCipher));
+                if(dep.isPresent()) {
+                    System.out.println("add dep '" + dep.get().toString() + "'");
+                    spec.addDepartment(dep.get());
+                }
+                else {
+                    System.out.println("Skipping department '" + depCipher + "'");
+                }
+            }
+            specRep.update(spec);
+
+        }
+    }
 }

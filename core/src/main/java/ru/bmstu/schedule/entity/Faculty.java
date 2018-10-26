@@ -72,7 +72,7 @@ public class Faculty {
     }
 
     public void setDepartments(Collection<Department> departments) {
-        System.out.println("setDepartments: " + departments.stream().map(Department::getTitle).collect(Collectors.toList()));
+        System.out.println("setDepartmentSpecializations: " + departments.stream().map(Department::getTitle).collect(Collectors.toList()));
         this.departments = departments;
     }
 

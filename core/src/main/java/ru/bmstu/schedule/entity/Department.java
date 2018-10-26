@@ -1,16 +1,20 @@
 package ru.bmstu.schedule.entity;
 
+import org.hibernate.HibernateException;
+
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.Objects;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Entity
+@Table(name="department")
 public class Department {
     private int id;
     private int number;
     private String title;
     private Faculty faculty;
-    private Collection<Specialization> specializations;
+
+    private Set<DepartmentSpecialization> departmentSpecializations = new HashSet<>();
 
     public Department(int number, String title) {
         this.number = number;
@@ -38,6 +42,16 @@ public class Department {
         this.id = id;
     }
 
+//    @OneToMany(mappedBy = "compositeKey.department", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    Set<DepartmentSpecialization> getDepartmentSpecializations() {
+        return departmentSpecializations;
+    }
+
+    void setDepartmentSpecializations(Set<DepartmentSpecialization> departmentSpecializations) {
+        this.departmentSpecializations = departmentSpecializations;
+    }
+
     @Basic
     @Column(name = "department_number", nullable = false)
     public int getNumber() {
@@ -48,8 +62,7 @@ public class Department {
         this.number = number;
     }
 
-
-    @SuppressWarnings("JpaAttributeMemberSignatureInspection")
+    @Transient
     public String getCipher() {
         return String.format("%s%d", getFaculty().getCipher(), getNumber());
     }
@@ -62,6 +75,72 @@ public class Department {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "faculty_id", referencedColumnName = "faculty_id")
+    public Faculty getFaculty() {
+        return faculty;
+    }
+
+    public void setFaculty(Faculty faculty) {
+        this.faculty = faculty;
+    }
+
+    public void addSpecialization(Specialization spec) {
+        DepartmentSpecialization depSpec = new DepartmentSpecialization();
+        depSpec.setSpecialization(spec);
+        depSpec.setDepartment(this);
+        getDepartmentSpecializations().add(depSpec);
+    }
+
+    @Transient
+    public List<Specialization> getSpecializations() {
+        return getDepartmentSpecializations()
+                .stream()
+                .map(DepartmentSpecialization::getSpecialization)
+                .collect(Collectors.toList());
+    }
+
+    @Transient
+    public List<StudyFlow> getStudyFlows() {
+        return getDepartmentSpecializations()
+                .stream()
+                .flatMap(ds -> ds.getStudyFlows().stream())
+                .collect(Collectors.toList());
+    }
+
+    public void addStudyFlow(StudyFlow studyFlow, Specialization spec) {
+        Optional<DepartmentSpecialization> dsOpt = getDepartmentSpecializations()
+                .stream()
+                .filter(ds -> {
+                    System.out.println("filter dep " + this.getCipher() + " - spec: " + spec.getCode() + " - isEquals? " + ds.getSpecialization().equals(spec));
+                    return ds.getSpecialization().equals(spec);
+                })
+                .findFirst();
+
+        if(dsOpt.isPresent()) {
+            DepartmentSpecialization ds = dsOpt.get();
+            studyFlow.setDepartmentSpecialization(ds);
+            ds.getStudyFlows().add(studyFlow);
+        } else {
+            String msg = String.format(
+                    "Unable to add study flow: current department (%s) hasn't specialization %s.",
+                    this.getCipher(),
+                    spec.getCode()
+            );
+            throw new HibernateException(msg);
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Department{" +
+                "id=" + id +
+                ", number=" + number +
+                ", title='" + title + '\'' +
+                ", faculty=" + faculty.getCipher() +
+                '}';
     }
 
     @Override
@@ -77,29 +156,5 @@ public class Department {
     @Override
     public int hashCode() {
         return Objects.hash(id, number, title);
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "faculty_id", referencedColumnName = "faculty_id")
-    public Faculty getFaculty() {
-        return faculty;
-    }
-
-    public void setFaculty(Faculty faculty) {
-        this.faculty = faculty;
-    }
-
-    @ManyToMany
-    @JoinTable(
-            name="dep_to_spec",
-            joinColumns = { @JoinColumn(name="department_id") },
-            inverseJoinColumns = { @JoinColumn(name="spec_id") }
-    )
-    public Collection<Specialization> getSpecializations() {
-        return specializations;
-    }
-
-    void setSpecializations(Collection<Specialization> specializations) {
-        this.specializations = specializations;
     }
 }

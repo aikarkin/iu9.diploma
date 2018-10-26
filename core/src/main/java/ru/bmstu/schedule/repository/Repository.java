@@ -12,8 +12,11 @@ import java.io.Serializable;
 import java.lang.reflect.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class Repository<E, K extends Serializable> {
     private SessionFactory sessionFactory;
@@ -56,6 +59,15 @@ public class Repository<E, K extends Serializable> {
         });
     }
 
+    public List<E> filter(Predicate<E> predicate) {
+        return getAll().stream().filter(predicate).collect(Collectors.toList());
+    }
+
+    public Optional<E> findUniqie(Predicate<E> predicate) {
+        List<E> found = filter(predicate);
+        return found.size() > 0 ? Optional.of(found.get(0)) : Optional.empty();
+    }
+
     public E create(E entity) {
         K id =  composeTypedValueInTransaction(session -> {
             K savedId = (K) session.save(entity);
@@ -64,13 +76,15 @@ public class Repository<E, K extends Serializable> {
         return findById(id);
     }
 
-    public E update(E entity) {
-        doInTransaction(session ->
-            session.update(entity)
-        );
-        K id = getIdOf(entity);
+    public void update(E entity) {
+        System.out.println("upd '" + entity + "'");
+        doInTransaction(session -> {
+            session.evict(entity);
+            session.update(entity);
+        });
+//        K id = getIdOf(entity);
 
-        return id == null ? null : this.findById(id);
+//        return id == null ? null : this.findById(id);
     }
 
     public boolean delete(E entity) {
@@ -114,6 +128,8 @@ public class Repository<E, K extends Serializable> {
         action.accept(session);
 
         session.getTransaction().commit();
+        session.flush();
+        session.clear();
         session.close();
     }
 

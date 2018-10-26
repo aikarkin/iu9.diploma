@@ -14,7 +14,7 @@
         <property name="dialect">org.hibernate.dialect.PostgreSQLDialect</property>
         <property name="current_session_context_class">thread</property>
         <property name="show_sql">true</property>
-        <!--<property name="hbm2ddl.auto">validate</property>-->
+        <property name="hbm2ddl.auto">validate</property>
 
         <mapping class="ru.bmstu.schedule.entity.CalendarItem"/>
         <mapping class="ru.bmstu.schedule.entity.CalendarItemCell"/>
@@ -35,7 +35,6 @@
         <mapping class="ru.bmstu.schedule.entity.StudyGroup"/>
         <mapping class="ru.bmstu.schedule.entity.Subject"/>
         <mapping class="ru.bmstu.schedule.entity.Term"/>
-
-
+        <mapping class="ru.bmstu.schedule.entity.DepartmentSpecialization" />
     </session-factory>
 </hibernate-configuration>

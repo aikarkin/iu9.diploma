@@ -10,22 +10,29 @@ public class StudyFlow {
     private int id;
     private int enrollmentYear;
     private Collection<CalendarItem> calendarItems;
-    private Specialization specialization;
-    private Department department;
+    private DepartmentSpecialization departmentSpecialization = new DepartmentSpecialization();
     private Collection<StudyGroup> studyGroups;
 
+    public StudyFlow() {}
+
     @ManyToOne
-    @JoinTable(
-            name = "dep_to_spec",
-            joinColumns = @JoinColumn(name = "department_id"),
-            inverseJoinColumns = @JoinColumn(name = "id")
-    )
-    public Department getDepartment() {
-        return department;
+    @JoinColumn(name="dep_to_spec_id", referencedColumnName = "id")
+    DepartmentSpecialization getDepartmentSpecialization() {
+        return departmentSpecialization;
     }
 
-    public void setDepartment(Department department) {
-        this.department = department;
+    public void setDepartmentSpecialization(DepartmentSpecialization depSpecializations) {
+        this.departmentSpecialization = depSpecializations;
+    }
+
+    @Transient
+    public Department getDepartment() {
+        return this.getDepartmentSpecialization().getDepartment();
+    }
+
+    @Transient
+    public Specialization getSpecialization() {
+        return this.getDepartmentSpecialization().getSpecialization();
     }
 
     @Id
@@ -73,20 +80,6 @@ public class StudyFlow {
         this.calendarItems = calendarItems;
     }
 
-    @ManyToOne
-    @JoinTable(
-            name = "dep_to_spec",
-            joinColumns = @JoinColumn(name = "spec_id"),
-            inverseJoinColumns = @JoinColumn(name = "id")
-    )
-    public Specialization getSpecialization() {
-        return specialization;
-    }
-
-    public void setSpecialization(Specialization spec) {
-        this.specialization = spec;
-    }
-
     @OneToMany(mappedBy = "studyFlow")
     public Collection<StudyGroup> getStudyGroups() {
         return studyGroups;
@@ -94,5 +87,13 @@ public class StudyFlow {
 
     public void setStudyGroups(Collection<StudyGroup> studyGroups) {
         this.studyGroups = studyGroups;
+    }
+
+    @Override
+    public String toString() {
+        return "StudyFlow{" +
+                "id=" + id +
+                ", enrollmentYear=" + enrollmentYear +
+                '}';
     }
 }

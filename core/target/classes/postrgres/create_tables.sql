@@ -88,7 +88,6 @@ CREATE TABLE study_flow (
   flow_id    SERIAL PRIMARY KEY,
   dep_to_spec_id    INTEGER REFERENCES dep_to_spec (id),
   start_year INTEGER NOT NULL CHECK (start_year > 1900 AND start_year < 2100),
-  UNIQUE (dep_to_spec_id),
   UNIQUE (dep_to_spec_id, start_year)
 );
 
