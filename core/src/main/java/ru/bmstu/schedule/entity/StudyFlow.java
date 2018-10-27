@@ -3,6 +3,7 @@ package ru.bmstu.schedule.entity;
 import org.hibernate.HibernateException;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -11,7 +12,7 @@ import java.util.Objects;
 public class StudyFlow {
     private int id;
     private int enrollmentYear;
-    private Collection<CalendarItem> calendarItems;
+    private Collection<CalendarItem> calendarItems = new ArrayList<>();
     private DepartmentSpecialization departmentSpecialization = new DepartmentSpecialization();
     private Collection<StudyGroup> studyGroups;
 
@@ -88,7 +89,7 @@ public class StudyFlow {
         return Objects.hash(id, enrollmentYear);
     }
 
-    @OneToMany(mappedBy = "studyFlow")
+    @OneToMany(mappedBy = "studyFlow", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     public Collection<CalendarItem> getCalendarItems() {
         return calendarItems;
     }
@@ -97,13 +98,18 @@ public class StudyFlow {
         this.calendarItems = calendarItems;
     }
 
-    @OneToMany(mappedBy = "studyFlow")
+    @OneToMany(mappedBy = "studyFlow", fetch = FetchType.EAGER)
     public Collection<StudyGroup> getStudyGroups() {
         return studyGroups;
     }
 
     public void setStudyGroups(Collection<StudyGroup> studyGroups) {
         this.studyGroups = studyGroups;
+    }
+
+    public void addCalendarItem(CalendarItem item) {
+        item.setStudyFlow(this);
+        getCalendarItems().add(item);
     }
 
     @Override

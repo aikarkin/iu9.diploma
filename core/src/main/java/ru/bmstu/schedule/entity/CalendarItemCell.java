@@ -1,6 +1,7 @@
 package ru.bmstu.schedule.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -10,7 +11,7 @@ public class CalendarItemCell {
     private int id;
     private CalendarItem calendarItem;
     private Term term;
-    private Collection<HoursPerClass> hoursPerClasses;
+    private Collection<HoursPerClass> hoursPerClasses = new ArrayList<>();
 
     @Id
     @Column(name = "cell_id", nullable = false)
@@ -57,12 +58,17 @@ public class CalendarItemCell {
         this.term = term;
     }
 
-    @OneToMany(mappedBy = "calendarItemCell")
+    @OneToMany(mappedBy = "calendarItemCell", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     public Collection<HoursPerClass> getHoursPerClasses() {
         return hoursPerClasses;
     }
 
     public void setHoursPerClasses(Collection<HoursPerClass> hoursPerClasses) {
         this.hoursPerClasses = hoursPerClasses;
+    }
+
+    public void addHoursPerClass(HoursPerClass hpc) {
+        hpc.setCalendarItemCell(this);
+        this.getHoursPerClasses().add(hpc);
     }
 }

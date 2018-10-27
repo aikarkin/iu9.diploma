@@ -6,12 +6,13 @@ import org.apache.commons.csv.CSVRecord;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
+import ru.bmstu.schedule.csv.header.SpecToDepHeader;
 import ru.bmstu.schedule.csv.parser.Parser;
 import ru.bmstu.schedule.csv.parser.ParserFactory;
 import ru.bmstu.schedule.csv.RecordHolder;
-import ru.bmstu.schedule.csv.property.DepartmentProperty;
-import ru.bmstu.schedule.csv.property.SpecProperty;
-import ru.bmstu.schedule.csv.property.SpecToDepartmentsProperty;
+import ru.bmstu.schedule.csv.header.DepartmentHeader;
+import ru.bmstu.schedule.csv.header.SpecHeader;
+import ru.bmstu.schedule.csv.header.SpecToDepHeader;
 import ru.bmstu.schedule.dao.*;
 import ru.bmstu.schedule.entity.*;
 import ru.bmstu.schedule.html.parser.ScheduleParser;
@@ -115,7 +116,7 @@ public class DBUtils {
         CSVParser csvParser = CSVFormat.EXCEL.withHeader().parse(new FileReader(csvFile));
         for(CSVRecord rec : csvParser) {
             Department parsed = entityParser.parse(new RecordHolder(rec));
-            String cipher = rec.get(DepartmentProperty.cipher);
+            String cipher = rec.get(DepartmentHeader.cipher);
             cipherToDep.put(cipher, parsed);
         }
 
@@ -125,7 +126,7 @@ public class DBUtils {
     public static void fillSpecializations(SessionFactory sessionFactory, String csvFile) throws IOException {
         EduDegreeDao degreeDao = new EduDegreeDao(sessionFactory);
         fillFromCsv(Specialization.class, new SpecializationDao(sessionFactory), csvFile, (entity, rec) -> {
-            String degreeName = rec.get(SpecProperty.degree);
+            String degreeName = rec.get(SpecHeader.degree);
             Optional<EduDegree> degree = degreeDao.findByName(degreeName);
 
             degree.ifPresent(entity::setEduDegree);
@@ -139,8 +140,8 @@ public class DBUtils {
 
         for(CSVRecord rec : parser) {
             RecordHolder holder = new RecordHolder(rec);
-            String specCode = holder.get(SpecToDepartmentsProperty.specCode);
-            String[] depCodes = holder.get(SpecToDepartmentsProperty.departments).split(";");
+            String specCode = holder.get(SpecToDepHeader.specCode);
+            String[] depCodes = holder.get(SpecToDepHeader.departments).split(";");
 
             Optional<Specialization> spec = specDao.findByCode(specCode);
 
@@ -162,8 +163,8 @@ public class DBUtils {
         DepartmentDao depDao = new DepartmentDao(sessionFactory);
 
         for(CSVRecord rec : parser) {
-            String specCode = rec.get(SpecToDepartmentsProperty.specCode);
-            String[] departments = rec.get(SpecToDepartmentsProperty.departments).split(";");
+            String specCode = rec.get(SpecToDepHeader.specCode);
+            String[] departments = rec.get(SpecToDepHeader.departments).split(";");
             Optional<Specialization> spec = specDao.findByCode(specCode);
 
             if(spec.isPresent()) {
@@ -214,4 +215,5 @@ public class DBUtils {
             }
         }
     }
+
 }

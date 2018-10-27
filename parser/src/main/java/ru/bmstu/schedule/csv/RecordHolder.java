@@ -7,6 +7,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -47,6 +48,15 @@ public class RecordHolder {
 
     public String get(Enum<?> prop) {
         return this.rec.get(prop).trim();
+    }
+
+    public Optional<Integer> getInt(Enum<?> prop) {
+        Integer intVal = null;
+        try {
+            intVal = parseInt(record(), prop);
+        } catch (NumberFormatException ignored) { }
+
+        return Optional.ofNullable(intVal);
     }
 
     public void fillString(Consumer<String> setter, Enum<?> propName) {

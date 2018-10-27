@@ -10,7 +10,7 @@ public class ClassTypeDao extends HibernateDao<Integer, ClassType> {
         super(factory);
     }
 
-    public Optional<ClassType> findByClassType(String typeName) {
+    public Optional<ClassType> findByTypeName(String typeName) {
         return findUniqueByProperty("name", typeName);
     }
 }

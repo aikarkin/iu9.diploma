@@ -1,7 +1,7 @@
 package ru.bmstu.schedule.csv.parser;
 
 import ru.bmstu.schedule.csv.RecordHolder;
-import ru.bmstu.schedule.csv.property.ClassTimeProperty;
+import ru.bmstu.schedule.csv.header.ClassTimeHeader;
 import ru.bmstu.schedule.entity.ClassTime;
 
 import java.text.ParseException;
@@ -11,8 +11,8 @@ public class ClassTimeParser implements Parser<ClassTime> {
     public ClassTime parse(RecordHolder rec) {
         try {
             ClassTime ct = new ClassTime();
-            rec.fillTime(ct::setStartsAt, ClassTimeProperty.startsAt);
-            rec.fillTime(ct::setEndsAt, ClassTimeProperty.endsAt);
+            rec.fillTime(ct::setStartsAt, ClassTimeHeader.startsAt);
+            rec.fillTime(ct::setEndsAt, ClassTimeHeader.endsAt);
             int noOfClass = (int) rec.record().getRecordNumber();
             ct.setNoOfClass(noOfClass);
             return ct;

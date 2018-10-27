@@ -15,6 +15,7 @@ public class PropertyKey {
     public static final String REF_SPECDEPS = "csv.file.specdeps";
     public static final String REF_SPECS = "csv.file.speccodes";
     public static final String REF_CLASS_TIME = "csv.file.classtime";
+    public static final String REF_FOLDER_CALENDAR = "csv.folder.calendar";
 
     private static final List<String> REQUIRED_KEYS = Arrays.asList(
             SCHEDULE_BASE_URL,

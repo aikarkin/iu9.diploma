@@ -4,6 +4,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import ru.bmstu.schedule.csv.CSVUtils;
 import ru.bmstu.schedule.dao.ClassTimeDao;
 import ru.bmstu.schedule.dao.ClassTypeDao;
 import ru.bmstu.schedule.dao.EduDegreeDao;
@@ -79,8 +80,9 @@ public class FillSchedule {
         DBUtils.fillFacultiesAndDepartments(sessionFactory, csvByKey(PropertyKey.REF_DEPARTMENTS), scheduleParser);
         DBUtils.fillSpecializations(sessionFactory, csvByKey(PropertyKey.REF_SPECS));
         DBUtils.fillDepToSpec(sessionFactory, csvByKey(PropertyKey.REF_SPECDEPS));
-        DBUtils.fillStudyFlows(sessionFactory, scheduleParser);
 
+        DBUtils.fillStudyFlows(sessionFactory, scheduleParser);
+//        CSVUtils.parseCalendar();
 //        fillFromCsv(Lecturer.class, sessionFactory, csvByKey(PropertyKey.REF_LECTURERS));
 //        DBUtils.fillClassRooms(sessionFactory, scheduleParser);
     }
