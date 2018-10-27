@@ -29,6 +29,7 @@
             <scope>system</scope>
             <systemPath>${project.basedir}/../core/out/artifacts/core_jar/core.jar</systemPath>
         </dependency>
+
         <dependency>
             <groupId>schedule</groupId>
             <artifactId>parser</artifactId>
@@ -36,11 +37,13 @@
             <scope>system</scope>
             <systemPath>${project.basedir}/../parser/out/artifacts/parser_jar/parser.jar</systemPath>
         </dependency>
+
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-csv</artifactId>
             <version>1.4</version>
         </dependency>
+
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>

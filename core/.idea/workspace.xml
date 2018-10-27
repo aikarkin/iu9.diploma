@@ -75,103 +75,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="test.sql" pinned="false" current-in-tab="false">
+      <file leaf-file-name="test.sql" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/resources/postrgres/test.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="104">
-              <caret line="14" selection-start-line="14" selection-end-line="14" />
+            <state relative-caret-position="240">
+              <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="EntitiesTest.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/java/EntitiesTest.java">
+      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="110">
-              <caret line="242" column="51" selection-start-line="242" selection-start-column="51" selection-end-line="242" selection-end-column="51" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DepartmentSpecialization.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/DepartmentSpecialization.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="305">
-              <caret line="72" column="44" selection-start-line="72" selection-start-column="44" selection-end-line="72" selection-end-column="44" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1779#1780#0" expanded="true" />
-                <element signature="e#1823#1824#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="StudyFlow.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/StudyFlow.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="26">
-              <caret line="18" column="16" selection-start-line="18" selection-start-column="16" selection-end-line="18" selection-end-column="16" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Specialization.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/Specialization.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-105">
-              <caret line="25" selection-start-line="25" selection-end-line="25" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Department.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/Department.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="275">
-              <caret line="65" column="18" selection-start-line="65" selection-start-column="18" selection-end-line="65" selection-end-column="18" />
-              <folding>
-                <element signature="e#1663#1664#0" expanded="true" />
-                <element signature="e#1746#1747#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Repository.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/repository/Repository.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="246">
-              <caret line="85" selection-start-line="85" selection-end-line="85" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1203#1204#0" expanded="true" />
-                <element signature="e#1297#1298#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="hibernate.cfg.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="12" column="47" selection-start-line="12" selection-start-column="47" selection-end-line="12" selection-end-column="47" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="create_tables.sql" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/postrgres/create_tables.sql">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="9" column="2" lean-forward="true" selection-start-line="9" selection-start-column="2" selection-end-line="9" selection-end-column="2" />
+            <state relative-caret-position="170">
+              <caret line="28" lean-forward="true" selection-start-line="28" selection-end-line="28" />
             </state>
           </provider>
         </entry>
@@ -189,16 +106,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>id</find>
-      <find>K</find>
-      <find>Serializa</find>
-      <find>faculty</find>
-      <find>specializ</find>
-      <find>lecturer</find>
-      <find>department</find>
-      <find>classroom</find>
-      <find>facult</find>
-      <find>@ManyToMan</find>
       <find>de</find>
       <find>dep_to_spec</find>
       <find>getDe</find>
@@ -213,12 +120,22 @@
       <find>Теорети</find>
       <find>study</find>
       <find>dep_to_spec_study_flow</find>
-      <find>getDepar</find>
       <find>specia</find>
       <find>get</find>
       <find>update</find>
       <find>addDe</find>
+      <find>getDepar</find>
+      <find>getSession</find>
+      <find>getCipher</find>
+      <find>System</find>
       <find>01.03.02</find>
+      <find>findAll</find>
+      <find>findB</find>
+      <find>remove</find>
+      <find>Брыз</find>
+      <find>Голу</find>
+      <find>Голуб</find>
+      <find>ing</find>
     </findStrings>
     <replaceStrings>
       <replace>AND</replace>
@@ -232,22 +149,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/ru/bmstu/schedule/entity/Department.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/Spec.java" />
-        <option value="$PROJECT_DIR$/src/test/java/TestER.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/FacultyEntity.hbm.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/DepartmentEntity.hbm.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/DepartmentEntity.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/ClassroomEntity.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/DayOfWeakEntity.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/EduDegreeEntity.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/SpecializationEntity.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/StudyFlowEntity.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/ScheduleItemParityToLecturerEntity.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/ScheduleItemParityEntity.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/LecturerEntity.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/FacultyEntity.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/DayOfWeak.java" />
         <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/EduDegree.java" />
         <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/ScheduleItemParity.java" />
         <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/BaseRepository.java" />
@@ -261,10 +162,8 @@
         <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/CalendarItem.java" />
         <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/repository/IRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/repository/RepositoryFactory.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/Lecturer.java" />
         <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/Subject.java" />
         <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/Classroom.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/Faculty.java" />
         <option value="$PROJECT_DIR$/src/main/resources/postrgres/clear_data.sql" />
         <option value="$PROJECT_DIR$/src/main/resources/postrgres/remove_tables.sql" />
         <option value="$PROJECT_DIR$/src/main/java/Main.java" />
@@ -273,14 +172,34 @@
         <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/DepartmentSpecializationId.java" />
         <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/DepSpecId.java" />
         <option value="$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml" />
-        <option value="$PROJECT_DIR$/src/main/resources/postrgres/test.sql" />
         <option value="$PROJECT_DIR$/src/main/resources/postrgres/create_tables.sql" />
         <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/StudyFlow.java" />
         <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/Department.java" />
         <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/Specialization.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/repository/Repository.java" />
         <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/DepartmentSpecialization.java" />
         <option value="$PROJECT_DIR$/src/test/java/EntitiesTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/repository/Repository.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/Faculty.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/dao/FacultyDao.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/dao/DepartmentDao.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/dao/DayOfWeakDao.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/ClassType.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/dao/DaoFactory.java" />
+        <option value="$PROJECT_DIR$/src/test/java/RepositoryTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/dao/ClassTypeRepository.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/dao/AbstractDao.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/dao/Dao.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/dao/ClassTypeDao.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/dao/ClassTimeDao.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/dao/Specialization.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/dao/SpecializationDao.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/dao/ClassroomDao.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/Lecturer.java" />
+        <option value="$PROJECT_DIR$/src/test/java/DaoTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/dao/LecturerDao.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/dao/TermDao.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/dao/EduDegreeDao.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/postrgres/test.sql" />
       </list>
     </option>
   </component>
@@ -343,15 +262,6 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="schedule" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="core" type="b2602c69:ProjectViewProjectNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="schedule" type="462c0819:PsiDirectoryNode" />
-              <item name="entity" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="core" type="b2602c69:ProjectViewProjectNode" />
@@ -426,9 +336,60 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.EntitiesTest.fetchDepToSpec">
+  <component name="RunManager" selected="JUnit.DaoTest.testFindLecturerByInitials">
     <configuration default="true" type="Application" factoryName="Application">
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+    </configuration>
+    <configuration name="DaoTest.initialsPatternTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="core" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="DaoTest" />
+      <option name="METHOD_NAME" value="initialsPatternTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <patterns />
+    </configuration>
+    <configuration name="DaoTest.testFacultyRepository" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="core" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="DaoTest" />
+      <option name="METHOD_NAME" value="testFacultyRepository" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <patterns />
+    </configuration>
+    <configuration name="DaoTest.testFindLecturerByInitials" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="core" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="DaoTest" />
+      <option name="METHOD_NAME" value="testFindLecturerByInitials" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <patterns />
     </configuration>
     <configuration name="EntitiesTest.fetchDepToSpec" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="core" />
@@ -454,57 +415,6 @@
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="EntitiesTest" />
       <option name="METHOD_NAME" value="testDepartmentsAndSpecializationFetching" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <patterns />
-    </configuration>
-    <configuration name="EntitiesTest.testDepartmentsAndSpecializations" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="core" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="EntitiesTest" />
-      <option name="METHOD_NAME" value="testDepartmentsAndSpecializations" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <patterns />
-    </configuration>
-    <configuration name="EntitiesTest.testStudyFlows" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="core" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="EntitiesTest" />
-      <option name="METHOD_NAME" value="testStudyFlows" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <patterns />
-    </configuration>
-    <configuration name="EntitiesTest.updateIfSpecializationCodeEquals38_03_02" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="core" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="EntitiesTest" />
-      <option name="METHOD_NAME" value="updateIfSpecializationCodeEquals38_03_02" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
@@ -554,19 +464,19 @@
       <listeners />
     </configuration>
     <list>
-      <item itemvalue="JUnit.EntitiesTest.testDepartmentsAndSpecializations" />
-      <item itemvalue="JUnit.EntitiesTest.testStudyFlows" />
       <item itemvalue="JUnit.EntitiesTest.testDepartmentsAndSpecializationFetching" />
-      <item itemvalue="JUnit.EntitiesTest.updateIfSpecializationCodeEquals38_03_02" />
       <item itemvalue="JUnit.EntitiesTest.fetchDepToSpec" />
+      <item itemvalue="JUnit.DaoTest.testFacultyRepository" />
+      <item itemvalue="JUnit.DaoTest.initialsPatternTest" />
+      <item itemvalue="JUnit.DaoTest.testFindLecturerByInitials" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.DaoTest.testFindLecturerByInitials" />
+        <item itemvalue="JUnit.DaoTest.initialsPatternTest" />
+        <item itemvalue="JUnit.DaoTest.testFacultyRepository" />
         <item itemvalue="JUnit.EntitiesTest.fetchDepToSpec" />
         <item itemvalue="JUnit.EntitiesTest.testDepartmentsAndSpecializationFetching" />
-        <item itemvalue="JUnit.EntitiesTest.updateIfSpecializationCodeEquals38_03_02" />
-        <item itemvalue="JUnit.EntitiesTest.testStudyFlows" />
-        <item itemvalue="JUnit.EntitiesTest.testDepartmentsAndSpecializations" />
       </list>
     </recent_temporary>
   </component>
@@ -596,44 +506,44 @@
       <workItem from="1540480927882" duration="7450000" />
       <workItem from="1540498143633" duration="8324000" />
       <workItem from="1540561516297" duration="143000" />
-      <workItem from="1540561704303" duration="15235000" />
+      <workItem from="1540561704303" duration="28482000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="EntitiesTest_testStudyFlows - 2018.10.26 at 18h 24m 21s.xml">
-      <configuration name="EntitiesTest.testStudyFlows" configurationId="JUnit" />
+    <history-entry file="DaoTest_initialsPatternTest - 2018.10.27 at 03h 35m 34s.xml">
+      <configuration name="DaoTest.initialsPatternTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="EntitiesTest_testDepartmentsAndSpecializationFetching - 2018.10.26 at 20h 23m 20s.xml">
-      <configuration name="EntitiesTest.testDepartmentsAndSpecializationFetching" configurationId="JUnit" />
+    <history-entry file="DaoTest_initialsPatternTest - 2018.10.27 at 03h 37m 42s.xml">
+      <configuration name="DaoTest.initialsPatternTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="EntitiesTest_testDepartmentsAndSpecializationFetching - 2018.10.26 at 20h 25m 53s.xml">
-      <configuration name="EntitiesTest.testDepartmentsAndSpecializationFetching" configurationId="JUnit" />
+    <history-entry file="DaoTest_initialsPatternTest - 2018.10.27 at 03h 38m 57s.xml">
+      <configuration name="DaoTest.initialsPatternTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="EntitiesTest_testDepartmentsAndSpecializationFetching - 2018.10.26 at 20h 27m 05s.xml">
-      <configuration name="EntitiesTest.testDepartmentsAndSpecializationFetching" configurationId="JUnit" />
+    <history-entry file="DaoTest_initialsPatternTest - 2018.10.27 at 03h 40m 01s.xml">
+      <configuration name="DaoTest.initialsPatternTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="EntitiesTest_updateIfSpecializationIdEquals1101 - 2018.10.26 at 20h 47m 19s.xml">
-      <configuration name="EntitiesTest.updateIfSpecializationIdEquals1101" configurationId="JUnit" />
+    <history-entry file="DaoTest_initialsPatternTest - 2018.10.27 at 03h 40m 27s.xml">
+      <configuration name="DaoTest.initialsPatternTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="EntitiesTest_updateIfSpecializationIdEquals1101 - 2018.10.26 at 20h 50m 02s.xml">
-      <configuration name="EntitiesTest.updateIfSpecializationIdEquals1101" configurationId="JUnit" />
+    <history-entry file="DaoTest_testFindLecturerByInitials - 2018.10.27 at 03h 48m 23s.xml">
+      <configuration name="DaoTest.testFindLecturerByInitials" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="EntitiesTest_updateIfSpecializationIdEquals1101 - 2018.10.26 at 20h 51m 12s.xml">
-      <configuration name="EntitiesTest.updateIfSpecializationIdEquals1101" configurationId="JUnit" />
+    <history-entry file="DaoTest_testFindLecturerByInitials - 2018.10.27 at 03h 49m 56s.xml">
+      <configuration name="DaoTest.testFindLecturerByInitials" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="EntitiesTest_updateIfSpecializationCodeEquals38_03_02 - 2018.10.26 at 20h 52m 41s.xml">
-      <configuration name="EntitiesTest.updateIfSpecializationCodeEquals38_03_02" configurationId="JUnit" />
+    <history-entry file="DaoTest_testFindLecturerByInitials - 2018.10.27 at 03h 50m 31s.xml">
+      <configuration name="DaoTest.testFindLecturerByInitials" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="EntitiesTest_testDepartmentsAndSpecializationFetching - 2018.10.26 at 21h 08m 34s.xml">
-      <configuration name="EntitiesTest.testDepartmentsAndSpecializationFetching" configurationId="JUnit" />
+    <history-entry file="DaoTest_testFindLecturerByInitials - 2018.10.27 at 03h 53m 03s.xml">
+      <configuration name="DaoTest.testFindLecturerByInitials" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="EntitiesTest_fetchDepToSpec - 2018.10.26 at 21h 30m 37s.xml">
-      <configuration name="EntitiesTest.fetchDepToSpec" configurationId="JUnit" />
+    <history-entry file="DaoTest_testFindLecturerByInitials - 2018.10.27 at 03h 53m 43s.xml">
+      <configuration name="DaoTest.testFindLecturerByInitials" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="161307000" />
+    <option name="totallyTimeSpent" value="174554000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -690,121 +600,10 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="21" />
+      <option name="time" value="25" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/ClassTime.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/hibernate/hibernate-core/5.1.0.Final/hibernate-core-5.1.0.Final.jar!/org/hibernate/internal/AbstractQueryImpl.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="248">
-          <caret line="826" lean-forward="true" selection-start-line="826" selection-end-line="826" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/hibernate/hibernate-core/5.1.0.Final/hibernate-core-5.1.0.Final.jar!/org/hibernate/internal/CriteriaImpl.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="320" column="16" selection-start-line="320" selection-start-column="16" selection-end-line="320" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/junit/junit/4.12/junit-4.12.jar!/org/junit/runners/model/FrameworkMethod.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="113">
-          <caret line="49" selection-start-line="49" selection-end-line="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/../../../../../../libs/jdk1.8.0_181/src.zip!/java/beans/PropertyDescriptor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="604" column="23" selection-start-line="604" selection-start-column="4" selection-end-line="604" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/../../../../../../libs/jdk1.8.0_181/jre/lib/rt.jar!/sun/reflect/MethodAccessor.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="9" column="17" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/StudyGroup.java">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/repository/FacultyService.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/BaseEntity.java" />
-    <entry file="jar://$MAVEN_REPOSITORY$/org/hibernate/hibernate-core/5.1.0.Final/hibernate-core-5.1.0.Final.jar!/org/hibernate/cfg/AnnotatedClassType.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="13" column="34" lean-forward="true" selection-start-line="13" selection-start-column="34" selection-end-line="13" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/CalendarItem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="16" column="55" selection-start-line="16" selection-start-column="55" selection-end-line="16" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/ScheduleItem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/../../../../../../libs/jdk1.8.0_181/src.zip!/java/lang/ClassLoader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="487" selection-start-line="487" selection-end-line="487" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/../../../../../../libs/jdk1.8.0_181/src.zip!/java/lang/Class.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="86">
-          <caret line="763" column="16" selection-start-line="763" selection-start-column="16" selection-end-line="763" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/../../../../../../libs/jdk1.8.0_181/src.zip!/java/lang/reflect/Method.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="225" selection-start-line="225" selection-end-line="225" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/junit/junit/4.12/junit-4.12.jar!/org/junit/internal/runners/model/ReflectiveCallable.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="17" selection-start-line="17" selection-end-line="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/junit/junit/4.12/junit-4.12.jar!/org/junit/runners/ParentRunner.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="203" selection-start-line="203" selection-end-line="203" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/junit/junit/4.12/junit-4.12.jar!/org/junit/runners/BlockJUnit4ClassRunner.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="113">
-          <caret line="49" selection-start-line="49" selection-end-line="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/repository/IRepository.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/repository/RepositoryFactory.java" />
     <entry file="file://$PROJECT_DIR$/core.iml">
       <provider selected="true" editor-type-id="text-editor">
@@ -815,13 +614,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/postrgres/fill_data.sql">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/DayOfWeak.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="12" column="49" selection-start-line="12" selection-start-column="49" selection-end-line="12" selection-end-column="49" />
-        </state>
-      </provider>
     </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/hibernate/hibernate-core/5.1.0.Final/hibernate-core-5.1.0.Final.jar!/org/hibernate/Session.class">
       <provider selected="true" editor-type-id="text-editor">
@@ -879,27 +671,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/hibernate/hibernate-core/5.1.0.Final/hibernate-core-5.1.0.Final.jar!/org/hibernate/SessionFactory.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="19" column="76" selection-start-line="19" selection-start-column="76" selection-end-line="19" selection-end-column="76" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/Classroom.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="13" column="4" selection-start-line="13" selection-start-column="4" selection-end-line="15" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/Faculty.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="188">
-          <caret line="54" column="5" selection-start-line="54" selection-start-column="5" selection-end-line="54" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$PROJECT_DIR$/../../../../../../libs/jdk1.8.0_181/src.zip!/java/lang/Object.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
@@ -908,13 +679,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Main.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/Lecturer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="79" column="4" selection-start-line="79" selection-start-column="4" selection-end-line="80" selection-end-column="62" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/postgresql/postgresql/42.2.5/postgresql-42.2.5.jar!/org/postgresql/jdbc/PgPreparedStatement.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="196">
@@ -929,13 +693,6 @@
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="290">
-          <caret line="33" column="21" lean-forward="true" selection-start-line="33" selection-start-column="21" selection-end-line="33" selection-end-column="21" />
         </state>
       </provider>
     </entry>
@@ -963,6 +720,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/postrgres/create_tables.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="2" lean-forward="true" selection-start-line="16" selection-start-column="2" selection-end-line="16" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
@@ -970,40 +734,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/repository/Repository.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="246">
-          <caret line="85" selection-start-line="85" selection-end-line="85" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1203#1204#0" expanded="true" />
-            <element signature="e#1297#1298#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/postrgres/test.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="104">
-          <caret line="14" selection-start-line="14" selection-end-line="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/Specialization.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-105">
           <caret line="25" selection-start-line="25" selection-end-line="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/Department.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="275">
-          <caret line="65" column="18" selection-start-line="65" selection-start-column="18" selection-end-line="65" selection-end-column="18" />
-          <folding>
-            <element signature="e#1663#1664#0" expanded="true" />
-            <element signature="e#1746#1747#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1019,20 +753,316 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/dao.java">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/hibernate/hibernate-core/5.1.0.Final/hibernate-core-5.1.0.Final.jar!/org/hibernate/SessionFactory.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="26" column="12" selection-start-line="26" selection-start-column="12" selection-end-line="26" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/EntitiesTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="110">
-          <caret line="242" column="51" selection-start-line="242" selection-start-column="51" selection-end-line="242" selection-end-column="51" />
+        <state relative-caret-position="420">
+          <caret line="37" column="8" selection-start-line="37" selection-start-column="8" selection-end-line="37" selection-end-column="79" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/postrgres/create_tables.sql">
+    <entry file="jar://$PROJECT_DIR$/../../../../../../libs/jdk1.8.0_181/src.zip!/java/util/Objects.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="2" lean-forward="true" selection-start-line="9" selection-start-column="2" selection-end-line="9" selection-end-column="2" />
+        <state relative-caret-position="121">
+          <caret line="202" selection-start-line="202" selection-end-line="202" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/../../../../../../libs/jdk1.8.0_181/src.zip!/java/util/Optional.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="121">
+          <caret line="95" selection-start-line="95" selection-end-line="95" />
+          <folding>
+            <element signature="e#2628#2629#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/dao/FacultyDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="63" selection-start-line="7" selection-start-column="63" selection-end-line="7" selection-end-column="63" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#251#252#0" expanded="true" />
+            <element signature="e#281#282#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/Department.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-585">
+          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/dao/DaoFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#252#253#0" expanded="true" />
+            <element signature="e#338#339#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/dao/ClassTypeDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="42" lean-forward="true" selection-start-line="3" selection-start-column="42" selection-end-line="3" selection-end-column="42" />
+          <folding>
+            <element signature="e#250#251#0" expanded="true" />
+            <element signature="e#280#281#0" expanded="true" />
+            <element signature="e#320#321#0" expanded="true" />
+            <element signature="e#357#358#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/ClassType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="42" column="5" selection-start-line="42" selection-start-column="5" selection-end-line="42" selection-end-column="5" />
+          <folding>
+            <element signature="e#1153#1154#0" expanded="true" />
+            <element signature="e#1198#1199#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/dao/Dao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="24" lean-forward="true" selection-start-line="7" selection-start-column="24" selection-end-line="7" selection-end-column="24" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/dao/WeakDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" column="66" selection-start-line="12" selection-start-column="66" selection-end-line="12" selection-end-column="66" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#229#230#0" expanded="true" />
+            <element signature="e#259#260#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/dao/DepartmentDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="23" selection-start-line="10" selection-start-column="23" selection-end-line="10" selection-end-column="23" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#233#234#0" expanded="true" />
+            <element signature="e#263#264#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/DayOfWeak.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="12" column="49" selection-start-line="12" selection-start-column="49" selection-end-line="12" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/Faculty.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="117">
+          <caret line="40" column="31" selection-start-line="40" selection-start-column="31" selection-end-line="40" selection-end-column="31" />
+          <folding>
+            <element signature="e#948#949#0" expanded="true" />
+            <element signature="e#1213#1214#0" expanded="true" />
+            <element signature="e#1249#1250#0" expanded="true" />
+            <element signature="e#1425#1426#0" expanded="true" />
+            <element signature="e#1459#1460#0" expanded="true" />
+            <element signature="e#1681#1682#0" expanded="true" />
+            <element signature="e#1727#1728#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/repository/Repository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="705">
+          <caret line="47" column="66" selection-end-line="164" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1204#1205#0" expanded="true" />
+            <element signature="e#1272#1273#0" expanded="true" />
+            <element signature="e#1303#1304#0" expanded="true" />
+            <element signature="e#1387#1388#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/dao/Specialization.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="4" selection-start-line="6" selection-start-column="4" selection-end-line="6" selection-end-column="4" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#249#250#0" expanded="true" />
+            <element signature="e#279#280#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/dao/LecturerDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="188">
+          <caret line="51" column="54" selection-start-line="51" selection-start-column="54" selection-end-line="51" selection-end-column="54" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#226#227#0" expanded="true" />
+            <element signature="e#256#257#0" expanded="true" />
+            <element signature="e#343#344#0" expanded="true" />
+            <element signature="e#403#404#0" expanded="true" />
+            <element signature="e#620#650#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/DaoTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="173">
+          <caret line="73" column="73" lean-forward="true" selection-start-line="73" selection-start-column="73" selection-end-line="73" selection-end-column="73" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/dao/ClassroomDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="13" column="62" selection-start-line="13" selection-start-column="62" selection-end-line="13" selection-end-column="62" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#230#231#0" expanded="true" />
+            <element signature="e#260#261#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/dao/SpecializationDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="13" column="54" selection-start-line="13" selection-start-column="54" selection-end-line="13" selection-end-column="54" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#249#250#0" expanded="true" />
+            <element signature="e#279#280#0" expanded="true" />
+            <element signature="e#379#380#0" expanded="true" />
+            <element signature="e#416#417#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/dao/ClassTimeDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="23" column="5" selection-start-line="23" selection-start-column="5" selection-end-line="23" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#229#230#0" expanded="true" />
+            <element signature="e#259#260#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/dao/HibernateDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="112">
+          <caret line="99" selection-start-line="99" selection-end-line="99" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#620#650#0" expanded="true" />
+            <element signature="e#991#1021#0" expanded="true" />
+            <element signature="e#1337#1367#0" expanded="true" />
+            <element signature="e#1669#1699#0" expanded="true" />
+            <element signature="e#1551#1552#0" expanded="true" />
+            <element signature="e#1584#1585#0" expanded="true" />
+            <element signature="e#2667#2668#0" expanded="true" />
+            <element signature="e#2732#2733#0" expanded="true" />
+            <element signature="e#1773#1774#0" expanded="true" />
+            <element signature="e#1830#1831#0" expanded="true" />
+            <element signature="e#1946#1947#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/Lecturer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-120">
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/entity/Classroom.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-15">
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/dao/EduDegreeDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="15" column="1" lean-forward="true" selection-start-line="15" selection-start-column="1" selection-end-line="15" selection-end-column="1" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#230#231#0" expanded="true" />
+            <element signature="e#260#261#0" expanded="true" />
+            <element signature="e#318#319#0" expanded="true" />
+            <element signature="e#355#356#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ru/bmstu/schedule/dao/TermDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="5" selection-start-line="8" selection-start-column="5" selection-end-line="8" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#210#211#0" expanded="true" />
+            <element signature="e#240#241#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="28" lean-forward="true" selection-start-line="28" selection-end-line="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/postrgres/test.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
         </state>
       </provider>
     </entry>

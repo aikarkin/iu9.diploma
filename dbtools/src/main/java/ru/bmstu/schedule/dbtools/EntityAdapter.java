@@ -1,12 +1,10 @@
 package ru.bmstu.schedule.dbtools;
 
 import ru.bmstu.schedule.entity.ClassTime;
-import ru.bmstu.schedule.entity.Department;
 import ru.bmstu.schedule.entity.Faculty;
-import ru.bmstu.schedule.parser.commons.Node;
-import ru.bmstu.schedule.parser.node.DepartmentNode;
-import ru.bmstu.schedule.parser.node.FacultyNode;
-import ru.bmstu.schedule.parser.node.ScheduleItemNode;
+import ru.bmstu.schedule.html.commons.Node;
+import ru.bmstu.schedule.html.node.FacultyNode;
+import ru.bmstu.schedule.html.node.ScheduleItemNode;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public abstract class EntityAdapter<E> {
@@ -22,9 +20,10 @@ public abstract class EntityAdapter<E> {
         return node;
     }
 
-    public static EntityAdapter<?> adapterFor(Class<?> clazz, Node node) throws NotImplementedException {
+    @SuppressWarnings("unchecked")
+    public static<E> EntityAdapter<E> adapterFor(Class<E> clazz, Node node) throws NotImplementedException {
         if(clazz == Faculty.class) {
-            return new EntityAdapter<Faculty>(node) {
+            return (EntityAdapter<E>) new EntityAdapter<Faculty>(node) {
                 @Override
                 public Faculty getEntity() {
                     Faculty fac = new Faculty();
@@ -37,7 +36,7 @@ public abstract class EntityAdapter<E> {
                 }
             };
         } else if(clazz == ClassTime.class) {
-            return new EntityAdapter<ClassTime>(node) {
+            return (EntityAdapter<E>) new EntityAdapter<ClassTime>(node) {
                 @Override
                 public ClassTime getEntity() {
                     ClassTime ctime = new ClassTime();

@@ -5,54 +5,30 @@ import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.SessionFactory;
-import ru.bmstu.schedule.dbtools.csv.Parser;
-import ru.bmstu.schedule.dbtools.csv.ParserFactory;
-import ru.bmstu.schedule.dbtools.csv.RecordHolder;
-import ru.bmstu.schedule.dbtools.csv.property.DepartmentProperty;
-import ru.bmstu.schedule.dbtools.csv.property.SpecProperty;
-import ru.bmstu.schedule.dbtools.csv.property.SpecToDepartmentsProperty;
+import ru.bmstu.schedule.csv.parser.Parser;
+import ru.bmstu.schedule.csv.parser.ParserFactory;
+import ru.bmstu.schedule.csv.RecordHolder;
+import ru.bmstu.schedule.csv.property.DepartmentProperty;
+import ru.bmstu.schedule.csv.property.SpecProperty;
+import ru.bmstu.schedule.csv.property.SpecToDepartmentsProperty;
+import ru.bmstu.schedule.dao.*;
 import ru.bmstu.schedule.entity.*;
-import ru.bmstu.schedule.parser.ScheduleService;
+import ru.bmstu.schedule.html.parser.ScheduleParser;
 
-import ru.bmstu.schedule.parser.node.*;
-import ru.bmstu.schedule.repository.Repository;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import ru.bmstu.schedule.html.node.*;
 
 import java.io.*;
 import java.util.*;
-import java.util.function.BiConsumer;
+
+import static ru.bmstu.schedule.csv.CSVUtils.fillFromCsv;
 
 public class DBUtils {
-    public static <E, K extends Serializable> void
-    fillFromCsv(Class<E> entityClass, SessionFactory sessionFactory, String csvFile) throws IOException, NotImplementedException {
-        fillFromCsv(entityClass, sessionFactory, csvFile, (e, r) -> {});
-    }
-
-    public static <E, K extends Serializable> void
-    fillFromCsv(Class<E> entityClass, SessionFactory sessionFactory, String csvFile, BiConsumer<E, RecordHolder> entityConsumer) throws IOException {
-        CSVParser parser = CSVFormat.EXCEL.withHeader().parse(new FileReader(csvFile));
-        Repository<E, K> repository = new Repository<>(entityClass, sessionFactory);
-        Parser<E> entityParser = (Parser<E>) ParserFactory.parserFor(entityClass);
-
-        if (entityParser != null) {
-            for(CSVRecord rec : parser) {
-                RecordHolder holder = new RecordHolder(rec);
-                E parsed = entityParser.parse(holder);
-                entityConsumer.accept(parsed, holder);
-                repository.create(parsed);
-            }
-        } else {
-            throw new NotImplementedException();
-        }
-    }
-
-    public static void fillClassTime(SessionFactory sessionFactory, ScheduleService svc) throws IOException {
+    public static void fillClassTime(SessionFactory sessionFactory, ScheduleParser scheduleParser) {
         final LinkedHashSet<ScheduleItemNode> classesTime = new LinkedHashSet<>();
-        Repository<ClassTime, Integer> repository = new Repository<>(ClassTime.class, sessionFactory);
-
-        for(GroupNode group : svc.getAllGroups()) {
+        ClassTimeDao dao = new ClassTimeDao(sessionFactory);
+        for(GroupNode group : scheduleParser.getAllGroups()) {
             try {
-                for (ScheduleDayNode day : svc.scheduleFor(group)) {
+                for (ScheduleDayNode day : scheduleParser.scheduleFor(group)) {
                     classesTime.addAll(day.getChildren());
                 }
             } catch (Exception e) {
@@ -63,19 +39,19 @@ public class DBUtils {
         int noOfClass = 1;
 
         for(ScheduleItemNode node : classesTime) {
-            EntityAdapter<ClassTime> adapter = (EntityAdapter<ClassTime>) EntityAdapter.adapterFor(ClassTime.class, node);
+            EntityAdapter<ClassTime> adapter = EntityAdapter.adapterFor(ClassTime.class, node);
             ClassTime ct = adapter.getEntity();
             ct.setNoOfClass(noOfClass++);
 
-            repository.create(ct);
+            dao.create(ct);
         }
     }
 
-    public static void fillTerms(SessionFactory sessionFactory, ScheduleService svc) {
-        Repository<Term, Integer> repository = new Repository<>(Term.class, sessionFactory);
+    public static void fillTerms(SessionFactory sessionFactory, ScheduleParser scheduleParser) {
+        TermDao dao = new TermDao(sessionFactory);
         int maxTerm = 0;
 
-        for(GroupNode g : svc.getAllGroups()) {
+        for(GroupNode g : scheduleParser.getAllGroups()) {
             if(g.getTermNumber() > maxTerm)
                 maxTerm = g.getTermNumber();
         }
@@ -86,16 +62,16 @@ public class DBUtils {
         for (int i = 1; i <= maxTerm + 1; i++) {
             Term term = new Term();
             term.setNumber(i);
-            repository.create(term);
+            dao.create(term);
         }
     }
 
-    public static void fillClassRooms(SessionFactory sessionFactory, ScheduleService svc) throws IOException {
-        Repository<Classroom, Integer> repository = new Repository<>(Classroom.class, sessionFactory);
+    public static void fillClassRooms(SessionFactory sessionFactory, ScheduleParser scheduleParser) throws IOException {
+        ClassroomDao dao = new ClassroomDao(sessionFactory);
         Set<String> roomsSet = new HashSet<>();
 
-        for(GroupNode g : svc.getAllGroups()) {
-            for(ScheduleItemParityNode itemParity : svc.scheduleTravellerFor(g).entitiesListOf(ScheduleItemParityNode.class)) {
+        for(GroupNode g : scheduleParser.getAllGroups()) {
+            for(ScheduleItemParityNode itemParity : scheduleParser.scheduleTravellerFor(g).entitiesListOf(ScheduleItemParityNode.class)) {
                 if(StringUtils.isNotEmpty(itemParity.getClassroom())) {
                     String[] classrooms = itemParity.getClassroom().split(",");
                     for (int i = 0; i < classrooms.length; i++) {
@@ -104,7 +80,7 @@ public class DBUtils {
                             roomsSet.add(classrooms[i].trim());
                             Classroom classroom = new Classroom();
                             classroom.setRoomNumber(crNum);
-                            repository.create(classroom);
+                            dao.create(classroom);
                         }
                     }
                 }
@@ -112,12 +88,12 @@ public class DBUtils {
         }
     }
 
-    public static void fillFacultiesAndDepartments(SessionFactory sessionFactory, String csvFile, ScheduleService svc) throws IOException {
-        Repository<Faculty, Integer> facultyRep = new Repository<>(Faculty.class, sessionFactory);
+    public static void fillFacultiesAndDepartments(SessionFactory sessionFactory, String csvFile, ScheduleParser scheduleParser) throws IOException {
+        FacultyDao facultyDao = new FacultyDao(sessionFactory);
         Map<String, Department> grCipherToDepartment = loadGroupCipherToDepartmentMapping(csvFile);
 
-        for(FacultyNode facNode : svc.getFaculties()) {
-            EntityAdapter<Faculty> factAdapter = (EntityAdapter<Faculty>) EntityAdapter.adapterFor(Faculty.class, facNode);
+        for(FacultyNode facNode : scheduleParser.getFaculties()) {
+            EntityAdapter<Faculty> factAdapter = EntityAdapter.adapterFor(Faculty.class, facNode);
             Faculty faculty = factAdapter.getEntity();
             for(DepartmentNode depNode : facNode.getChildren()) {
                 Department dep = grCipherToDepartment.get(depNode.getCipher());
@@ -128,13 +104,13 @@ public class DBUtils {
                 }
             }
             System.out.println("-> Saving faculty: " + faculty.toString() );
-            facultyRep.create(faculty);
+            facultyDao.create(faculty);
         }
     }
 
     public static Map<String, Department> loadGroupCipherToDepartmentMapping(String csvFile) throws IOException {
         Map<String, Department> cipherToDep = new HashMap<>();
-        Parser<Department> entityParser = (Parser<Department>) ParserFactory.parserFor(Department.class);
+        Parser<Department> entityParser = ParserFactory.parserFor(Department.class);
         CSVParser csvParser = CSVFormat.EXCEL.withHeader().parse(new FileReader(csvFile));
         for(CSVRecord rec : csvParser) {
             Department parsed = entityParser.parse(new RecordHolder(rec));
@@ -146,17 +122,17 @@ public class DBUtils {
     }
 
     public static void fillSpecializations(SessionFactory sessionFactory, String csvFile) throws IOException {
-        final Repository<EduDegree, Integer> degreeRep = new Repository<>(EduDegree.class, sessionFactory);
+        EduDegreeDao dao = new EduDegreeDao(sessionFactory);
         fillFromCsv(Specialization.class, sessionFactory, csvFile, (entity, rec) -> {
             String degreeName = rec.get(SpecProperty.degree);
-            EduDegree degree = degreeRep.findExactByProperty("name", degreeName);
-            entity.setEduDegree(degree);
+            Optional<EduDegree> degree = dao.findByName(degreeName);
+            degree.ifPresent(entity::setEduDegree);
         });
     }
 
     public void fillDepToSpecMapping(SessionFactory sessionFactory, String csvFile) throws IOException {
-        Repository<Specialization, Integer> specRep = new Repository<>(Specialization.class, sessionFactory);
-        Repository<Department, Integer> depRep = new Repository<>(Department.class, sessionFactory);
+        SpecializationDao specDao = new SpecializationDao(sessionFactory);
+        DepartmentDao depDao = new DepartmentDao(sessionFactory);
         CSVParser parser = CSVFormat.EXCEL.withHeader().parse(new FileReader(csvFile));
 
         for(CSVRecord rec : parser) {
@@ -164,38 +140,44 @@ public class DBUtils {
             String specCode = holder.get(SpecToDepartmentsProperty.specCode);
             String[] depCodes = holder.get(SpecToDepartmentsProperty.departments).split(";");
 
-            Specialization spec = specRep.findExactByProperty("code", specCode);
+            Optional<Specialization> spec = specDao.findByCode(specCode);
 
-            for(String depCode : depCodes) {
-                Department dep = depRep.findExactByProperty("cipher", depCode);
-                spec.addDepartment(dep);
+            if(spec.isPresent()) {
+                for (String depCode : depCodes) {
+                    Optional<Department> dep = depDao.findByCipher(depCode);
+                    dep.ifPresent(department -> spec.get().addDepartment(department));
+                }
+                specDao.update(spec.get());
+            } else {
+                System.out.println("[warn] Specialization with code '" + specCode + "' is not found, skipping record");
             }
-
-            specRep.update(spec);
         }
     }
 
     public static void fillDepToSpec(SessionFactory sessionFactory, String csvFile) throws IOException {
         CSVParser parser = CSVFormat.EXCEL.withHeader().parse(new FileReader(csvFile));
-        Repository<Specialization, Integer> specRep = new Repository<>(Specialization.class, sessionFactory);
-        Repository<Department, Integer> depRep = new Repository<>(Department.class, sessionFactory);
+        SpecializationDao specDao = new SpecializationDao(sessionFactory);
+        DepartmentDao depDao = new DepartmentDao(sessionFactory);
 
         for(CSVRecord rec : parser) {
             String specCode = rec.get(SpecToDepartmentsProperty.specCode);
             String[] departments = rec.get(SpecToDepartmentsProperty.departments).split(";");
-            Specialization spec = specRep.filterByProperty("code", specCode).get(0);
+            Optional<Specialization> spec = specDao.findByCode(specCode);
 
-            for(String depCipher : departments) {
-                Optional<Department> dep = depRep.findUniqie(d -> d.getCipher().equals(depCipher));
-                if(dep.isPresent()) {
-                    System.out.println("add dep '" + dep.get().toString() + "'");
-                    spec.addDepartment(dep.get());
+            if(spec.isPresent()) {
+                for (String depCipher : departments) {
+                    Optional<Department> dep = depDao.findByCipher(depCipher);
+
+                    if (dep.isPresent()) {
+                        spec.get().addDepartment(dep.get());
+                    } else {
+                        System.out.println("[warn] Department with cipher '" + depCipher + "' was not found, skipping record");
+                    }
                 }
-                else {
-                    System.out.println("Skipping department '" + depCipher + "'");
-                }
+                specDao.update(spec.get());
+            } else {
+                System.out.println("[warn] Specialization with code '" + specCode + "' is not found, skipping record");
             }
-            specRep.update(spec);
 
         }
     }

@@ -39,18 +39,16 @@ public class Faculty {
     }
 
     public void setId(int id) {
-        System.out.println("setId: " + id);
         this.id = id;
     }
 
     @Basic
     @Column(name = "faculty_cipher", columnDefinition = "bpchar", length = 8, unique = true)
-    public String getCipher() {
+        public String getCipher() {
         return cipher.trim();
     }
 
     public void setCipher(String cipher) {
-        System.out.println("setCipher: " + cipher);
         this.cipher = cipher;
     }
 
@@ -62,7 +60,6 @@ public class Faculty {
 
     public void setTitle(String title)
     {
-        System.out.println("setTitle: " + title);
         this.title = title;
     }
 
@@ -72,7 +69,6 @@ public class Faculty {
     }
 
     public void setDepartments(Collection<Department> departments) {
-        System.out.println("setDepartmentSpecializations: " + departments.stream().map(Department::getTitle).collect(Collectors.toList()));
         this.departments = departments;
     }
 
