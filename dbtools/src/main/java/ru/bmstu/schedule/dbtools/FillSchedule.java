@@ -4,6 +4,10 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import ru.bmstu.schedule.dao.ClassTimeDao;
+import ru.bmstu.schedule.dao.ClassTypeDao;
+import ru.bmstu.schedule.dao.EduDegreeDao;
+import ru.bmstu.schedule.dao.WeakDao;
 import ru.bmstu.schedule.entity.*;
 import ru.bmstu.schedule.html.parser.ScheduleParser;
 
@@ -50,8 +54,9 @@ public class FillSchedule {
 
         removeEntities(
                 sessionFactory,
-                Classroom.class,
-                Lecturer.class,
+//                Classroom.class,
+//                Lecturer.class,
+                StudyFlow.class,
                 Specialization.class,
                 Department.class,
                 Faculty.class,
@@ -66,17 +71,18 @@ public class FillSchedule {
     private static void fillData() throws IOException {
         ScheduleParser scheduleParser = new ScheduleParser(props.getProperty(PropertyKey.SCHEDULE_BASE_URL));
 
-        fillFromCsv(ClassType.class, sessionFactory, csvByKey(PropertyKey.REF_CLASS_TYPE));
-        fillFromCsv(DayOfWeak.class, sessionFactory, csvByKey(PropertyKey.REF_WEAKS));
-        fillFromCsv(EduDegree.class, sessionFactory, csvByKey(PropertyKey.REF_DEGREES));
-        fillFromCsv(ClassTime.class, sessionFactory, csvByKey(PropertyKey.REF_CLASS_TIME));
+        fillFromCsv(ClassType.class, new ClassTypeDao(sessionFactory), csvByKey(PropertyKey.REF_CLASS_TYPE));
+        fillFromCsv(DayOfWeak.class, new WeakDao(sessionFactory), csvByKey(PropertyKey.REF_WEAKS));
+        fillFromCsv(EduDegree.class, new EduDegreeDao(sessionFactory), csvByKey(PropertyKey.REF_DEGREES));
+        fillFromCsv(ClassTime.class, new ClassTimeDao(sessionFactory), csvByKey(PropertyKey.REF_CLASS_TIME));
         DBUtils.fillTerms(sessionFactory, scheduleParser);
         DBUtils.fillFacultiesAndDepartments(sessionFactory, csvByKey(PropertyKey.REF_DEPARTMENTS), scheduleParser);
         DBUtils.fillSpecializations(sessionFactory, csvByKey(PropertyKey.REF_SPECS));
         DBUtils.fillDepToSpec(sessionFactory, csvByKey(PropertyKey.REF_SPECDEPS));
+        DBUtils.fillStudyFlows(sessionFactory, scheduleParser);
 
-        fillFromCsv(Lecturer.class, sessionFactory, csvByKey(PropertyKey.REF_LECTURERS));
-        DBUtils.fillClassRooms(sessionFactory, scheduleParser);
+//        fillFromCsv(Lecturer.class, sessionFactory, csvByKey(PropertyKey.REF_LECTURERS));
+//        DBUtils.fillClassRooms(sessionFactory, scheduleParser);
     }
 
     private static void removeEntities(SessionFactory sessionFactory, Class<?> ... classes) {

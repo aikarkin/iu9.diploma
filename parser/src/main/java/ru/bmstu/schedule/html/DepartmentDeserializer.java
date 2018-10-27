@@ -26,27 +26,29 @@ public class DepartmentDeserializer extends ElementDeserializer<DepartmentNode> 
         return null;
     }
 
-    public static DepartmentNode parseDepartmentFromCipher(String cipher) {
+    public static DepartmentNode parseDepartmentFromCipher(String depCode) {
+        System.out.println(" -> dep code: " + depCode);
         Pattern defPtr = Pattern.compile("(\\p{L}+)(\\d+)"),
             sdPtr = Pattern.compile("\\p{L}+");
-        Matcher defMatcher = defPtr.matcher(cipher),
-            sdMatcher = sdPtr.matcher(cipher);
+        Matcher defMatcher = defPtr.matcher(depCode),
+            sdMatcher = sdPtr.matcher(depCode);
 
         String facultyCipher;
         int depNumber = -1;
 
-        if(defMatcher.matches() && defMatcher.groupCount() == 2) {
+        if(defMatcher.matches() && defMatcher.groupCount() > 1) {
             facultyCipher = defMatcher.group(1);
+
             try {
                 depNumber = Integer.parseInt(defMatcher.group(2));
             } catch (NumberFormatException ignored) { }
 
-            return new DepartmentNode(facultyCipher, depNumber);
+            return new DepartmentNode(defMatcher.group(), facultyCipher, depNumber);
         } else if(sdMatcher.matches()) {
             facultyCipher = sdMatcher.group();
             depNumber = 0;
 
-            return new DepartmentNode(facultyCipher, depNumber);
+            return new DepartmentNode(sdMatcher.group(), facultyCipher, depNumber);
         }
 
         return null;

@@ -6,12 +6,7 @@ import org.junit.jupiter.api.Test;
 import ru.bmstu.schedule.dao.FacultyDao;
 import ru.bmstu.schedule.dao.LecturerDao;
 import ru.bmstu.schedule.entity.Faculty;
-import ru.bmstu.schedule.entity.Lecturer;
-
-import java.util.List;
 import java.util.Optional;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

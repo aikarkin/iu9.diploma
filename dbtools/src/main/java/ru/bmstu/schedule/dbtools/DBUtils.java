@@ -4,6 +4,7 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import org.apache.commons.lang3.StringUtils;
+import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import ru.bmstu.schedule.csv.parser.Parser;
 import ru.bmstu.schedule.csv.parser.ParserFactory;
@@ -122,10 +123,11 @@ public class DBUtils {
     }
 
     public static void fillSpecializations(SessionFactory sessionFactory, String csvFile) throws IOException {
-        EduDegreeDao dao = new EduDegreeDao(sessionFactory);
-        fillFromCsv(Specialization.class, sessionFactory, csvFile, (entity, rec) -> {
+        EduDegreeDao degreeDao = new EduDegreeDao(sessionFactory);
+        fillFromCsv(Specialization.class, new SpecializationDao(sessionFactory), csvFile, (entity, rec) -> {
             String degreeName = rec.get(SpecProperty.degree);
-            Optional<EduDegree> degree = dao.findByName(degreeName);
+            Optional<EduDegree> degree = degreeDao.findByName(degreeName);
+
             degree.ifPresent(entity::setEduDegree);
         });
     }
@@ -179,6 +181,37 @@ public class DBUtils {
                 System.out.println("[warn] Specialization with code '" + specCode + "' is not found, skipping record");
             }
 
+        }
+    }
+
+    public static void fillStudyFlows(SessionFactory sessionFactory, ScheduleParser scheduleParser) {
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR), month = calendar.get(Calendar.MONTH),
+                enrollmentForFirst = month >= 9 && month <= 12 ? year : year - 1;
+        System.out.println("!!! year: " + year);
+
+        DepartmentDao depDao = new DepartmentDao(sessionFactory);
+
+        for(DepartmentNode depNode : scheduleParser.getAllDepartments()) {
+            Optional<Department> depOpt = depDao.findByCipher(depNode.getCipher());
+            if(depOpt.isPresent()) {
+                Department dep = depOpt.get();
+                for(CourseNode courseNode : depNode.getChildren()) {
+                    int noOfCourse = courseNode.getCourseNumber();
+                    int enrollment = enrollmentForFirst - noOfCourse + 1;
+                    System.out.println(" -> study flow year: " + enrollment);
+                    for(Specialization spec : dep.getSpecializations()) {
+                        try {
+                            StudyFlow flow = new StudyFlow();
+                            flow.setEnrollmentYear(enrollment);
+                            dep.addStudyFlow(flow, spec);
+                        } catch (HibernateException e) {
+                            System.out.println("[warn] Failed to create study flow: " + e.getMessage());
+                        }
+                    }
+                    depDao.update(dep);
+                }
+            }
         }
     }
 }

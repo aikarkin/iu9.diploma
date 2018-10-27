@@ -79,7 +79,7 @@ public class GroupNode extends LeafNode<CourseNode> {
                 getGroupNumber()
         );
 
-        return (degree == Degree.BACHELOR || degree == Degree.SPECIALTY)
+        return (degree == Degree.SPECIALTY)
                 ? groupCipher
                 : groupCipher + degree.getFullName().toUpperCase().charAt(0);
     }

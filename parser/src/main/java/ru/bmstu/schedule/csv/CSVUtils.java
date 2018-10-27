@@ -6,7 +6,8 @@ import org.apache.commons.csv.CSVRecord;
 import org.hibernate.SessionFactory;
 import ru.bmstu.schedule.csv.parser.Parser;
 import ru.bmstu.schedule.csv.parser.ParserFactory;
-import ru.bmstu.schedule.repository.Repository;
+import ru.bmstu.schedule.dao.Dao;
+import ru.bmstu.schedule.dao.HibernateDao;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.io.FileReader;
@@ -17,11 +18,10 @@ import java.util.function.BiConsumer;
 public class CSVUtils {
 
     public static <E, K extends Serializable> void
-    fillFromCsv(Class<E> entityClass, SessionFactory sessionFactory, String csvFile, BiConsumer<E, RecordHolder> entityConsumer)
+    fillFromCsv(Class<E> entityClass, Dao<K, E> dao, String csvFile, BiConsumer<E, RecordHolder> entityConsumer)
         throws IOException, NotImplementedException {
 
         CSVParser parser = CSVFormat.EXCEL.withHeader().parse(new FileReader(csvFile));
-        Repository<E, K> repository = new Repository<>(entityClass, sessionFactory);
         Parser<E> entityParser = ParserFactory.parserFor(entityClass);
 
 
@@ -29,14 +29,14 @@ public class CSVUtils {
             RecordHolder holder = new RecordHolder(rec);
             E parsed = entityParser.parse(holder);
             entityConsumer.accept(parsed, holder);
-            repository.create(parsed);
+            dao.create(parsed);
         }
     }
 
 
     public static <E, K extends Serializable> void
-    fillFromCsv(Class<E> entityClass, SessionFactory sessionFactory, String csvFile) throws IOException, NotImplementedException {
-        fillFromCsv(entityClass, sessionFactory, csvFile, (e, r) -> {});
+    fillFromCsv(Class<E> entityClass, Dao<K, E> dao, String csvFile) throws IOException, NotImplementedException {
+        fillFromCsv(entityClass, dao, csvFile, (e, r) -> {});
     }
 
 }

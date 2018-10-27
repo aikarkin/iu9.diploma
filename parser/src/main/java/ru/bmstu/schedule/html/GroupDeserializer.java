@@ -9,7 +9,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class GroupDeserializer extends ElementDeserializer<GroupNode> {
-    private static final String DEFAULT_DEGREE = "Б";
+    private static final String DEFAULT_DEGREE = "С";
     private static final HashMap<String, GroupNode.Degree> DCODE_TO_DEGREE;
     static
     {
@@ -17,6 +17,7 @@ public class GroupDeserializer extends ElementDeserializer<GroupNode> {
         DCODE_TO_DEGREE.put("Б", GroupNode.Degree.BACHELOR);
         DCODE_TO_DEGREE.put("М", GroupNode.Degree.MASTER);
         DCODE_TO_DEGREE.put("А", GroupNode.Degree.PHILOSOPHY);
+        DCODE_TO_DEGREE.put("С", GroupNode.Degree.SPECIALTY);
     }
 
     public GroupDeserializer(Element element) {

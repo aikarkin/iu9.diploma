@@ -15,13 +15,13 @@ import java.util.Map;
 public class ScheduleParser {
     static final String SCHEDULE_LIST_PATH = "/schedule/list/";
     static final String SCHEDULE_PATH = "/schedule/";
-    private String baseurl;
+    private String baseUrl;
     private Document scheduleListDoc;
     private Map<String, String> groupCipherToId;
 
-    public ScheduleParser(String baseurl) throws IOException {
-        this.baseurl = baseurl;
-        scheduleListDoc = Jsoup.connect(baseurl + SCHEDULE_LIST_PATH).get();
+    public ScheduleParser(String baseUrl) throws IOException {
+        this.baseUrl = baseUrl;
+        scheduleListDoc = Jsoup.connect(baseUrl + SCHEDULE_LIST_PATH).get();
     }
 
     public Document getScheduleListDoc() {
@@ -53,7 +53,7 @@ public class ScheduleParser {
     }
 
     public NodeTraveller scheduleTravellerFor(GroupNode group) throws IOException {
-        Document doc = Jsoup.connect(baseurl + group.getScheduleLink()).get();
+        Document doc = Jsoup.connect(baseUrl + group.getScheduleLink()).get();
         return new NodeTraveller(new ScheduleNode(doc));
     }
 
@@ -74,9 +74,9 @@ public class ScheduleParser {
 
         String link;
         if (GroupNode.isUuid(groupId)) {
-            link = baseurl + SCHEDULE_PATH + groupId.trim();
+            link = baseUrl + SCHEDULE_PATH + groupId.trim();
         } else if (groupCipherToId.containsKey(groupId.trim())) {
-            link = baseurl + SCHEDULE_PATH + groupCipherToId.get(groupId.trim());
+            link = baseUrl + SCHEDULE_PATH + groupCipherToId.get(groupId.trim());
         } else {
             throw new IllegalArgumentException("Invalid group id.");
         }

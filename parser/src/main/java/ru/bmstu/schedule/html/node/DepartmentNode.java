@@ -8,10 +8,12 @@ import java.util.Objects;
 
 public class DepartmentNode extends BasicNode<FacultyNode, CourseNode> {
     private String facultyCipher;
+    private String departmentCipher;
     private int departmentNumber;
 
-    public DepartmentNode(String facultyCipher, int departmentNumber) {
+    public DepartmentNode(String departmentCipher, String facultyCipher, int departmentNumber) {
         this.facultyCipher = facultyCipher;
+        this.departmentCipher = departmentCipher;
         this.departmentNumber = departmentNumber;
     }
 
@@ -19,13 +21,12 @@ public class DepartmentNode extends BasicNode<FacultyNode, CourseNode> {
         return facultyCipher;
     }
 
-
     public int getDepartmentNumber() {
         return departmentNumber;
     }
 
     public String getCipher() {
-        return facultyCipher + (departmentNumber == 0 ? "" : String.valueOf(departmentNumber));
+        return departmentCipher;
     }
 
     @Override
@@ -44,14 +45,16 @@ public class DepartmentNode extends BasicNode<FacultyNode, CourseNode> {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(facultyCipher, departmentNumber);
     }
 
 
     @Override
     public String toString() {
-        return this.getCipher();
-
+        return "DepartmentNode{" +
+                "facultyCipher='" + facultyCipher + '\'' +
+                ", departmentCipher='" + departmentCipher + '\'' +
+                ", departmentNumber=" + departmentNumber +
+                '}';
     }
 }

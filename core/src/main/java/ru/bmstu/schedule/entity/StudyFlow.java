@@ -1,5 +1,7 @@
 package ru.bmstu.schedule.entity;
 
+import org.hibernate.HibernateException;
+
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Objects;
@@ -21,8 +23,23 @@ public class StudyFlow {
         return departmentSpecialization;
     }
 
-    public void setDepartmentSpecialization(DepartmentSpecialization depSpecializations) {
+    void setDepartmentSpecialization(DepartmentSpecialization depSpecializations) {
         this.departmentSpecialization = depSpecializations;
+    }
+
+    public void setDeparmtentAndSpecialization(Department department, Specialization specialization) {
+        for(DepartmentSpecialization depSpec : department.getDepartmentSpecializations()) {
+            if(depSpec.getSpecialization().equals(specialization)) {
+                this.setDepartmentSpecialization(depSpec);
+                return;
+            }
+        }
+        String msg = String.format(
+                "StudyFlows: Invalid action - unable to add study flow to department '%s' with specialization '%s'. Current specialization is not belong to this department.",
+                department.getCipher(),
+                specialization.getCode()
+        );
+        throw new HibernateException(msg);
     }
 
     @Transient
