@@ -3,25 +3,25 @@ package ru.bmstu.schedule.csv.parser;
 import org.apache.commons.lang3.StringUtils;
 import ru.bmstu.schedule.csv.RecordHolder;
 import ru.bmstu.schedule.entity.Lecturer;
-import ru.bmstu.schedule.csv.header.Header;
+import ru.bmstu.schedule.csv.header.LecturerHeader;
 
 import java.util.Optional;
 
 
-public class LecturerParser implements Parser<Lecturer> {
+public class LecturerParser implements Parser<Lecturer, LecturerHeader> {
 
     @Override
-    public Lecturer parse(RecordHolder rec) {
+    public Lecturer parse(RecordHolder<LecturerHeader> rec) {
         Lecturer lec = new Lecturer();
-        Optional<String[]> fnOpt = parseFullName(rec.get(Header.fullName));
+        Optional<String[]> fnOpt = parseFullName(rec.get(LecturerHeader.fullName));
         if(fnOpt.isPresent()) {
             String[] fnArr = fnOpt.get();
             lec.setLastName(fnArr[0]);
             lec.setFirstName(fnArr[1]);
             lec.setMiddleName(fnArr[2]);
         }
-        if(StringUtils.isNotEmpty(rec.get(Header.eduDegree))) {
-            rec.fillString(lec::setEduDegree, Header.eduDegree);
+        if(StringUtils.isNotEmpty(rec.get(LecturerHeader.eduDegree))) {
+            rec.fillString(lec::setEduDegree, LecturerHeader.eduDegree);
         }
 
         return lec;

@@ -14,6 +14,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public abstract class HibernateDao<PK extends Serializable, E> implements Dao<PK, E> {
     private final Class<E> persistentClass;
@@ -30,6 +31,10 @@ public abstract class HibernateDao<PK extends Serializable, E> implements Dao<PK
         return composeInTransaction(session ->
                 session.get(persistentClass, primaryKey)
         );
+    }
+
+    protected SessionFactory getSessionFactory() {
+        return sessionFactory;
     }
 
     @SuppressWarnings("unchecked")
@@ -55,8 +60,8 @@ public abstract class HibernateDao<PK extends Serializable, E> implements Dao<PK
         });
     }
 
-    protected List<E> filter(Predicate<E> predicate) {
-        return findAll().stream().filter(predicate).collect(Collectors.toList());
+    protected Stream<E> filter(Predicate<E> predicate) {
+        return findAll().stream().filter(predicate);
     }
 
     @Override

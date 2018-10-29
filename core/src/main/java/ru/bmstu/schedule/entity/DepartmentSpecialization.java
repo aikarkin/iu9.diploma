@@ -2,6 +2,8 @@ package ru.bmstu.schedule.entity;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "dep_to_spec", schema = "public", catalog = "schedule")
@@ -15,7 +17,7 @@ class DepartmentSpecialization {
     // embedded composite key
 //    private DepSpecId compositeKey = new DepSpecId();
 
-    private Collection<StudyFlow> studyFlows;
+    private Set<StudyFlow> studyFlows = new HashSet<>();
 
     private Department department;
 
@@ -81,11 +83,11 @@ class DepartmentSpecialization {
     }
 
     @OneToMany(mappedBy = "departmentSpecialization", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    Collection<StudyFlow> getStudyFlows() {
+    Set<StudyFlow> getStudyFlows() {
         return studyFlows;
     }
 
-    void setStudyFlows(Collection<StudyFlow> studyFlows) {
+    void setStudyFlows(Set<StudyFlow> studyFlows) {
         this.studyFlows = studyFlows;
     }
 }

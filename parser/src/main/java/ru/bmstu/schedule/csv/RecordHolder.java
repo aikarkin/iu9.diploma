@@ -12,7 +12,7 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class RecordHolder {
+public class RecordHolder<E extends Enum<?>> {
     private CSVRecord rec;
 
     public RecordHolder(CSVRecord rec) {
@@ -46,11 +46,11 @@ public class RecordHolder {
         return rec;
     }
 
-    public String get(Enum<?> prop) {
+    public String get(E prop) {
         return this.rec.get(prop).trim();
     }
 
-    public Optional<Integer> getInt(Enum<?> prop) {
+    public Optional<Integer> getInt(E prop) {
         Integer intVal = null;
         try {
             intVal = parseInt(record(), prop);
@@ -59,23 +59,23 @@ public class RecordHolder {
         return Optional.ofNullable(intVal);
     }
 
-    public void fillString(Consumer<String> setter, Enum<?> propName) {
+    public void fillString(Consumer<String> setter, E propName) {
         setter.accept(this.get(propName));
     }
 
-    public void fillInt(Consumer<Integer> setter, Enum<?> propName) {
+    public void fillInt(Consumer<Integer> setter, E propName) {
         setter.accept(parseInt(rec, propName));
     }
 
-    public void fillDouble(Consumer<Double> setter, Enum<?> propName) {
+    public void fillDouble(Consumer<Double> setter, E propName) {
         setter.accept(parseDouble(rec, propName));
     }
 
-    public void fillList(Consumer<List> setter, Enum<?> propName) {
+    public void fillList(Consumer<List> setter, E propName) {
         setter.accept(parseList(rec, propName));
     }
 
-    public void fillTime(Consumer<Time> setter, Enum<?> propName) throws ParseException {
+    public void fillTime(Consumer<Time> setter, E propName) throws ParseException {
         setter.accept(parseTime(rec, propName));
     }
 }

@@ -80,4 +80,14 @@ public class ClassTime {
     public void setScheduleItems(Collection<ScheduleItem> scheduleItems) {
         this.scheduleItems = scheduleItems;
     }
+
+    @Override
+    public String toString() {
+        return "ClassTime{" +
+                "id=" + id +
+                ", noOfClass=" + noOfClass +
+                ", startsAt=" + startsAt +
+                ", endsAt=" + endsAt +
+                '}';
+    }
 }

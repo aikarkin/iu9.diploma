@@ -26,17 +26,18 @@ public class CSVUtils {
     private static final String LECTURER_TYPE_NAMAE = "лекция";
     private static final String SEMINAR_TYPE_NAME = "семинар";
 
+    @SuppressWarnings("unchecked")
     public static <E, K extends Serializable> void
     fillFromCsv(Class<E> entityClass, Dao<K, E> dao, String csvFile, BiConsumer<E, RecordHolder> entityConsumer)
         throws IOException, NotImplementedException {
 
         CSVParser parser = CSVFormat.EXCEL.withHeader().parse(new FileReader(csvFile));
-        Parser<E> entityParser = ParserFactory.parserFor(entityClass);
+        Parser<E, ?> entityParser = ParserFactory.parserFor(entityClass);
 
 
         for(CSVRecord rec : parser) {
             RecordHolder holder = new RecordHolder(rec);
-            E parsed = entityParser.parse(holder);
+            E parsed = (E) entityParser.parse(holder);
             entityConsumer.accept(parsed, holder);
             dao.create(parsed);
         }
@@ -67,7 +68,7 @@ public class CSVUtils {
                 lectureCT = ctDao.findByTypeName(LECTURER_TYPE_NAMAE);
 
         for(CSVRecord rec : parser) {
-            RecordHolder holder = new RecordHolder(rec);
+            RecordHolder<CalendarHeader> holder = new RecordHolder<>(rec);
 
             subjectName = holder.get(CalendarHeader.subject);
             if(StringUtils.isNotEmpty(subjectName)) {
@@ -93,7 +94,7 @@ public class CSVUtils {
                         terms = new int[]{Integer.parseInt(numbersOfTerms[0].trim())};
                     }
 
-                    lectureHours = holder.getInt(CalendarHeader.seminarHours).orElse(0);
+                    lectureHours = holder.getInt(CalendarHeader.lectureHours).orElse(0);
                     laboratoryHours = holder.getInt(CalendarHeader.laboratoryHours).orElse(0);
                     seminarHours = holder.getInt(CalendarHeader.seminarHours).orElse(0);
 
@@ -128,12 +129,14 @@ public class CSVUtils {
                             labHPC.setClassType(laboratoryCT.get());
                             labHPC.setNoOfHours(laboratoryHours);
                             itemCell.addHoursPerClass(labHPC);
-                        } else if (lectureCT.isPresent() && lectureHours > 0) {
+                        }
+                        if (lectureCT.isPresent() && lectureHours > 0) {
                             HoursPerClass lecHPC = new HoursPerClass();
                             lecHPC.setClassType(lectureCT.get());
                             lecHPC.setNoOfHours(lectureHours);
                             itemCell.addHoursPerClass(lecHPC);
-                        } else if (seminarCT.isPresent() && seminarHours > 0) {
+                        }
+                        if (seminarCT.isPresent() && seminarHours > 0) {
                             HoursPerClass semHPC = new HoursPerClass();
                             semHPC.setClassType(seminarCT.get());
                             semHPC.setNoOfHours(seminarHours);

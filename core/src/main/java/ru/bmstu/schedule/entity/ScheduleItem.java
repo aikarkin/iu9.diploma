@@ -57,12 +57,26 @@ public class ScheduleItem {
         this.classTime = classTime;
     }
 
-    @OneToMany(mappedBy = "scheduleItem")
+    @OneToMany(mappedBy = "scheduleItem", cascade = CascadeType.ALL)
     public Collection<ScheduleItemParity> getScheduleItemParities() {
         return scheduleItemParities;
     }
 
     public void setScheduleItemParities(Collection<ScheduleItemParity> scheduleItemParities) {
         this.scheduleItemParities = scheduleItemParities;
+    }
+
+    public void addItemParity(ScheduleItemParity itemParity) {
+        itemParity.setScheduleItem(this);
+        getScheduleItemParities().add(itemParity);
+    }
+
+    @Override
+    public String toString() {
+        return "ScheduleItem{" +
+                "id=" + id +
+                ", scheduleDay=" + scheduleDay +
+                ", classTime=" + classTime +
+                '}';
     }
 }

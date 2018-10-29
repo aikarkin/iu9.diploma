@@ -5,6 +5,8 @@ import org.jsoup.select.Elements;
 import ru.bmstu.schedule.html.commons.BasicNode;
 
 import java.sql.Time;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class ScheduleItemNode extends BasicNode<ScheduleDayNode, ScheduleItemParityNode> {
@@ -66,19 +68,28 @@ public class ScheduleItemNode extends BasicNode<ScheduleDayNode, ScheduleItemPar
             Elements iElem = element.select("i");
             Element spanElem = element.selectFirst("span");
 
-            String classType = iElem.size() > 0 ? iElem.get(0).text() : null;
-            String classroom = iElem.size() > 1 ? iElem.get(1).text() : null;
+            String classTypeAbbr = iElem.size() > 0 ? iElem.get(0).text() : null;
+            String classroom = iElem.size() > 1 ? iElem.get(1).text().split(",")[0] : null;
             String lecturer  = iElem.size() > 2 ? iElem.get(2).text() : null;
+
 
             String subject = spanElem == null ? null : spanElem.text();
 
-            if (classType != null && classType.length() > 0) {
-                classType = classType.substring(1, classType.length() - 1);
+            String classType = null;
+            if (classTypeAbbr != null && classTypeAbbr.length() > 0) {
+                classType = CTYPE_ABBR_TO_NAME.get(classTypeAbbr.trim());
             }
 
             return new ScheduleItemParityNode(subject, classType, classroom, lecturer);
         }
 
         return null;
+    }
+
+    private static Map<String, String> CTYPE_ABBR_TO_NAME = new HashMap<>();
+    static {
+        CTYPE_ABBR_TO_NAME.put("(сем)", "семинар");
+        CTYPE_ABBR_TO_NAME.put("(лек)", "лекция");
+        CTYPE_ABBR_TO_NAME.put("(лаб)", "лабараторная работа");
     }
 }

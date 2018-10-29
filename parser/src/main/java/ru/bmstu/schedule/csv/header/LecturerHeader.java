@@ -1,6 +1,6 @@
 package ru.bmstu.schedule.csv.header;
 
-public enum Header {
+public enum LecturerHeader {
     fullName,
     position,
     eduDegree,

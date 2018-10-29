@@ -6,9 +6,9 @@ import ru.bmstu.schedule.entity.ClassTime;
 
 import java.text.ParseException;
 
-public class ClassTimeParser implements Parser<ClassTime> {
+public class ClassTimeParser implements Parser<ClassTime, ClassTimeHeader> {
     @Override
-    public ClassTime parse(RecordHolder rec) {
+    public ClassTime parse(RecordHolder<ClassTimeHeader> rec) {
         try {
             ClassTime ct = new ClassTime();
             rec.fillTime(ct::setStartsAt, ClassTimeHeader.startsAt);

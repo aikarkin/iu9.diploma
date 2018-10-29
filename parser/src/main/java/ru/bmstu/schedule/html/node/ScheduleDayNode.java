@@ -36,13 +36,13 @@ public class ScheduleDayNode extends RootNode<ScheduleItemNode> {
     }
 
     public enum DayOfWeak {
-        MON("понедельник"),
-        TUES("вторник"),
-        WED("среда"),
-        THU("четверг"),
-        FRI("пятница"),
-        SAT("суббота"),
-        SUNDAY("воскресенье")
+        MON("Понедельник"),
+        TUES("Вторник"),
+        WED("Среда"),
+        THU("Четверг"),
+        FRI("Пятница"),
+        SAT("Суббота"),
+        SUN("Воскресенье")
         ;
 
         public String getWeakName() {

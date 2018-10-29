@@ -28,7 +28,6 @@ public abstract class EntityAdapter<E> {
                 public Faculty getEntity() {
                     Faculty fac = new Faculty();
                     FacultyNode node = (FacultyNode) this.getNode();
-                    System.out.println("-> Faculty node: " + node.toString());
                     fac.setTitle(node.getTitle());
                     fac.setCipher(node.getCipher());
 

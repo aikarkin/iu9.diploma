@@ -42,7 +42,6 @@ public class Department {
         this.id = id;
     }
 
-//    @OneToMany(mappedBy = "compositeKey.department", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     Set<DepartmentSpecialization> getDepartmentSpecializations() {
         return departmentSpecializations;
@@ -113,10 +112,7 @@ public class Department {
     public void addStudyFlow(StudyFlow studyFlow, Specialization spec) {
         Optional<DepartmentSpecialization> dsOpt = getDepartmentSpecializations()
                 .stream()
-                .filter(ds -> {
-                    System.out.println("filter dep " + this.getCipher() + " - spec: " + spec.getCode() + " - isEquals? " + ds.getSpecialization().equals(spec));
-                    return ds.getSpecialization().equals(spec);
-                })
+                .filter(ds -> ds.getSpecialization().equals(spec))
                 .findFirst();
 
         if(dsOpt.isPresent()) {

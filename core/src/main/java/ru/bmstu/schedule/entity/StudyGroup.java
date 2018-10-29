@@ -1,6 +1,7 @@
 package ru.bmstu.schedule.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -10,7 +11,7 @@ public class StudyGroup {
     private int id;
     private int number;
     private Integer studentsCount;
-    private Collection<ScheduleDay> scheduleDays;
+    private Collection<ScheduleDay> scheduleDays = new ArrayList<>();
     private StudyFlow studyFlow;
     private Term term;
 
@@ -61,13 +62,18 @@ public class StudyGroup {
         return Objects.hash(id, number, studentsCount);
     }
 
-    @OneToMany(mappedBy = "studyGroup")
+    @OneToMany(mappedBy = "studyGroup", cascade = CascadeType.ALL)
     public Collection<ScheduleDay> getScheduleDays() {
         return scheduleDays;
     }
 
     public void setScheduleDays(Collection<ScheduleDay> scheduleDays) {
         this.scheduleDays = scheduleDays;
+    }
+
+    public void addScheduleDay(ScheduleDay day) {
+        day.setStudyGroup(this);
+        getScheduleDays().add(day);
     }
 
     @ManyToOne

@@ -5,10 +5,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import ru.bmstu.schedule.csv.CSVUtils;
-import ru.bmstu.schedule.dao.ClassTimeDao;
-import ru.bmstu.schedule.dao.ClassTypeDao;
-import ru.bmstu.schedule.dao.EduDegreeDao;
-import ru.bmstu.schedule.dao.WeakDao;
+import ru.bmstu.schedule.dao.*;
 import ru.bmstu.schedule.entity.*;
 import ru.bmstu.schedule.html.parser.ScheduleParser;
 
@@ -19,7 +16,6 @@ import java.io.InputStream;
 import java.nio.file.Paths;
 import java.util.Properties;
 
-import static ru.bmstu.schedule.csv.CSVUtils.fillFromCsv;
 
 public class FillSchedule {
     private static Properties props = null;
@@ -31,7 +27,7 @@ public class FillSchedule {
             init(args[0]);
             clearData();
             fillData();
-        } catch (IOException | ConfigurationException e) {
+        } catch (IOException | ConfigurationException | ClassNotFoundException e) {
             e.printStackTrace();
         } finally {
             sessionFactory.close();
@@ -45,46 +41,52 @@ public class FillSchedule {
         PropertyKey.validateProperties(props);
     }
 
-    private static void clearData() {
-        Session session = sessionFactory.openSession();
-
-        Query remDepSpec = session.createQuery("delete from DepartmentSpecialization");
-        remDepSpec.executeUpdate();
-
-        session.close();
-
+    private static void clearData() throws ClassNotFoundException {
         removeEntities(
                 sessionFactory,
 //                Classroom.class,
 //                Lecturer.class,
-                StudyFlow.class,
-                Specialization.class,
-                Department.class,
-                Faculty.class,
-                Term.class,
-                ClassTime.class,
-                EduDegree.class,
-                DayOfWeak.class,
-                ClassType.class
+//                HoursPerClass.class,
+//                CalendarItemCell.class,
+//                CalendarItem.class,
+//                StudyFlow.class,
+//                ClassTime.class,
+//                DayOfWeak.class,
+//                ClassType.class,
+//                Subject.class,
+//                Class.forName("ru.bmstu.schedule.entity.DepartmentSpecialization"),
+//                Specialization.class,
+//                Department.class,
+//                Faculty.class,
+//                EduDegree.class,
+//                Term.class
+                ScheduleItemParity.class,
+                ScheduleItem.class,
+                ScheduleDay.class,
+                StudyGroup.class
         );
+
     }
 
     private static void fillData() throws IOException {
         ScheduleParser scheduleParser = new ScheduleParser(props.getProperty(PropertyKey.SCHEDULE_BASE_URL));
 
-        fillFromCsv(ClassType.class, new ClassTypeDao(sessionFactory), csvByKey(PropertyKey.REF_CLASS_TYPE));
-        fillFromCsv(DayOfWeak.class, new WeakDao(sessionFactory), csvByKey(PropertyKey.REF_WEAKS));
-        fillFromCsv(EduDegree.class, new EduDegreeDao(sessionFactory), csvByKey(PropertyKey.REF_DEGREES));
-        fillFromCsv(ClassTime.class, new ClassTimeDao(sessionFactory), csvByKey(PropertyKey.REF_CLASS_TIME));
-        DBUtils.fillTerms(sessionFactory, scheduleParser);
-        DBUtils.fillFacultiesAndDepartments(sessionFactory, csvByKey(PropertyKey.REF_DEPARTMENTS), scheduleParser);
-        DBUtils.fillSpecializations(sessionFactory, csvByKey(PropertyKey.REF_SPECS));
-        DBUtils.fillDepToSpec(sessionFactory, csvByKey(PropertyKey.REF_SPECDEPS));
-
-        DBUtils.fillStudyFlows(sessionFactory, scheduleParser);
-//        CSVUtils.parseCalendar();
-//        fillFromCsv(Lecturer.class, sessionFactory, csvByKey(PropertyKey.REF_LECTURERS));
+//        CSVUtils.fillFromCsv(ClassType.class, new ClassTypeDao(sessionFactory), pathByKey(PropertyKey.REF_CLASS_TYPE));
+//        CSVUtils.fillFromCsv(DayOfWeak.class, new WeakDao(sessionFactory), pathByKey(PropertyKey.REF_WEAKS));
+//        CSVUtils.fillFromCsv(EduDegree.class, new EduDegreeDao(sessionFactory), pathByKey(PropertyKey.REF_DEGREES));
+//        CSVUtils.fillFromCsv(ClassTime.class, new ClassTimeDao(sessionFactory), pathByKey(PropertyKey.REF_CLASS_TIME));
+//
+//        DBUtils.fillTerms(sessionFactory, scheduleParser);
+//        DBUtils.fillFacultiesAndDepartments(sessionFactory, pathByKey(PropertyKey.REF_DEPARTMENTS), scheduleParser);
+//        DBUtils.fillSpecializations(sessionFactory, pathByKey(PropertyKey.REF_SPECS));
+//        DBUtils.fillDepToSpec(sessionFactory, pathByKey(PropertyKey.REF_SPECDEPS));
+//        DBUtils.fillStudyFlows(sessionFactory, scheduleParser);
+//        DBUtils.fillCalendars(sessionFactory, pathByKey(PropertyKey.REF_FOLDER_CALENDAR));
 //        DBUtils.fillClassRooms(sessionFactory, scheduleParser);
+//
+//        CSVUtils.fillFromCsv(Lecturer.class, new LecturerDao(sessionFactory), pathByKey(PropertyKey.REF_LECTURERS));
+
+        DBUtils.fillSchedule(sessionFactory, scheduleParser);
     }
 
     private static void removeEntities(SessionFactory sessionFactory, Class<?> ... classes) {
@@ -92,11 +94,17 @@ public class FillSchedule {
 
         session.beginTransaction();
 
-        for(Class<?> clazz : classes) {
-            String queryStr = "delete " + clazz.getName();
-            Query query = session.createQuery(queryStr);
-            query.executeUpdate();
+        for (Class<?> clazz : classes) {
+            try {
+                String queryStr = "delete " + clazz.getName();
+                Query query = session.createQuery(queryStr);
+                query.executeUpdate();
+            } catch (Exception e) {
+                System.out.println("[error] Unable to remove entities of type: " + clazz.getName());
+                e.printStackTrace();
+            }
         }
+
 
         session.getTransaction().commit();
     }
@@ -109,7 +117,7 @@ public class FillSchedule {
         return props;
     }
 
-    private static String csvByKey(String key) {
+    private static String pathByKey(String key) {
         return Paths.get(confFile).getParent().toString() + props.getProperty(key);
     }
 

@@ -3,8 +3,10 @@ import org.hibernate.cfg.Configuration;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import ru.bmstu.schedule.dao.DepartmentDao;
 import ru.bmstu.schedule.dao.FacultyDao;
 import ru.bmstu.schedule.dao.LecturerDao;
+import ru.bmstu.schedule.entity.Department;
 import ru.bmstu.schedule.entity.Faculty;
 import java.util.Optional;
 
@@ -31,7 +33,14 @@ public class DaoTest {
     }
 
     @Test
-    public void testFacultyRepository() {
+    public void testDepartmentDao() {
+        DepartmentDao dao = new DepartmentDao(sessionFactory);
+
+        System.out.println(dao.findByCipher("ИУ9"));
+    }
+
+    @Test
+    public void testFacultyDao() {
         FacultyDao facultyDao = new FacultyDao(sessionFactory);
 
         facultyDao.findByCipher("М").ifPresent(facultyDao::delete);

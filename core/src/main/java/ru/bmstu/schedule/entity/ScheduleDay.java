@@ -57,12 +57,17 @@ public class ScheduleDay {
         this.studyGroup = studyGroup;
     }
 
-    @OneToMany(mappedBy = "scheduleDay")
+    @OneToMany(mappedBy = "scheduleDay", cascade = CascadeType.ALL)
     public Collection<ScheduleItem> getScheduleItems() {
         return scheduleItems;
     }
 
     public void setScheduleItems(Collection<ScheduleItem> scheduleItems) {
         this.scheduleItems = scheduleItems;
+    }
+
+    public void addScheduleItem(ScheduleItem item) {
+        item.setScheduleDay(this);
+        getScheduleItems().add(item);
     }
 }

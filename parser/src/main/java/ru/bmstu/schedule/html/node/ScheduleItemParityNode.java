@@ -70,7 +70,7 @@ public class ScheduleItemParityNode extends LeafNode<ScheduleItemNode> {
             if(this == NUMERATOR)
                 return "ЧС";
             else if(this == DENUMERATOR)
-                return "   ЗН";
+                return "ЗН";
 
             return "ЧС/ЗН";
         }

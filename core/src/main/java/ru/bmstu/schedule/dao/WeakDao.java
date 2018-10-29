@@ -13,4 +13,9 @@ public class WeakDao extends HibernateDao<Integer, DayOfWeak> {
     public Optional<DayOfWeak> findByShortName(String shortName) {
         return findUniqueByProperty("shortName", shortName);
     }
+
+    public Optional<DayOfWeak> findByName(String name) {
+        return findUniqueByProperty("name", name);
+    }
+
 }

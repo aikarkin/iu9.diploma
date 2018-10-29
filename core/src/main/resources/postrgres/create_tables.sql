@@ -70,10 +70,10 @@ CREATE TABLE department (
 );
 
 CREATE TABLE specialization (
-  spec_id       SERIAL PRIMARY KEY,
-  spec_code     CHAR(8) CHECK (char_length(spec_code) = 8 AND spec_code LIKE '%.%.%'),
-  degree_id     INTEGER REFERENCES edu_degree (degree_id),
-  title         TEXT NOT NULL,
+  spec_id   SERIAL PRIMARY KEY,
+  spec_code CHAR(8) CHECK (char_length(spec_code) = 8 AND spec_code LIKE '%.%.%'),
+  degree_id INTEGER REFERENCES edu_degree (degree_id),
+  title     TEXT NOT NULL,
   UNIQUE (spec_code)
 );
 
@@ -85,9 +85,9 @@ CREATE TABLE dep_to_spec (
 );
 
 CREATE TABLE study_flow (
-  flow_id    SERIAL PRIMARY KEY,
-  dep_to_spec_id    INTEGER REFERENCES dep_to_spec (id),
-  start_year INTEGER NOT NULL CHECK (start_year > 1900 AND start_year < 2100),
+  flow_id        SERIAL PRIMARY KEY,
+  dep_to_spec_id INTEGER REFERENCES dep_to_spec (id),
+  start_year     INTEGER NOT NULL CHECK (start_year > 1900 AND start_year < 2100),
   UNIQUE (dep_to_spec_id, start_year)
 );
 
@@ -97,8 +97,7 @@ CREATE TABLE study_group (
   flow_id        INTEGER REFERENCES study_flow (flow_id),
   term_id        INTEGER REFERENCES term (term_id),
   group_number   INTEGER NOT NULL CHECK (group_number > 0),
-  students_count INTEGER,
-  UNIQUE (flow_id, group_number)
+  students_count INTEGER
 );
 
 CREATE TABLE schedule_day (
@@ -157,7 +156,7 @@ CREATE TABLE hours_per_class (
   no_of_hours      INTEGER NOT NULL CHECK (no_of_hours > 0),
   UNIQUE (calendar_cell_id, class_type_id)
 );
-
+--
 -- CREATE OR REPLACE FUNCTION min(a time, b time)
 --   RETURNS TIME
 -- AS
@@ -172,7 +171,6 @@ CREATE TABLE hours_per_class (
 -- END
 -- $BODY$
 -- LANGUAGE 'plpgsql';
---
 --
 -- CREATE OR REPLACE FUNCTION max(a time, b time)
 --   RETURNS TIME
@@ -189,7 +187,6 @@ CREATE TABLE hours_per_class (
 -- $BODY$
 -- LANGUAGE 'plpgsql';
 --
---
 -- -- CHECK if class time items are intersected.
 -- CREATE OR REPLACE FUNCTION is_class_time_valid(time_id INTEGER, s TIME, e TIME)
 --   RETURNS BOOLEAN AS
@@ -205,12 +202,10 @@ CREATE TABLE hours_per_class (
 --       RETURN FALSE;
 --     END IF;
 --   END LOOP;
---
 --   RETURN TRUE;
 -- END
 -- $BODY$
 -- LANGUAGE 'plpgsql';
---
 --
 -- CREATE OR REPLACE FUNCTION CHECK_class_time()
 --   RETURNS trigger AS
@@ -221,21 +216,18 @@ CREATE TABLE hours_per_class (
 --   cur_id        INTEGER;
 -- BEGIN
 --   cur_id = NEW.class_time_id;
---
 --   IF (TG_OP = 'INSERT') OR (NEW.starts_at IS DISTINCT FROM OLD.starts_at)
 --   THEN
 --     cur_starts_at = NEW.starts_at;
 --   ELSE
 --     cur_starts_at = OLD.starts_at;
 --   END IF;
---
 --   IF (TG_OP = 'INSERT') OR (NEW.ends_at IS DISTINCT FROM OLD.ends_at)
 --   THEN
 --     cur_ends_at = NEW.ends_at;
 --   ELSE
 --     cur_ends_at = OLD.ends_at;
 --   END IF;
---
 --   IF NOT (is_class_time_valid(cur_id, cur_starts_at, cur_ends_at))
 --   THEN
 --     RAISE EXCEPTION 'Занятие не может пересекаться с другими занятиями по времени.';
@@ -243,17 +235,14 @@ CREATE TABLE hours_per_class (
 --   END IF;
 --   RETURN NEW;
 -- END;
+--
 -- $$
 -- LANGUAGE 'plpgsql';
---
---
 -- CREATE TRIGGER tirgger_upd_classtime
 --   AFTER UPDATE OR INSERT
 --   ON class_time
 --   FOR EACH ROW
 -- EXECUTE PROCEDURE CHECK_class_time();
---
---
 -- -- CHECK schedule item on valid parity
 -- CREATE OR REPLACE FUNCTION CHECK_schedule_item_parity()
 --   RETURNS trigger AS
@@ -261,7 +250,6 @@ CREATE TABLE hours_per_class (
 -- DECLARE
 --   r schedule_item_parity%rowtype;
 -- BEGIN
---
 --   FOR r IN (SELECT *
 --             FROM schedule_item_parity
 --             WHERE schedule_item_id = NEW.schedule_item_id)
@@ -284,19 +272,16 @@ CREATE TABLE hours_per_class (
 -- $$
 -- LANGUAGE 'plpgsql';
 --
---
 -- CREATE TRIGGER tirgger_upd_schedule_item_parity
 --   AFTER UPDATE OR INSERT
 --   ON schedule_item_parity
 --   FOR EACH ROW
 -- EXECUTE PROCEDURE CHECK_schedule_item_parity();
---
 -- -- Преподователь не может одновремменно:
 -- --   а) находится в двух аудиториях;
 -- --   б) вести два предмета;
 -- --   в) вести один и тот же предмет разных типов(семинар/лекция).
 -- -- Два преподователя не могут одновременно вести занятия по разным предметам в одной и той же аудитории
---
 -- -- 1.   Create view "Lecturer classes" of type:
 -- --  schedule_item_parity_to_lecturer.lecturer_id,
 -- --  (schedule_day.weak_shORt_title, schedule_item_parity.day_parity, schedule_item.class_time_id),
@@ -306,7 +291,6 @@ CREATE TABLE hours_per_class (
 -- --
 -- --  -> join of thre tables: schedule_day, schedule_item, schedule_item_parity
 -- --
---
 -- CREATE OR REPLACE VIEW time_of_classes AS
 --   SELECT
 --     schedule_day.day_of_weak,
@@ -321,7 +305,6 @@ CREATE TABLE hours_per_class (
 --       ON (schedule_item.schedule_item_id = schedule_item_parity.schedule_item_id)
 --     INNER JOIN schedule_day
 --       ON (schedule_day.day_id = schedule_item.day_id);
---
 --
 -- CREATE OR REPLACE VIEW time_of_lecturer_classes AS
 --   SELECT
@@ -338,7 +321,6 @@ CREATE TABLE hours_per_class (
 --
 -- --
 -- -- 2.   On update/insert create trigger, which CHECKs constraints on view
---
 -- CREATE OR REPLACE FUNCTION is_lecturer_class_NOT_valid(cur_lec_class time_of_lecturer_classes)
 --   RETURNS BOOLEAN AS
 -- $BODY$
@@ -377,11 +359,10 @@ CREATE TABLE hours_per_class (
 --   ON schedule_item_parity_to_lecturer
 --   FOR EACH ROW
 -- EXECUTE PROCEDURE CHECK_item_parity_to_lecturer();
---
---
 -- -- Не может быть двух занятий в одной и той же адуитории в одно время (только если не совпадают предметы и типы занятий)
 -- -- => не могут две группы одновременно оказаться в одной адитории (только если не один и тот же предмет одного и того же типа)
 -- -- => не могут два преподователя одновременно оказаться в одной аудитори ...
+--
 -- CREATE OR REPLACE FUNCTION is_schedule_item_parity_NOT_valid(_item_parity_id INTEGER)
 --   RETURNS BOOLEAN AS
 -- $BODY$
@@ -414,7 +395,6 @@ CREATE TABLE hours_per_class (
 -- $BODY$
 -- LANGUAGE 'plpgsql';
 --
---
 -- CREATE OR REPLACE FUNCTION CHECK_item_parity()
 --   RETURNS trigger AS
 -- $$
@@ -430,7 +410,6 @@ CREATE TABLE hours_per_class (
 -- END;
 -- $$
 -- LANGUAGE 'plpgsql';
---
 --
 -- CREATE TRIGGER tirgger_mod_schedule_item_parity
 --   AFTER UPDATE OR INSERT

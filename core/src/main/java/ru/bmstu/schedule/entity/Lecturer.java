@@ -2,7 +2,9 @@ package ru.bmstu.schedule.entity;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 public class Lecturer {
@@ -24,7 +26,7 @@ public class Lecturer {
                 '}';
     }
 
-    private Collection<ScheduleItemParity> scheduleItemParities;
+    private Set<ScheduleItemParity> scheduleItemParities = new HashSet<>();
 
     @Id
     @Column(name = "lecturer_id", nullable = false)
@@ -87,18 +89,23 @@ public class Lecturer {
         this.eduDegree = eduDegree;
     }
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
     @JoinTable(
             name="schedule_item_parity_to_lecturer",
             joinColumns = { @JoinColumn(name="lecturer_id") },
             inverseJoinColumns = { @JoinColumn(name="schedule_item_parity_id") }
     )
-    public Collection<ScheduleItemParity> getScheduleItemParities() {
+    public Set<ScheduleItemParity> getScheduleItemParities() {
         return scheduleItemParities;
     }
 
-    public void setScheduleItemParities(Collection<ScheduleItemParity> scheduleItemParities) {
+    void setScheduleItemParities(Set<ScheduleItemParity> scheduleItemParities) {
         this.scheduleItemParities = scheduleItemParities;
+    }
+
+    void addScheduleItemParity(ScheduleItemParity itemParity) {
+        itemParity.getLecturers().add(this);
+        getScheduleItemParities().add(itemParity);
     }
 
     @Override

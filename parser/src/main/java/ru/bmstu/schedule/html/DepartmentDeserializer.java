@@ -27,7 +27,6 @@ public class DepartmentDeserializer extends ElementDeserializer<DepartmentNode> 
     }
 
     public static DepartmentNode parseDepartmentFromCipher(String depCode) {
-        System.out.println(" -> dep code: " + depCode);
         Pattern defPtr = Pattern.compile("(\\p{L}+)(\\d+)"),
             sdPtr = Pattern.compile("\\p{L}+");
         Matcher defMatcher = defPtr.matcher(depCode),

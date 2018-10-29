@@ -1,9 +1,7 @@
 package ru.bmstu.schedule.entity;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Entity
@@ -11,7 +9,7 @@ public class Faculty {
     private int id;
     private String cipher;
     private String title;
-    private Collection<Department> departments = new ArrayList<>();
+    private Set<Department> departments = new HashSet<>();
 
     @Override
     public String toString() {
@@ -64,11 +62,11 @@ public class Faculty {
     }
 
     @OneToMany(mappedBy = "faculty", cascade = CascadeType.ALL)
-    public Collection<Department> getDepartments() {
+    public Set<Department> getDepartments() {
         return departments;
     }
 
-    public void setDepartments(Collection<Department> departments) {
+    public void setDepartments(Set<Department> departments) {
         this.departments = departments;
     }
 

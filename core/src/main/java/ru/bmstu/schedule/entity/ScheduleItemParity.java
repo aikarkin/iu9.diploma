@@ -2,7 +2,9 @@ package ru.bmstu.schedule.entity;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "schedule_item_parity", schema = "public", catalog = "schedule")
@@ -13,7 +15,7 @@ public class ScheduleItemParity {
     private Classroom classroom;
     private ClassType classType;
     private Subject subject;
-    private Collection<Lecturer> lecturers;
+    private Set<Lecturer> lecturers = new HashSet<>();
 
     @Id
     @Column(name = "schedule_item_parity_id", nullable = false)
@@ -90,12 +92,29 @@ public class ScheduleItemParity {
         return Objects.hash(id, dayParity);
     }
 
-    @ManyToMany(mappedBy="scheduleItemParities")
-    public Collection<Lecturer> getLecturers() {
+    @ManyToMany(mappedBy="scheduleItemParities", cascade = CascadeType.MERGE)
+    public Set<Lecturer> getLecturers() {
         return lecturers;
     }
 
-    public void setLecturers(Collection<Lecturer> lecturers) {
+    void setLecturers(Set<Lecturer> lecturers) {
         this.lecturers = lecturers;
+    }
+
+    public void addLecturer(Lecturer lecturer) {
+        lecturer.getScheduleItemParities().add(this);
+        getLecturers().add(lecturer);
+    }
+
+    @Override
+    public String toString() {
+        return "ScheduleItemParity{" +
+                "id=" + id +
+                ", dayParity='" + dayParity + '\'' +
+                ", scheduleItem=" + scheduleItem +
+                ", classroom=" + classroom +
+                ", classType=" + classType +
+                ", subject=" + subject +
+                '}';
     }
 }

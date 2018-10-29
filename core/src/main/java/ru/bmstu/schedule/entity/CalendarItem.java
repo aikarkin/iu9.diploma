@@ -1,9 +1,7 @@
 package ru.bmstu.schedule.entity;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 @Table(name = "calendar_item", schema = "public", catalog = "schedule")
@@ -11,7 +9,7 @@ public class CalendarItem {
     private int id;
     private StudyFlow studyFlow;
     private Subject subject;
-    private Collection<CalendarItemCell> calendarItemCells = new ArrayList<>();
+    private Set<CalendarItemCell> calendarItemCells = new HashSet<>();
 
     @Id
     @Column(name = "calendar_item_id", nullable = false)
@@ -29,13 +27,14 @@ public class CalendarItem {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CalendarItem that = (CalendarItem) o;
-        return id == that.id;
+        return id == that.id &&
+                Objects.equals(studyFlow.getId(), that.studyFlow.getId()) &&
+                Objects.equals(subject.getId(), that.subject.getId());
     }
 
     @Override
     public int hashCode() {
-
-        return Objects.hash(id);
+        return Objects.hash(id, studyFlow.getId(), subject.getId());
     }
 
     @ManyToOne
@@ -59,11 +58,11 @@ public class CalendarItem {
     }
 
     @OneToMany(mappedBy = "calendarItem", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    public Collection<CalendarItemCell> getCalendarItemCells() {
+    public Set<CalendarItemCell> getCalendarItemCells() {
         return calendarItemCells;
     }
 
-    public void setCalendarItemCells(Collection<CalendarItemCell> calendarItemCells) {
+    public void setCalendarItemCells(Set<CalendarItemCell> calendarItemCells) {
         this.calendarItemCells = calendarItemCells;
     }
 

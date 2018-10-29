@@ -1,6 +1,6 @@
 package ru.bmstu.schedule.csv.header;
 
-public enum ClassHeader {
+public enum ClassTypeHeader {
     abbreviation,
-    title;
+    title
 }

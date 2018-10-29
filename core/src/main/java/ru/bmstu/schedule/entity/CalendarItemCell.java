@@ -1,9 +1,7 @@
 package ru.bmstu.schedule.entity;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 @Table(name = "calendar_item_cell", schema = "public", catalog = "schedule")
@@ -11,7 +9,7 @@ public class CalendarItemCell {
     private int id;
     private CalendarItem calendarItem;
     private Term term;
-    private Collection<HoursPerClass> hoursPerClasses = new ArrayList<>();
+    private Set<HoursPerClass> hoursPerClasses = new HashSet<>();
 
     @Id
     @Column(name = "cell_id", nullable = false)
@@ -29,13 +27,14 @@ public class CalendarItemCell {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CalendarItemCell that = (CalendarItemCell) o;
-        return id == that.id;
+        return id == that.id &&
+                Objects.equals(calendarItem.getId(), that.calendarItem.getId()) &&
+                Objects.equals(term.getId(), that.term.getId());
     }
 
     @Override
     public int hashCode() {
-
-        return Objects.hash(id);
+        return Objects.hash(id, calendarItem.getId(), term.getId());
     }
 
     @ManyToOne
@@ -59,11 +58,11 @@ public class CalendarItemCell {
     }
 
     @OneToMany(mappedBy = "calendarItemCell", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    public Collection<HoursPerClass> getHoursPerClasses() {
+    public Set<HoursPerClass> getHoursPerClasses() {
         return hoursPerClasses;
     }
 
-    public void setHoursPerClasses(Collection<HoursPerClass> hoursPerClasses) {
+    public void setHoursPerClasses(Set<HoursPerClass> hoursPerClasses) {
         this.hoursPerClasses = hoursPerClasses;
     }
 
