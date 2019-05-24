@@ -1,13 +1,10 @@
 package ru.bmstu.schedule.dao;
 
-import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Restrictions;
 import ru.bmstu.schedule.entity.Department;
 import ru.bmstu.schedule.entity.Specialization;
 import ru.bmstu.schedule.entity.StudyFlow;
 
-import java.util.List;
 import java.util.Optional;
 
 public class StudyFlowDao extends HibernateDao<Integer, StudyFlow> {

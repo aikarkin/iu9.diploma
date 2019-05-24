@@ -6,7 +6,7 @@ import java.util.Collection;
 import java.util.Objects;
 
 @Entity
-@Table(name = "class_time", schema = "public", catalog = "schedule")
+@Table(name = "class_time")
 public class ClassTime {
     private int id;
     private int noOfClass;

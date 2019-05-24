@@ -1,6 +1,7 @@
 package ru.bmstu.schedule.csv;
 
 import org.apache.commons.csv.CSVRecord;
+import ru.bmstu.schedule.csv.header.CSVHeader;
 
 import java.sql.Time;
 import java.text.DateFormat;
@@ -12,34 +13,12 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class RecordHolder<E extends Enum<?>> {
+public class RecordHolder<E extends CSVHeader> {
+
     private CSVRecord rec;
 
     public RecordHolder(CSVRecord rec) {
         this.rec = rec;
-    }
-
-    private static <E extends Enum<?>> List<String> parseList(CSVRecord rec, E prop) {
-        String val = rec.get(prop);
-        return Stream.of(val.split(";")).map(String::trim).collect(Collectors.toList());
-    }
-
-    private static <E extends Enum<?>> Integer parseInt(CSVRecord rec, E prop) {
-        String val = rec.get(prop);
-        return Integer.parseInt(val);
-    }
-
-    private static <E extends Enum<?>> Double parseDouble(CSVRecord rec, E prop) {
-        String val = rec.get(prop);
-        return Double.parseDouble(val);
-    }
-
-    private static <E extends Enum<?>> Time parseTime(CSVRecord rec, E prop) throws ParseException {
-        String val = rec.get(prop);
-        DateFormat df = new SimpleDateFormat("hh:mm:ss");
-        long ms = df.parse(val).getTime();
-
-        return Time.valueOf(val);
     }
 
     public CSVRecord record() {
@@ -47,14 +26,15 @@ public class RecordHolder<E extends Enum<?>> {
     }
 
     public String get(E prop) {
-        return this.rec.get(prop).trim();
+        return this.rec.get(prop.getHeader()).trim();
     }
 
     public Optional<Integer> getInt(E prop) {
         Integer intVal = null;
         try {
             intVal = parseInt(record(), prop);
-        } catch (NumberFormatException ignored) { }
+        } catch (NumberFormatException ignored) {
+        }
 
         return Optional.ofNullable(intVal);
     }
@@ -78,4 +58,28 @@ public class RecordHolder<E extends Enum<?>> {
     public void fillTime(Consumer<Time> setter, E propName) throws ParseException {
         setter.accept(parseTime(rec, propName));
     }
+
+    private static <E extends CSVHeader> List<String> parseList(CSVRecord rec, E prop) {
+        String val = rec.get(prop.getHeader());
+        return Stream.of(val.split(";")).map(String::trim).collect(Collectors.toList());
+    }
+
+    private static <E extends CSVHeader> Integer parseInt(CSVRecord rec, E prop) {
+        String val = rec.get(prop.getHeader());
+        return Integer.parseInt(val);
+    }
+
+    private static <E extends CSVHeader> Double parseDouble(CSVRecord rec, E prop) {
+        String val = rec.get(prop.getHeader());
+        return Double.parseDouble(val);
+    }
+
+    private static <E extends CSVHeader> Time parseTime(CSVRecord rec, E prop) throws ParseException {
+        String val = rec.get(prop.getHeader());
+        DateFormat df = new SimpleDateFormat("hh:mm:ss");
+        long ms = df.parse(val).getTime();
+
+        return Time.valueOf(val);
+    }
+
 }

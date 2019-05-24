@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.*;
 
 @Entity
-@Table(name = "schedule_item", schema = "public", catalog = "schedule")
+@Table(name = "schedule_item")
 public class ScheduleItem {
     private int id;
     private ScheduleDay scheduleDay;

@@ -1,12 +1,12 @@
 package ru.bmstu.schedule.csv.parser;
 
+import ru.bmstu.schedule.csv.header.CSVHeader;
 import ru.bmstu.schedule.entity.*;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class ParserFactory {
     
     @SuppressWarnings("unchecked")
-    public static<E> Parser<E, ? extends Enum<?>> parserFor(Class<E> entityClazz) throws NotImplementedException {
+    public static<E> Parser<E, ? extends CSVHeader> parserFor(Class<E> entityClazz) throws IllegalStateException {
         if(entityClazz == Lecturer.class) {
             return (Parser<E, ?>) new LecturerParser();
         } else if(entityClazz == DayOfWeak.class) {
@@ -22,6 +22,6 @@ public class ParserFactory {
         } else if(entityClazz == Specialization.class) {
             return (Parser<E, ?>) new SpecializationParser();
         }
-        throw new NotImplementedException();
+        throw new IllegalStateException("No parser exists for specified entity");
     }
 }

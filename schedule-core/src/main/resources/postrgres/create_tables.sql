@@ -293,7 +293,7 @@ EXECUTE PROCEDURE CHECK_schedule_item_parity();
 --
 CREATE OR REPLACE VIEW time_of_classes AS
   SELECT
-    schedule_day.day_of_weak,
+    schedule_day.weak_id as day_of_weak,
     schedule_item_parity.day_parity,
     schedule_item.class_time_id,
     schedule_item_parity.schedule_item_parity_id,

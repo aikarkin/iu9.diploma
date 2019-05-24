@@ -1,18 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project
-    xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://maven.apache.org/POM/4.0.0"
+        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    
+
     <parent>
         <groupId>ru.bmstu.iu9.schedule</groupId>
         <artifactId>schedule</artifactId>
         <version>1.0.1</version>
     </parent>
-    
+
     <artifactId>dbfill</artifactId>
     <packaging>jar</packaging>
+
+    <properties>
+        <jar.executable.class>ru.bmstu.schedule.dbtools.FillSchedule</jar.executable.class>
+    </properties>
 
     <build>
         <plugins>
@@ -24,16 +28,38 @@
                     <target>${java.target}</target>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <mainClass>${jar.executable.class}</mainClass>
+                        </manifest>
+                    </archive>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+
+                    <appendAssemblyId>false</appendAssemblyId>
+                    <finalName>${project.artifactId}</finalName>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
         </plugins>
     </build>
 
     <dependencies>
-        <dependency>
-            <groupId>ru.bmstu.iu9.schedule</groupId>
-            <artifactId>schedule-core</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
         <dependency>
             <groupId>ru.bmstu.iu9.schedule</groupId>
             <artifactId>schedule-parser</artifactId>

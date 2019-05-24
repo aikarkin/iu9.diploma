@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.*;
 
 @Entity
-@Table(name = "calendar_item_cell", schema = "public", catalog = "schedule")
+@Table(name = "calendar_item_cell")
 public class CalendarItemCell {
     private int id;
     private CalendarItem calendarItem;

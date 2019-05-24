@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.Objects;
 
 @Entity
-@Table(name = "day_of_weak", schema = "public", catalog = "schedule")
+@Table(name = "day_of_weak")
 public class DayOfWeak {
     private int id;
     private String shortName;

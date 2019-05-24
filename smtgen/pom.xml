@@ -61,6 +61,18 @@
 
     <dependencies>
         <dependency>
+            <groupId>ru.bmstu.iu9.schedule</groupId>
+            <artifactId>schedule-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>21.0</version>
+        </dependency>
+
+        <dependency>
             <groupId>com.microsoft.z3</groupId>
             <artifactId>javasmt-solver-z3</artifactId>
             <version>4.8.4</version>

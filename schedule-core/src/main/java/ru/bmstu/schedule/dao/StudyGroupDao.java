@@ -1,10 +1,7 @@
 package ru.bmstu.schedule.dao;
 
-import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Property;
-import org.hibernate.criterion.Restrictions;
-import ru.bmstu.schedule.entity.*;
+import ru.bmstu.schedule.entity.StudyGroup;
 
 import java.util.Optional;
 import java.util.regex.Matcher;
@@ -12,6 +9,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 public class StudyGroupDao extends HibernateDao<Integer, StudyGroup> {
+
     public StudyGroupDao(SessionFactory factory) {
         super(factory);
     }
@@ -25,7 +23,7 @@ public class StudyGroupDao extends HibernateDao<Integer, StudyGroup> {
                 .flatMap(si -> si.getScheduleItemParities().stream())
                 .flatMap(ip -> ip.getLecturers().stream())
                 .forEach(lecturer -> {
-                    composeInTransaction(session ->  {
+                    composeInTransaction(session -> {
                         session.save(lecturer);
                         return null;
                     });
@@ -38,7 +36,7 @@ public class StudyGroupDao extends HibernateDao<Integer, StudyGroup> {
         Pattern ptr = Pattern.compile("(\\p{Lu}+)(\\d+)?-(\\d+?)(\\d)(\\p{Lu})?");
         Matcher matcher = ptr.matcher(cipher);
 
-        if(!matcher.matches() || matcher.groupCount() != 5 || matcher.group(1) == null || matcher.group(3) == null || matcher.group(4) == null)
+        if (!matcher.matches() || matcher.groupCount() != 5 || matcher.group(1) == null || matcher.group(3) == null || matcher.group(4) == null)
             return Optional.empty();
 
 //        return composeInTransaction(session -> {
@@ -90,7 +88,7 @@ public class StudyGroupDao extends HibernateDao<Integer, StudyGroup> {
             Optional<Integer> termOpt = tryParseInt(matcher.group(3));
             Optional<Integer> groupNoOpt = tryParseInt(matcher.group(4));
 
-            if(!termOpt.isPresent() || !groupNoOpt.isPresent())
+            if (!termOpt.isPresent() || !groupNoOpt.isPresent())
                 return false;
 
             String facultyCipher = matcher.group(1);
@@ -111,8 +109,9 @@ public class StudyGroupDao extends HibernateDao<Integer, StudyGroup> {
     Optional<Integer> tryParseInt(String val) {
         Integer intVal = null;
         try {
-             intVal = Integer.parseInt(val);
-        } catch (NumberFormatException ignored) { }
+            intVal = Integer.parseInt(val);
+        } catch (NumberFormatException ignored) {
+        }
 
         return Optional.ofNullable(intVal);
     }

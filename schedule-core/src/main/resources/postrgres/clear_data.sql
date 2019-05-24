@@ -7,3 +7,4 @@ DELETE FROM department;
 DELETE FROM faculty;
 DELETE FROM lecturer;
 DELETE FROM classroom;
+DELETE FROM subject;

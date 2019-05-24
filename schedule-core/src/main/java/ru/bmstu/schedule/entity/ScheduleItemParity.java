@@ -7,7 +7,7 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Table(name = "schedule_item_parity", schema = "public", catalog = "schedule")
+@Table(name = "schedule_item_parity")
 public class ScheduleItemParity {
     private int id;
     private String dayParity;

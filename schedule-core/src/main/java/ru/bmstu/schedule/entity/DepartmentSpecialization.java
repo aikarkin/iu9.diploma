@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "dep_to_spec", schema = "public", catalog = "schedule")
+@Table(name = "dep_to_spec")
 //@AssociationOverrides({
 //        @AssociationOverride(name= "compositeKey.department", joinColumns = @JoinColumn(name="department_id")),
 //        @AssociationOverride(name= "compositeKey.specialization", joinColumns = @JoinColumn(name="spec_id"))

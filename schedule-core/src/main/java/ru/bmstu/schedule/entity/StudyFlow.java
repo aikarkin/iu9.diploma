@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.*;
 
 @Entity
-@Table(name = "study_flow", schema = "public", catalog = "schedule")
+@Table(name = "study_flow")
 public class StudyFlow {
     private int id;
     private int enrollmentYear;

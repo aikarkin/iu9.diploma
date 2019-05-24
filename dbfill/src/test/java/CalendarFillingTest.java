@@ -7,25 +7,27 @@ import org.junit.jupiter.api.Test;
 import ru.bmstu.schedule.csv.CSVUtils;
 import ru.bmstu.schedule.dao.StudyFlowDao;
 import ru.bmstu.schedule.entity.StudyFlow;
-import ru.bmstu.schedule.html.parser.ScheduleParser;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class CalendarFillingTest {
     private static SessionFactory sessionFactory;
-    private static ScheduleParser scheduleParser;
-    public static final String CALENDAR_FILE = "/home/alex/dev/src/iu9/db-course-work/java/schedule/dbtools/src/main/resources/references/calendar/csv/ИБМ5_27.03.05_2018_1.csv";
+    private static final String CALENDAR_FILE_RES = "./references/calendar/csv/ИБМ5_27.03.05_2018_1.csv";
+    private static String calendarFile;
 
     @BeforeAll
     public static void beforeAll() throws IOException {
         sessionFactory = new Configuration().configure().buildSessionFactory();
-        scheduleParser = new ScheduleParser("https://students.bmstu.ru");
+        URL calendarFileUrl = CalendarFillingTest.class.getClassLoader().getResource(CALENDAR_FILE_RES);
+        if(calendarFileUrl == null) {
+            throw new RuntimeException("Resource not found: " + CALENDAR_FILE_RES);
+        }
+        calendarFile = calendarFileUrl.getFile();
 
         Session session = sessionFactory.getCurrentSession();
         session.beginTransaction();
@@ -44,7 +46,7 @@ public class CalendarFillingTest {
     public void testCalendarFilling() throws IOException {
         StudyFlowDao flowDao = new StudyFlowDao(sessionFactory);
         StudyFlow flow = flowDao.findByKey(45);
-        CSVUtils.fillCalendar(flow, sessionFactory, CALENDAR_FILE);
+        CSVUtils.fillCalendar(flow, sessionFactory, calendarFile);
     }
 
     @Test

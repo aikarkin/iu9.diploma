@@ -1,6 +1,11 @@
 package ru.bmstu.schedule.csv.header;
 
-public enum ClassTimeHeader {
+public enum ClassTimeHeader implements CSVHeader {
     startsAt,
-    endsAt
+    endsAt;
+
+    @Override
+    public String getHeader() {
+        return name();
+    }
 }

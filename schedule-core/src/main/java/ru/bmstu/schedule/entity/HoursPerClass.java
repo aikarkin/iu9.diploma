@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "hours_per_class", schema = "public", catalog = "schedule")
+@Table(name = "hours_per_class")
 public class HoursPerClass {
     private int id;
     private int noOfHours;
@@ -38,13 +38,13 @@ public class HoursPerClass {
         if (o == null || getClass() != o.getClass()) return false;
         HoursPerClass that = (HoursPerClass) o;
         return id == that.id &&
+                classType.getName().equals(((HoursPerClass) o).classType.getName()) &&
                 noOfHours == that.noOfHours;
     }
 
     @Override
     public int hashCode() {
-
-        return Objects.hash(id, noOfHours);
+        return Objects.hash(id, classType.getName(), noOfHours);
     }
 
     @ManyToOne

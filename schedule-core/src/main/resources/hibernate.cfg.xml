@@ -7,7 +7,7 @@
     <session-factory>
 
         <property name="connection.driver_class">org.postgresql.Driver</property>
-        <property name="connection.url">jdbc:postgresql://localhost:5432/schedule</property>
+        <property name="connection.url">jdbc:postgresql://localhost:5432/bmstu_schedule</property>
         <property name="connection.username">alex</property>
         <property name="connection.password">h2rh4cid</property>
         <property name="connection.pool_size">1</property>

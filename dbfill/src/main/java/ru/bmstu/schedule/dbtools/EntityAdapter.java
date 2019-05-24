@@ -5,7 +5,6 @@ import ru.bmstu.schedule.entity.Faculty;
 import ru.bmstu.schedule.html.commons.Node;
 import ru.bmstu.schedule.html.node.FacultyNode;
 import ru.bmstu.schedule.html.node.ScheduleItemNode;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public abstract class EntityAdapter<E> {
     private Node node;
@@ -21,7 +20,7 @@ public abstract class EntityAdapter<E> {
     }
 
     @SuppressWarnings("unchecked")
-    public static<E> EntityAdapter<E> adapterFor(Class<E> clazz, Node node) throws NotImplementedException {
+    public static<E> EntityAdapter<E> adapterFor(Class<E> clazz, Node node) throws IllegalStateException {
         if(clazz == Faculty.class) {
             return (EntityAdapter<E>) new EntityAdapter<Faculty>(node) {
                 @Override
@@ -48,6 +47,6 @@ public abstract class EntityAdapter<E> {
             };
         }
 
-        throw new NotImplementedException();
+        throw new IllegalStateException("No adapter exists for entity: " + clazz);
     }
 }

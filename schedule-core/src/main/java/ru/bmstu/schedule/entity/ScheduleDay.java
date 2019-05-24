@@ -7,7 +7,7 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Table(name = "schedule_day", schema = "public", catalog = "schedule")
+@Table(name = "schedule_day")
 public class ScheduleDay {
     private int id;
     private DayOfWeak dayOfWeak;
