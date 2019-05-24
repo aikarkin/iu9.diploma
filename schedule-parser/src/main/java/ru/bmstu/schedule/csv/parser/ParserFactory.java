@@ -9,7 +9,7 @@ public class ParserFactory {
     public static<E> Parser<E, ? extends CSVHeader> parserFor(Class<E> entityClazz) throws IllegalStateException {
         if(entityClazz == Lecturer.class) {
             return (Parser<E, ?>) new LecturerParser();
-        } else if(entityClazz == DayOfWeak.class) {
+        } else if(entityClazz == DayOfWeek.class) {
             return (Parser<E, ?>) new DayOfWeakParser();
         } else if(entityClazz == ClassType.class) {
             return (Parser<E, ?>) new ClassTypeParser();

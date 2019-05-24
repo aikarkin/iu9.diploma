@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>ru.bmstu.schedule.entity</OriginalElement>
+  <nodes>
+    <node x="330.76345207725944" y="827.0">ru.bmstu.schedule.entity.ScheduleDay</node>
+    <node x="811.2114568148692" y="101.0">ru.bmstu.schedule.entity.HoursPerClass</node>
+    <node x="257.09414176384826" y="726.0">ru.bmstu.schedule.entity.DayOfWeak</node>
+    <node x="669.0134520772594" y="272.0">ru.bmstu.schedule.entity.CalendarItemCell</node>
+    <node x="506.11770681486917" y="454.0">ru.bmstu.schedule.entity.Classroom</node>
+    <node x="407.09414176384826" y="726.0">ru.bmstu.schedule.entity.ScheduleItem</node>
+    <node x="681.5134520772594" y="353.0">ru.bmstu.schedule.entity.CalendarItem</node>
+    <node x="25.5" y="827.0">ru.bmstu.schedule.entity.Faculty</node>
+    <node x="269.96914176384826" y="454.0">ru.bmstu.schedule.entity.Lecturer</node>
+    <node x="436.15664176384826" y="615.0">ru.bmstu.schedule.entity.ScheduleItemParity</node>
+    <node x="337.26345207725944" y="1059.0">ru.bmstu.schedule.entity.StudyFlow</node>
+    <node x="663.1177068148692" y="454.0">ru.bmstu.schedule.entity.Subject</node>
+    <node x="8.0" y="918.0">ru.bmstu.schedule.entity.Department</node>
+    <node x="595.1020225947525" y="0.0">ru.bmstu.schedule.entity.ClassType</node>
+    <node x="59.645594934402254" y="1372.0">ru.bmstu.schedule.entity.DepSpecId</node>
+    <node x="299.1205949344023" y="1170.0">ru.bmstu.schedule.entity.EduDegree</node>
+    <node x="708.2114568148692" y="101.0">ru.bmstu.schedule.entity.Term</node>
+    <node x="300.15664176384826" y="615.0">ru.bmstu.schedule.entity.ClassTime</node>
+    <node x="52.12059493440222" y="1170.0">ru.bmstu.schedule.entity.DepartmentSpecialization</node>
+    <node x="299.76345207725944" y="918.0">ru.bmstu.schedule.entity.StudyGroup</node>
+    <node x="184.9205949344023" y="1291.0">ru.bmstu.schedule.entity.Specialization</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="ru.bmstu.schedule.entity.HoursPerClass" target="ru.bmstu.schedule.entity.CalendarItemCell">
+      <point x="55.5" y="15.5" />
+      <point x="940.7114568148692" y="252.0" />
+      <point x="823.7009520772594" y="252.0" />
+      <point x="72.1875" y="-15.5" />
+    </edge>
+    <edge source="ru.bmstu.schedule.entity.Specialization" target="ru.bmstu.schedule.entity.EduDegree">
+      <point x="22.0" y="-15.5" />
+      <point x="278.4205949344023" y="1231.0" />
+      <point x="345.9955949344023" y="1231.0" />
+      <point x="-15.625" y="15.5" />
+    </edge>
+    <edge source="ru.bmstu.schedule.entity.Specialization" target="ru.bmstu.schedule.entity.StudyFlow">
+      <point x="55.0" y="-15.5" />
+      <point x="311.4205949344023" y="1261.0" />
+      <point x="434.6205949344023" y="1261.0" />
+      <point x="434.6205949344023" y="1150.0" />
+      <point x="431.54916636297366" y="1150.0" />
+      <point x="34.28571428571428" y="15.5" />
+    </edge>
+    <edge source="ru.bmstu.schedule.entity.ClassType" target="ru.bmstu.schedule.entity.ScheduleItemParity">
+      <point x="-7.1875" y="15.5" />
+      <point x="645.4145225947525" y="81.0" />
+      <point x="647.6177068148692" y="81.0" />
+      <point x="647.6177068148692" y="555.0" />
+      <point x="566.2503917638483" y="555.0" />
+      <point x="39.59374999999997" y="-15.5" />
+    </edge>
+    <edge source="ru.bmstu.schedule.entity.Classroom" target="ru.bmstu.schedule.entity.ScheduleItemParity">
+      <point x="15.0" y="15.5" />
+      <point x="581.1177068148692" y="525.0" />
+      <point x="532.3128917638483" y="525.0" />
+      <point x="5.656249999999972" y="-15.5" />
+    </edge>
+    <edge source="ru.bmstu.schedule.entity.DepartmentSpecialization" target="ru.bmstu.schedule.entity.Department">
+      <point x="-11.349999999999966" y="-15.5" />
+      <point x="154.2705949344023" y="1019.0" />
+      <point x="110.0" y="1019.0" />
+      <point x="36.0" y="15.5" />
+    </edge>
+    <edge source="ru.bmstu.schedule.entity.StudyGroup" target="ru.bmstu.schedule.entity.StudyFlow">
+      <point x="16.25" y="15.5" />
+      <point x="381.01345207725944" y="969.0" />
+      <point x="391.26345207725944" y="969.0" />
+      <point x="-6.0" y="-15.5" />
+    </edge>
+    <edge source="ru.bmstu.schedule.entity.CalendarItem" target="ru.bmstu.schedule.entity.Subject">
+      <point x="-8.75" y="15.5" />
+      <point x="742.7634520772594" y="434.0" />
+      <point x="749.7427068148692" y="434.0" />
+      <point x="37.125" y="-15.5" />
+    </edge>
+    <edge source="ru.bmstu.schedule.entity.StudyFlow" target="ru.bmstu.schedule.entity.CalendarItem">
+      <point x="30.0" y="-15.5" />
+      <point x="427.26345207725944" y="1019.0" />
+      <point x="866.5134520772594" y="1019.0" />
+      <point x="866.5134520772594" y="424.0" />
+      <point x="777.7634520772594" y="424.0" />
+      <point x="26.25" y="15.5" />
+    </edge>
+    <edge source="ru.bmstu.schedule.entity.StudyGroup" target="ru.bmstu.schedule.entity.Term">
+      <point x="-56.875" y="-15.5" />
+      <point x="307.88845207725944" y="898.0" />
+      <point x="133.0" y="898.0" />
+      <point x="133.0" y="152.0" />
+      <point x="713.3989568148692" y="152.0" />
+      <point x="-36.3125" y="15.5" />
+    </edge>
+    <edge source="ru.bmstu.schedule.entity.StudyFlow" target="ru.bmstu.schedule.entity.DepartmentSpecialization">
+      <point x="-17.142857142857167" y="15.5" />
+      <point x="380.1205949344022" y="1130.0" />
+      <point x="222.37059493440222" y="1130.0" />
+      <point x="56.75" y="-15.5" />
+    </edge>
+    <edge source="ru.bmstu.schedule.entity.ScheduleItem" target="ru.bmstu.schedule.entity.ScheduleItemParity">
+      <point x="26.4375" y="-15.5" />
+      <point x="-22.625" y="15.5" />
+    </edge>
+    <edge source="ru.bmstu.schedule.entity.Subject" target="ru.bmstu.schedule.entity.CalendarItem">
+      <point x="-12.375000000000028" y="-15.5" />
+      <point x="700.2427068148692" y="434.0" />
+      <point x="707.7634520772594" y="434.0" />
+      <point x="-43.75" y="15.5" />
+    </edge>
+    <edge source="ru.bmstu.schedule.entity.ScheduleItem" target="ru.bmstu.schedule.entity.ClassTime">
+      <point x="-44.0625" y="-15.5" />
+      <point x="433.53164176384826" y="696.0" />
+      <point x="343.65664176384826" y="696.0" />
+      <point x="-14.5" y="15.5" />
+    </edge>
+    <edge source="ru.bmstu.schedule.entity.Specialization" target="ru.bmstu.schedule.entity.Department">
+      <point x="-55.0" y="-15.5" />
+      <point x="201.4205949344023" y="1261.0" />
+      <point x="41.62059493440222" y="1261.0" />
+      <point x="41.62059493440222" y="1039.0" />
+      <point x="50.0" y="1039.0" />
+      <point x="-24.0" y="15.5" />
+    </edge>
+    <edge source="ru.bmstu.schedule.entity.DepartmentSpecialization" target="ru.bmstu.schedule.entity.Specialization">
+      <point x="90.80000000000001" y="15.5" />
+      <point x="0.0" y="-15.5" />
+    </edge>
+    <edge source="ru.bmstu.schedule.entity.DayOfWeak" target="ru.bmstu.schedule.entity.ScheduleDay">
+      <point x="16.25" y="15.5" />
+      <point x="338.34414176384826" y="787.0" />
+      <point x="373.26345207725944" y="787.0" />
+      <point x="-25.5" y="-15.5" />
+    </edge>
+    <edge source="ru.bmstu.schedule.entity.EduDegree" target="ru.bmstu.schedule.entity.Specialization">
+      <point x="46.875" y="15.5" />
+      <point x="408.4955949344023" y="1251.0" />
+      <point x="300.4205949344023" y="1251.0" />
+      <point x="44.0" y="-15.5" />
+    </edge>
+    <edge source="ru.bmstu.schedule.entity.Department" target="ru.bmstu.schedule.entity.Specialization">
+      <point x="-36.0" y="15.5" />
+      <point x="38.0" y="1029.0" />
+      <point x="30.62059493440222" y="1029.0" />
+      <point x="30.62059493440222" y="1271.0" />
+      <point x="190.4205949344023" y="1271.0" />
+      <point x="-66.0" y="-15.5" />
+    </edge>
+    <edge source="ru.bmstu.schedule.entity.DepSpecId" target="ru.bmstu.schedule.entity.Specialization">
+      <point x="45.375" y="-15.5" />
+      <point x="165.52059493440225" y="1352.0" />
+      <point x="292.1705949344023" y="1352.0" />
+      <point x="35.75" y="15.5" />
+    </edge>
+    <edge source="ru.bmstu.schedule.entity.StudyFlow" target="ru.bmstu.schedule.entity.Specialization">
+      <point x="51.428571428571445" y="15.5" />
+      <point x="448.6920235058309" y="1150.0" />
+      <point x="445.6205949344023" y="1150.0" />
+      <point x="445.6205949344023" y="1271.0" />
+      <point x="322.4205949344023" y="1271.0" />
+      <point x="66.0" y="-15.5" />
+    </edge>
+    <edge source="ru.bmstu.schedule.entity.StudyGroup" target="ru.bmstu.schedule.entity.ScheduleDay">
+      <point x="8.125" y="-15.5" />
+      <point x="372.88845207725944" y="898.0" />
+      <point x="381.76345207725944" y="898.0" />
+      <point x="-17.0" y="15.5" />
+    </edge>
+    <edge source="ru.bmstu.schedule.entity.StudyFlow" target="ru.bmstu.schedule.entity.StudyGroup">
+      <point x="-30.0" y="-15.5" />
+      <point x="367.26345207725944" y="989.0" />
+      <point x="316.01345207725944" y="989.0" />
+      <point x="-48.75" y="15.5" />
+    </edge>
+    <edge source="ru.bmstu.schedule.entity.Subject" target="ru.bmstu.schedule.entity.ScheduleItemParity">
+      <point x="12.375" y="15.5" />
+      <point x="724.9927068148692" y="585.0" />
+      <point x="600.1878917638483" y="585.0" />
+      <point x="73.53124999999997" y="-15.5" />
+    </edge>
+    <edge source="ru.bmstu.schedule.entity.ClassTime" target="ru.bmstu.schedule.entity.ScheduleItem">
+      <point x="43.5" y="15.5" />
+      <point x="401.65664176384826" y="676.0" />
+      <point x="468.78164176384826" y="676.0" />
+      <point x="-8.8125" y="-15.5" />
+    </edge>
+    <edge source="ru.bmstu.schedule.entity.ScheduleItemParity" target="ru.bmstu.schedule.entity.Subject">
+      <point x="50.90624999999997" y="-15.5" />
+      <point x="577.5628917638483" y="565.0" />
+      <point x="675.4927068148692" y="565.0" />
+      <point x="-37.125" y="15.5" />
+    </edge>
+    <edge source="ru.bmstu.schedule.entity.CalendarItem" target="ru.bmstu.schedule.entity.StudyFlow">
+      <point x="8.75" y="15.5" />
+      <point x="760.2634520772594" y="434.0" />
+      <point x="855.5134520772594" y="434.0" />
+      <point x="855.5134520772594" y="1009.0" />
+      <point x="415.26345207725944" y="1009.0" />
+      <point x="18.0" y="-15.5" />
+    </edge>
+    <edge source="ru.bmstu.schedule.entity.ScheduleItemParity" target="ru.bmstu.schedule.entity.ClassType">
+      <point x="28.28124999999997" y="-15.5" />
+      <point x="554.9378917638483" y="545.0" />
+      <point x="636.6177068148692" y="545.0" />
+      <point x="636.6177068148692" y="81.0" />
+      <point x="631.0395225947525" y="81.0" />
+      <point x="-21.5625" y="15.5" />
+    </edge>
+    <edge source="ru.bmstu.schedule.entity.Faculty" target="ru.bmstu.schedule.entity.Department">
+      <point x="36.375" y="15.5" />
+      <point x="110.375" y="898.0" />
+      <point x="123.5" y="898.0" />
+      <point x="49.5" y="-15.5" />
+    </edge>
+    <edge source="ru.bmstu.schedule.entity.ClassType" target="ru.bmstu.schedule.entity.HoursPerClass">
+      <point x="50.3125" y="15.5" />
+      <point x="702.9145225947525" y="51.0" />
+      <point x="940.7114568148692" y="51.0" />
+      <point x="55.5" y="-15.5" />
+    </edge>
+    <edge source="ru.bmstu.schedule.entity.CalendarItemCell" target="ru.bmstu.schedule.entity.CalendarItem">
+      <point x="61.875" y="15.5" />
+      <point x="813.3884520772594" y="328.0" />
+      <point x="804.0134520772594" y="328.0" />
+      <point x="52.5" y="-15.5" />
+    </edge>
+    <edge source="ru.bmstu.schedule.entity.ScheduleItemParity" target="ru.bmstu.schedule.entity.ScheduleItem">
+      <point x="67.87499999999997" y="15.5" />
+      <point x="594.5316417638483" y="706.0" />
+      <point x="539.2816417638483" y="706.0" />
+      <point x="61.6875" y="-15.5" />
+    </edge>
+    <edge source="ru.bmstu.schedule.entity.HoursPerClass" target="ru.bmstu.schedule.entity.ClassType">
+      <point x="-18.5" y="-15.5" />
+      <point x="866.7114568148692" y="71.0" />
+      <point x="674.1645225947525" y="71.0" />
+      <point x="21.5625" y="15.5" />
+    </edge>
+    <edge source="ru.bmstu.schedule.entity.Department" target="ru.bmstu.schedule.entity.DepartmentSpecialization">
+      <point x="24.0" y="15.5" />
+      <point x="98.0" y="1029.0" />
+      <point x="114.44559493440227" y="1029.0" />
+      <point x="114.44559493440227" y="1150.0" />
+      <point x="131.57059493440227" y="1150.0" />
+      <point x="-34.049999999999955" y="-15.5" />
+    </edge>
+    <edge source="ru.bmstu.schedule.entity.Specialization" target="ru.bmstu.schedule.entity.DepartmentSpecialization">
+      <point x="-33.0" y="-15.5" />
+      <point x="223.4205949344023" y="1241.0" />
+      <point x="120.22059493440224" y="1241.0" />
+      <point x="-45.39999999999998" y="15.5" />
+    </edge>
+    <edge source="ru.bmstu.schedule.entity.CalendarItemCell" target="ru.bmstu.schedule.entity.HoursPerClass">
+      <point x="10.3125" y="-15.5" />
+      <point x="761.8259520772594" y="222.0" />
+      <point x="829.7114568148692" y="222.0" />
+      <point x="-55.5" y="15.5" />
+    </edge>
+    <edge source="ru.bmstu.schedule.entity.Term" target="ru.bmstu.schedule.entity.StudyGroup">
+      <point x="-15.5625" y="15.5" />
+      <point x="734.1489568148692" y="172.0" />
+      <point x="155.0" y="172.0" />
+      <point x="155.0" y="878.0" />
+      <point x="340.38845207725944" y="878.0" />
+      <point x="-24.375" y="-15.5" />
+    </edge>
+    <edge source="ru.bmstu.schedule.entity.Lecturer" target="ru.bmstu.schedule.entity.ScheduleItemParity">
+      <point x="39.75" y="15.5" />
+      <point x="362.71914176384826" y="545.0" />
+      <point x="498.37539176384826" y="545.0" />
+      <point x="-28.28125000000003" y="-15.5" />
+    </edge>
+    <edge source="ru.bmstu.schedule.entity.Department" target="ru.bmstu.schedule.entity.StudyFlow">
+      <point x="60.0" y="15.5" />
+      <point x="134.0" y="999.0" />
+      <point x="355.26345207725944" y="999.0" />
+      <point x="-42.0" y="-15.5" />
+    </edge>
+    <edge source="ru.bmstu.schedule.entity.CalendarItemCell" target="ru.bmstu.schedule.entity.Term">
+      <point x="-51.5625" y="-15.5" />
+      <point x="699.9509520772594" y="192.0" />
+      <point x="754.8989568148692" y="192.0" />
+      <point x="5.1875" y="15.5" />
+    </edge>
+    <edge source="ru.bmstu.schedule.entity.Term" target="ru.bmstu.schedule.entity.CalendarItemCell">
+      <point x="25.9375" y="15.5" />
+      <point x="775.6489568148692" y="212.0" />
+      <point x="741.2009520772594" y="212.0" />
+      <point x="-10.3125" y="-15.5" />
+    </edge>
+    <edge source="ru.bmstu.schedule.entity.ScheduleDay" target="ru.bmstu.schedule.entity.ScheduleItem">
+      <point x="8.5" y="-15.5" />
+      <point x="407.26345207725944" y="777.0" />
+      <point x="424.71914176384826" y="777.0" />
+      <point x="-52.875" y="15.5" />
+    </edge>
+    <edge source="ru.bmstu.schedule.entity.DepartmentSpecialization" target="ru.bmstu.schedule.entity.StudyFlow">
+      <point x="11.350000000000023" y="-15.5" />
+      <point x="176.97059493440224" y="1110.0" />
+      <point x="345.834880648688" y="1110.0" />
+      <point x="-51.428571428571445" y="15.5" />
+    </edge>
+    <edge source="ru.bmstu.schedule.entity.ScheduleItem" target="ru.bmstu.schedule.entity.ScheduleDay">
+      <point x="17.625" y="15.5" />
+      <point x="495.21914176384826" y="797.0" />
+      <point x="441.26345207725944" y="797.0" />
+      <point x="42.5" y="-15.5" />
+    </edge>
+    <edge source="ru.bmstu.schedule.entity.Department" target="ru.bmstu.schedule.entity.Faculty">
+      <point x="-16.5" y="-15.5" />
+      <point x="57.5" y="898.0" />
+      <point x="61.875" y="898.0" />
+      <point x="-12.125" y="15.5" />
+    </edge>
+    <edge source="ru.bmstu.schedule.entity.CalendarItem" target="ru.bmstu.schedule.entity.CalendarItemCell">
+      <point x="-52.5" y="-15.5" />
+      <point x="699.0134520772594" y="328.0" />
+      <point x="689.6384520772594" y="328.0" />
+      <point x="-61.875" y="15.5" />
+    </edge>
+    <edge source="ru.bmstu.schedule.entity.ScheduleItemParity" target="ru.bmstu.schedule.entity.Lecturer">
+      <point x="-50.90625000000003" y="-15.5" />
+      <point x="475.75039176384826" y="565.0" />
+      <point x="309.71914176384826" y="565.0" />
+      <point x="-13.25" y="15.5" />
+    </edge>
+    <edge source="ru.bmstu.schedule.entity.ScheduleDay" target="ru.bmstu.schedule.entity.DayOfWeak">
+      <point x="-42.5" y="-15.5" />
+      <point x="356.26345207725944" y="797.0" />
+      <point x="305.84414176384826" y="797.0" />
+      <point x="-16.25" y="15.5" />
+    </edge>
+    <edge source="ru.bmstu.schedule.entity.ScheduleDay" target="ru.bmstu.schedule.entity.StudyGroup">
+      <point x="51.0" y="15.5" />
+      <point x="449.76345207725944" y="888.0" />
+      <point x="405.38845207725944" y="888.0" />
+      <point x="40.625" y="-15.5" />
+    </edge>
+    <edge source="ru.bmstu.schedule.entity.StudyFlow" target="ru.bmstu.schedule.entity.Department">
+      <point x="-54.0" y="-15.5" />
+      <point x="343.26345207725944" y="1009.0" />
+      <point x="122.0" y="1009.0" />
+      <point x="48.0" y="15.5" />
+    </edge>
+    <edge source="ru.bmstu.schedule.entity.ScheduleItemParity" target="ru.bmstu.schedule.entity.Classroom">
+      <point x="-16.96875000000003" y="-15.5" />
+      <point x="509.68789176384826" y="505.0" />
+      <point x="521.1177068148692" y="505.0" />
+      <point x="-45.0" y="15.5" />
+    </edge>
+    <edge source="ru.bmstu.schedule.entity.DepSpecId" target="ru.bmstu.schedule.entity.Department">
+      <point x="-45.375" y="-15.5" />
+      <point x="74.77059493440225" y="1352.0" />
+      <point x="8.62059493440222" y="1352.0" />
+      <point x="8.62059493440222" y="1039.0" />
+      <point x="14.0" y="1039.0" />
+      <point x="-60.0" y="15.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.365234375" x="304.0" y="758.0" />
+  <SelectedNodes />
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

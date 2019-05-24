@@ -1,7 +1,6 @@
 package ru.bmstu.schedule.entity;
 
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -10,7 +9,7 @@ import java.util.Set;
 @Table(name = "schedule_day")
 public class ScheduleDay {
     private int id;
-    private DayOfWeak dayOfWeak;
+    private DayOfWeek dayOfWeek;
     private StudyGroup studyGroup;
     private Set<ScheduleItem> scheduleItems = new HashSet<>();
 
@@ -31,23 +30,23 @@ public class ScheduleDay {
         if (o == null || getClass() != o.getClass()) return false;
         ScheduleDay that = (ScheduleDay) o;
         return id == that.id &&
-                Objects.equals(dayOfWeak, that.dayOfWeak) &&
+                Objects.equals(dayOfWeek, that.dayOfWeek) &&
                 Objects.equals(studyGroup, that.studyGroup);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, dayOfWeak, studyGroup);
+        return Objects.hash(id, dayOfWeek, studyGroup);
     }
 
     @ManyToOne
     @JoinColumn(name = "weak_id", referencedColumnName = "weak_id")
-    public DayOfWeak getDayOfWeak() {
-        return dayOfWeak;
+    public DayOfWeek getDayOfWeek() {
+        return dayOfWeek;
     }
 
-    public void setDayOfWeak(DayOfWeak dayOfWeak) {
-        this.dayOfWeak = dayOfWeak;
+    public void setDayOfWeek(DayOfWeek dayOfWeek) {
+        this.dayOfWeek = dayOfWeek;
     }
 
     @ManyToOne

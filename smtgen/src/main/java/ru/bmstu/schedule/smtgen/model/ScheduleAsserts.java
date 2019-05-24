@@ -32,7 +32,7 @@ public class ScheduleAsserts {
         return ctx.mkAnd(validDays);
     }
 
-    public BoolExpr validWeaksForTwoGroups(Expr group1, Expr group2) {
+    public BoolExpr validWeeksForTwoGroups(Expr group1, Expr group2) {
         checkExprsSort(sorts.group(), group1, group2);
         DayOfWeak[] days = DayOfWeak.values();
         BoolExpr[] validDays = new BoolExpr[days.length];
@@ -67,7 +67,7 @@ public class ScheduleAsserts {
     }
 
     private RealExpr countLessonsInDay(Expr subject, Expr group, Expr kind, Expr day) {
-        LessonSlots[] lessonSlots = LessonSlots.values();
+        LessonSlot[] lessonSlots = LessonSlot.values();
         RealExpr[] countSlotLessons = new RealExpr[lessonSlots.length];
 
         for (int i = 0; i < countSlotLessons.length; i++) {
@@ -138,7 +138,7 @@ public class ScheduleAsserts {
         checkExprsSort(sorts.group(), group1, group2);
         checkExprsSort(sorts.dayOfWeak(), day);
 
-        LessonSlots[] slots = LessonSlots.values();
+        LessonSlot[] slots = LessonSlot.values();
         BoolExpr[] validSlots = new BoolExpr[slots.length];
 
         for (int i = 0; i < slots.length; i++) {
@@ -177,7 +177,7 @@ public class ScheduleAsserts {
         Expr blankSlotItem = ctx.mkApp(sorts.singleSItemDecl(), ctx.mkApp(sorts.blankLessonDecl()));
         Expr blankPairSlotItem = ctx.mkApp(sorts.pairSItemDecl(), ctx.mkApp(sorts.blankLessonDecl()), ctx.mkApp(sorts.blankLessonDecl()));
 
-        LessonSlots[] slots = LessonSlots.values();
+        LessonSlot[] slots = LessonSlot.values();
         BoolExpr[] emptySlots = new BoolExpr[slots.length];
         BoolExpr[] nonEmptySlots = new BoolExpr[slots.length];
 

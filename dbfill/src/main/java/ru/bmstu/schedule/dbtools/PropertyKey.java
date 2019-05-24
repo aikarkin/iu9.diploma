@@ -8,7 +8,7 @@ import java.util.Properties;
 public class PropertyKey {
     public static final String SCHEDULE_BASE_URL = "schedule.baseurl";
     public static final String REF_CLASS_TYPE = "csv.file.classtypes";
-    public static final String REF_WEAKS = "csv.file.weak";
+    public static final String REF_WEAKS = "csv.file.week";
     public static final String REF_DEPARTMENTS = "csv.file.departments";
     public static final String REF_DEGREES = "csv.file.degrees";
     public static final String REF_LECTURERS = "csv.file.lecurers";

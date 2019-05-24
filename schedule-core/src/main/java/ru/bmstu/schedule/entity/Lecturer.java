@@ -123,7 +123,6 @@ public class Lecturer {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(id, email, firstName, middleName, lastName, eduDegree);
     }
 }

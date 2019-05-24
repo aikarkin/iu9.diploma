@@ -21,7 +21,7 @@
         <mapping class="ru.bmstu.schedule.entity.ClassTime"/>
         <mapping class="ru.bmstu.schedule.entity.ClassType"/>
         <mapping class="ru.bmstu.schedule.entity.Classroom"/>
-        <mapping class="ru.bmstu.schedule.entity.DayOfWeak"/>
+        <mapping class="ru.bmstu.schedule.entity.DayOfWeek"/>
         <mapping class="ru.bmstu.schedule.entity.Department"/>
         <mapping class="ru.bmstu.schedule.entity.EduDegree"/>
         <mapping class="ru.bmstu.schedule.entity.Faculty"/>

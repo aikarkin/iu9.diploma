@@ -7,14 +7,14 @@ import ru.bmstu.schedule.html.commons.RootNode;
 import java.util.Objects;
 
 public class ScheduleDayNode extends RootNode<ScheduleItemNode> {
-    public DayOfWeak getDayOfWeak() {
-        return dayOfWeak;
+    public DayOfWeek getDayOfWeek() {
+        return dayOfWeek;
     }
 
-    private DayOfWeak dayOfWeak;
+    private DayOfWeek dayOfWeek;
 
-    public ScheduleDayNode(DayOfWeak dayOfWeak) {
-        this.dayOfWeak = dayOfWeak;
+    public ScheduleDayNode(DayOfWeek dayOfWeek) {
+        this.dayOfWeek = dayOfWeek;
     }
 
     @Override
@@ -27,22 +27,22 @@ public class ScheduleDayNode extends RootNode<ScheduleItemNode> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ScheduleDayNode that = (ScheduleDayNode) o;
-        return dayOfWeak == that.dayOfWeak;
+        return dayOfWeek == that.dayOfWeek;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(dayOfWeak);
+        return Objects.hash(dayOfWeek);
     }
 
     @Override
     public String toString() {
         return "ScheduleDayNode{" +
-                "dayOfWeak=" + dayOfWeak +
+                "dayOfWeak=" + dayOfWeek +
                 '}';
     }
 
-    public enum DayOfWeak {
+    public enum DayOfWeek {
         MON("Понедельник"),
         TUES("Вторник"),
         WED("Среда"),
@@ -52,14 +52,14 @@ public class ScheduleDayNode extends RootNode<ScheduleItemNode> {
         SUN("Воскресенье")
         ;
 
-        public String getWeakName() {
+        public String getWeekName() {
             return weakValue;
         }
 
         private String weakValue;
 
 
-        DayOfWeak(String weakValue) {
+        DayOfWeek(String weakValue) {
             this.weakValue = weakValue;
         }
 

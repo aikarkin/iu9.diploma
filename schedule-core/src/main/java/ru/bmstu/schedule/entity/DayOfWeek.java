@@ -6,7 +6,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "day_of_weak")
-public class DayOfWeak {
+public class DayOfWeek {
     private int id;
     private String shortName;
     private String name;
@@ -47,10 +47,10 @@ public class DayOfWeak {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        DayOfWeak dayOfWeak = (DayOfWeak) o;
-        return id == dayOfWeak.id &&
-                Objects.equals(shortName, dayOfWeak.shortName) &&
-                Objects.equals(name, dayOfWeak.name);
+        DayOfWeek dayOfWeek = (DayOfWeek) o;
+        return id == dayOfWeek.id &&
+                Objects.equals(shortName, dayOfWeek.shortName) &&
+                Objects.equals(name, dayOfWeek.name);
     }
 
     @Override

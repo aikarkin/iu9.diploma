@@ -9,15 +9,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ScheduleDayDeserializer extends ElementDeserializer<ScheduleDayNode> {
-    public static final Map<String, ScheduleDayNode.DayOfWeak> STR_TO_WEAK_DAY;
+    public static final Map<String, ScheduleDayNode.DayOfWeek> STR_TO_WEAK_DAY;
     static {
         STR_TO_WEAK_DAY = new HashMap<>();
-        STR_TO_WEAK_DAY.put("ПН", ScheduleDayNode.DayOfWeak.MON);
-        STR_TO_WEAK_DAY.put("ВТ", ScheduleDayNode.DayOfWeak.TUES);
-        STR_TO_WEAK_DAY.put("СР", ScheduleDayNode.DayOfWeak.WED);
-        STR_TO_WEAK_DAY.put("ЧТ", ScheduleDayNode.DayOfWeak.THU);
-        STR_TO_WEAK_DAY.put("ПТ", ScheduleDayNode.DayOfWeak.FRI);
-        STR_TO_WEAK_DAY.put("СБ", ScheduleDayNode.DayOfWeak.SAT);
+        STR_TO_WEAK_DAY.put("ПН", ScheduleDayNode.DayOfWeek.MON);
+        STR_TO_WEAK_DAY.put("ВТ", ScheduleDayNode.DayOfWeek.TUES);
+        STR_TO_WEAK_DAY.put("СР", ScheduleDayNode.DayOfWeek.WED);
+        STR_TO_WEAK_DAY.put("ЧТ", ScheduleDayNode.DayOfWeek.THU);
+        STR_TO_WEAK_DAY.put("ПТ", ScheduleDayNode.DayOfWeek.FRI);
+        STR_TO_WEAK_DAY.put("СБ", ScheduleDayNode.DayOfWeek.SAT);
     }
 
     public ScheduleDayDeserializer(Element element) {
@@ -34,7 +34,7 @@ public class ScheduleDayDeserializer extends ElementDeserializer<ScheduleDayNode
         return scheduleDay;
     }
 
-    private static ScheduleDayNode.DayOfWeak parseDayOfWeak(String dayOfWeak) {
+    private static ScheduleDayNode.DayOfWeek parseDayOfWeak(String dayOfWeak) {
         if(STR_TO_WEAK_DAY.containsKey(dayOfWeak))
             return STR_TO_WEAK_DAY.get(dayOfWeak);
 

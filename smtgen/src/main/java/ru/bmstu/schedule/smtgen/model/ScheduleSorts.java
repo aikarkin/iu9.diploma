@@ -60,7 +60,7 @@ public class ScheduleSorts {
         return slot;
     }
 
-    Expr slot(Enum<LessonSlots> slot) {
+    Expr slot(Enum<LessonSlot> slot) {
         return slot().getConst(slot.ordinal());
     }
 
@@ -200,10 +200,18 @@ public class ScheduleSorts {
         );
     }
 
+    IntExpr tutorId(Expr tutor) {
+        return (IntExpr) ctx.mkApp(tutorConstructor.getAccessorDecls()[0], tutor);
+    }
+
+    IntExpr subjId(Expr subj) {
+        return (IntExpr) ctx.mkApp(subjectConstructor.getAccessorDecls()[0], subj);
+    }
+
     private void initSorts() {
         dayOfWeak = mkCustomEnumSort(ctx, DayOfWeak.class);
         kind = mkCustomEnumSort(ctx, LessonKind.class);
-        slot = mkCustomEnumSort(ctx, LessonSlots.class);
+        slot = mkCustomEnumSort(ctx, LessonSlot.class);
         parity = mkCustomEnumSort(ctx, LessonParity.class);
         subject = ctx.mkDatatypeSort("Subject", new Constructor[]{subjectConstructor});
         tutor = ctx.mkDatatypeSort("Tutor", new Constructor[]{tutorConstructor});

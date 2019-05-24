@@ -60,8 +60,8 @@ public class PDFUtils {
 
             dayList.sort((d1, d2) -> {
 
-                int d1Idx = WEAK_ORDER.indexOf(d1.getDayOfWeak().getShortName().trim());
-                int d2Idx = WEAK_ORDER.indexOf(d2.getDayOfWeak().getShortName().trim());
+                int d1Idx = WEAK_ORDER.indexOf(d1.getDayOfWeek().getShortName().trim());
+                int d2Idx = WEAK_ORDER.indexOf(d2.getDayOfWeek().getShortName().trim());
 
                 return d1Idx - d2Idx;
             });
@@ -153,7 +153,7 @@ public class PDFUtils {
             System.out.println();
         }
 
-        doc.add(dayHeaderParagraph(scheduleDay.getDayOfWeak().getShortName()));
+        doc.add(dayHeaderParagraph(scheduleDay.getDayOfWeek().getShortName()));
         doc.add(table);
 
     }

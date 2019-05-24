@@ -77,7 +77,7 @@ public class ScheduleItem {
     public String toString() {
         return "ScheduleItem{" +
                 "id=" + id +
-                ", scheduleDay=" + scheduleDay.getDayOfWeak().getShortName() +
+                ", scheduleDay=" + scheduleDay.getDayOfWeek().getShortName() +
                 ", classTime=" + classTime.toString() +
                 '}';
     }

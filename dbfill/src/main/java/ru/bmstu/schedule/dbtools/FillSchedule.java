@@ -73,7 +73,7 @@ public class FillSchedule {
                 StudyGroup.class,
                 StudyFlow.class,
                 ClassTime.class,
-                DayOfWeak.class,
+                DayOfWeek.class,
                 ClassType.class,
                 Subject.class,
                 Class.forName("ru.bmstu.schedule.entity.DepartmentSpecialization"),
@@ -90,7 +90,7 @@ public class FillSchedule {
         ScheduleParser scheduleParser = new ScheduleParser(props.getProperty(PropertyKey.SCHEDULE_BASE_URL));
 
         CSVUtils.fillFromCsv(new ClassTypeDao(sessionFactory), pathByKey(PropertyKey.REF_CLASS_TYPE));
-        CSVUtils.fillFromCsv(new WeakDao(sessionFactory), pathByKey(PropertyKey.REF_WEAKS));
+        CSVUtils.fillFromCsv(new WeekDao(sessionFactory), pathByKey(PropertyKey.REF_WEAKS));
         CSVUtils.fillFromCsv(new EduDegreeDao(sessionFactory), pathByKey(PropertyKey.REF_DEGREES));
         CSVUtils.fillFromCsv(new ClassTimeDao(sessionFactory), pathByKey(PropertyKey.REF_CLASS_TIME));
 
