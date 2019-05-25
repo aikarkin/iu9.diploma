@@ -17,6 +17,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class DepartmentDao extends HibernateDao<Integer, Department> {
+
     public DepartmentDao(SessionFactory factory) {
         super(factory);
     }
@@ -25,7 +26,7 @@ public class DepartmentDao extends HibernateDao<Integer, Department> {
         Pattern cipherPtr = Pattern.compile("(\\p{Lu}+)(\\d+)");
         Matcher cipherMatcher = cipherPtr.matcher(cipher);
 
-        if(!cipherMatcher.matches() || cipherMatcher.groupCount() != 2)
+        if (!cipherMatcher.matches() || cipherMatcher.groupCount() != 2)
             return Optional.empty();
 
         String facultyCipher = cipherMatcher.group(1);
@@ -33,17 +34,18 @@ public class DepartmentDao extends HibernateDao<Integer, Department> {
 
         getSession().beginTransaction();
 
-            Criteria factCriteria = getSession().createCriteria(Faculty.class);
-            factCriteria.add(Restrictions.eq("cipher", facultyCipher));
+        Criteria factCriteria = getSession().createCriteria(Faculty.class);
+        factCriteria.add(Restrictions.eq("cipher", facultyCipher));
 
-            Criteria cipherCriteria = createEntityCriteria();
-            cipherCriteria.add(Property.forName("faculty").in(factCriteria.list()));
-            cipherCriteria.add(Restrictions.eq("number", depNumber));
+        Criteria cipherCriteria = createEntityCriteria();
+        cipherCriteria.add(Property.forName("faculty").in(factCriteria.list()));
+        cipherCriteria.add(Restrictions.eq("number", depNumber));
 
-            List<Department> found = cipherCriteria.list();
+        List<Department> found = cipherCriteria.list();
 
         getSession().getTransaction().commit();
 
         return found.stream().findFirst();
     }
+
 }

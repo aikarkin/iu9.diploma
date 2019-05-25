@@ -3,6 +3,7 @@ package ru.bmstu.schedule.entity;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -90,4 +91,21 @@ class DepartmentSpecialization {
     void setStudyFlows(Set<StudyFlow> studyFlows) {
         this.studyFlows = studyFlows;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DepartmentSpecialization that = (DepartmentSpecialization) o;
+        return id == that.id &&
+                Objects.equals(studyFlows, that.studyFlows) &&
+                Objects.equals(department, that.department) &&
+                Objects.equals(specialization, that.specialization);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, department.getId(), specialization.getId());
+    }
+
 }

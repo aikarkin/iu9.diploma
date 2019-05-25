@@ -36,5 +36,8 @@
         <mapping class="ru.bmstu.schedule.entity.Subject"/>
         <mapping class="ru.bmstu.schedule.entity.Term"/>
         <mapping class="ru.bmstu.schedule.entity.DepartmentSpecialization" />
+        <mapping class="ru.bmstu.schedule.entity.SpecializationOfLecturer" />
+        <mapping class="ru.bmstu.schedule.entity.SubjectOfLecturer" />
+
     </session-factory>
 </hibernate-configuration>

@@ -7,7 +7,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import ru.bmstu.schedule.csv.CSVUtils;
+import ru.bmstu.schedule.csv.LecturerEntry;
 import ru.bmstu.schedule.csv.RecordHolder;
+import ru.bmstu.schedule.csv.header.CSVHeader;
 import ru.bmstu.schedule.csv.header.DepartmentHeader;
 import ru.bmstu.schedule.csv.header.SpecHeader;
 import ru.bmstu.schedule.csv.header.SpecToDepHeader;
@@ -21,6 +23,7 @@ import ru.bmstu.schedule.html.node.*;
 import ru.bmstu.schedule.html.parser.ScheduleParser;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
@@ -104,8 +107,6 @@ public class DBUtils {
 
     public static void fillFacultiesAndDepartments(SessionFactory sessionFactory, String csvFile, ScheduleParser scheduleParser) throws IOException {
         FacultyDao facultyDao = new FacultyDao(sessionFactory);
-        DepartmentDao departmentDao = new DepartmentDao(sessionFactory);
-//        Map<String, Department> grCipherToDepartment = loadGroupCipherToDepartmentMapping(departmentDao, csvFile);
         Map<String, Department> grCipherToDepartment = loadGroupCipherToDepartmentMapping(csvFile);
 
         for (FacultyNode facNode : scheduleParser.getFaculties()) {

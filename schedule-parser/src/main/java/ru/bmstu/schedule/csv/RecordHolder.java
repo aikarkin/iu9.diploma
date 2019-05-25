@@ -9,6 +9,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -55,13 +56,22 @@ public class RecordHolder<E extends CSVHeader> {
         setter.accept(parseList(rec, propName));
     }
 
+    public void fillSet(Consumer<Set> setter, E propName) {
+        setter.accept(parseSet(rec, propName));
+    }
+
     public void fillTime(Consumer<Time> setter, E propName) throws ParseException {
         setter.accept(parseTime(rec, propName));
     }
 
     private static <E extends CSVHeader> List<String> parseList(CSVRecord rec, E prop) {
         String val = rec.get(prop.getHeader());
-        return Stream.of(val.split(";")).map(String::trim).collect(Collectors.toList());
+        return Stream.of(val.split(";\\s+")).map(String::trim).collect(Collectors.toList());
+    }
+
+    private static <E extends CSVHeader> Set<String> parseSet(CSVRecord rec, E prop) {
+        String val = rec.get(prop.getHeader());
+        return Stream.of(val.split(";\\s+")).map(String::trim).collect(Collectors.toSet());
     }
 
     private static <E extends CSVHeader> Integer parseInt(CSVRecord rec, E prop) {

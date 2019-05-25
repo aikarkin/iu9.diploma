@@ -4,8 +4,11 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import org.apache.commons.lang3.StringUtils;
+import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
+import ru.bmstu.schedule.csv.header.CSVHeader;
 import ru.bmstu.schedule.csv.header.CalendarHeader;
+import ru.bmstu.schedule.csv.header.LecturerHeader;
 import ru.bmstu.schedule.csv.parser.Parser;
 import ru.bmstu.schedule.csv.parser.ParserFactory;
 import ru.bmstu.schedule.dao.*;
@@ -15,6 +18,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.BiConsumer;
 
 public class CSVUtils {
@@ -39,11 +43,68 @@ public class CSVUtils {
         }
     }
 
-
     public static <E, K extends Serializable> void
     fillFromCsv(HibernateDao<K, E> dao, String csvFile) throws IOException, IllegalStateException {
         fillFromCsv(dao, csvFile, (e, r) -> {
         });
+    }
+
+    @SuppressWarnings("unchecked")
+    public static void fillLecturers(SessionFactory sessionFactory, String csvFile) throws IOException {
+        LecturerDao lecDao = new LecturerDao(sessionFactory);
+        SpecializationDao specDao = new SpecializationDao(sessionFactory);
+        SubjectDao subjDao = new SubjectDao(sessionFactory);
+
+        LecturerSpecializationDao lecSpecDao = new LecturerSpecializationDao(sessionFactory);
+        LecturerSubjectDao lecSubjDao = new LecturerSubjectDao(sessionFactory);
+
+        CSVParser parser = CSVFormat.EXCEL.withHeader().parse(new FileReader(csvFile));
+        Parser<LecturerEntry, LecturerHeader> lecParser = (Parser<LecturerEntry, LecturerHeader>) ParserFactory.parserFor(LecturerEntry.class);
+
+        for (CSVRecord record : parser) {
+            RecordHolder<LecturerHeader> recHolder = new RecordHolder<>(record);
+            LecturerEntry lec;
+            try {
+                lec = lecParser.parse(recHolder);
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println("[error] Failed to parse csv record: " + record);
+                continue;
+            }
+
+            Lecturer lecEntity = new Lecturer();
+            lecEntity.setEduDegree(lec.getEduDegree());
+            lecEntity.setFirstName(lec.getFirstName());
+            lecEntity.setLastName(lec.getLastName());
+            lecEntity.setMiddleName(lec.getMiddleName());
+
+            try {
+                Integer lecId = lecDao.create(lecEntity);
+                lecEntity = lecDao.findByKey(lecId);
+
+                for (String subjName : lec.getSubjectsNames()) {
+                    Optional<Subject> subjOpt = subjDao.findByName(subjName);
+                    if (subjOpt.isPresent() && !lecSubjDao.findBySubjectAndLecturer(subjOpt.get(), lecEntity).isPresent()) {
+                        SubjectOfLecturer subjOfLec = new SubjectOfLecturer(subjOpt.get(), lecEntity);
+                        Integer lecSubjId = lecSubjDao.create(subjOfLec);
+                        System.out.println("[debug] Created subject of lecturer with id: " + lecSubjId);
+                    }
+                }
+
+                for (String specCode : lec.getSpecializationsCodes()) {
+                    Optional<Specialization> specOpt = specDao.findByCode(specCode);
+                    if (specOpt.isPresent() && !lecSpecDao.findBySpecAndLec(specOpt.get(), lecEntity).isPresent()) {
+                        SpecializationOfLecturer specOfLec = new SpecializationOfLecturer(lecEntity, specOpt.get());
+                        Integer lecSpecId = lecSpecDao.create(specOfLec);
+                        System.out.println("[debug] Created specialization of lecturer with id: " + lecSpecId);
+                    }
+                }
+            } catch (HibernateException e) {
+                e.printStackTrace();
+                System.out.println("[error] Failed to save lecturer record: " + lec);
+            }
+
+        }
     }
 
     @SuppressWarnings("unchecked")

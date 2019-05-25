@@ -59,7 +59,7 @@ public class DayOfWeek {
         return Objects.hash(id, shortName, name);
     }
 
-    @OneToMany(mappedBy = "dayOfWeak")
+    @OneToMany(mappedBy = "dayOfWeek")
     public Collection<ScheduleDay> getScheduleDays() {
         return scheduleDays;
     }

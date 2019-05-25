@@ -8,12 +8,14 @@ import java.util.Set;
 
 @Entity
 public class Lecturer {
+
     private int id;
     private String email;
     private String firstName;
     private String middleName;
     private String lastName;
     private String eduDegree;
+    private Set<ScheduleItemParity> scheduleItemParities = new HashSet<>();
 
     @Override
     public String toString() {
@@ -25,8 +27,6 @@ public class Lecturer {
                 ", eduDegree='" + eduDegree + '\'' +
                 '}';
     }
-
-    private Set<ScheduleItemParity> scheduleItemParities = new HashSet<>();
 
     @Id
     @Column(name = "lecturer_id", nullable = false)
@@ -91,9 +91,9 @@ public class Lecturer {
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
     @JoinTable(
-            name="schedule_item_parity_to_lecturer",
-            joinColumns = { @JoinColumn(name="lecturer_id") },
-            inverseJoinColumns = { @JoinColumn(name="schedule_item_parity_id") }
+            name = "schedule_item_parity_to_lecturer",
+            joinColumns = {@JoinColumn(name = "lecturer_id")},
+            inverseJoinColumns = {@JoinColumn(name = "schedule_item_parity_id")}
     )
     public Set<ScheduleItemParity> getScheduleItemParities() {
         return scheduleItemParities;
@@ -101,11 +101,6 @@ public class Lecturer {
 
     void setScheduleItemParities(Set<ScheduleItemParity> scheduleItemParities) {
         this.scheduleItemParities = scheduleItemParities;
-    }
-
-    void addScheduleItemParity(ScheduleItemParity itemParity) {
-        itemParity.getLecturers().add(this);
-        getScheduleItemParities().add(itemParity);
     }
 
     @Override
@@ -125,4 +120,10 @@ public class Lecturer {
     public int hashCode() {
         return Objects.hash(id, email, firstName, middleName, lastName, eduDegree);
     }
+
+    void addScheduleItemParity(ScheduleItemParity itemParity) {
+        itemParity.getLecturers().add(this);
+        getScheduleItemParities().add(itemParity);
+    }
+
 }
