@@ -6,6 +6,8 @@ import ru.bmstu.schedule.smtgen.LessonKind;
 
 import java.util.Arrays;
 
+import static ru.bmstu.schedule.smtgen.Z3Utils.checkExprsSort;
+
 public class ScheduleSorts {
 
     private Context ctx;
@@ -32,7 +34,6 @@ public class ScheduleSorts {
 
     public ScheduleSorts(Context ctx) {
         this.ctx = ctx;
-        initConstructors();
         initSorts();
     }
 
@@ -124,48 +125,49 @@ public class ScheduleSorts {
         return lessonConstructor.ConstructorDecl();
     }
 
-    Expr lessonSubject(Expr lesson) {
-        return ctx.mkApp(lessonConstructor.getAccessorDecls()[0], lesson);
-    }
-
-    Expr lessonKind(Expr lesson) {
-        return ctx.mkApp(lessonConstructor.getAccessorDecls()[1], lesson);
-    }
-
-    Expr lessonTutor(Expr lesson) {
-        return ctx.mkApp(lessonConstructor.getAccessorDecls()[2], lesson);
-    }
-
-    Expr lessonRoom(Expr lesson) {
-        return ctx.mkApp(lessonConstructor.getAccessorDecls()[3], lesson);
-    }
-
     FuncDecl blankLessonDecl() {
         return blankLessonConstructor.ConstructorDecl();
     }
 
+
+    Expr lessonSubject(Expr lesson) {
+        checkExprsSort(lesson(), lesson);
+        return ctx.mkApp(lessonConstructor.getAccessorDecls()[0], lesson);
+    }
+
+    Expr lessonKind(Expr lesson) {
+        checkExprsSort(lesson(), lesson);
+        return ctx.mkApp(lessonConstructor.getAccessorDecls()[1], lesson);
+    }
+
+    Expr lessonTutor(Expr lesson) {
+        checkExprsSort(lesson(), lesson);
+        return ctx.mkApp(lessonConstructor.getAccessorDecls()[2], lesson);
+    }
+
+    Expr lessonRoom(Expr lesson) {
+        checkExprsSort(lesson(), lesson);
+        return ctx.mkApp(lessonConstructor.getAccessorDecls()[3], lesson);
+    }
+
     BoolExpr isBlankLessonExpr(Expr lessonExpr) {
-        return ctx.mkAnd(
-                ctx.mkBool(lessonExpr.getSort().equals(lesson)),
-                (BoolExpr) ctx.mkApp(blankLessonConstructor.getTesterDecl(), lessonExpr)
-        );
+        checkExprsSort(lesson(), lessonExpr);
+        return (BoolExpr) ctx.mkApp(blankLessonConstructor.getTesterDecl(), lessonExpr);
     }
 
     BoolExpr isNotBlankLessonExpr(Expr lessonExpr) {
-        return ctx.mkAnd(
-                ctx.mkBool(lessonExpr.getSort().equals(lesson)),
-                (BoolExpr) ctx.mkApp(lessonConstructor.getTesterDecl(), lessonExpr)
-        );
+        checkExprsSort(lesson(), lessonExpr);
+        return (BoolExpr) ctx.mkApp(lessonConstructor.getTesterDecl(), lessonExpr);
     }
 
     BoolExpr isSingleItemExpr(Expr slotItem) {
-        return ctx.mkAnd(
-                ctx.mkBool(slotItem.getSort().equals(lesson)),
-                (BoolExpr) ctx.mkApp(singleSItemConstructor.getTesterDecl(), slotItem)
+        checkExprsSort(slotItem(), slotItem);
+        return (BoolExpr) ctx.mkApp(singleSItemConstructor.getTesterDecl(), slotItem
         );
     }
 
     BoolExpr isPairItemExpr(Expr slotItem) {
+        checkExprsSort(slotItem(), slotItem);
         return ctx.mkAnd(
                 ctx.mkBool(slotItem.getSort().equals(slot)),
                 (BoolExpr) ctx.mkApp(pairSItemConstructor.getTesterDecl(), slotItem)
@@ -173,38 +175,48 @@ public class ScheduleSorts {
     }
 
     Expr singleItemLesson(Expr singleSlotItem) {
+        checkExprsSort(slotItem(), singleSlotItem);
         return singleSItemConstructor.getAccessorDecls()[0].apply(singleSlotItem);
     }
 
     Expr pairItemNumerator(Expr pairSlotItem) {
+        checkExprsSort(slotItem(), pairSlotItem);
         return pairSItemConstructor.getAccessorDecls()[0].apply(pairSlotItem);
     }
 
     Expr pairItemDenominator(Expr pairSlotItem) {
+        checkExprsSort(slotItem(), pairSlotItem);
         return pairSItemConstructor.getAccessorDecls()[1].apply(pairSlotItem);
     }
 
     BoolExpr hasNotEmptyNumerator(Expr slotItem) {
+        checkExprsSort(slotItem(), slotItem);
         return ctx.mkAnd(
-                ctx.mkBool(slotItem.getSort().equals(slotItem())),
                 isPairItemExpr(slotItem),
                 (BoolExpr) ctx.mkApp(lessonConstructor.getTesterDecl(), pairItemNumerator(slotItem))
         );
     }
 
     BoolExpr hasNotEmptyDenominator(Expr slotItem) {
+        checkExprsSort(slotItem(), slotItem);
         return ctx.mkAnd(
-                ctx.mkBool(slotItem.getSort().equals(slotItem())),
                 isPairItemExpr(slotItem),
                 (BoolExpr) ctx.mkApp(lessonConstructor.getTesterDecl(), pairItemDenominator(slotItem))
         );
     }
 
     IntExpr tutorId(Expr tutor) {
+        checkExprsSort(tutor(), tutor);
         return (IntExpr) ctx.mkApp(tutorConstructor.getAccessorDecls()[0], tutor);
     }
 
+    Expr tutorLessonKind(Expr tutor) {
+        checkExprsSort(tutor(), tutor);
+        return ctx.mkApp(tutorConstructor.getAccessorDecls()[1], tutor);
+    }
+
     IntExpr subjId(Expr subj) {
+        checkExprsSort(subject(), subj);
         return (IntExpr) ctx.mkApp(subjectConstructor.getAccessorDecls()[0], subj);
     }
 
@@ -213,15 +225,8 @@ public class ScheduleSorts {
         kind = mkCustomEnumSort(ctx, LessonKind.class);
         slot = mkCustomEnumSort(ctx, LessonSlot.class);
         parity = mkCustomEnumSort(ctx, LessonParity.class);
-        subject = ctx.mkDatatypeSort("Subject", new Constructor[]{subjectConstructor});
-        tutor = ctx.mkDatatypeSort("Tutor", new Constructor[]{tutorConstructor});
-        room = ctx.mkDatatypeSort("Room", new Constructor[]{roomConstructor});
-        group = ctx.mkDatatypeSort("Group", new Constructor[]{groupConstructor});
-        lesson = ctx.mkDatatypeSort("Lesson", new Constructor[]{blankLessonConstructor, lessonConstructor});
-        slotItem = ctx.mkDatatypeSort("SlotItem", new Constructor[]{singleSItemConstructor, pairSItemConstructor});
-    }
 
-    private void initConstructors() {
+        // Subject sort:
         subjectConstructor = ctx.mkConstructor(
                 "mk-subject",
                 "is-subject",
@@ -229,13 +234,19 @@ public class ScheduleSorts {
                 new Sort[]{ctx.mkIntSort()},
                 new int[]{0}
         );
+        subject = ctx.mkDatatypeSort("Subject", new Constructor[]{subjectConstructor});
+
+        // Tutor sort:
         tutorConstructor = ctx.mkConstructor(
                 "mk-tutor",
                 "is-tutor",
-                new String[]{"id-of"},
-                new Sort[]{ctx.mkIntSort()},
-                new int[]{0}
+                new String[]{"id-of", "lesson-kind-of"},
+                new Sort[]{ctx.mkIntSort(), kind()},
+                new int[]{0, 1}
         );
+        tutor = ctx.mkDatatypeSort("Tutor", new Constructor[]{tutorConstructor});
+
+        // Room sort:
         roomConstructor = ctx.mkConstructor(
                 "mk-room",
                 "is-room",
@@ -243,6 +254,9 @@ public class ScheduleSorts {
                 new Sort[]{ctx.mkIntSort()},
                 new int[]{0}
         );
+        room = ctx.mkDatatypeSort("Room", new Constructor[]{roomConstructor});
+
+        // Group sort:
         groupConstructor = ctx.mkConstructor(
                 "mk-group",
                 "is-group",
@@ -250,6 +264,9 @@ public class ScheduleSorts {
                 new Sort[]{ctx.mkIntSort()},
                 new int[]{0}
         );
+        group = ctx.mkDatatypeSort("Group", new Constructor[]{groupConstructor});
+
+        // Lesson sort:
         lessonConstructor = ctx.mkConstructor(
                 "mk-lesson",
                 "is-lesson",
@@ -264,6 +281,8 @@ public class ScheduleSorts {
                 null,
                 null
         );
+        lesson = ctx.mkDatatypeSort("Lesson", new Constructor[]{blankLessonConstructor, lessonConstructor});
+
         singleSItemConstructor = ctx.mkConstructor(
                 "mk-item",
                 "is-single",
@@ -278,12 +297,13 @@ public class ScheduleSorts {
                 new Sort[]{lesson(), lesson()},
                 new int[]{0, 1}
         );
+        slotItem = ctx.mkDatatypeSort("SlotItem", new Constructor[]{singleSItemConstructor, pairSItemConstructor});
     }
 
     private static EnumSort mkCustomEnumSort(Context ctx, Class<? extends Enum<?>> enumType) {
-        String[] symbols = (String[]) Arrays.stream(enumType.getEnumConstants())
+        String[] symbols = Arrays.stream(enumType.getEnumConstants())
                 .map(Enum::name)
-                .toArray();
+                .toArray(String[]::new);
 
         return ctx.mkEnumSort(enumType.getSimpleName(), symbols);
     }

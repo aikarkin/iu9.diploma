@@ -1,32 +1,41 @@
 package ru.bmstu.schedule.dao;
 
 import org.hibernate.Criteria;
-import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
-import ru.bmstu.schedule.entity.Lecturer;
-import ru.bmstu.schedule.entity.Subject;
-import ru.bmstu.schedule.entity.SubjectOfLecturer;
+import ru.bmstu.schedule.entity.*;
 
-import java.util.Optional;
+import java.util.Collections;
+import java.util.List;
 
-public class LecturerSubjectDao extends HibernateDao<Integer, SubjectOfLecturer> {
+public class LecturerSubjectDao extends HibernateDao<Integer, LecturerSubject> {
 
     public LecturerSubjectDao(SessionFactory factory) {
         super(factory);
     }
 
-    public Optional<SubjectOfLecturer> findBySubjectAndLecturer(Subject subject, Lecturer lec) {
-        return composeInTransaction(session -> {
-            Criteria criteria = createEntityCriteria();
-            criteria.add(Restrictions.eq("subject", subject));
-            criteria.add(Restrictions.eq("lecturer", lec));
+    @SuppressWarnings("unchecked")
+    public List<LecturerSubject> findByLecturerAndSubject(Lecturer lecturer, DepartmentSubject departmentSubject) {
+        if (lecturer == null || departmentSubject == null) {
+            return Collections.emptyList();
+        }
 
-            try {
-                return Optional.ofNullable((SubjectOfLecturer) criteria.uniqueResult());
-            } catch (HibernateException e) {
-                return Optional.empty();
-            }
+        return composeInTransaction(session -> {
+            Criteria criteria = session.createCriteria(LecturerSubject.class);
+            criteria.add(Restrictions.eq("lecturer", lecturer));
+            criteria.add(Restrictions.eq("departmentSubject", departmentSubject));
+            return (List<LecturerSubject>) criteria.list();
+        });
+    }
+
+    public List<LecturerSubject> findByLecturerAndSubjectClassType(Lecturer lecturer, Subject subject, ClassType classType) {
+        return composeInTransaction(session -> {
+            Criteria criteria = session.createCriteria(LecturerSubject.class);
+            criteria.add(Restrictions.eq("lecturer", lecturer));
+            criteria.add(Restrictions.eq("departmentSubject", subject));
+            criteria.add(Restrictions.eq("classType", classType));
+
+            return (List<LecturerSubject>) criteria.list();
         });
     }
 

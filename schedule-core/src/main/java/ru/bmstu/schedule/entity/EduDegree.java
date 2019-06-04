@@ -7,10 +7,11 @@ import java.util.Objects;
 @Entity
 @Table(name = "edu_degree")
 public class EduDegree {
+
     private int id;
     private String name;
     private int minNumberOfStudyYears;
-    private Collection<Specialization> specializations;
+    private Collection<Speciality> specialities;
 
     @Id
     @Column(name = "degree_id", nullable = false)
@@ -24,7 +25,7 @@ public class EduDegree {
     }
 
     @Basic
-    @Column(name = "degree_name", columnDefinition = "bpchar", nullable = false, length = 14)
+    @Column(name = "degree_name", nullable = false, length = -1)
     public String getName() {
         return name;
     }
@@ -59,12 +60,13 @@ public class EduDegree {
         return Objects.hash(id, name, minNumberOfStudyYears);
     }
 
-    @OneToMany(mappedBy = "eduDegree")
-    public Collection<Specialization> getSpecializations() {
-        return specializations;
+    @OneToMany(mappedBy = "degree", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    public Collection<Speciality> getSpecialities() {
+        return specialities;
     }
 
-    public void setSpecializations(Collection<Specialization> specializations) {
-        this.specializations = specializations;
+    public void setSpecialities(Collection<Speciality> specializations) {
+        this.specialities = specializations;
     }
+
 }

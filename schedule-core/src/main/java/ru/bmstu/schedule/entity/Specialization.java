@@ -1,24 +1,19 @@
 package ru.bmstu.schedule.entity;
 
-import org.hibernate.HibernateException;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
-
 import javax.persistence.*;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.Objects;
 
 @Entity
+@Table(name = "specialization")
 public class Specialization {
-    private int id;
-    private String code;
-    private String title;
-    private EduDegree eduDegree;
 
-    private Set<DepartmentSpecialization> departmentSpecializations = new HashSet<>();
+    private int id;
+    private Speciality speciality;
+    private int numberInSpeciality;
+    private String title;
 
     @Id
-    @Column(name = "spec_id", nullable = false)
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
@@ -28,18 +23,26 @@ public class Specialization {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "spec_code", columnDefinition = "bpchar", length = 8)
-    public String getCode() {
-        return code;
+    @ManyToOne
+    @JoinColumn(name = "speciality_id", referencedColumnName = "id")
+    public Speciality getSpeciality() {
+        return speciality;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setSpeciality(Speciality speciality) {
+        this.speciality = speciality;
     }
 
-    @Basic
-    @Column(name = "title", nullable = false, length = -1)
+    @Column(name = "number_in_speciality", nullable = false)
+    public int getNumberInSpeciality() {
+        return numberInSpeciality;
+    }
+
+    public void setNumberInSpeciality(int numberInSpeciality) {
+        this.numberInSpeciality = numberInSpeciality;
+    }
+
+    @Column(name = "title")
     public String getTitle() {
         return title;
     }
@@ -48,90 +51,20 @@ public class Specialization {
         this.title = title;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "degree_id", referencedColumnName = "degree_id")
-    public EduDegree getEduDegree() {
-        return eduDegree;
-    }
-
-    public void setEduDegree(EduDegree eduDegree) {
-        this.eduDegree = eduDegree;
-    }
-
-//    @OneToMany(mappedBy = "compositeKey.specialization", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @OneToMany(mappedBy = "specialization", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    Set<DepartmentSpecialization> getDepartmentSpecializations() {
-        return departmentSpecializations;
-    }
-
-    void setDepartmentSpecializations(Set<DepartmentSpecialization> departmentSpecializations) {
-        this.departmentSpecializations = departmentSpecializations;
-    }
-
-    @Transient
-    public List<Department> getDepartments() {
-        return getDepartmentSpecializations()
-                .stream()
-                .map(DepartmentSpecialization::getDepartment)
-                .collect(Collectors.toList());
-    }
-
-    @Transient
-    public List<StudyFlow> getStudyFlows() {
-        return getDepartmentSpecializations()
-                .stream()
-                .flatMap(ds -> ds.getStudyFlows().stream())
-                .collect(Collectors.toList());
-    }
-
-    public void addDepartment(Department dep) {
-        DepartmentSpecialization depSpec = new DepartmentSpecialization();
-        depSpec.setDepartment(dep);
-        depSpec.setSpecialization(this);
-        getDepartmentSpecializations().add(depSpec);
-    }
-
-    public void addStudyFlow(StudyFlow studyFlow, Department dep) {
-        Optional<DepartmentSpecialization> dsOpt = getDepartmentSpecializations()
-                .stream()
-                .filter(ds -> ds.getDepartment().equals(dep))
-                .findFirst();
-
-        if(dsOpt.isPresent()) {
-            DepartmentSpecialization depSpec = dsOpt.get();
-            studyFlow.setDepartmentSpecialization(depSpec);
-            depSpec.getStudyFlows().add(studyFlow);
-        } else {
-            String msg = String.format(
-                    "Unable to add study flow: current specialization (%s) is not belong to department %s.",
-                    this.getCode(),
-                    dep.getCipher()
-            );
-            throw new HibernateException(msg);
-        }
-    }
-
-    @Override
-    public String toString() {
-        return "Specialization{" +
-                "id=" + id +
-                ", code='" + code + '\'' +
-                ", title='" + title + '\'' +
-                '}';
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Specialization that = (Specialization) o;
         return id == that.id &&
-                Objects.equals(code, that.code) &&
+                numberInSpeciality == that.numberInSpeciality &&
+                Objects.equals(speciality, that.speciality) &&
                 Objects.equals(title, that.title);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, code, title);
+        return Objects.hash(id, speciality, numberInSpeciality, title);
     }
+
 }

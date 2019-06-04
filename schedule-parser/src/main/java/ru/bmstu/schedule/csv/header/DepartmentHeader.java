@@ -1,9 +1,7 @@
 package ru.bmstu.schedule.csv.header;
 
 public enum DepartmentHeader implements CSVHeader {
-    faculty,
-    departmentNumber,
-    cipher,
+    code,
     title;
 
     @Override

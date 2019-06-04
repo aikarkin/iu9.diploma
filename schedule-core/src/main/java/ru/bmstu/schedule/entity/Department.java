@@ -1,14 +1,16 @@
 package ru.bmstu.schedule.entity;
 
-import org.hibernate.HibernateException;
-
 import javax.persistence.*;
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Entity
-@Table(name="department")
+@Table(name = "department")
 public class Department {
+
     private int id;
     private int number;
     private String title;
@@ -40,15 +42,6 @@ public class Department {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    Set<DepartmentSpecialization> getDepartmentSpecializations() {
-        return departmentSpecializations;
-    }
-
-    void setDepartmentSpecializations(Set<DepartmentSpecialization> departmentSpecializations) {
-        this.departmentSpecializations = departmentSpecializations;
     }
 
     @Basic
@@ -101,41 +94,13 @@ public class Department {
                 .collect(Collectors.toList());
     }
 
-    @Transient
-    public List<StudyFlow> getStudyFlows() {
-        return getDepartmentSpecializations()
-                .stream()
-                .flatMap(ds -> ds.getStudyFlows().stream())
-                .collect(Collectors.toList());
-    }
-
-    public void addStudyFlow(StudyFlow studyFlow, Specialization spec) {
-        Optional<DepartmentSpecialization> dsOpt = getDepartmentSpecializations()
-                .stream()
-                .filter(ds -> ds.getSpecialization().equals(spec))
-                .findFirst();
-
-        if(dsOpt.isPresent()) {
-            DepartmentSpecialization ds = dsOpt.get();
-            studyFlow.setDepartmentSpecialization(ds);
-            ds.getStudyFlows().add(studyFlow);
-        } else {
-            String msg = String.format(
-                    "Unable to add study flow: current department (%s) hasn't specialization %s.",
-                    this.getCipher(),
-                    spec.getCode()
-            );
-            throw new HibernateException(msg);
-        }
-    }
-
     @Override
     public String toString() {
         return "Department{" +
                 "id=" + id +
                 ", number=" + number +
                 ", title='" + title + '\'' +
-                ", faculty=" + faculty.getCipher() +
+                (faculty == null ? "" : ", faculty=" + faculty.getCipher()) +
                 '}';
     }
 
@@ -153,4 +118,14 @@ public class Department {
     public int hashCode() {
         return Objects.hash(id, number, title);
     }
+
+    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    Set<DepartmentSpecialization> getDepartmentSpecializations() {
+        return departmentSpecializations;
+    }
+
+    void setDepartmentSpecializations(Set<DepartmentSpecialization> departmentSpecializations) {
+        this.departmentSpecializations = departmentSpecializations;
+    }
+
 }

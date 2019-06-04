@@ -1,11 +1,14 @@
 package ru.bmstu.schedule.entity;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "schedule_item")
 public class ScheduleItem {
+
     private int id;
     private ScheduleDay scheduleDay;
     private ClassTime classTime;
@@ -22,22 +25,6 @@ public class ScheduleItem {
         this.id = id;
     }
 
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ScheduleItem that = (ScheduleItem) o;
-        return id == that.id &&
-                Objects.equals(scheduleDay, that.scheduleDay) &&
-                Objects.equals(classTime, that.classTime);
-    }
-
-    @Override
-    public int hashCode() {
-
-        return Objects.hash(id, scheduleDay, classTime);
-    }
 
     @ManyToOne
     @JoinColumn(name = "day_id", referencedColumnName = "day_id")
@@ -81,4 +68,20 @@ public class ScheduleItem {
                 ", classTime=" + classTime.toString() +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ScheduleItem that = (ScheduleItem) o;
+        return id == that.id &&
+                Objects.equals(scheduleDay, that.scheduleDay) &&
+                Objects.equals(classTime, that.classTime);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, scheduleDay, classTime);
+    }
+
 }

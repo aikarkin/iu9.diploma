@@ -13,16 +13,16 @@ import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public abstract class HibernateDao<PK extends Serializable, E> implements Dao<PK, E> {
+
     private final Class<E> persistentClass;
     private SessionFactory sessionFactory;
 
     @SuppressWarnings("unchecked")
     public HibernateDao(SessionFactory factory) {
-        persistentClass = (Class<E>) ((ParameterizedType)this.getClass().getGenericSuperclass()).getActualTypeArguments()[1];
+        persistentClass = (Class<E>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[1];
         sessionFactory = factory;
     }
 
@@ -35,6 +35,32 @@ public abstract class HibernateDao<PK extends Serializable, E> implements Dao<PK
         return composeInTransaction(session ->
                 session.get(persistentClass, primaryKey)
         );
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<E> findAll() {
+        return composeInTransaction(session ->
+                (List<E>) createEntityCriteria().list()
+        );
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public PK create(E entity) {
+        return composeInTransaction(session ->
+                (PK) session.save(entity)
+        );
+    }
+
+    @Override
+    public void update(E entity) {
+        consumeInTransaction(session -> session.update(entity));
+    }
+
+    @Override
+    public void delete(E entity) {
+        consumeInTransaction(session -> session.delete(entity));
     }
 
     protected SessionFactory getSessionFactory() {
@@ -66,32 +92,6 @@ public abstract class HibernateDao<PK extends Serializable, E> implements Dao<PK
 
     protected Stream<E> filter(Predicate<E> predicate) {
         return findAll().stream().filter(predicate);
-    }
-
-    @Override
-    @SuppressWarnings("unchecked")
-    public List<E> findAll() {
-        return composeInTransaction(session ->
-                (List<E>) createEntityCriteria().list()
-        );
-    }
-
-    @SuppressWarnings("unchecked")
-    @Override
-    public PK create(E entity) {
-        return composeInTransaction(session ->
-                (PK)session.save(entity)
-        );
-    }
-
-    @Override
-    public void update(E entity) {
-        consumeInTransaction(session -> session.update(entity));
-    }
-
-    @Override
-    public void delete(E entity) {
-        consumeInTransaction(session -> session.delete(entity));
     }
 
     protected void consumeInTransaction(Consumer<Session> consumer) {

@@ -1,8 +1,16 @@
 package ru.bmstu.schedule.smtgen.model;
 
-import com.microsoft.z3.*;
+import com.microsoft.z3.BoolExpr;
+import com.microsoft.z3.Context;
+import com.microsoft.z3.Expr;
+import com.microsoft.z3.RealExpr;
 import ru.bmstu.schedule.smtgen.DayOfWeak;
 import ru.bmstu.schedule.smtgen.LessonKind;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static ru.bmstu.schedule.smtgen.Z3Utils.checkExprsSort;
 
 public class ScheduleAsserts {
 
@@ -191,28 +199,26 @@ public class ScheduleAsserts {
             );
         }
 
-        int noOfPatterns = slots.length *
-                (MAX_LESSONS_PER_DAY - MIN_LESSONS_PER_DAY + (MAX_LESSONS_PER_DAY + MIN_LESSONS_PER_DAY) / 2);
-        BoolExpr[] validPatterns = new BoolExpr[noOfPatterns + 1];
-        int l = 0;
+        List<BoolExpr> validPatterns = new ArrayList<>();
         for (int k = MIN_LESSONS_PER_DAY; k <= MAX_LESSONS_PER_DAY; k++) {
             for (int j = 0; j < slots.length - k; j++) {
                 BoolExpr[] validSlots = new BoolExpr[slots.length];
+                System.arraycopy(emptySlots, 0, validSlots, 0, j);
                 for (int i = j; i < k; i++) {
                     validSlots[i] = nonEmptySlots[j];
                 }
                 if (slots.length - k >= 0) {
                     System.arraycopy(emptySlots, k, validSlots, k, slots.length - k);
                 }
-                validPatterns[l++] = ctx.mkAnd(validSlots);
+                validPatterns.add(ctx.mkAnd(validSlots));
             }
         }
 
         BoolExpr[] validSlots = new BoolExpr[slots.length];
         System.arraycopy(emptySlots, 0, validSlots, 0, slots.length);
 
-        validPatterns[l] = ctx.mkAnd(validSlots);
-        return ctx.mkOr(validPatterns);
+        validPatterns.add(ctx.mkAnd(validSlots));
+        return ctx.mkOr(validPatterns.toArray(new BoolExpr[0]));
     }
 
     // lesson1 and lesson2 are in same slot item
@@ -249,20 +255,6 @@ public class ScheduleAsserts {
                         ctx.mkNot(ctx.mkEq(sorts.lessonRoom(lesson1), sorts.lessonRoom(lesson2)))
                 )
         );
-    }
-
-    private static void checkExprsSort(Sort sort, Expr... exprs) throws IllegalArgumentException {
-        for (Expr expr : exprs) {
-            if (!expr.getSort().equals(sort)) {
-                String msg = String.format(
-                        "Invalid sort of expression: %s. Expected: %s, actual: %s",
-                        expr,
-                        sort.getName(),
-                        expr.getSort().getName()
-                );
-                throw new IllegalArgumentException(msg);
-            }
-        }
     }
 
 }

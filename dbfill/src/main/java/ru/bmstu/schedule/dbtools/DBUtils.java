@@ -4,77 +4,66 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import org.apache.commons.lang3.StringUtils;
-import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
-import ru.bmstu.schedule.csv.CSVUtils;
-import ru.bmstu.schedule.csv.LecturerEntry;
-import ru.bmstu.schedule.csv.RecordHolder;
-import ru.bmstu.schedule.csv.header.CSVHeader;
+import ru.bmstu.schedule.csv.*;
+import ru.bmstu.schedule.csv.LecturerSubjectEntry.ClassKind;
 import ru.bmstu.schedule.csv.header.DepartmentHeader;
-import ru.bmstu.schedule.csv.header.SpecHeader;
-import ru.bmstu.schedule.csv.header.SpecToDepHeader;
-import ru.bmstu.schedule.csv.parser.Parser;
-import ru.bmstu.schedule.csv.parser.ParserFactory;
+import ru.bmstu.schedule.csv.header.GroupHeader;
+import ru.bmstu.schedule.csv.header.LecturerSubjectsHeader;
+import ru.bmstu.schedule.csv.header.SpecializationHeader;
+import ru.bmstu.schedule.csv.parser.*;
 import ru.bmstu.schedule.dao.*;
-import ru.bmstu.schedule.dbtools.converter.GroupConverter;
-import ru.bmstu.schedule.dbtools.converter.ScheduleDayConverter;
+import ru.bmstu.schedule.entity.Calendar;
 import ru.bmstu.schedule.entity.*;
-import ru.bmstu.schedule.html.node.*;
+import ru.bmstu.schedule.html.node.GroupNode;
+import ru.bmstu.schedule.html.node.ScheduleItemParityNode;
 import ru.bmstu.schedule.html.parser.ScheduleParser;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
+import java.util.function.Consumer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Stream;
-
-import static ru.bmstu.schedule.csv.CSVUtils.fillFromCsv;
+import java.util.stream.Collectors;
 
 public class DBUtils {
 
-    public static void fillClassTime(SessionFactory sessionFactory, ScheduleParser scheduleParser) {
-        final LinkedHashSet<ScheduleItemNode> classesTime = new LinkedHashSet<>();
-        ClassTimeDao dao = new ClassTimeDao(sessionFactory);
-        for (GroupNode group : scheduleParser.getAllGroups()) {
-            try {
-                for (ScheduleDayNode day : scheduleParser.scheduleFor(group)) {
-                    classesTime.addAll(day.getChildren());
+    public static void fillCalendars(SessionFactory factory, String path) {
+        File dir = new File(path);
+        Pattern cfnPtr = Pattern.compile("(\\p{Lu}+\\d+)__(\\d+[.]\\d+[.]\\d+_\\d+)__(\\d{4})[.]csv");
+        CalendarDao calendarDao = new CalendarDao(factory);
+
+        if (dir.exists() && dir.isDirectory()) {
+            File[] files = dir.listFiles();
+            if (files != null) {
+                for (File file : files) {
+                    String fn = file.getName();
+                    Matcher cfnMatcher = cfnPtr.matcher(fn);
+                    if (cfnMatcher.matches() && cfnMatcher.groupCount() == 3) {
+                        String depCipher = cfnMatcher.group(1);
+                        String specCode = cfnMatcher.group(2);
+                        int year = Integer.parseInt(cfnMatcher.group(3));
+                        System.out.println("Looking for calendar: " + String.format("{year: %d, dep: %s, spec: %s}", year, depCipher, specCode));
+                        Optional<Calendar> calendarOpt = calendarDao.findByStartYearAndDepartmentCodeAndSpecCode(year, depCipher, specCode);
+                        String csvFile = file.getAbsolutePath();
+
+                        if (calendarOpt.isPresent()) {
+                            System.out.println("[info] Fill calendar from file: " + csvFile);
+                            try {
+                                CSVUtils.fillCalendar(calendarOpt.get(), factory, csvFile);
+                            } catch (IOException e) {
+                                System.out.println("[error] Failed to parse file: " + csvFile + ". Error message: " + e.getMessage());
+                            }
+                        } else {
+                            System.out.println("[warn] Calendar was not found for file: " + csvFile + ". Skipping it.");
+                        }
+                    }
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
             }
-        }
-
-        int noOfClass = 1;
-
-        for (ScheduleItemNode node : classesTime) {
-            EntityAdapter<ClassTime> adapter = EntityAdapter.adapterFor(ClassTime.class, node);
-            ClassTime ct = adapter.getEntity();
-            ct.setNoOfClass(noOfClass++);
-
-            dao.create(ct);
-        }
-    }
-
-    public static void fillTerms(SessionFactory sessionFactory, ScheduleParser scheduleParser) {
-        TermDao dao = new TermDao(sessionFactory);
-        int maxTerm = 0;
-
-        for (GroupNode g : scheduleParser.getAllGroups()) {
-            if (g.getTermNumber() > maxTerm)
-                maxTerm = g.getTermNumber();
-        }
-
-        if (maxTerm == 0)
-            maxTerm = 14;
-
-        for (int i = 1; i <= maxTerm + 1; i++) {
-            Term term = new Term();
-            term.setNumber(i);
-            dao.create(term);
+        } else {
+            System.out.println("[error] Invalid directory path: " + path);
         }
     }
 
@@ -105,283 +94,257 @@ public class DBUtils {
         }
     }
 
-    public static void fillFacultiesAndDepartments(SessionFactory sessionFactory, String csvFile, ScheduleParser scheduleParser) throws IOException {
-        FacultyDao facultyDao = new FacultyDao(sessionFactory);
-        Map<String, Department> grCipherToDepartment = loadGroupCipherToDepartmentMapping(csvFile);
 
-        for (FacultyNode facNode : scheduleParser.getFaculties()) {
-            EntityAdapter<Faculty> factAdapter = EntityAdapter.adapterFor(Faculty.class, facNode);
-            Faculty faculty = factAdapter.getEntity();
-            for (DepartmentNode depNode : facNode.getChildren()) {
-                Department dep = grCipherToDepartment.get(depNode.getCipher());
-                if (dep != null) {
-                    faculty.addDepartment(dep);
-                } else {
-                    System.out.println("[warn] Department with cipher '" + depNode.getCipher() + "' was not found");
-                }
-            }
-            facultyDao.create(faculty);
-        }
-    }
+    public static void fillSpecializationsAndDegrees(SessionFactory sessionFactory, String path) throws IOException {
+        File refFile = new File(path);
 
-    public static void fillSpecializations(SessionFactory sessionFactory, String csvFile) throws IOException {
+        SpecialityDao specialityDao = new SpecialityDao(sessionFactory);
         EduDegreeDao degreeDao = new EduDegreeDao(sessionFactory);
-        fillFromCsv(new SpecializationDao(sessionFactory), csvFile, (entity, rec) -> {
-            String degreeName = rec.get(SpecHeader.degree);
-            Optional<EduDegree> degree = degreeDao.findByName(degreeName);
+        SpecializationDao specializationDao = new SpecializationDao(sessionFactory);
 
-            degree.ifPresent(entity::setEduDegree);
-        });
-    }
+        CSVParser records = CSVFormat.EXCEL.withHeader().parse(new FileReader(refFile));
+        EntryParser<SpecializationEntry, SpecializationHeader> parser = new SpecializationParser();
 
-    public static void fillDepToSpec(SessionFactory sessionFactory, String csvFile) throws IOException {
-        CSVParser parser = CSVFormat.EXCEL.withHeader().parse(new FileReader(csvFile));
-        SpecializationDao specDao = new SpecializationDao(sessionFactory);
-        DepartmentDao depDao = new DepartmentDao(sessionFactory);
+        for (CSVRecord record : records) {
+            RecordHolder<SpecializationHeader> holder = new RecordHolder<>(record);
+            SpecializationEntry specEntry = parser.parse(holder);
 
-        for (CSVRecord rec : parser) {
-            String specCode = rec.get(SpecToDepHeader.specCode);
-            String[] departments = rec.get(SpecToDepHeader.departments).split(";");
-            Optional<Specialization> spec = specDao.findByCode(specCode);
+            String degreeName = specEntry.getDegreeName();
+            Optional<EduDegree> degreeOpt = degreeDao.findByName(degreeName);
+            EduDegree degree;
 
-            if (spec.isPresent()) {
-                for (String depCipher : departments) {
-                    Optional<Department> dep = depDao.findByCipher(depCipher);
+            String specialityCode = specEntry.getSpecialityCode();
+            Optional<Speciality> specialityOpt = specialityDao.findByCode(specialityCode);
+            Speciality speciality;
 
-                    if (dep.isPresent()) {
-                        spec.get().addDepartment(dep.get());
-                    } else {
-                        System.out.println("[warn] Department with cipher '" + depCipher + "' was not found, skipping record");
-                    }
-                }
-                specDao.update(spec.get());
+            if (!degreeOpt.isPresent()) {
+                degree = new EduDegree();
+                degree.setName(degreeName);
+                degree.setMinNumberOfStudyYears(specEntry.getDegreeStudyYears());
+                Integer id = degreeDao.create(degree);
+                degree.setId(id);
             } else {
-                System.out.println("[warn] Specialization with code '" + specCode + "' is not found, skipping record");
+                degree = degreeOpt.get();
             }
 
+            if (!specialityOpt.isPresent()) {
+                speciality = new Speciality();
+                speciality.setCode(specialityCode);
+                speciality.setDegree(degree);
+                speciality.setTitle(specEntry.getSpecialityName());
+                Integer id = specialityDao.create(speciality);
+                speciality.setId(id);
+            } else {
+                speciality = specialityOpt.get();
+            }
+
+            Specialization specialization = new Specialization();
+            specialization.setNumberInSpeciality(specEntry.getNumberInSpeciality());
+            specialization.setTitle(specEntry.getSpecializationName());
+            specialization.setSpeciality(speciality);
+
+            specializationDao.create(specialization);
+        }
+
+    }
+
+    public static void fillFaculties(SessionFactory sessionFactory, String refPath) throws IOException {
+        CSVUtils.fillFromCsv(new FacultyDao(sessionFactory), refPath);
+    }
+
+
+    public static void fillDepartments(SessionFactory sessionFactory, String refPath) throws IOException {
+        DepartmentDao deptDao = new DepartmentDao(sessionFactory);
+        FacultyDao facultyDao = new FacultyDao(sessionFactory);
+
+        CSVParser records = CSVFormat.EXCEL.withHeader().parse(new FileReader(new File(refPath)));
+        EntryParser<DepartmentEntry, DepartmentHeader> parser = new DepartmentParser();
+
+        for (CSVRecord record : records) {
+            RecordHolder<DepartmentHeader> holder = new RecordHolder<>(record);
+            DepartmentEntry deptEntry = parser.parse(holder);
+            Department dept = new Department();
+            Optional<Faculty> factOpt = facultyDao.findByCipher(deptEntry.getFacultyCipher());
+            if (!factOpt.isPresent()) {
+                System.out.println("[error] No faculty found with cipher: " + deptEntry.getFacultyCipher());
+                continue;
+            }
+
+            dept.setFaculty(factOpt.get());
+            dept.setNumber(deptEntry.getDepartmentNumber());
+            dept.setTitle(deptEntry.getDepartmentTitle());
+
+            deptDao.create(dept);
         }
     }
 
-    public static void fillStudyFlows(SessionFactory sessionFactory, ScheduleParser scheduleParser) {
-        Calendar calendar = Calendar.getInstance();
-        int year = calendar.get(Calendar.YEAR), month = calendar.get(Calendar.MONTH),
-                enrollmentForFirst = month >= 9 && month <= 12 ? year : year - 1;
+    public static void fillGroups(SessionFactory sessionFactory, String refPath) throws IOException {
+        DepartmentSpecializationDao deptSpecDao = new DepartmentSpecializationDao(sessionFactory);
+        DepartmentDao deptDao = new DepartmentDao(sessionFactory);
+        SpecializationDao specDao = new SpecializationDao(sessionFactory);
+        TermDao termDao = new TermDao(sessionFactory);
+        StudyGroupDao groupDao = new StudyGroupDao(sessionFactory);
 
-        DepartmentDao depDao = new DepartmentDao(sessionFactory);
+        CalendarDao calendarDao = new CalendarDao(sessionFactory);
+        java.util.Calendar dateCalendarInst = java.util.Calendar.getInstance();
+        int curYear = dateCalendarInst.get(java.util.Calendar.YEAR);
 
-        for (DepartmentNode depNode : scheduleParser.getAllDepartments()) {
-            Optional<Department> depOpt = depDao.findByCipher(depNode.getCipher());
-            if (depOpt.isPresent()) {
-                Department dep = depOpt.get();
-                for (CourseNode courseNode : depNode.getChildren()) {
-                    int noOfCourse = courseNode.getCourseNumber();
-                    int enrollment = enrollmentForFirst - noOfCourse + 1;
-                    for (Specialization spec : dep.getSpecializations()) {
-                        try {
-                            StudyFlow flow = new StudyFlow();
-                            flow.setEnrollmentYear(enrollment);
-                            dep.addStudyFlow(flow, spec);
-                        } catch (HibernateException e) {
-                            System.out.println("[warn] Failed to create study flow: " + e.getMessage());
-                        }
-                    }
-                    depDao.update(dep);
+        CSVParser records = CSVFormat.EXCEL.withHeader().parse(new FileReader(new File(refPath)));
+        EntryParser<GroupEntry, GroupHeader> parser = new GroupParser();
+
+        for (CSVRecord record : records) {
+            RecordHolder<GroupHeader> holder = new RecordHolder<>(record);
+            GroupEntry groupEntry = parser.parse(holder);
+
+            Optional<Department> deptOpt = deptDao.findByCipher(groupEntry.getDepartmentCipher());
+            Optional<Specialization> specOpt = specDao.findByCode(groupEntry.getSpecializationCode());
+
+            if (!deptOpt.isPresent() || !specOpt.isPresent()) {
+                System.out.printf(
+                        "[error] Failed to create department to specialization mapping: department - %s, specialization - %s%n",
+                        groupEntry.getDepartmentCipher(),
+                        groupEntry.getSpecializationCode()
+                );
+                continue;
+            }
+
+            Optional<DepartmentSpecialization> deptSpecOpt = deptSpecDao.findByDepartmentAndSpecialization(deptOpt.get(), specOpt.get());
+
+            DepartmentSpecialization deptSpec;
+            if (deptSpecOpt.isPresent()) {
+                deptSpec = deptSpecOpt.get();
+            } else {
+                deptSpec = new DepartmentSpecialization();
+                deptSpec.setDepartment(deptOpt.get());
+                deptSpec.setSpecialization(specOpt.get());
+                Integer deptSpecId = deptSpecDao.create(deptSpec);
+                deptSpec.setId(deptSpecId);
+            }
+
+            int enrollmentYear = curYear - groupEntry.getTermNumber() / 2;
+            Optional<Calendar> calendarOpt = calendarDao.findByStartYearAndDepartmentCodeAndSpecCode(
+                    enrollmentYear,
+                    groupEntry.getDepartmentCipher(),
+                    groupEntry.getSpecializationCode()
+            );
+            Calendar calendar;
+
+            if (calendarOpt.isPresent()) {
+                calendar = calendarOpt.get();
+            } else {
+                calendar = new Calendar();
+                calendar.setStartYear(enrollmentYear);
+                calendar.setDepartmentSpecialization(deptSpec);
+                Integer calendarId = calendarDao.create(calendar);
+                calendar.setId(calendarId);
+            }
+
+            StudyGroup studyGroup = new StudyGroup();
+            Optional<Term> termOpt = termDao.findByNumber(groupEntry.getTermNumber());
+            if (termOpt.isPresent()) {
+                studyGroup.setTerm(termOpt.get());
+            } else {
+                Term term = new Term();
+                term.setNumber(groupEntry.getTermNumber());
+                Integer termId = termDao.create(term);
+                term.setId(termId);
+                studyGroup.setTerm(term);
+            }
+
+            studyGroup.setNumber(groupEntry.getGroupNumber());
+            studyGroup.setCalendar(calendar);
+
+            groupDao.create(studyGroup);
+        }
+    }
+
+    public static void fillLecturerSubjects(SessionFactory sessionFactory, String refPath) throws IOException {
+        File refFile = new File(refPath);
+
+        LecturerDao lecDao = new LecturerDao(sessionFactory);
+        SubjectDao subjDao = new SubjectDao(sessionFactory);
+        DepartmentDao deptDao = new DepartmentDao(sessionFactory);
+        ClassTypeDao classTypeDao = new ClassTypeDao(sessionFactory);
+        LecturerSubjectDao lecSubjDao = new LecturerSubjectDao(sessionFactory);
+        DepartmentSubjectDao deptSubjDao = new DepartmentSubjectDao(sessionFactory);
+
+        CSVParser records = CSVFormat.EXCEL.withHeader().parse(new FileReader(refFile));
+        EntryParser<LecturerSubjectEntry, LecturerSubjectsHeader> parser = new LecturerSubjectsParser();
+
+        for (CSVRecord record : records) {
+            RecordHolder<LecturerSubjectsHeader> holder = new RecordHolder<>(record);
+            LecturerSubjectEntry entry = parser.parse(holder);
+            String lecInitials = entry.getLecturer();
+            String deptCipher = entry.getDepartment();
+
+            List<Lecturer> foundLecturers = lecDao.findByInitials(lecInitials);
+            Optional<Department> deptOpt = deptDao.findByCipher(deptCipher);
+
+            if (foundLecturers.isEmpty() || !deptOpt.isPresent()) {
+                System.out.printf("[error] Lecturer or department not found: lecturer - %s, department - %s.%n", lecInitials, deptCipher);
+                continue;
+            }
+
+            if (foundLecturers.size() > 1) {
+                System.out.println("[error] Repeated lecturer initials: " + foundLecturers);
+                continue;
+            }
+
+            for (Map.Entry<LecturerSubjectEntry.ClassKind, String> subjEntry : entry.getSubjectsOfKind()) {
+                Optional<Subject> subjOpt = subjDao.findByName(subjEntry.getValue());
+                if (!subjOpt.isPresent()) {
+                    System.out.println("[error] No subject found with name: " + subjEntry.getValue());
+                    continue;
                 }
-            }
-        }
-    }
+                Optional<DepartmentSubject> deptSubjOpt = deptSubjDao.findByDepartmentAndSubject(deptOpt.get(), subjOpt.get());
 
-    public static void fillCalendars(SessionFactory factory, String path) {
-        File dir = new File(path);
-        Pattern cfnPtr = Pattern.compile("(\\p{Lu}+\\d+)_(\\d+[.]\\d+[.]\\d+)_(\\d{4})[.]csv");
-        StudyFlowDao flowDao = new StudyFlowDao(factory);
+                DepartmentSubject deptSubj;
 
-        if (dir.exists() && dir.isDirectory()) {
-            File[] files = dir.listFiles();
-            if (files != null) {
-                for (File file : files) {
-                    String fn = file.getName();
-                    Matcher cfnMatcher = cfnPtr.matcher(fn);
-                    if (cfnMatcher.matches() && cfnMatcher.groupCount() == 3) {
-                        String depCipher = cfnMatcher.group(1);
-                        String specCode = cfnMatcher.group(2);
-                        int year = Integer.parseInt(cfnMatcher.group(3));
-                        System.out.println("Looking for study flow: " + String.format("{year: %d, dep: %s, spec: %s}", year, depCipher, specCode));
-                        Optional<StudyFlow> flowOpt = flowDao.findByYearDepartmentAndSpecialization(year, depCipher, specCode);
-                        String csvFile = file.getAbsolutePath();
-
-                        if (flowOpt.isPresent()) {
-                            System.out.println("[info] Fill calendar from file: " + csvFile);
-                            try {
-                                CSVUtils.fillCalendar(flowOpt.get(), factory, csvFile);
-                            } catch (IOException e) {
-                                System.out.println("[error] Failed to parse file: " + csvFile + ". Error message: " + e.getMessage());
-                            }
-                        } else {
-                            System.out.println("[warn] Study flow was not found for file: " + csvFile + ". Skipping it.");
-                        }
-                    }
+                if (!deptSubjOpt.isPresent()) {
+                    deptSubj = new DepartmentSubject();
+                    deptSubj.setDepartment(deptOpt.get());
+                    deptSubj.setSubject(subjOpt.get());
+                    Integer deptSubjId = deptSubjDao.create(deptSubj);
+                    deptSubj.setId(deptSubjId);
+                } else {
+                    deptSubj = deptSubjOpt.get();
                 }
-            }
-        } else {
-            System.out.println("[error] Invalid directory path: " + path);
-        }
-    }
 
-    public static void fillSchedule(SessionFactory factory, final ScheduleParser scheduleParser) {
-        DepartmentDao depDao = new DepartmentDao(factory);
-        SpecializationDao specDao = new SpecializationDao(factory);
-        StudyFlowDao flowDao = new StudyFlowDao(factory);
-        StudyGroupDao groupDao = new StudyGroupDao(factory);
-        GroupConverter groupConverter = new GroupConverter(factory);
-
-        for (DepartmentNode depNode : scheduleParser.getAllDepartments()) {
-            Optional<Department> depOpt = depDao.findByCipher(depNode.getCipher());
-            if (depOpt.isPresent()) {
-                final Map<String, Integer> subjTitleToSpecId = loadSubjectToSpecIdMap(depOpt.get());
-
-                depNode.getChildren()
+                List<LecturerSubject> lecSubjsList = lecSubjDao.findByLecturerAndSubject(foundLecturers.get(0), deptSubj);
+                Set<String> classTypes = lecSubjsList
                         .stream()
-                        .flatMap(c -> c.getChildren().stream())
-                        .forEach(grNode -> {
-                            StudyGroup group = groupConverter.convert(grNode);
-                            try {
-                                List<ScheduleDayNode> curSchedule = scheduleParser.scheduleFor(grNode);
+                        .map(lecSubj -> lecSubj.getClassType().getName().substring(3))
+                        .collect(Collectors.toSet());
 
-                                if (curSchedule.size() > 0) {
-                                    System.out.println("[info] Fill schedule for group: " + grNode.getCipher());
-                                    for (ScheduleDayNode dayNode : curSchedule) {
-                                        if (ScheduleDayConverter.isDayNodeNotEmpty(dayNode)) {
-                                            ScheduleDay day = new ScheduleDayConverter(factory).convert(dayNode);
-                                            group.addScheduleDay(day);
-                                        }
-                                    }
-                                    int specId = getMostPossibleSpeciality(
-                                            subjTitleToSpecId,
-                                            curSchedule
-                                                    .stream()
-                                                    .flatMap(sd -> sd.getChildren().stream())
-                                    );
-                                    Specialization spec = null;
-                                    if (specId == 0) {
-                                        Optional<Department> depOptByCipher = depDao.findByCipher(grNode.getParent().getParent().getCipher());
-                                        if (depOptByCipher.isPresent()) {
-                                            List<Specialization> specs = depOptByCipher.get().getSpecializations();
-                                            if (specs.size() > 0)
-                                                spec = specs.get(0);
-                                        }
-                                    } else {
-                                        spec = specDao.findByKey(specId);
-                                    }
-
-                                    if (spec != null) {
-                                        Optional<StudyFlow> parentFlowOpt = flowDao.findByYearDepartmentAndSpecialization(
-                                                Calendar.getInstance().get(Calendar.YEAR),
-                                                depOpt.get().getCipher(),
-                                                spec.getCode()
-                                        );
-                                        parentFlowOpt.ifPresent(flow -> {
-                                            group.setStudyFlow(flow);
-                                            groupDao.create(group);
-                                        });
-                                    } else {
-                                        System.out.println("[warn] Group '" + grNode.getCipher() + "' was not created because parent department hasn't matching speciality. Skipping entry");
-                                    }
-                                } else {
-                                    System.out.println("[warn] Schedule for group '" + grNode.getCipher() + "' is absent. Skipping it");
-                                }
-                            } catch (IOException | IllegalStateException e) {
-                                e.printStackTrace();
-                                System.out.println("[error] Failed to fetch schedule for group: " + grNode.getCipher());
-                            }
-                        });
-            }
-        }
-    }
-
-    public void fillDepToSpecMapping(SessionFactory sessionFactory, String csvFile) throws IOException {
-        SpecializationDao specDao = new SpecializationDao(sessionFactory);
-        DepartmentDao depDao = new DepartmentDao(sessionFactory);
-        CSVParser parser = CSVFormat.EXCEL.withHeader().parse(new FileReader(csvFile));
-
-        for (CSVRecord rec : parser) {
-            RecordHolder holder = new RecordHolder(rec);
-            String specCode = holder.get(SpecToDepHeader.specCode);
-            String[] depCodes = holder.get(SpecToDepHeader.departments).split(";");
-
-            Optional<Specialization> spec = specDao.findByCode(specCode);
-
-            if (spec.isPresent()) {
-                for (String depCode : depCodes) {
-                    Optional<Department> dep = depDao.findByCipher(depCode);
-                    dep.ifPresent(department -> spec.get().addDepartment(department));
-                }
-                specDao.update(spec.get());
-            } else {
-                System.out.println("[warn] Specialization with code '" + specCode + "' is not found, skipping record");
-            }
-        }
-    }
-
-    static Map<String, Department> loadGroupCipherToDepartmentMapping(String csvFile) throws IOException {
-        final Map<String, Department> cipherToDep = new HashMap<>();
-
-//        CSVUtils.fillFromCsv(departmentDao, csvFile, (dep, rec) -> {
-//            String cipher = rec.record().get(DepartmentHeader.cipher);
-//            cipherToDep.put(cipher, dep);
-//        });
-
-        Parser<Department, ?> entityParser = ParserFactory.parserFor(Department.class);
-        CSVParser csvParser = CSVFormat.EXCEL.withHeader().parse(new FileReader(csvFile));
-        for (CSVRecord rec : csvParser) {
-            Department parsed = entityParser.parse(new RecordHolder(rec));
-            String cipher = rec.get(DepartmentHeader.cipher);
-            cipherToDep.put(cipher, parsed);
-        }
-
-        return cipherToDep;
-    }
-
-    private static Integer getMostPossibleSpeciality(Map<String, Integer> subjTitleToSpecId, Stream<ScheduleItemNode> scheduleItems) {
-        Map<Integer, Integer> specIdToScore = new HashMap<>();
-
-        scheduleItems
-                .flatMap(item -> item.getChildren().stream())
-                .forEach(parity -> {
-                    String subjName = parity.getSubject();
-                    if (subjTitleToSpecId.containsKey(subjName)) {
-                        int specId = subjTitleToSpecId.get(subjName);
-                        if (!specIdToScore.containsKey(specId)) {
-                            specIdToScore.put(specId, 0);
+                Consumer<ClassKind> createLecSubjByKind = (kind) -> {
+                    String shortName = ClassKind.shortNameByKind(kind);
+                    if (!classTypes.contains(shortName)) {
+                        Optional<ClassType> ctOpt = classTypeDao.findByShortName(shortName);
+                        if (!ctOpt.isPresent()) {
+                            System.out.println("[error] No class type with such short name found: " + shortName);
+                            return;
                         }
-                        specIdToScore.put(specId, specIdToScore.get(specId) + 1);
+
+                        LecturerSubject lecSubj = new LecturerSubject();
+                        lecSubj.setClassType(ctOpt.get());
+                        lecSubj.setLecturer(foundLecturers.get(0));
+                        lecSubj.setDepartmentSubject(deptSubj);
+                        Integer lecSubjId = lecSubjDao.create(lecSubj);
+                        lecSubj.setId(lecSubjId);
                     }
-                });
+                };
 
-        int specId = 0, maxScore = 0;
-
-        for (Map.Entry<Integer, Integer> entry : specIdToScore.entrySet()) {
-            if (entry.getValue() > maxScore) {
-                maxScore = entry.getValue();
-                specId = entry.getKey();
+                if (subjEntry.getKey() == LecturerSubjectEntry.ClassKind.any) {
+                    for (ClassKind kind : ClassKind.values()) {
+                        if (kind != ClassKind.any) {
+                            createLecSubjByKind.accept(kind);
+                        }
+                    }
+                } else {
+                    createLecSubjByKind.accept(subjEntry.getKey());
+                }
             }
 
         }
-
-        return specId;
     }
-
-    private static Map<String, Integer> loadSubjectToSpecIdMap(Department dep) {
-        Map<String, Integer> retMap = new HashMap<>();
-
-        for (StudyFlow flow : dep.getStudyFlows()) {
-            for (CalendarItem ci : flow.getCalendarItems()) {
-                retMap.put(ci.getSubject().getName(), flow.getSpecialization().getId());
-            }
-        }
-
-        return retMap;
-    }
-
-
 }

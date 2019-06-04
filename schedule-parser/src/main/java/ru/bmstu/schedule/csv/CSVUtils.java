@@ -4,12 +4,10 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import org.apache.commons.lang3.StringUtils;
-import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
-import ru.bmstu.schedule.csv.header.CSVHeader;
 import ru.bmstu.schedule.csv.header.CalendarHeader;
 import ru.bmstu.schedule.csv.header.LecturerHeader;
-import ru.bmstu.schedule.csv.parser.Parser;
+import ru.bmstu.schedule.csv.parser.EntryParser;
 import ru.bmstu.schedule.csv.parser.ParserFactory;
 import ru.bmstu.schedule.dao.*;
 import ru.bmstu.schedule.entity.*;
@@ -18,7 +16,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Optional;
-import java.util.Set;
 import java.util.function.BiConsumer;
 
 public class CSVUtils {
@@ -33,7 +30,7 @@ public class CSVUtils {
             throws IOException, IllegalStateException {
 
         CSVParser parser = CSVFormat.EXCEL.withHeader().parse(new FileReader(csvFile));
-        Parser<E, ?> entityParser = ParserFactory.parserFor(dao.getPersistentClass());
+        EntryParser<E, ?> entityParser = ParserFactory.parserFor(dao.getPersistentClass());
 
         for (CSVRecord rec : parser) {
             RecordHolder holder = new RecordHolder(rec);
@@ -50,16 +47,10 @@ public class CSVUtils {
     }
 
     @SuppressWarnings("unchecked")
-    public static void fillLecturers(SessionFactory sessionFactory, String csvFile) throws IOException {
-        LecturerDao lecDao = new LecturerDao(sessionFactory);
-        SpecializationDao specDao = new SpecializationDao(sessionFactory);
-        SubjectDao subjDao = new SubjectDao(sessionFactory);
-
-        LecturerSpecializationDao lecSpecDao = new LecturerSpecializationDao(sessionFactory);
-        LecturerSubjectDao lecSubjDao = new LecturerSubjectDao(sessionFactory);
-
+    public static void fillLecturers(String csvFile, SessionFactory sessionFactory) throws IOException {
         CSVParser parser = CSVFormat.EXCEL.withHeader().parse(new FileReader(csvFile));
-        Parser<LecturerEntry, LecturerHeader> lecParser = (Parser<LecturerEntry, LecturerHeader>) ParserFactory.parserFor(LecturerEntry.class);
+        LecturerDao lecturerDao = new LecturerDao(sessionFactory);
+        EntryParser<LecturerEntry, LecturerHeader> lecParser = (EntryParser<LecturerEntry, LecturerHeader>) ParserFactory.parserFor(LecturerEntry.class);
 
         for (CSVRecord record : parser) {
             RecordHolder<LecturerHeader> recHolder = new RecordHolder<>(record);
@@ -77,52 +68,28 @@ public class CSVUtils {
             lecEntity.setFirstName(lec.getFirstName());
             lecEntity.setLastName(lec.getLastName());
             lecEntity.setMiddleName(lec.getMiddleName());
-
-            try {
-                Integer lecId = lecDao.create(lecEntity);
-                lecEntity = lecDao.findByKey(lecId);
-
-                for (String subjName : lec.getSubjectsNames()) {
-                    Optional<Subject> subjOpt = subjDao.findByName(subjName);
-                    if (subjOpt.isPresent() && !lecSubjDao.findBySubjectAndLecturer(subjOpt.get(), lecEntity).isPresent()) {
-                        SubjectOfLecturer subjOfLec = new SubjectOfLecturer(subjOpt.get(), lecEntity);
-                        Integer lecSubjId = lecSubjDao.create(subjOfLec);
-                        System.out.println("[debug] Created subject of lecturer with id: " + lecSubjId);
-                    }
-                }
-
-                for (String specCode : lec.getSpecializationsCodes()) {
-                    Optional<Specialization> specOpt = specDao.findByCode(specCode);
-                    if (specOpt.isPresent() && !lecSpecDao.findBySpecAndLec(specOpt.get(), lecEntity).isPresent()) {
-                        SpecializationOfLecturer specOfLec = new SpecializationOfLecturer(lecEntity, specOpt.get());
-                        Integer lecSpecId = lecSpecDao.create(specOfLec);
-                        System.out.println("[debug] Created specialization of lecturer with id: " + lecSpecId);
-                    }
-                }
-            } catch (HibernateException e) {
-                e.printStackTrace();
-                System.out.println("[error] Failed to save lecturer record: " + lec);
-            }
-
+            lecturerDao.create(lecEntity);
         }
     }
 
     @SuppressWarnings("unchecked")
-    public static void fillCalendar(StudyFlow studyFlow, SessionFactory sessionFactory, String csvFile) throws IOException {
+    public static void fillCalendar(Calendar calendar, SessionFactory sessionFactory, String csvFile) throws IOException {
         CSVParser parser = CSVFormat.EXCEL.withHeader().parse(new FileReader(csvFile));
         ClassTypeDao ctDao = new ClassTypeDao(sessionFactory);
+        DepartmentSubjectDao deptSubjDao = new DepartmentSubjectDao(sessionFactory);
+        DepartmentDao deptDao = new DepartmentDao(sessionFactory);
         SubjectDao subjDao = new SubjectDao(sessionFactory);
         TermDao termDao = new TermDao(sessionFactory);
-        StudyFlowDao flowDao = new StudyFlowDao(sessionFactory);
+        CalendarDao calendarDao = new CalendarDao(sessionFactory);
 
         boolean isOptionalSubject = false;
         String subjectName;
         int lectureHours = -1, seminarHours = -1, laboratoryHours = -1;
         int[] terms = new int[]{};
 
-        Optional<ClassType> laboratoryCT = ctDao.findByTypeName(LABORATORY_TYPE_NAME),
-                seminarCT = ctDao.findByTypeName(SEMINAR_TYPE_NAME),
-                lectureCT = ctDao.findByTypeName(LECTURER_TYPE_NAME);
+        Optional<ClassType> laboratoryCT = ctDao.findByName(LABORATORY_TYPE_NAME),
+                seminarCT = ctDao.findByName(SEMINAR_TYPE_NAME),
+                lectureCT = ctDao.findByName(LECTURER_TYPE_NAME);
 
         for (CSVRecord rec : parser) {
             RecordHolder<CalendarHeader> holder = new RecordHolder<>(rec);
@@ -134,7 +101,6 @@ public class CSVUtils {
             }
 
             if (StringUtils.isNotEmpty(subjectName)) {
-                // FIXME: hours of optional subjects is not added to database
                 if (!isOptionalSubject || subjectName.startsWith("Дисциплина по выбору")) {
                     String noOfTermsVal = holder.get(CalendarHeader.noOfTerm);
                     String[] numbersOfTerms = noOfTermsVal.split("( - )|(, )");
@@ -165,50 +131,74 @@ public class CSVUtils {
                         continue;
                 }
 
+                String deptCipher = holder.get(CalendarHeader.department);
+
+                Optional<Department> deptOpt = deptDao.findByCipher(deptCipher);
+                if (!deptOpt.isPresent()) {
+                    System.out.println("[warn] Department not found: " + deptCipher);
+                    continue;
+                }
+
                 Optional<Subject> subjOpt = subjDao.findByName(subjectName);
                 Subject subj;
-
-                if (!subjOpt.isPresent()) {
-                    subj = new Subject();
-                    subj.setName(subjectName);
-                    subjDao.create(subj);
-                } else {
+                if (subjOpt.isPresent()) {
                     subj = subjOpt.get();
+                } else {
+                    subj = new Subject(subjectName);
+                    subj = subjDao.findByKey(subjDao.create(subj));
                 }
 
+                DepartmentSubject deptSubj;
+                Optional<DepartmentSubject> deptSubjOpt = deptSubjDao.findByDepartmentAndSubject(deptOpt.get(), subj);
+
+                if (deptSubjOpt.isPresent()) {
+                    deptSubj = deptSubjOpt.get();
+                } else {
+                    deptSubj = new DepartmentSubject(deptOpt.get(), subj);
+                    Integer deptSubjId = deptSubjDao.create(deptSubj);
+                    deptSubj.setId(deptSubjId);
+                }
 
                 CalendarItem item = new CalendarItem();
-                item.setSubject(subj);
+                item.setDepartmentSubject(deptSubj);
 
-                for (int term : terms) {
-                    Optional<Term> termOpt = termDao.findByNumber(term);
+                for (int termNo : terms) {
+                    Optional<Term> termOpt = termDao.findByNumber(termNo);
+                    Term term;
                     if (termOpt.isPresent()) {
-                        CalendarItemCell itemCell = new CalendarItemCell();
-                        itemCell.setTerm(termOpt.get());
-
-                        int[] hoursPerCT = new int[]{laboratoryHours, lectureHours, seminarHours};
-                        Optional<ClassType>[] classTypes = new Optional[]{laboratoryCT, lectureCT, seminarCT};
-
-                        for (int i = 0; i < hoursPerCT.length; i++) {
-                            Optional<ClassType> ctOpt = classTypes[i];
-                            int hours = hoursPerCT[i];
-                            if (ctOpt.isPresent() && hours > 0) {
-                                HoursPerClass hpc = new HoursPerClass();
-                                hpc.setClassType(ctOpt.get());
-                                hpc.setNoOfHours(hours);
-                                itemCell.addHoursPerClass(hpc);
-                            }
-                        }
-
-                        item.addItemCell(itemCell);
+                        term = termOpt.get();
+                    } else {
+                        term = new Term();
+                        term.setNumber(termNo);
+                        Integer termId = termDao.create(term);
+                        term.setId(termId);
                     }
+                    CalendarItemCell itemCell = new CalendarItemCell();
+                    itemCell.setTerm(term);
+
+                    int[] hoursPerCT = new int[]{laboratoryHours, lectureHours, seminarHours};
+                    Optional<ClassType>[] classTypes = new Optional[]{laboratoryCT, lectureCT, seminarCT};
+
+                    for (int i = 0; i < hoursPerCT.length; i++) {
+                        Optional<ClassType> ctOpt = classTypes[i];
+                        int hours = hoursPerCT[i];
+                        if (ctOpt.isPresent() && hours > 0) {
+                            HoursPerClass hpc = new HoursPerClass();
+                            hpc.setClassType(ctOpt.get());
+                            hpc.setNoOfHours(hours);
+                            itemCell.addHoursPerClass(hpc);
+                        }
+                    }
+
+                    item.addItemCell(itemCell);
+
                 }
 
-                studyFlow.addCalendarItem(item);
+                calendar.addCalendarItem(item);
             }
         }
 
-        flowDao.update(studyFlow);
+        calendarDao.update(calendar);
     }
 
 }

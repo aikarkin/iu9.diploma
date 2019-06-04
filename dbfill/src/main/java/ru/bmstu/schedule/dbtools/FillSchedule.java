@@ -4,10 +4,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-import ru.bmstu.schedule.csv.CSVUtils;
-import ru.bmstu.schedule.dao.*;
 import ru.bmstu.schedule.entity.*;
-import ru.bmstu.schedule.html.parser.ScheduleParser;
 
 import javax.naming.ConfigurationException;
 import java.io.File;
@@ -29,7 +26,7 @@ public class FillSchedule {
     public static void main(String[] args) {
         try {
             init(args);
-            clearData();
+//            clearData();
             fillData();
         } catch (Exception e) {
             e.printStackTrace();
@@ -59,9 +56,6 @@ public class FillSchedule {
         removeEntities(
                 sessionFactory,
                 Classroom.class,
-                SpecializationOfLecturer.class,
-                SubjectOfLecturer.class,
-                Lecturer.class,
                 HoursPerClass.class,
                 CalendarItemCell.class,
                 CalendarItem.class,
@@ -69,13 +63,17 @@ public class FillSchedule {
                 ScheduleItem.class,
                 ScheduleDay.class,
                 StudyGroup.class,
-                StudyFlow.class,
+                Calendar.class,
+                LecturerSubject.class,
+                DepartmentSubject.class,
+                Lecturer.class,
                 ClassTime.class,
                 DayOfWeek.class,
                 ClassType.class,
                 Subject.class,
                 Class.forName("ru.bmstu.schedule.entity.DepartmentSpecialization"),
                 Specialization.class,
+                Speciality.class,
                 Department.class,
                 Faculty.class,
                 EduDegree.class,
@@ -85,28 +83,27 @@ public class FillSchedule {
     }
 
     private static void fillData() throws IOException {
-        ScheduleParser scheduleParser = new ScheduleParser(props.getProperty(PropertyKey.SCHEDULE_BASE_URL));
+//        ScheduleParser scheduleParser = new ScheduleParser(props.getProperty(PropertyKey.SCHEDULE_BASE_URL));
 
         // Fill common entities from csv-references & https://students.bmstu.ru/schedule/:
-        CSVUtils.fillFromCsv(new ClassTypeDao(sessionFactory), pathByKey(PropertyKey.REF_CLASS_TYPE));
-        CSVUtils.fillFromCsv(new WeekDao(sessionFactory), pathByKey(PropertyKey.REF_WEEKS));
-        CSVUtils.fillFromCsv(new EduDegreeDao(sessionFactory), pathByKey(PropertyKey.REF_DEGREES));
-        CSVUtils.fillFromCsv(new ClassTimeDao(sessionFactory), pathByKey(PropertyKey.REF_CLASS_TIME));
-        DBUtils.fillTerms(sessionFactory, scheduleParser);
-        DBUtils.fillFacultiesAndDepartments(sessionFactory, pathByKey(PropertyKey.REF_DEPARTMENTS), scheduleParser);
-        DBUtils.fillSpecializations(sessionFactory, pathByKey(PropertyKey.REF_SPECS));
-        DBUtils.fillDepToSpec(sessionFactory, pathByKey(PropertyKey.REF_SPECDEPS));
-        DBUtils.fillStudyFlows(sessionFactory, scheduleParser);
-        DBUtils.fillClassRooms(sessionFactory, scheduleParser);
+//        CSVUtils.fillFromCsv(new ClassTypeDao(sessionFactory), pathByKey(PropertyKey.REF_CLASS_TYPE));
+//        CSVUtils.fillFromCsv(new WeekDao(sessionFactory), pathByKey(PropertyKey.REF_WEEKS));
+//        CSVUtils.fillFromCsv(new ClassTimeDao(sessionFactory), pathByKey(PropertyKey.REF_CLASS_TIME));
+//        DBUtils.fillSpecializationsAndDegrees(sessionFactory, pathByKey(PropertyKey.REF_SPECS));
+//        DBUtils.fillFaculties(sessionFactory, pathByKey(PropertyKey.REF_FACULTIES));
+//        DBUtils.fillDepartments(sessionFactory, pathByKey(PropertyKey.REF_DEPARTMENTS));
+//        DBUtils.fillClassRooms(sessionFactory, scheduleParser);
+//        DBUtils.fillGroups(sessionFactory, pathByKey(PropertyKey.REF_GROUPS));
 
         // Fill calendar plans from csv-reference:
-        DBUtils.fillCalendars(sessionFactory, pathByKey(PropertyKey.REF_FOLDER_CALENDAR));
+//        DBUtils.fillCalendars(sessionFactory, pathByKey(PropertyKey.REF_FOLDER_CALENDAR));
 
         // Fill lecturers after calendar filling, because in other case we haven't subjects
-        CSVUtils.fillLecturers(sessionFactory, pathByKey(PropertyKey.REF_LECTURERS));
+//        CSVUtils.fillLecturers(pathByKey(PropertyKey.REF_LECTURERS), sessionFactory);
 
         // Fill schedule from https://students.bmstu.ru/schedule/:
 //        DBUtils.fillSchedule(sessionFactory, scheduleParser);
+        DBUtils.fillLecturerSubjects(sessionFactory, pathByKey(PropertyKey.REF_SUBJECTS));
     }
 
     private static void removeEntities(SessionFactory sessionFactory, Class<?>... classes) {

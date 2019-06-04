@@ -8,7 +8,7 @@ import ru.bmstu.schedule.csv.header.LecturerHeader;
 import java.util.Optional;
 
 
-public class LecturerParser implements Parser<LecturerEntry, LecturerHeader> {
+public class LecturerParser implements EntryParser<LecturerEntry, LecturerHeader> {
 
     @Override
     public LecturerEntry parse(RecordHolder<LecturerHeader> rec) {

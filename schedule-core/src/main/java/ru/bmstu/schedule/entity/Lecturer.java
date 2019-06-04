@@ -1,10 +1,7 @@
 package ru.bmstu.schedule.entity;
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 public class Lecturer {
@@ -15,7 +12,6 @@ public class Lecturer {
     private String middleName;
     private String lastName;
     private String eduDegree;
-    private Set<ScheduleItemParity> scheduleItemParities = new HashSet<>();
 
     @Override
     public String toString() {
@@ -40,7 +36,7 @@ public class Lecturer {
     }
 
     @Basic
-    @Column(name = "lecturer_email", nullable = true, length = -1)
+    @Column(name = "lecturer_email", length = -1)
     public String getEmail() {
         return email;
     }
@@ -80,7 +76,7 @@ public class Lecturer {
     }
 
     @Basic
-    @Column(name = "edu_degree", nullable = true, length = -1)
+    @Column(name = "edu_degree", length = -1)
     public String getEduDegree() {
         return eduDegree;
     }
@@ -89,18 +85,13 @@ public class Lecturer {
         this.eduDegree = eduDegree;
     }
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
-    @JoinTable(
-            name = "schedule_item_parity_to_lecturer",
-            joinColumns = {@JoinColumn(name = "lecturer_id")},
-            inverseJoinColumns = {@JoinColumn(name = "schedule_item_parity_id")}
-    )
-    public Set<ScheduleItemParity> getScheduleItemParities() {
-        return scheduleItemParities;
+    @Transient
+    public String getInitials() {
+        return String.format("%s %s. %s.", getLastName(), firstUpperLetter(getFirstName()), firstUpperLetter(getMiddleName()));
     }
 
-    void setScheduleItemParities(Set<ScheduleItemParity> scheduleItemParities) {
-        this.scheduleItemParities = scheduleItemParities;
+    private static char firstUpperLetter(String name) {
+        return name.toUpperCase().charAt(0);
     }
 
     @Override
@@ -119,11 +110,6 @@ public class Lecturer {
     @Override
     public int hashCode() {
         return Objects.hash(id, email, firstName, middleName, lastName, eduDegree);
-    }
-
-    void addScheduleItemParity(ScheduleItemParity itemParity) {
-        itemParity.getLecturers().add(this);
-        getScheduleItemParities().add(itemParity);
     }
 
 }

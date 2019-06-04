@@ -1,14 +1,17 @@
 package ru.bmstu.schedule.entity;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "calendar_item")
 public class CalendarItem {
+
     private int id;
-    private StudyFlow studyFlow;
-    private Subject subject;
+    private Calendar calendar;
+    private DepartmentSubject departmentSubject;
     private Set<CalendarItemCell> calendarItemCells = new HashSet<>();
 
     @Id
@@ -22,39 +25,24 @@ public class CalendarItem {
         this.id = id;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        CalendarItem that = (CalendarItem) o;
-        return id == that.id &&
-                Objects.equals(studyFlow.getId(), that.studyFlow.getId()) &&
-                Objects.equals(subject.getId(), that.subject.getId());
+    @ManyToOne
+    @JoinColumn(name = "calendar_id", referencedColumnName = "id")
+    public Calendar getCalendar() {
+        return calendar;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, studyFlow.getId(), subject.getId());
+    public void setCalendar(Calendar calendar) {
+        this.calendar = calendar;
     }
 
     @ManyToOne
-    @JoinColumn(name = "study_flow_id", referencedColumnName = "flow_id")
-    public StudyFlow getStudyFlow() {
-        return studyFlow;
+    @JoinColumn(name = "department_subject_id", referencedColumnName = "id")
+    public DepartmentSubject getDepartmentSubject() {
+        return departmentSubject;
     }
 
-    public void setStudyFlow(StudyFlow studyFlow) {
-        this.studyFlow = studyFlow;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "subject_id", referencedColumnName = "subject_id")
-    public Subject getSubject() {
-        return subject;
-    }
-
-    public void setSubject(Subject subject) {
-        this.subject = subject;
+    public void setDepartmentSubject(DepartmentSubject subject) {
+        this.departmentSubject = subject;
     }
 
     @OneToMany(mappedBy = "calendarItem", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -70,4 +58,21 @@ public class CalendarItem {
         cell.setCalendarItem(this);
         this.getCalendarItemCells().add(cell);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CalendarItem that = (CalendarItem) o;
+        return id == that.id &&
+                Objects.equals(calendar, that.calendar) &&
+                Objects.equals(departmentSubject, that.departmentSubject) &&
+                Objects.equals(calendarItemCells, that.calendarItemCells);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, calendar, departmentSubject);
+    }
+
 }

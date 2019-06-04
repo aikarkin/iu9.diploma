@@ -5,8 +5,8 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import ru.bmstu.schedule.csv.CSVUtils;
-import ru.bmstu.schedule.dao.StudyFlowDao;
-import ru.bmstu.schedule.entity.StudyFlow;
+import ru.bmstu.schedule.dao.CalendarDao;
+import ru.bmstu.schedule.entity.Calendar;
 
 import java.io.IOException;
 import java.net.URL;
@@ -44,8 +44,8 @@ public class CalendarFillingTest {
 
     @Test
     public void testCalendarFilling() throws IOException {
-        StudyFlowDao flowDao = new StudyFlowDao(sessionFactory);
-        StudyFlow flow = flowDao.findByKey(45);
+        CalendarDao flowDao = new CalendarDao(sessionFactory);
+        Calendar flow = flowDao.findByKey(45);
         CSVUtils.fillCalendar(flow, sessionFactory, calendarFile);
     }
 

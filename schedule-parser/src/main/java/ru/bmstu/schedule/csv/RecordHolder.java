@@ -40,6 +40,10 @@ public class RecordHolder<E extends CSVHeader> {
         return Optional.ofNullable(intVal);
     }
 
+    public List<String> getList(E prop) {
+        return parseList(rec, prop);
+    }
+
     public void fillString(Consumer<String> setter, E propName) {
         setter.accept(this.get(propName));
     }

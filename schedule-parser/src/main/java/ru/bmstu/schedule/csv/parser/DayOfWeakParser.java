@@ -4,7 +4,7 @@ import ru.bmstu.schedule.csv.RecordHolder;
 import ru.bmstu.schedule.csv.header.WeakHeader;
 import ru.bmstu.schedule.entity.DayOfWeek;
 
-public class DayOfWeakParser implements Parser<DayOfWeek, WeakHeader> {
+public class DayOfWeakParser implements EntryParser<DayOfWeek, WeakHeader> {
     @Override
     public DayOfWeek parse(RecordHolder<WeakHeader> rec) {
         DayOfWeek weak = new DayOfWeek();

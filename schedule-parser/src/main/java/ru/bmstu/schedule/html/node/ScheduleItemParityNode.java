@@ -63,7 +63,7 @@ public class ScheduleItemParityNode extends LeafNode<ScheduleItemNode> {
     @Override
     public String toString() {
         return "ScheduleItemParityNode{" +
-                "subject='" + subject + '\'' +
+                "subjects='" + subject + '\'' +
                 ", classType='" + classType + '\'' +
                 ", classroom='" + classroom + '\'' +
                 ", lecturer='" + lecturer + '\'' +

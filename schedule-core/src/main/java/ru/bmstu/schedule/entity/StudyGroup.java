@@ -1,16 +1,19 @@
 package ru.bmstu.schedule.entity;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "study_group")
 public class StudyGroup {
+
     private int id;
     private int number;
     private Integer studentsCount;
     private Set<ScheduleDay> scheduleDays = new HashSet<>();
-    private StudyFlow studyFlow;
+    private Calendar calendar;
     private Term term;
 
     @Id
@@ -35,7 +38,7 @@ public class StudyGroup {
     }
 
     @Basic
-    @Column(name = "students_count", nullable = true)
+    @Column(name = "students_count")
     public Integer getStudentsCount() {
         return studentsCount;
     }
@@ -53,12 +56,12 @@ public class StudyGroup {
                 number == that.number &&
                 Objects.equals(studentsCount, that.studentsCount) &&
                 term.equals(that.term) &&
-                studyFlow.equals(that.studyFlow);
+                calendar.equals(that.calendar);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, number, studentsCount, studyFlow, term);
+        return Objects.hash(id, number, studentsCount, calendar, term);
     }
 
     @OneToMany(mappedBy = "studyGroup", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -76,13 +79,13 @@ public class StudyGroup {
     }
 
     @ManyToOne
-    @JoinColumn(name = "flow_id", referencedColumnName = "flow_id")
-    public StudyFlow getStudyFlow() {
-        return studyFlow;
+    @JoinColumn(name = "calendar_id", referencedColumnName = "id")
+    public Calendar getCalendar() {
+        return calendar;
     }
 
-    public void setStudyFlow(StudyFlow studyFlow) {
-        this.studyFlow = studyFlow;
+    public void setCalendar(Calendar calendar) {
+        this.calendar = calendar;
     }
 
     @ManyToOne
@@ -94,4 +97,5 @@ public class StudyGroup {
     public void setTerm(Term term) {
         this.term = term;
     }
+
 }

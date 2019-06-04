@@ -1,7 +1,6 @@
 package ru.bmstu.schedule.entity;
 
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -10,7 +9,6 @@ public class DayOfWeek {
     private int id;
     private String shortName;
     private String name;
-    private Collection<ScheduleDay> scheduleDays;
 
     @Id
     @Column(name = "weak_id", nullable = false)
@@ -24,7 +22,7 @@ public class DayOfWeek {
     }
 
     @Basic
-    @Column(name = "short_title",columnDefinition = "bpchar", length = 3)
+    @Column(name = "short_title", columnDefinition = "bpchar", length = 3)
     public String getShortName() {
         return shortName;
     }
@@ -55,16 +53,6 @@ public class DayOfWeek {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(id, shortName, name);
-    }
-
-    @OneToMany(mappedBy = "dayOfWeek")
-    public Collection<ScheduleDay> getScheduleDays() {
-        return scheduleDays;
-    }
-
-    public void setScheduleDays(Collection<ScheduleDay> scheduleDays) {
-        this.scheduleDays = scheduleDays;
     }
 }

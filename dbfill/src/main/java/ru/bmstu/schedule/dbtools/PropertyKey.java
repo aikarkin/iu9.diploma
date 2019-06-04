@@ -11,22 +11,22 @@ public class PropertyKey {
     public static final String REF_CLASS_TYPE = "csv.file.classtypes";
     public static final String REF_WEEKS = "csv.file.week";
     public static final String REF_DEPARTMENTS = "csv.file.departments";
-    public static final String REF_DEGREES = "csv.file.degrees";
+    public static final String REF_FACULTIES = "csv.file.faculties";
+    public static final String REF_GROUPS = "csv.file.groups";
     public static final String REF_LECTURERS = "csv.file.lecturers";
-    public static final String REF_SPECDEPS = "csv.file.specdeps";
-    public static final String REF_SPECS = "csv.file.speccodes";
+    public static final String REF_SPECS = "csv.file.specs";
     public static final String REF_CLASS_TIME = "csv.file.classtime";
     public static final String REF_FOLDER_CALENDAR = "csv.folder.calendar";
+    public static final String REF_SUBJECTS = "csv.file.subjects";
 
     private static final List<String> REQUIRED_KEYS = Arrays.asList(
             SCHEDULE_BASE_URL,
             REF_CLASS_TYPE,
             REF_WEEKS,
             REF_DEPARTMENTS,
-            REF_DEGREES,
             REF_LECTURERS,
             REF_SPECS,
-            REF_SPECDEPS
+            REF_GROUPS
     );
 
     private PropertyKey() {

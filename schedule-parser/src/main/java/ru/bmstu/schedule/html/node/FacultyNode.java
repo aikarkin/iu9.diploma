@@ -46,8 +46,8 @@ public class FacultyNode extends RootNode<DepartmentNode> {
     @Override
     public String toString() {
         return "FacultyNode{" +
-                "title='" + title + '\'' +
-                ", cipher='" + cipher + '\'' +
+                "specialityName='" + title + '\'' +
+                ", code='" + cipher + '\'' +
                 '}';
     }
 }

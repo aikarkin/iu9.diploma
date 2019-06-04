@@ -6,6 +6,7 @@ import ru.bmstu.schedule.entity.Classroom;
 import java.util.Optional;
 
 public class ClassroomDao extends HibernateDao<Integer, Classroom> {
+
     public ClassroomDao(SessionFactory factory) {
         super(factory);
     }
@@ -13,4 +14,5 @@ public class ClassroomDao extends HibernateDao<Integer, Classroom> {
     public Optional<Classroom> findByRoomNumber(String roomNumber) {
         return findUniqueByProperty("roomNumber", roomNumber);
     }
+
 }

@@ -31,13 +31,14 @@
         <mapping class="ru.bmstu.schedule.entity.ScheduleItem"/>
         <mapping class="ru.bmstu.schedule.entity.ScheduleItemParity"/>
         <mapping class="ru.bmstu.schedule.entity.Specialization"/>
-        <mapping class="ru.bmstu.schedule.entity.StudyFlow"/>
+        <mapping class="ru.bmstu.schedule.entity.Calendar"/>
         <mapping class="ru.bmstu.schedule.entity.StudyGroup"/>
         <mapping class="ru.bmstu.schedule.entity.Subject"/>
         <mapping class="ru.bmstu.schedule.entity.Term"/>
         <mapping class="ru.bmstu.schedule.entity.DepartmentSpecialization" />
-        <mapping class="ru.bmstu.schedule.entity.SpecializationOfLecturer" />
-        <mapping class="ru.bmstu.schedule.entity.SubjectOfLecturer" />
+        <mapping class="ru.bmstu.schedule.entity.LecturerSubject"/>
+        <mapping class="ru.bmstu.schedule.entity.DepartmentSubject"/>
+        <mapping class="ru.bmstu.schedule.entity.Speciality"/>
 
     </session-factory>
 </hibernate-configuration>

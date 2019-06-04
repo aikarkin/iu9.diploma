@@ -1,70 +1,36 @@
 package ru.bmstu.schedule.entity;
 
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Table(name = "dep_to_spec")
-//@AssociationOverrides({
-//        @AssociationOverride(name= "compositeKey.department", joinColumns = @JoinColumn(name="department_id")),
-//        @AssociationOverride(name= "compositeKey.specialization", joinColumns = @JoinColumn(name="spec_id"))
-//})
-class DepartmentSpecialization {
+@Table(name = "department_to_specialization")
+public class DepartmentSpecialization {
+
     private int id;
-
-    // embedded composite key
-//    private DepSpecId compositeKey = new DepSpecId();
-
-    private Set<StudyFlow> studyFlows = new HashSet<>();
 
     private Department department;
 
     private Specialization specialization;
 
-//    @Embedded
-//    DepSpecId getCompositeKey() {
-//        return compositeKey;
-//    }
-//
-//    void setCompositeKey(DepSpecId primaryKey) {
-//        this.compositeKey = primaryKey;
-//    }
+    private Set<Calendar> calendarSet = new HashSet<>();
 
     @Id
-    @Column(name="id")
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int getId() {
+    public int getId() {
         return id;
     }
 
-    void setId(int id) {
+    public void setId(int id) {
         this.id = id;
     }
-//
-//    @Transient
-//    Department getDepartment() {
-//        return getCompositeKey().getDepartment();
-//    }
-//
-//    void setDepartment(Department department) {
-//        getCompositeKey().setDepartment(department);
-//    }
-//
-//    @Transient
-//    Specialization getSpecialization() {
-//        return  getCompositeKey().getSpecialization();
-//    }
-//
-//    void setSpecialization(Specialization specialization) {
-//        getCompositeKey().setSpecialization(specialization);
-//    }
 
 
     @ManyToOne(cascade = CascadeType.REFRESH)
-    @JoinColumn(name="department_id")
+    @JoinColumn(name = "department_id")
     public Department getDepartment() {
         return department;
     }
@@ -74,7 +40,7 @@ class DepartmentSpecialization {
     }
 
     @ManyToOne(cascade = CascadeType.REFRESH)
-    @JoinColumn(name="spec_id")
+    @JoinColumn(name = "specialization_id")
     public Specialization getSpecialization() {
         return specialization;
     }
@@ -84,12 +50,12 @@ class DepartmentSpecialization {
     }
 
     @OneToMany(mappedBy = "departmentSpecialization", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    Set<StudyFlow> getStudyFlows() {
-        return studyFlows;
+    public Set<Calendar> getCalendarSet() {
+        return calendarSet;
     }
 
-    void setStudyFlows(Set<StudyFlow> studyFlows) {
-        this.studyFlows = studyFlows;
+    public void setCalendarSet(Set<Calendar> calendarSet) {
+        this.calendarSet = calendarSet;
     }
 
     @Override
@@ -98,14 +64,14 @@ class DepartmentSpecialization {
         if (o == null || getClass() != o.getClass()) return false;
         DepartmentSpecialization that = (DepartmentSpecialization) o;
         return id == that.id &&
-                Objects.equals(studyFlows, that.studyFlows) &&
                 Objects.equals(department, that.department) &&
-                Objects.equals(specialization, that.specialization);
+                Objects.equals(specialization, that.specialization) &&
+                Objects.equals(calendarSet, that.calendarSet);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, department.getId(), specialization.getId());
+        return Objects.hash(id, department, specialization);
     }
 
 }

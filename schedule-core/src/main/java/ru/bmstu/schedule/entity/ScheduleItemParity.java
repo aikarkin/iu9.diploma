@@ -1,21 +1,18 @@
 package ru.bmstu.schedule.entity;
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Table(name = "schedule_item_parity")
 public class ScheduleItemParity {
+
     private int id;
     private String dayParity;
     private ScheduleItem scheduleItem;
+    private LecturerSubject lecturerSubject;
     private Classroom classroom;
     private ClassType classType;
-    private Subject subject;
-    private Set<Lecturer> lecturers = new HashSet<>();
 
     @Id
     @Column(name = "schedule_item_parity_id", nullable = false)
@@ -69,13 +66,13 @@ public class ScheduleItemParity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "subject_id", referencedColumnName = "subject_id")
-    public Subject getSubject() {
-        return subject;
+    @JoinColumn(name = "lec_subj_id", referencedColumnName = "id")
+    public LecturerSubject getLecturerSubject() {
+        return lecturerSubject;
     }
 
-    public void setSubject(Subject subject) {
-        this.subject = subject;
+    public void setLecturerSubject(LecturerSubject lecturerSubject) {
+        this.lecturerSubject = lecturerSubject;
     }
 
     @Override
@@ -84,37 +81,16 @@ public class ScheduleItemParity {
         if (o == null || getClass() != o.getClass()) return false;
         ScheduleItemParity that = (ScheduleItemParity) o;
         return id == that.id &&
-                Objects.equals(dayParity, that.dayParity);
+                Objects.equals(dayParity, that.dayParity) &&
+                Objects.equals(scheduleItem, that.scheduleItem) &&
+                Objects.equals(lecturerSubject, that.lecturerSubject) &&
+                Objects.equals(classroom, that.classroom) &&
+                Objects.equals(classType, that.classType);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, dayParity);
+        return Objects.hash(id, dayParity, scheduleItem, lecturerSubject, classroom, classType);
     }
 
-    @ManyToMany(mappedBy="scheduleItemParities", cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
-    public Set<Lecturer> getLecturers() {
-        return lecturers;
-    }
-
-    void setLecturers(Set<Lecturer> lecturers) {
-        this.lecturers = lecturers;
-    }
-
-    public void addLecturer(Lecturer lecturer) {
-        lecturer.getScheduleItemParities().add(this);
-        getLecturers().add(lecturer);
-    }
-
-    @Override
-    public String toString() {
-        return "ScheduleItemParity{" +
-                "id=" + id +
-                ", dayParity='" + dayParity + '\'' +
-                ", scheduleItem=" + scheduleItem.getClassTime().toString() +
-                ", classroom=" + classroom.getRoomNumber() +
-                ", classType=" + classType.getName() +
-                ", subject=" + subject.getName() +
-                '}';
-    }
 }

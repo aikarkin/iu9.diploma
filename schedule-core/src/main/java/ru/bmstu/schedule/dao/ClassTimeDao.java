@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class ClassTimeDao extends HibernateDao<Integer, ClassTime> {
+
     public ClassTimeDao(SessionFactory factory) {
         super(factory);
     }
@@ -36,4 +37,5 @@ public class ClassTimeDao extends HibernateDao<Integer, ClassTime> {
             return Optional.ofNullable(found.size() > 0 ? (ClassTime) found.get(0) : null);
         });
     }
+
 }

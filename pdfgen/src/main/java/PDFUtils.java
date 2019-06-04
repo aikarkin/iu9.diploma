@@ -14,10 +14,13 @@ import ru.bmstu.schedule.entity.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
 
 public class PDFUtils {
+
     private static final String FREE_SANS_FONT_PATH = "./src/main/resources/font/FreeSans.ttf";
     private static final float[] TABLE_COLUMN_WIDTHS = {80, 150, 150};
     private static final float TABLE_WIDTH = 380;
@@ -44,7 +47,7 @@ public class PDFUtils {
 
         System.out.println("dir path: " + baseDir.getAbsolutePath());
 
-        if(baseDir.exists() && baseDir.isDirectory()) {
+        if (baseDir.exists() && baseDir.isDirectory()) {
             System.out.println("directory exists");
             PdfDocument pdfDoc = new PdfDocument(new PdfWriter(outFile));
             Document doc = new Document(pdfDoc);
@@ -98,17 +101,17 @@ public class PDFUtils {
         List<ScheduleItem> items = new ArrayList<>(scheduleDay.getScheduleItems());
         items.sort(Comparator.comparing(c -> c.getClassTime().getStartsAt()));
 
-        for(ScheduleItem item : items) {
+        for (ScheduleItem item : items) {
             ClassTime ct = item.getClassTime();
-            if(ct == null)
+            if (ct == null)
                 continue;
 
             table.addCell(ct.toString());
             List<ScheduleItemParity> parities = new ArrayList<>(item.getScheduleItemParities());
             parities.sort((p1, p2) -> {
-                if(p1.getDayParity().equals("ЧС") && p2.getDayParity().equals("ЗН"))
+                if (p1.getDayParity().equals("ЧС") && p2.getDayParity().equals("ЗН"))
                     return 1;
-                else if(p1.getDayParity().equals("ЗН") && p2.getDayParity().equals("ЧС"))
+                else if (p1.getDayParity().equals("ЗН") && p2.getDayParity().equals("ЧС"))
                     return -1;
 
                 return 0;
@@ -122,26 +125,26 @@ public class PDFUtils {
 
                 parityType = parity.getDayParity().trim();
 
-                if(parityType.equals("ЧС/ЗН")) {
+                if (parityType.equals("ЧС/ЗН")) {
                     table.addCell(mergedCell(1, 2, readableItemParity(parity)));
-                } else if(parityType.equals("ЧС")) {
+                } else if (parityType.equals("ЧС")) {
                     table.addCell(cellParagraph(readableItemParity(parity)));
                     table.addCell(emptyParagraph());
-                } else if(parityType.equals("ЗН")) {
+                } else if (parityType.equals("ЗН")) {
                     table.addCell(emptyParagraph());
                     table.addCell(cellParagraph(readableItemParity(parity)));
                 }
-            } else if(parities.size() == 2) {
+            } else if (parities.size() == 2) {
 
                 ScheduleItemParity parity1 = parities.get(0), parity2 = parities.get(1);
 
                 System.out.println("\t" + parity1.toString());
                 System.out.println("\t" + parity2.toString());
 
-                if(parity1.getDayParity().trim().equals("ЧС")) {
+                if (parity1.getDayParity().trim().equals("ЧС")) {
                     table.addCell(readableItemParity(parity1));
                     table.addCell(cellParagraph(readableItemParity(parity2)));
-                } else if(parity2.getDayParity().trim().equals("ЗН")) {
+                } else if (parity2.getDayParity().trim().equals("ЗН")) {
                     table.addCell(readableItemParity(parity2));
                     table.addCell(cellParagraph(readableItemParity(parity1)));
                 }
@@ -162,46 +165,46 @@ public class PDFUtils {
         StringBuilder builder = new StringBuilder();
         ClassType ct = itemParity.getClassType();
         Classroom cr = itemParity.getClassroom();
-        Subject subj = itemParity.getSubject();
-        Set<Lecturer> lecs = itemParity.getLecturers();
+        LecturerSubject lecturerSubject = itemParity.getLecturerSubject();
 
-        if(ct != null) {
+        Subject subj = lecturerSubject.getDepartmentSubject().getSubject();
+        Lecturer lec = lecturerSubject.getLecturer();
+
+        if (ct != null) {
             builder.append("(")
                     .append(ct.getName(), 0, 3)
                     .append(")  ");
         }
-        if(subj != null) {
+        if (subj != null) {
             builder.append(subj.getName())
                     .append("  ");
         }
 
-        if(cr != null) {
+        if (cr != null) {
             builder.append(cr.getRoomNumber())
                     .append("  ");
         }
 
-        if(lecs.size() > 0) {
-            List<String> lecsNames = lecs
-                    .stream()
-                    .filter(lec -> lec.getLastName() != null && lec.getLastName().length() > 0)
-                    .map(lec -> lec.getLastName() + " " + lec.getFirstName().charAt(0) + ". " + lec.getMiddleName().charAt(0) + ". ")
-                    .collect(Collectors.toList());
-            builder.append(String.join(", ", lecsNames));
-        }
+
+        builder.append(lec.getInitials());
 
         return builder.toString();
     }
 
     private static String cipherOf(StudyGroup group) {
-        StudyFlow flow = group.getStudyFlow();
-        EduDegree degree = flow.getSpecialization().getEduDegree();
+        Calendar calendar = group.getCalendar();
+        EduDegree degree = calendar
+                .getDepartmentSpecialization()
+                .getSpecialization()
+                .getSpeciality()
+                .getDegree();
         char degreeLetter = degree.getName().toLowerCase().charAt(0);
         return String.format(
-            "%s-%d%d%s",
-            flow.getDepartment().getCipher(),
-            group.getTerm().getNumber(),
-            group.getNumber(),
-            degreeLetter
+                "%s-%d%d%s",
+                calendar.getDepartmentSpecialization().getDepartment(),
+                group.getTerm().getNumber(),
+                group.getNumber(),
+                degreeLetter
         );
     }
 
@@ -235,4 +238,5 @@ public class PDFUtils {
     private static Paragraph emptyParagraph() {
         return new Paragraph("");
     }
+
 }

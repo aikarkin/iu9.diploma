@@ -6,12 +6,9 @@ import ru.bmstu.schedule.entity.DayOfWeek;
 import java.util.Optional;
 
 public class WeekDao extends HibernateDao<Integer, DayOfWeek> {
+
     public WeekDao(SessionFactory factory) {
         super(factory);
-    }
-
-    public Optional<DayOfWeek> findByShortName(String shortName) {
-        return findUniqueByProperty("shortName", shortName);
     }
 
     public Optional<DayOfWeek> findByName(String name) {
