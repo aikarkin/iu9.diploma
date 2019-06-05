@@ -48,6 +48,18 @@ public class ScheduleSorts {
         return dayOfWeak().getConst(day.ordinal());
     }
 
+    DayOfWeak dayOfWeekEnum(Expr day) {
+        checkExprsSort(dayOfWeak(), day);
+        String strVal = day.getString();
+        return DayOfWeak.valueOf(strVal);
+    }
+
+    LessonKind kindEnum(Expr kind) {
+        checkExprsSort(kind(), kind);
+        String strVal = kind.getString();
+        return LessonKind.valueOf(strVal);
+    }
+
     EnumSort kind() {
         return kind;
     }
@@ -68,16 +80,36 @@ public class ScheduleSorts {
         return subject;
     }
 
+    IntExpr subjectId(Expr subj) {
+        checkExprsSort(subject(), subj);
+        return (IntExpr) ctx.mkApp(subjectConstructor.getAccessorDecls()[0], subj);
+    }
+
     DatatypeSort tutor() {
         return tutor;
+    }
+
+    IntExpr tutorId(Expr tutor) {
+        checkExprsSort(tutor(), tutor);
+        return (IntExpr) ctx.mkApp(tutorConstructor.getAccessorDecls()[0], tutor);
     }
 
     DatatypeSort room() {
         return room;
     }
 
+    IntExpr roomId(Expr room) {
+        checkExprsSort(room(), room);
+        return (IntExpr) ctx.mkApp(roomConstructor.getAccessorDecls()[0], room);
+    }
+
     DatatypeSort group() {
         return group;
+    }
+
+    IntExpr groupId(Expr group) {
+        checkExprsSort(group(), group);
+        return (IntExpr) ctx.mkApp(groupConstructor.getAccessorDecls()[0], group);
     }
 
     DatatypeSort lesson() {

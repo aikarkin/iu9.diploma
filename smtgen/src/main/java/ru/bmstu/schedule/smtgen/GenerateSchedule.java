@@ -3,6 +3,7 @@ package ru.bmstu.schedule.smtgen;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import ru.bmstu.schedule.dao.CalendarDao;
+import ru.bmstu.schedule.dao.ClassTypeDao;
 import ru.bmstu.schedule.dao.ClassroomDao;
 import ru.bmstu.schedule.entity.Calendar;
 import ru.bmstu.schedule.entity.*;
@@ -40,6 +41,7 @@ public class GenerateSchedule {
         SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
         CalendarDao calendarDao = new CalendarDao(sessionFactory);
         ClassroomDao classroomDao = new ClassroomDao(sessionFactory);
+        ClassTypeDao classTypeDao = new ClassTypeDao(sessionFactory);
 
         Optional<Calendar> calendarOpt = calendarDao.findByStartYearAndDepartmentCodeAndSpecCode(ENROLLMENT_YEAR, DEPT_CIPHER, SPEC_CODE);
 
@@ -93,14 +95,32 @@ public class GenerateSchedule {
             roomOpt.ifPresent(classrooms::add);
         }
 
+        List<ClassType> classTypes = new ArrayList<>();
+        for(String typeName : dbClassType2LessonKind.keySet()) {
+            Optional<ClassType> ctOpt = classTypeDao.findByName(typeName);
+            if(!ctOpt.isPresent()) {
+                System.out.println("Unknown class type: " + typeName);
+                return;
+            }
+
+            classTypes.add(ctOpt.get());
+        }
+
         SmtScheduleGenerator scheduleGenerator = new SmtScheduleGenerator(
                 subjectsPerWeekMap,
                 lecturerSubjects,
                 classrooms,
-                groups
+                groups,
+                classTypes
         );
 
-        Schedule schedule = scheduleGenerator.generateSchedule();
+        Map<StudyGroup, Schedule> schedules = scheduleGenerator.generateSchedule();
+
+        for(Map.Entry<StudyGroup, Schedule> scheduleEntry : schedules.entrySet()) {
+            System.out.printf("Schedule for group: %s%n", scheduleEntry.getKey());
+            System.out.println(scheduleEntry.getValue());
+            System.out.println("-----------------------------");
+        }
 
     }
 

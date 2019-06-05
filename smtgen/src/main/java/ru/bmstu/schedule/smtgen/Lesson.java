@@ -1,5 +1,6 @@
 package ru.bmstu.schedule.smtgen;
 
+import ru.bmstu.schedule.entity.ClassType;
 import ru.bmstu.schedule.entity.Classroom;
 import ru.bmstu.schedule.entity.Lecturer;
 import ru.bmstu.schedule.entity.Subject;
@@ -11,6 +12,7 @@ public class Lesson {
     private Classroom classroom;
     private Lecturer lecturer;
     private Subject subject;
+    private ClassType classType;
 
     public Lesson() {
     }
@@ -39,6 +41,13 @@ public class Lesson {
         this.subject = subject;
     }
 
+    public ClassType getClassType() {
+        return classType;
+    }
+
+    public void setClassType(ClassType classType) {
+        this.classType = classType;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -47,12 +56,13 @@ public class Lesson {
         Lesson lesson = (Lesson) o;
         return Objects.equals(classroom, lesson.classroom) &&
                 Objects.equals(lecturer, lesson.lecturer) &&
-                Objects.equals(subject, lesson.subject);
+                Objects.equals(subject, lesson.subject) &&
+                Objects.equals(classType, lesson.classType);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(classroom, lecturer, subject);
+        return Objects.hash(classroom, lecturer, subject, classType);
     }
 
 }

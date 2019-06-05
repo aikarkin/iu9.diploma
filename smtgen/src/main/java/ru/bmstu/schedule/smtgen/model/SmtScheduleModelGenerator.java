@@ -12,6 +12,8 @@ import static ru.bmstu.schedule.smtgen.Z3Utils.checkExprsSort;
 public class SmtScheduleModelGenerator {
 
     private Map<Integer, SubjectsPerWeek> totalSubjectsPerWeak;
+    private Solver solver;
+    private Status modelStatus;
     private Context ctx;
     private ScheduleSorts sorts;
     private ScheduleFunctions func;
@@ -40,22 +42,55 @@ public class SmtScheduleModelGenerator {
         this.sorts = new ScheduleSorts(ctx);
         this.func = new ScheduleFunctions(sorts);
         this.asserts = new ScheduleAsserts(sorts, func);
-    }
 
-    public Optional<Model> createSmtModel() {
         createSubjectsConstants();
         createRoomsConsts();
         createGroupsConstants();
         createTutorsConstants();
+    }
 
-        Solver solver = ctx.mkSolver();
-        solver.add(validSchedule());
+    public Expr[] getGroupsConstants() {
+        return groupsConsts.toArray(new Expr[0]);
+    }
 
-        if (solver.check() == Status.SATISFIABLE) {
-            return Optional.of(solver.getModel());
+    public Expr[] getSlotsConstants() {
+        return sorts.slot().getConsts();
+    }
+
+    public Expr[] getDaysConstants() {
+        return sorts.dayOfWeak().getConsts();
+    }
+
+    public Context getContext() {
+        return ctx;
+    }
+
+    public ScheduleSorts getSorts() {
+        return sorts;
+    }
+
+    public ScheduleFunctions getFunctions() {
+        return func;
+    }
+
+    public Status check() {
+        if (modelStatus == null) {
+            if (solver == null) {
+                solver = ctx.mkSolver();
+                solver.add(validSchedule());
+            }
+            modelStatus = solver.check();
         }
 
-        return Optional.empty();
+        return modelStatus;
+    }
+
+    public boolean satisfies() {
+        return check() == Status.SATISFIABLE;
+    }
+
+    public Optional<Model> getSmtModel() {
+        return Optional.ofNullable(satisfies() ? solver.getModel() : null);
     }
 
     private void createTutorsConstants() {

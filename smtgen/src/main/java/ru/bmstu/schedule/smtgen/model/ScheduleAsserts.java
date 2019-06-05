@@ -190,11 +190,11 @@ public class ScheduleAsserts {
         BoolExpr[] nonEmptySlots = new BoolExpr[slots.length];
 
         for (int i = 0; i < emptySlots.length; i++) {
-            emptySlots[i] = ctx.mkEq(ctx.mkApp(func.schedule(), group, day, sorts.slot(slots[i])), blankSlotItem);
-            nonEmptySlots[i] = ctx.mkAnd(
-                    ctx.mkNot(emptySlots[i]),
-                    ctx.mkNot(ctx.mkEq(ctx.mkApp(func.schedule(), group, day, sorts.slot(slots[i])), blankPairSlotItem))
+            emptySlots[i] = ctx.mkOr(
+                    ctx.mkEq(ctx.mkApp(func.schedule(), group, day, sorts.slot(slots[i])), blankSlotItem),
+                    ctx.mkEq(ctx.mkApp(func.schedule(), group, day, sorts.slot(slots[i])), blankPairSlotItem)
             );
+            nonEmptySlots[i] = ctx.mkNot(emptySlots[i]);
         }
 
         List<BoolExpr> validPatterns = new ArrayList<>();
