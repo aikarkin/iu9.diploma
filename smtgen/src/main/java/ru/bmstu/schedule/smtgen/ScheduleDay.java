@@ -1,7 +1,10 @@
 package ru.bmstu.schedule.smtgen;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class ScheduleDay {
 
@@ -59,6 +62,19 @@ public class ScheduleDay {
         int result = Objects.hash(dayOfWeak);
         result = 31 * result + Arrays.hashCode(items);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        List<String> itemsStrs = Stream.of(items)
+                .map(item -> item == null ? "[ --- ]" : item.toString() )
+                .collect(Collectors.toList());
+
+        return String.format(
+                "'%s':%n%s",
+                dayOfWeak.name().toUpperCase(),
+                String.join("\n", itemsStrs)
+        );
     }
 
 }

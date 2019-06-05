@@ -11,8 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-import static ru.bmstu.schedule.smtgen.Z3Utils.checkExprsSort;
-import static ru.bmstu.schedule.smtgen.Z3Utils.toBoolean;
+import static ru.bmstu.schedule.smtgen.Z3Utils.*;
 
 public class ModelToScheduleTransformer {
 
@@ -67,7 +66,7 @@ public class ModelToScheduleTransformer {
         Expr[] slotsExpr = modelGenerator.getSlotsConstants();
 
         for (Expr groupExpr : groupsExpr) {
-            Integer groupId = Integer.valueOf(sorts.groupId(groupExpr).toString());
+            Integer groupId = toInt(sorts.groupId(groupExpr));
             StudyGroup studyGroup = idToStudyGroup.get(groupId);
             Schedule schedule = new Schedule();
             int dayNo = 0;
@@ -127,16 +126,20 @@ public class ModelToScheduleTransformer {
     }
 
     private Lesson lessonExprToLesson(Expr lessonExpr) {
+        if(lessonExpr == null)
+            return null;
+
         checkExprsSort(sorts.lesson(), lessonExpr);
 
         if (toBoolean(sorts.isBlankLessonExpr(lessonExpr))) {
             return null;
         }
+
         Lesson lesson = new Lesson();
 
-        Integer subjId = Integer.valueOf(sorts.subjectId(sorts.lessonSubject(lessonExpr)).getString());
-        Integer tutorId = Integer.valueOf(sorts.tutorId(sorts.lessonTutor(lessonExpr)).getString());
-        Integer roomId = Integer.valueOf(sorts.roomId(sorts.lessonRoom(lessonExpr)).getString());
+        Integer subjId = toInt(sorts.subjectId(sorts.lessonSubject(lessonExpr)));
+        Integer tutorId = toInt(sorts.tutorId(sorts.lessonTutor(lessonExpr)));
+        Integer roomId = toInt(sorts.roomId(sorts.lessonRoom(lessonExpr)));
         LessonKind kind = sorts.kindEnum(sorts.lessonKind(lessonExpr));
 
         lesson.setSubject(idToSubj.get(subjId));

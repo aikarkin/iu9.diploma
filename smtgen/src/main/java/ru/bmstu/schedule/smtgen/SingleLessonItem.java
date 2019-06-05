@@ -45,4 +45,9 @@ public class SingleLessonItem implements LessonItem {
         return Objects.hash(index, lesson);
     }
 
+    @Override
+    public String toString() {
+        return "[ " + (lesson == null ? "---" : lesson.toString()) + " ]";
+    }
+
 }

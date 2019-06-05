@@ -65,4 +65,15 @@ public class Lesson {
         return Objects.hash(classroom, lecturer, subject, classType);
     }
 
+    @Override
+    public String toString() {
+        return String.format(
+                "(%s) %s %s %s",
+                getClassType().getName().substring(0, 3),
+                getSubject().getName(),
+                classroom == null ? "" : classroom.getRoomNumber(),
+                lecturer == null ? "" : lecturer.getInitials()
+        );
+    }
+
 }

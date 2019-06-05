@@ -179,29 +179,21 @@ public class SmtScheduleModelGenerator {
         );
     }
 
+    private BoolExpr validLesson(Expr lesson) {
+        return ctx.mkImplies(sorts.isNotBlankLessonExpr(lesson), validNotEmptyLesson(lesson));
+    }
+
     private BoolExpr validSlotForGroupAndDay(Expr group, Expr day, Expr slot) {
         Expr slotItem = ctx.mkApp(func.schedule(), group, day, slot);
         return ctx.mkOr(
-                ctx.mkImplies(
-                        ctx.mkAnd(
-                                sorts.isSingleItemExpr(slotItem),
-                                sorts.isNotBlankLessonExpr(sorts.singleItemLesson(slotItem))
-                        ),
-                        validNotEmptyLesson(sorts.singleItemLesson(slotItem))
+                ctx.mkAnd(
+                        sorts.isSingleItemExpr(slotItem),
+                        validLesson(sorts.singleItemLesson(slotItem))
                 ),
-                ctx.mkImplies(
-                        ctx.mkAnd(
-                                sorts.isPairItemExpr(slotItem),
-                                sorts.hasNotEmptyNumerator(slotItem)
-                        ),
-                        validNotEmptyLesson(sorts.pairItemNumerator(slotItem))
-                ),
-                ctx.mkImplies(
-                        ctx.mkAnd(
-                                sorts.isPairItemExpr(slotItem),
-                                sorts.hasNotEmptyDenominator(slotItem)
-                        ),
-                        validNotEmptyLesson(sorts.pairItemDenominator(slotItem))
+                ctx.mkAnd(
+                        sorts.isPairItemExpr(slotItem),
+                        validLesson(sorts.pairItemNumerator(slotItem)),
+                        validLesson(sorts.pairItemDenominator(slotItem))
                 )
         );
     }

@@ -57,4 +57,12 @@ public class PairLessonItem implements LessonItem {
         return Objects.hash(numerator, denominator, index);
     }
 
+    @Override
+    public String toString() {
+        return String.format("[ %s | %s ]",
+                numerator == null ? "---" : numerator,
+                denominator == null ? "---" : denominator
+        );
+    }
+
 }

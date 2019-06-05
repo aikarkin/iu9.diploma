@@ -50,13 +50,13 @@ public class ScheduleSorts {
 
     DayOfWeak dayOfWeekEnum(Expr day) {
         checkExprsSort(dayOfWeak(), day);
-        String strVal = day.getString();
+        String strVal = day.simplify().toString();
         return DayOfWeak.valueOf(strVal);
     }
 
     LessonKind kindEnum(Expr kind) {
         checkExprsSort(kind(), kind);
-        String strVal = kind.getString();
+        String strVal = kind.simplify().toString();
         return LessonKind.valueOf(strVal);
     }
 
