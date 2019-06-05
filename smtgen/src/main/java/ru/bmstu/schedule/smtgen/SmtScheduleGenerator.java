@@ -14,6 +14,8 @@ import java.util.*;
 
 public class SmtScheduleGenerator {
 
+    private static final int UNKNOWN_TUTOR_ID = 0;
+
     private BiMap<Subject, Integer> subjectIdBiMap = HashBiMap.create();
     private BiMap<StudyGroup, Integer> groupIdBiMap = HashBiMap.create();
     private BiMap<Classroom, Integer> roomIdBiMap = HashBiMap.create();
@@ -66,7 +68,7 @@ public class SmtScheduleGenerator {
         for (int subjId : subjectsPerWeakMap.keySet()) {
             if (!subjectsSetForTutor.contains(subjId)) {
                 for (LessonKind kind : LessonKind.values()) {
-                    tutorForLessons.add(new TutorForLesson(0, subjId, kind));
+                    tutorForLessons.add(new TutorForLesson(UNKNOWN_TUTOR_ID, subjId, kind));
                 }
             }
         }
@@ -83,7 +85,7 @@ public class SmtScheduleGenerator {
 
         Optional<Model> smtModel = modelGenerator.createSmtModel();
         if (!smtModel.isPresent()) {
-            throw new RuntimeException("No schedule exists provided parameters. Please try to change input params.");
+            throw new RuntimeException("No schedule exists for provided parameters. Please try to change input params.");
         }
 
         return transformModelToSchedule(smtModel.get());

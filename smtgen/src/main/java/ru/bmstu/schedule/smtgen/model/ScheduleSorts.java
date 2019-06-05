@@ -22,7 +22,6 @@ public class ScheduleSorts {
     private Constructor pairSItemConstructor;
 
     private EnumSort dayOfWeak;
-    private EnumSort parity;
     private EnumSort kind;
     private EnumSort slot;
     private DatatypeSort subject;
@@ -69,14 +68,6 @@ public class ScheduleSorts {
         return subject;
     }
 
-    EnumSort parity() {
-        return parity;
-    }
-
-    Expr parity(Enum<LessonParity> parity) {
-        return parity().getConst(parity.ordinal());
-    }
-
     DatatypeSort tutor() {
         return tutor;
     }
@@ -121,10 +112,6 @@ public class ScheduleSorts {
         return pairSItemConstructor.ConstructorDecl();
     }
 
-    FuncDecl lessonDecl() {
-        return lessonConstructor.ConstructorDecl();
-    }
-
     FuncDecl blankLessonDecl() {
         return blankLessonConstructor.ConstructorDecl();
     }
@@ -162,16 +149,12 @@ public class ScheduleSorts {
 
     BoolExpr isSingleItemExpr(Expr slotItem) {
         checkExprsSort(slotItem(), slotItem);
-        return (BoolExpr) ctx.mkApp(singleSItemConstructor.getTesterDecl(), slotItem
-        );
+        return (BoolExpr) ctx.mkApp(singleSItemConstructor.getTesterDecl(), slotItem);
     }
 
     BoolExpr isPairItemExpr(Expr slotItem) {
         checkExprsSort(slotItem(), slotItem);
-        return ctx.mkAnd(
-                ctx.mkBool(slotItem.getSort().equals(slot)),
-                (BoolExpr) ctx.mkApp(pairSItemConstructor.getTesterDecl(), slotItem)
-        );
+        return (BoolExpr) ctx.mkApp(pairSItemConstructor.getTesterDecl(), slotItem);
     }
 
     Expr singleItemLesson(Expr singleSlotItem) {
@@ -205,26 +188,10 @@ public class ScheduleSorts {
         );
     }
 
-    IntExpr tutorId(Expr tutor) {
-        checkExprsSort(tutor(), tutor);
-        return (IntExpr) ctx.mkApp(tutorConstructor.getAccessorDecls()[0], tutor);
-    }
-
-    Expr tutorLessonKind(Expr tutor) {
-        checkExprsSort(tutor(), tutor);
-        return ctx.mkApp(tutorConstructor.getAccessorDecls()[1], tutor);
-    }
-
-    IntExpr subjId(Expr subj) {
-        checkExprsSort(subject(), subj);
-        return (IntExpr) ctx.mkApp(subjectConstructor.getAccessorDecls()[0], subj);
-    }
-
     private void initSorts() {
         dayOfWeak = mkCustomEnumSort(ctx, DayOfWeak.class);
         kind = mkCustomEnumSort(ctx, LessonKind.class);
         slot = mkCustomEnumSort(ctx, LessonSlot.class);
-        parity = mkCustomEnumSort(ctx, LessonParity.class);
 
         // Subject sort:
         subjectConstructor = ctx.mkConstructor(
@@ -240,9 +207,9 @@ public class ScheduleSorts {
         tutorConstructor = ctx.mkConstructor(
                 "mk-tutor",
                 "is-tutor",
-                new String[]{"id-of", "lesson-kind-of"},
-                new Sort[]{ctx.mkIntSort(), kind()},
-                new int[]{0, 1}
+                new String[]{"id-of"},
+                new Sort[]{ctx.mkIntSort()},
+                new int[]{0}
         );
         tutor = ctx.mkDatatypeSort("Tutor", new Constructor[]{tutorConstructor});
 

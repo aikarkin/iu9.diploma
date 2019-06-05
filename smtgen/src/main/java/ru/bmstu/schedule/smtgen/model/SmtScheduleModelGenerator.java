@@ -5,9 +5,9 @@ import ru.bmstu.schedule.smtgen.DayOfWeak;
 import ru.bmstu.schedule.smtgen.LessonKind;
 import ru.bmstu.schedule.smtgen.SubjectsPerWeek;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
+
+import static ru.bmstu.schedule.smtgen.Z3Utils.checkExprsSort;
 
 public class SmtScheduleModelGenerator {
 
@@ -21,10 +21,11 @@ public class SmtScheduleModelGenerator {
     private List<Integer> rooms;
     private List<Integer> groups;
 
-    private Expr[] subjectsConsts;
-    private Expr[] tutorsConsts;
-    private Expr[] roomsConsts;
-    private Expr[] groupsConsts;
+    private Map<Integer, Expr> tutorConstById;
+    private Map<Integer, Expr> subjConstById;
+
+    private List<Expr> roomsConsts;
+    private List<Expr> groupsConsts;
 
     public SmtScheduleModelGenerator(
             Map<Integer, SubjectsPerWeek> totalSubjectsPerWeak,
@@ -42,31 +43,28 @@ public class SmtScheduleModelGenerator {
     }
 
     public Optional<Model> createSmtModel() {
-        subjectsConsts = createSubjectConstants();
-        roomsConsts = createRoomConsts();
-        groupsConsts = createGroupConstants();
-        tutorsConsts = createTutorsConstants();
+        createSubjectsConstants();
+        createRoomsConsts();
+        createGroupsConstants();
+        createTutorsConstants();
 
         Solver solver = ctx.mkSolver();
         solver.add(validSchedule());
 
-        if(solver.check() == Status.SATISFIABLE) {
+        if (solver.check() == Status.SATISFIABLE) {
             return Optional.of(solver.getModel());
         }
 
         return Optional.empty();
     }
 
-    private Expr[] createTutorsConstants() {
-        int count = tutorForLessons.size();
-        Expr[] constants = new Expr[count];
+    private void createTutorsConstants() {
+        this.tutorConstById = new HashMap<>();
 
-        for (int i = 0; i < count; i++) {
-            TutorForLesson lesson = tutorForLessons.get(i);
-            constants[i] = ctx.mkApp(sorts.tutorDecl(), ctx.mkInt(lesson.getTutorId()), sorts.kind(lesson.getKind()));
+        for (TutorForLesson lesson : tutorForLessons) {
+            int tutorId = lesson.getTutorId();
+            tutorConstById.put(tutorId, ctx.mkApp(sorts.tutorDecl(), ctx.mkInt(tutorId)));
         }
-
-        return constants;
     }
 
     private RealExpr subjCountToReal(double count) {
@@ -79,58 +77,59 @@ public class SmtScheduleModelGenerator {
         }
     }
 
-    private Expr[] createRoomConsts() {
-        Expr[] roomConsts = new Expr[rooms.size()];
-        int i = 0;
+    private void createRoomsConsts() {
+        this.roomsConsts = new ArrayList<>();
 
         for (int rId : rooms) {
-            roomConsts[i++] = ctx.mkApp(sorts.roomDecl(), ctx.mkInt(rId));
+            this.roomsConsts.add(ctx.mkApp(sorts.roomDecl(), ctx.mkInt(rId)));
         }
-
-        return roomConsts;
     }
 
-    private Expr[] createSubjectConstants() {
-        int n = totalSubjectsPerWeak.keySet().size(), i = 0;
-        Expr[] subjectsConstants = new Expr[n];
-
+    private void createSubjectsConstants() {
+        subjConstById = new HashMap<>();
         for (int subjId : totalSubjectsPerWeak.keySet()) {
-            subjectsConstants[i++] = ctx.mkApp(sorts.subjectDecl(), ctx.mkInt(subjId));
+            this.subjConstById.put(subjId, ctx.mkApp(sorts.subjectDecl(), ctx.mkInt(subjId)));
         }
-
-        return subjectsConstants;
     }
 
-    private Expr[] createGroupConstants() {
-        int n = groups.size();
-        Expr[] groupsConstants = new Expr[n];
+    private void createGroupsConstants() {
+        this.groupsConsts = new ArrayList<>();
 
-        for (int i = 0; i < n; i++) {
-            groupsConstants[i] = ctx.mkApp(sorts.groupDecl(), ctx.mkInt(groups.get(i)));
+        for (int groupId : groups) {
+            groupsConsts.add(ctx.mkApp(sorts.groupDecl(), ctx.mkInt(groupId)));
         }
-
-        return groupsConstants;
     }
 
-    private BoolExpr exprIsOneOf(Expr expr, Expr[] constants) {
-        BoolExpr[] validExpr = new BoolExpr[constants.length];
+    private BoolExpr exprIsOneOf(Expr expr, Collection<Expr> constants) {
+        BoolExpr[] validExpr = new BoolExpr[constants.size()];
+        int i = 0;
 
-        for (int i = 0; i < validExpr.length; i++) {
-            validExpr[i] = ctx.mkEq(expr, constants[i]);
+        for (Expr cnst : constants) {
+            validExpr[i++] = ctx.mkEq(expr, cnst);
         }
 
         return ctx.mkOr(validExpr);
     }
 
-    private BoolExpr validTutorForSubject(Expr tutor, Expr subj) {
+    private BoolExpr validSubject(Expr subject) {
+        checkExprsSort(sorts.subject(), subject);
+        return exprIsOneOf(subject, subjConstById.values());
+    }
+
+    private BoolExpr validRoom(Expr room) {
+        checkExprsSort(sorts.room(), room);
+        return exprIsOneOf(room, roomsConsts);
+    }
+
+    private BoolExpr validTutorForSubject(Expr tutor, Expr subj, Expr kind) {
         int i = 0;
         BoolExpr[] validTutorForSubj = new BoolExpr[tutorForLessons.size()];
 
         for (TutorForLesson tutorForLesson : tutorForLessons) {
             validTutorForSubj[i++] = ctx.mkAnd(
-                    ctx.mkEq(sorts.subjId(subj), ctx.mkInt(tutorForLesson.getSubjectId())),
-                    ctx.mkEq(sorts.tutorId(tutor), ctx.mkInt(tutorForLesson.getTutorId())),
-                    ctx.mkEq(sorts.tutorLessonKind(tutor), sorts.kind(tutorForLesson.getKind()))
+                    ctx.mkEq(subj, subjConstById.get(tutorForLesson.getSubjectId())),
+                    ctx.mkEq(tutor, tutorConstById.get(tutorForLesson.getTutorId())),
+                    ctx.mkEq(kind, sorts.kind(tutorForLesson.getKind()))
             );
         }
 
@@ -139,9 +138,9 @@ public class SmtScheduleModelGenerator {
 
     private BoolExpr validNotEmptyLesson(Expr lesson) {
         return ctx.mkAnd(
-                exprIsOneOf(sorts.lessonSubject(lesson), subjectsConsts),
-                exprIsOneOf(sorts.lessonRoom(lesson), roomsConsts),
-                validTutorForSubject(sorts.lessonTutor(lesson), sorts.lessonSubject(lesson))
+                validSubject(sorts.lessonSubject(lesson)),
+                validRoom(sorts.lessonRoom(lesson)),
+                validTutorForSubject(sorts.lessonTutor(lesson), sorts.lessonSubject(lesson), sorts.lessonKind(lesson))
         );
     }
 
@@ -197,13 +196,14 @@ public class SmtScheduleModelGenerator {
     }
 
     private BoolExpr validSubjectsCountOfEachKind(Expr group) {
-        int n = subjectsConsts.length, i = 0;
+        int n = subjConstById.size(), i = 0;
         BoolExpr[] validTotalSubj = new BoolExpr[n];
 
         for (int subjId : totalSubjectsPerWeak.keySet()) {
             RealExpr lecCount, semCount, labCount;
-            Expr subjExpr = subjectsConsts[i];
+            Expr subjExpr = subjConstById.get(subjId);
             SubjectsPerWeek lessonsPerWeek = this.totalSubjectsPerWeak.get(subjId);
+
             lecCount = subjCountToReal(lessonsPerWeek.getOrDefault(LessonKind.lec, 0.0));
             semCount = subjCountToReal(lessonsPerWeek.getOrDefault(LessonKind.sem, 0.0));
             labCount = subjCountToReal(lessonsPerWeek.getOrDefault(LessonKind.lab, 0.0));
@@ -223,22 +223,21 @@ public class SmtScheduleModelGenerator {
         );
     }
 
-
     private BoolExpr validSchedule() {
         int totalGroups = groups.size(), k = 0;
         BoolExpr[] validForTwoGroups = new BoolExpr[totalGroups * (totalGroups - 1) / 2];
-        BoolExpr[] validScheduleForGroup = new BoolExpr[totalGroups];
+        BoolExpr[] validForGroup = new BoolExpr[totalGroups];
 
         for (int i = 0; i < totalGroups; i++) {
+            validForGroup[i] = validScheduleForGroup(groupsConsts.get(i));
             for (int j = i + 1; j < totalGroups; j++) {
-                validForTwoGroups[k++] = asserts.validWeeksForTwoGroups(groupsConsts[i], groupsConsts[j]);
+                validForTwoGroups[k++] = asserts.validWeeksForTwoGroups(groupsConsts.get(i), groupsConsts.get(j));
             }
-            validScheduleForGroup[i] = validScheduleForGroup(groupsConsts[i]);
         }
 
         return ctx.mkAnd(
-                ctx.mkAnd(validForTwoGroups),
-                ctx.mkAnd(validScheduleForGroup)
+                ctx.mkAnd(validForGroup),
+                ctx.mkAnd(validForTwoGroups)
         );
     }
 

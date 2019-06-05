@@ -56,8 +56,6 @@ public class GenerateSchedule {
         for (CalendarItem item : calendarOpt.get().getCalendarItems()) {
             DepartmentSubject deptSubj = item.getDepartmentSubject();
             Subject subject = deptSubj.getSubject();
-            lecturerSubjects.addAll(deptSubj.getLecturerSubjects());
-
 
             for (CalendarItemCell itemCell : item.getCalendarItemCells()) {
                 if (itemCell.getTerm().getNumber() == TERM_NO) {
@@ -75,13 +73,20 @@ public class GenerateSchedule {
                     subjectsPerWeekMap.put(subject, subjPerWeek);
                 }
             }
-        }
 
-        for (StudyGroup group : calendarOpt.get().getStudyGroups()) {
-            if (group.getTerm().getNumber() == TERM_NO) {
-                groups.add(group);
+            for (LecturerSubject lecSubj : deptSubj.getLecturerSubjects()) {
+                if (subjectsPerWeekMap.containsKey(lecSubj.getDepartmentSubject().getSubject())) {
+                    lecturerSubjects.add(lecSubj);
+                }
             }
         }
+
+//        for (StudyGroup group : calendarOpt.get().getStudyGroups()) {
+//            if (group.getTerm().getNumber() == TERM_NO) {
+//                groups.add(group);
+//            }
+//        }
+        groups.add(calendarOpt.get().getStudyGroups().iterator().next());
 
         for (String roomNumber : rooms) {
             Optional<Classroom> roomOpt = classroomDao.findByRoomNumber(roomNumber);

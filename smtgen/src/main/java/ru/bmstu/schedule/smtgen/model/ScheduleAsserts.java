@@ -114,7 +114,7 @@ public class ScheduleAsserts {
                                 ctx.mkEq(sorts.lessonKind(sorts.singleItemLesson(slotItem)), kind),
                                 ctx.mkEq(sorts.lessonSubject(sorts.singleItemLesson(slotItem)), subject)
                         ),
-                        ctx.mkReal(1, 1),
+                        ctx.mkReal(1),
                         ctx.mkReal(0)
                 );
             case numerator:
@@ -193,9 +193,7 @@ public class ScheduleAsserts {
             emptySlots[i] = ctx.mkEq(ctx.mkApp(func.schedule(), group, day, sorts.slot(slots[i])), blankSlotItem);
             nonEmptySlots[i] = ctx.mkAnd(
                     ctx.mkNot(emptySlots[i]),
-                    ctx.mkNot(
-                            ctx.mkEq(ctx.mkApp(func.schedule(), group, day, sorts.slot(slots[i])), blankPairSlotItem)
-                    )
+                    ctx.mkNot(ctx.mkEq(ctx.mkApp(func.schedule(), group, day, sorts.slot(slots[i])), blankPairSlotItem))
             );
         }
 

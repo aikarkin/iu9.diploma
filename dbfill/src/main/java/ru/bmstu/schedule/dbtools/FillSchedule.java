@@ -96,14 +96,14 @@ public class FillSchedule {
 //        DBUtils.fillGroups(sessionFactory, pathByKey(PropertyKey.REF_GROUPS));
 
         // Fill calendar plans from csv-reference:
-//        DBUtils.fillCalendars(sessionFactory, pathByKey(PropertyKey.REF_FOLDER_CALENDAR));
+        DBUtils.fillCalendars(sessionFactory, pathByKey(PropertyKey.REF_FOLDER_CALENDAR));
 
         // Fill lecturers after calendar filling, because in other case we haven't subjects
 //        CSVUtils.fillLecturers(pathByKey(PropertyKey.REF_LECTURERS), sessionFactory);
 
         // Fill schedule from https://students.bmstu.ru/schedule/:
 //        DBUtils.fillSchedule(sessionFactory, scheduleParser);
-        DBUtils.fillLecturerSubjects(sessionFactory, pathByKey(PropertyKey.REF_SUBJECTS));
+//        DBUtils.fillLecturerSubjects(sessionFactory, pathByKey(PropertyKey.REF_SUBJECTS));
     }
 
     private static void removeEntities(SessionFactory sessionFactory, Class<?>... classes) {
