@@ -1,9 +1,6 @@
 package ru.bmstu.schedule.dao;
 
-import org.hibernate.Criteria;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import org.hibernate.*;
 import org.hibernate.criterion.Restrictions;
 
 import java.io.Serializable;
@@ -61,6 +58,14 @@ public abstract class HibernateDao<PK extends Serializable, E> implements Dao<PK
     @Override
     public void delete(E entity) {
         consumeInTransaction(session -> session.delete(entity));
+    }
+
+    @Override
+    public void deleteAll() {
+        consumeInTransaction(session -> {
+            Query query = session.createQuery("delete from " + getPersistentClass().getSimpleName());
+            query.executeUpdate();
+        });
     }
 
     protected SessionFactory getSessionFactory() {

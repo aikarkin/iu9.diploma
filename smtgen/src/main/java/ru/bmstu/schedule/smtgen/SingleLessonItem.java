@@ -47,7 +47,7 @@ public class SingleLessonItem implements LessonItem {
 
     @Override
     public String toString() {
-        return "[ " + (lesson == null ? "---" : lesson.toString()) + " ]";
+        return String.format("%d: [ %s ]", getIndex(), lesson == null ? "---" : lesson.toString());
     }
 
 }

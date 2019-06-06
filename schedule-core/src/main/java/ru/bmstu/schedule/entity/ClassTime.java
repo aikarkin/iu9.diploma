@@ -83,6 +83,10 @@ public class ClassTime {
 
     @Override
     public String toString() {
-        return startsAt + " - " + endsAt;
+        return String.format(
+                "%s-%s",
+                startsAt.toString().substring(0, 5),
+                endsAt.toString().substring(0, 5)
+        );
     }
 }

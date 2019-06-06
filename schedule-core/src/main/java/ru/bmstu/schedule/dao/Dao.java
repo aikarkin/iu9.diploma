@@ -15,4 +15,6 @@ public interface Dao<PK extends Serializable, E> {
 
     void delete(E entity);
 
+    void deleteAll();
+
 }

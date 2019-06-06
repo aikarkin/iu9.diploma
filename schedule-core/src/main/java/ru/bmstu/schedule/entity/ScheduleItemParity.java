@@ -93,4 +93,20 @@ public class ScheduleItemParity {
         return Objects.hash(id, dayParity, scheduleItem, lecturerSubject, classroom, classType);
     }
 
+    @Override
+    public String toString() {
+        Lecturer lect = lecturerSubject == null ? null : lecturerSubject.getLecturer();
+        DepartmentSubject deptSubj = lecturerSubject == null ? null : lecturerSubject.getDepartmentSubject();
+        Subject subj = deptSubj == null ? null : deptSubj.getSubject();
+
+        return "ScheduleItemParity{" +
+                "id=" + id +
+                ", dayParity='" + dayParity + '\'' +
+                ", lecturer=" + (lect == null ? "" :  lect.getInitials()) +
+                ", subject=" + (subj == null ? "" :  subj.getName()) +
+                ", classroom=" + (classroom == null ? "" : classroom.getRoomNumber()) +
+                ", classType=" + (classType == null ? "" : classType.getName().substring(0, 3)) +
+                '}';
+    }
+
 }

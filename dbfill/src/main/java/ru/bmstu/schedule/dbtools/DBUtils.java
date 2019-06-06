@@ -310,7 +310,7 @@ public class DBUtils {
                     deptSubj = deptSubjOpt.get();
                 }
 
-                List<LecturerSubject> lecSubjsList = lecSubjDao.findByLecturerAndSubject(foundLecturers.get(0), deptSubj);
+                List<LecturerSubject> lecSubjsList = lecSubjDao.findByLecturerAndDepartmentSubject(foundLecturers.get(0), deptSubj);
                 Set<String> classTypes = lecSubjsList
                         .stream()
                         .map(lecSubj -> lecSubj.getClassType().getName().substring(3))

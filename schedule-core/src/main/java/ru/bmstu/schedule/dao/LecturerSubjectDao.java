@@ -1,12 +1,14 @@
 package ru.bmstu.schedule.dao;
 
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import ru.bmstu.schedule.entity.*;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 public class LecturerSubjectDao extends HibernateDao<Integer, LecturerSubject> {
 
@@ -15,7 +17,7 @@ public class LecturerSubjectDao extends HibernateDao<Integer, LecturerSubject> {
     }
 
     @SuppressWarnings("unchecked")
-    public List<LecturerSubject> findByLecturerAndSubject(Lecturer lecturer, DepartmentSubject departmentSubject) {
+    public List<LecturerSubject> findByLecturerAndDepartmentSubject(Lecturer lecturer, DepartmentSubject departmentSubject) {
         if (lecturer == null || departmentSubject == null) {
             return Collections.emptyList();
         }
@@ -28,15 +30,19 @@ public class LecturerSubjectDao extends HibernateDao<Integer, LecturerSubject> {
         });
     }
 
-    public List<LecturerSubject> findByLecturerAndSubjectClassType(Lecturer lecturer, Subject subject, ClassType classType) {
-        return composeInTransaction(session -> {
-            Criteria criteria = session.createCriteria(LecturerSubject.class);
-            criteria.add(Restrictions.eq("lecturer", lecturer));
-            criteria.add(Restrictions.eq("departmentSubject", subject));
-            criteria.add(Restrictions.eq("classType", classType));
+    public Optional<LecturerSubject> findByLecturerAndDepartmentSubjectAndClassType(Lecturer lecturer, DepartmentSubject subject, ClassType classType) {
+        return Optional.ofNullable(composeInTransaction(session -> {
+            try {
+                Criteria criteria = session.createCriteria(LecturerSubject.class);
+                criteria.add(Restrictions.eq("lecturer", lecturer));
+                criteria.add(Restrictions.eq("departmentSubject", subject));
+                criteria.add(Restrictions.eq("classType", classType));
 
-            return (List<LecturerSubject>) criteria.list();
-        });
+                return (LecturerSubject) criteria.uniqueResult();
+            } catch (HibernateException e) {
+                return null;
+            }
+        }));
     }
 
 }

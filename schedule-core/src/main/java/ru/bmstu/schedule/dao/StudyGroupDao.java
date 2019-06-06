@@ -1,12 +1,12 @@
 package ru.bmstu.schedule.dao;
 
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import ru.bmstu.schedule.entity.StudyGroup;
 
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Stream;
 
 public class StudyGroupDao extends HibernateDao<Integer, StudyGroup> {
 
@@ -15,43 +15,54 @@ public class StudyGroupDao extends HibernateDao<Integer, StudyGroup> {
     }
 
     public Optional<StudyGroup> findByCipher(String cipher) {
-        // facultyCipher,   department number,  term number,    group number,   degree
+        // (1) facultyCipher,  (2) department number,  (3) term number,  (4) group number,  (5) degree
         Pattern ptr = Pattern.compile("(\\p{Lu}+)(\\d+)?-(\\d+?)(\\d)(\\p{Lu})?");
         Matcher matcher = ptr.matcher(cipher);
 
         if (!matcher.matches() || matcher.groupCount() != 5 || matcher.group(1) == null || matcher.group(3) == null || matcher.group(4) == null)
             return Optional.empty();
 
-        Stream<StudyGroup> stream = filter(group -> {
-            Optional<Integer> termOpt = tryParseInt(matcher.group(3));
-            Optional<Integer> groupNoOpt = tryParseInt(matcher.group(4));
+        return Optional.ofNullable(composeInTransaction(session -> {
+            Query query = session.createQuery(
+                    "SELECT gr FROM StudyGroup gr " +
+                            "LEFT JOIN gr.calendar c " +
+                            "LEFT JOIN gr.term t " +
+                            "LEFT JOIN gr.calendar.departmentSpecialization ds " +
+                            "LEFT JOIN gr.calendar.departmentSpecialization.department dept " +
+                            "LEFT JOIN gr.calendar.departmentSpecialization.department.faculty fact " +
+                            "LEFT JOIN gr.calendar.departmentSpecialization.specialization.speciality " +
+                            "LEFT JOIN gr.calendar.departmentSpecialization.specialization.speciality.degree deg " +
+                            "WHERE CONCAT(fact.cipher, CAST(dept.number AS string), '-', CAST(t.number AS string), gr.number) = :group " +
+                            "AND deg.name = :degree"
+            );
+            String grCipher;
+            String degreeName;
+            char degreeLetter;
+            if (matcher.group(5) == null) {
+                grCipher = matcher.group();
+                degreeLetter = 'Б';
+            } else {
+                String grCipherWithDegree = matcher.group();
+                grCipher = grCipherWithDegree.substring(0, grCipherWithDegree.length() - 2);
+                degreeLetter = matcher.group(5).charAt(0);
+            }
 
-            if (!termOpt.isPresent() || !groupNoOpt.isPresent())
-                return false;
+            switch (degreeLetter) {
+                case 'А':
+                    degreeName = "Исследователь. Преподаватель-исследователь";
+                    break;
+                case 'М':
+                    degreeName = "Магистр";
+                    break;
+                default:
+                    degreeName = "Бакалавр";
+                    break;
+            }
+            query.setParameter("group", grCipher);
+            query.setParameter("degree", degreeName);
 
-            String facultyCipher = matcher.group(1);
-            int depNumber = tryParseInt(matcher.group(2)).orElse(1);
-            int term = termOpt.get();
-            String degree = matcher.group(5) == null ? "c" : matcher.group(5).toLowerCase();
-
-            return group.getNumber() == groupNoOpt.get()
-                    && group.getTerm().getNumber() == term
-                    && group.getCalendar().getDepartmentSpecialization().getSpecialization().getSpeciality().getDegree().getName().charAt(0) == degree.charAt(0)
-                    && group.getCalendar().getDepartmentSpecialization().getDepartment().getFaculty().getCipher().equals(facultyCipher)
-                    && group.getCalendar().getDepartmentSpecialization().getDepartment().getNumber() == depNumber;
-        });
-
-        return stream.findFirst();
-    }
-
-    private Optional<Integer> tryParseInt(String val) {
-        Integer intVal = null;
-        try {
-            intVal = Integer.parseInt(val);
-        } catch (NumberFormatException ignored) {
-        }
-
-        return Optional.ofNullable(intVal);
+            return (StudyGroup) query.uniqueResult();
+        }));
     }
 
 }

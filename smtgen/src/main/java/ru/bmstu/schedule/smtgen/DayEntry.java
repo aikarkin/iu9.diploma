@@ -6,14 +6,14 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class ScheduleDay {
+public class DayEntry {
 
     private static final int MAX_ITEMS_PER_DAY = 7;
 
     private LessonItem[] items;
-    private DayOfWeak dayOfWeak;
+    private DayOfWeek dayOfWeek;
 
-    public ScheduleDay() {
+    public DayEntry() {
         items = new LessonItem[MAX_ITEMS_PER_DAY];
     }
 
@@ -40,26 +40,26 @@ public class ScheduleDay {
         this.items[index] = new PairLessonItem(index, numerator, denominator);
     }
 
-    public DayOfWeak getDayOfWeak() {
-        return dayOfWeak;
+    public DayOfWeek getDayOfWeek() {
+        return dayOfWeek;
     }
 
-    public void setDayOfWeak(DayOfWeak dayOfWeak) {
-        this.dayOfWeak = dayOfWeak;
+    public void setDayOfWeek(DayOfWeek dayOfWeek) {
+        this.dayOfWeek = dayOfWeek;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ScheduleDay that = (ScheduleDay) o;
+        DayEntry that = (DayEntry) o;
         return Arrays.equals(items, that.items) &&
-                dayOfWeak == that.dayOfWeak;
+                dayOfWeek == that.dayOfWeek;
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(dayOfWeak);
+        int result = Objects.hash(dayOfWeek);
         result = 31 * result + Arrays.hashCode(items);
         return result;
     }
@@ -72,7 +72,7 @@ public class ScheduleDay {
 
         return String.format(
                 "'%s':%n%s",
-                dayOfWeak.name().toUpperCase(),
+                dayOfWeek.getAlias(),
                 String.join("\n", itemsStrs)
         );
     }

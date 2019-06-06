@@ -5,26 +5,30 @@ import java.util.stream.Stream;
 
 public class Schedule {
 
-    private static final int MAX_DAYS_PER_WEAK = DayOfWeak.values().length;
-    private ScheduleDay[] scheduleDays = new ScheduleDay[MAX_DAYS_PER_WEAK];
+    private static final int MAX_DAYS_PER_WEAK = DayOfWeek.values().length;
+    private DayEntry[] dayEntries = new DayEntry[MAX_DAYS_PER_WEAK];
 
     public Schedule() {
     }
 
-    public Schedule(ScheduleDay[] scheduleDays) {
-        this.scheduleDays = scheduleDays;
+    public Schedule(DayEntry[] dayEntries) {
+        this.dayEntries = dayEntries;
     }
 
-    public void setDay(int i, ScheduleDay scheduleDay) {
+    public void setDay(int i, DayEntry dayEntry) {
         if (i < 0 || i >= MAX_DAYS_PER_WEAK)
             throw new IllegalArgumentException("Invalid day index - day index should be positive and less then " + MAX_DAYS_PER_WEAK);
 
-        this.scheduleDays[i] = scheduleDay;
+        this.dayEntries[i] = dayEntry;
+    }
+
+    public DayEntry[] getDayEntries() {
+        return dayEntries;
     }
 
     @Override
     public String toString() {
-        return Stream.of(scheduleDays)
+        return Stream.of(dayEntries)
                 .map(day -> day == null ? "" : day.toString())
                 .collect(Collectors.joining("\n\n"));
     }

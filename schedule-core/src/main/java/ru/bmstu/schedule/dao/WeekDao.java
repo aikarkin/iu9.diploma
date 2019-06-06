@@ -15,4 +15,8 @@ public class WeekDao extends HibernateDao<Integer, DayOfWeek> {
         return findUniqueByProperty("name", name);
     }
 
+    public Optional<DayOfWeek> findByShortName(String shortName) {
+        return findUniqueByProperty("shortName", shortName);
+    }
+
 }

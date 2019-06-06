@@ -4,7 +4,7 @@ import com.microsoft.z3.Context;
 import com.microsoft.z3.Expr;
 import com.microsoft.z3.Model;
 import ru.bmstu.schedule.entity.*;
-import ru.bmstu.schedule.smtgen.ScheduleDay;
+import ru.bmstu.schedule.smtgen.DayEntry;
 import ru.bmstu.schedule.smtgen.*;
 
 import java.util.HashMap;
@@ -72,8 +72,8 @@ public class ModelToScheduleTransformer {
             int dayNo = 0;
 
             for (Expr dayExpr : daysExpr) {
-                ScheduleDay scheduleDay = new ScheduleDay();
-                scheduleDay.setDayOfWeak(sorts.dayOfWeekEnum(dayExpr));
+                DayEntry dayEntry = new DayEntry();
+                dayEntry.setDayOfWeek(sorts.dayOfWeekEnum(dayExpr));
 
                 LessonItem[] items = new LessonItem[7];
                 int itemNo = 0;
@@ -115,8 +115,8 @@ public class ModelToScheduleTransformer {
                     }
                     itemNo++;
                 }
-                scheduleDay.setItems(items);
-                schedule.setDay(dayNo++, scheduleDay);
+                dayEntry.setItems(items);
+                schedule.setDay(dayNo++, dayEntry);
             }
 
             schedulesOfGroups.put(studyGroup, schedule);

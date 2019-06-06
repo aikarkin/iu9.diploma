@@ -20,6 +20,13 @@ public class DaoTest extends DatabaseAccessTest {
     }
 
     @Test
+    public void testDeleteAll() {
+        ScheduleItemParityDao scheduleItemParityDao = new ScheduleItemParityDao(getSessionFactory());
+        scheduleItemParityDao.deleteAll();
+        assertEquals(0, scheduleItemParityDao.findAll().size());
+    }
+
+    @Test
     public void testFacultyDao() {
         FacultyDao facultyDao = new FacultyDao(getSessionFactory());
 

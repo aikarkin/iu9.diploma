@@ -1,7 +1,7 @@
 package ru.bmstu.schedule.smtgen.model;
 
 import com.microsoft.z3.*;
-import ru.bmstu.schedule.smtgen.DayOfWeak;
+import ru.bmstu.schedule.smtgen.DayOfWeek;
 import ru.bmstu.schedule.smtgen.LessonKind;
 import ru.bmstu.schedule.smtgen.SubjectsPerWeek;
 
@@ -78,6 +78,9 @@ public class SmtScheduleModelGenerator {
             if (solver == null) {
                 solver = ctx.mkSolver();
                 solver.add(validSchedule());
+//                optimize = ctx.mkOptimize();
+//                optimize.Add(validSchedule());
+//                optimize.MkMaximize(numberOfEmptySlots());
             }
             modelStatus = solver.check();
         }
@@ -211,7 +214,7 @@ public class SmtScheduleModelGenerator {
     }
 
     private BoolExpr validLessonsInWeakForGroup(Expr group) {
-        DayOfWeak[] days = DayOfWeak.values();
+        DayOfWeek[] days = DayOfWeek.values();
         int n = days.length;
         BoolExpr[] validDaysForGroup = new BoolExpr[n];
 
@@ -266,6 +269,16 @@ public class SmtScheduleModelGenerator {
                 ctx.mkAnd(validForGroup),
                 ctx.mkAnd(validForTwoGroups)
         );
+    }
+
+    private IntExpr numberOfEmptySlots() {
+        IntExpr[] noOfSlots = new IntExpr[groupsConsts.size()];
+
+        for (int i = 0; i < groupsConsts.size(); i++) {
+            noOfSlots[i] = asserts.countEmptySlotsInWeek(groupsConsts.get(i));
+        }
+
+        return (IntExpr) ctx.mkAdd(noOfSlots);
     }
 
 }

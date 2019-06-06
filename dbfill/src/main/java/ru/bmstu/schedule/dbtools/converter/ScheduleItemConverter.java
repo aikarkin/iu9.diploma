@@ -23,7 +23,7 @@
 //    @Override
 //    public ScheduleItem convert(ScheduleItemNode node) {
 //        ScheduleItem item = new ScheduleItem();
-//        Optional<ClassTime> ct = ctDao.findExact(node.getStartsAt(), node.getEndsAt());
+//        Optional<ClassTime> ct = ctDao.findByStartAndEndTime(node.getStartsAt(), node.getEndsAt());
 //        ct.ifPresent(item::setClassTime);
 //
 //        ScheduleItemParityConverter childConverter = new ScheduleItemParityConverter(sessionFactory);

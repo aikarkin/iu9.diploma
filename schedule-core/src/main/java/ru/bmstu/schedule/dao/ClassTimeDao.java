@@ -27,7 +27,7 @@ public class ClassTimeDao extends HibernateDao<Integer, ClassTime> {
         });
     }
 
-    public Optional<ClassTime> findExact(Time startAt, Time endsAt) {
+    public Optional<ClassTime> findByStartAndEndTime(Time startAt, Time endsAt) {
         return composeInTransaction(session -> {
             Criteria criteria = createEntityCriteria();
             criteria.add(Restrictions.eq("startsAt", startAt));
@@ -36,6 +36,10 @@ public class ClassTimeDao extends HibernateDao<Integer, ClassTime> {
 
             return Optional.ofNullable(found.size() > 0 ? (ClassTime) found.get(0) : null);
         });
+    }
+
+    public Optional<ClassTime> findByOrderNumber(int order) {
+        return findUniqueByProperty("noOfClass", order);
     }
 
 }

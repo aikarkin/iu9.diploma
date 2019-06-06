@@ -32,7 +32,7 @@ public class SmtScheduleGenerator {
 
     public SmtScheduleGenerator(
             Map<Subject, SubjectsPerWeek> totalSubjectsPerWeak,
-            List<LecturerSubject> lecturerSubjects,
+            Collection<LecturerSubject> lecturerSubjects,
             List<Classroom> classrooms,
             List<StudyGroup> groups,
             List<ClassType> classTypes
@@ -101,6 +101,7 @@ public class SmtScheduleGenerator {
         if (check != Status.SATISFIABLE) {
             throw new RuntimeException("Unable to build model with provided parameters");
         }
+
 
         ModelToScheduleTransformer transformer = new ModelToScheduleTransformer(
                 modelGenerator,

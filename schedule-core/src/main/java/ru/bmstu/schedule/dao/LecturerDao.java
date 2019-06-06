@@ -13,6 +13,8 @@ import java.util.regex.Pattern;
 
 public class LecturerDao extends HibernateDao<Integer, Lecturer> {
 
+    private static final String UNKNOWN_LEC_NAME = "[UNKNOWN]";
+
     public LecturerDao(SessionFactory factory) {
         super(factory);
     }
@@ -47,6 +49,23 @@ public class LecturerDao extends HibernateDao<Integer, Lecturer> {
     public Optional<Lecturer> findFirstByInitials(String initials) {
         List<Lecturer> found = findByInitials(initials);
         return Optional.ofNullable(found.size() > 0 ? found.get(0) : null);
+    }
+
+    public Lecturer fetchUnknownLecturer() {
+        Optional<Lecturer> lecOpt = findUniqueByProperty("lastName", UNKNOWN_LEC_NAME);
+        Lecturer lec;
+        if(!lecOpt.isPresent()) {
+            lec = new Lecturer();
+            lec.setLastName(UNKNOWN_LEC_NAME);
+            lec.setMiddleName(UNKNOWN_LEC_NAME);
+            lec.setFirstName(UNKNOWN_LEC_NAME);
+            Integer lecId = create(lec);
+            lec.setId(lecId);
+        } else {
+            lec = lecOpt.get();
+        }
+
+        return lec;
     }
 
 }

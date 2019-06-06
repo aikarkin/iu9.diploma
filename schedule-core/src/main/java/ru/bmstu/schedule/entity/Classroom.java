@@ -6,6 +6,7 @@ import java.util.Objects;
 
 @Entity
 public class Classroom {
+
     private int id;
     private String roomNumber;
     private Integer capacity;
@@ -66,4 +67,5 @@ public class Classroom {
     public void setScheduleItem(Collection<ScheduleItemParity> scheduleItem) {
         this.scheduleItem = scheduleItem;
     }
+
 }

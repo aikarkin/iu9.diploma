@@ -22,10 +22,10 @@ import java.util.List;
 public class PDFUtils {
 
     private static final String FREE_SANS_FONT_PATH = "./src/main/resources/font/FreeSans.ttf";
-    private static final float[] TABLE_COLUMN_WIDTHS = {80, 150, 150};
-    private static final float TABLE_WIDTH = 380;
+    private static final float[] TABLE_COLUMN_WIDTHS = {64, 208, 208};
+    private static final float TABLE_WIDTH = 480;
     private static final float TABLE_MARGIN_TOP = 10;
-    private static final float TABLE_MARGIN_BOTTOM = 20;
+    private static final float TABLE_MARGIN_BOTTOM = 10;
     private static final int DAYS_PER_PAGE = 3;
     private static PdfFont font;
 
@@ -59,12 +59,11 @@ public class PDFUtils {
 
             List<ScheduleDay> dayList = new ArrayList<>(group.getScheduleDays());
 
-            final List<String> WEAK_ORDER = Arrays.asList("ПН", "ВТ", "СР", "ЧТ", "ПТ", "СБ");
+            final List<String> WEEK_ORDER = Arrays.asList("ПН", "ВТ", "СР", "ЧТ", "ПТ", "СБ");
 
             dayList.sort((d1, d2) -> {
-
-                int d1Idx = WEAK_ORDER.indexOf(d1.getDayOfWeek().getShortName().trim());
-                int d2Idx = WEAK_ORDER.indexOf(d2.getDayOfWeek().getShortName().trim());
+                int d1Idx = WEEK_ORDER.indexOf(d1.getDayOfWeek().getShortName().trim());
+                int d2Idx = WEEK_ORDER.indexOf(d2.getDayOfWeek().getShortName().trim());
 
                 return d1Idx - d2Idx;
             });
@@ -106,7 +105,7 @@ public class PDFUtils {
             if (ct == null)
                 continue;
 
-            table.addCell(ct.toString());
+            table.addCell(cellParagraph(ct.toString()));
             List<ScheduleItemParity> parities = new ArrayList<>(item.getScheduleItemParities());
             parities.sort((p1, p2) -> {
                 if (p1.getDayParity().equals("ЧС") && p2.getDayParity().equals("ЗН"))
@@ -142,10 +141,10 @@ public class PDFUtils {
                 System.out.println("\t" + parity2.toString());
 
                 if (parity1.getDayParity().trim().equals("ЧС")) {
-                    table.addCell(readableItemParity(parity1));
+                    table.addCell(cellParagraph(readableItemParity(parity1)));
                     table.addCell(cellParagraph(readableItemParity(parity2)));
-                } else if (parity2.getDayParity().trim().equals("ЗН")) {
-                    table.addCell(readableItemParity(parity2));
+                } else if (parity2.getDayParity().trim().equals("ЧС")) {
+                    table.addCell(cellParagraph(readableItemParity(parity2)));
                     table.addCell(cellParagraph(readableItemParity(parity1)));
                 }
             } else {
@@ -186,7 +185,7 @@ public class PDFUtils {
         }
 
 
-        builder.append(lec.getInitials());
+        builder.append(lec.getLastName().equals("[UNKNOWN]") ? "" : lec.getInitials());
 
         return builder.toString();
     }
@@ -198,13 +197,13 @@ public class PDFUtils {
                 .getSpecialization()
                 .getSpeciality()
                 .getDegree();
-        char degreeLetter = degree.getName().toLowerCase().charAt(0);
+        char degreeLetter = degree.getName().toUpperCase().charAt(0);
         return String.format(
                 "%s-%d%d%s",
-                calendar.getDepartmentSpecialization().getDepartment(),
+                calendar.getDepartmentSpecialization().getDepartment().getCipher(),
                 group.getTerm().getNumber(),
                 group.getNumber(),
-                degreeLetter
+                (degreeLetter == 'Б' ? "" : degreeLetter)
         );
     }
 
@@ -227,7 +226,7 @@ public class PDFUtils {
     private static Paragraph cellParagraph(String text) {
         return new Paragraph(text)
                 .setFont(font)
-                .setFontSize(9)
+                .setFontSize(8)
                 .setTextAlignment(TextAlignment.CENTER);
     }
 

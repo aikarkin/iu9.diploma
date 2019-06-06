@@ -1,7 +1,7 @@
 package ru.bmstu.schedule.smtgen.model;
 
 import com.microsoft.z3.*;
-import ru.bmstu.schedule.smtgen.DayOfWeak;
+import ru.bmstu.schedule.smtgen.DayOfWeek;
 import ru.bmstu.schedule.smtgen.LessonKind;
 
 import java.util.Arrays;
@@ -44,14 +44,14 @@ public class ScheduleSorts {
         return dayOfWeak;
     }
 
-    Expr dayOfWeak(Enum<DayOfWeak> day) {
+    Expr dayOfWeak(Enum<DayOfWeek> day) {
         return dayOfWeak().getConst(day.ordinal());
     }
 
-    DayOfWeak dayOfWeekEnum(Expr day) {
+    DayOfWeek dayOfWeekEnum(Expr day) {
         checkExprsSort(dayOfWeak(), day);
         String strVal = day.simplify().toString();
-        return DayOfWeak.valueOf(strVal);
+        return DayOfWeek.valueOf(strVal);
     }
 
     LessonKind kindEnum(Expr kind) {
@@ -221,7 +221,7 @@ public class ScheduleSorts {
     }
 
     private void initSorts() {
-        dayOfWeak = mkCustomEnumSort(ctx, DayOfWeak.class);
+        dayOfWeak = mkCustomEnumSort(ctx, DayOfWeek.class);
         kind = mkCustomEnumSort(ctx, LessonKind.class);
         slot = mkCustomEnumSort(ctx, LessonSlot.class);
 
