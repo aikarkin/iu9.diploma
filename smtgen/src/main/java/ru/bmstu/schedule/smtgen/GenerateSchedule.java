@@ -1,5 +1,6 @@
 package ru.bmstu.schedule.smtgen;
 
+import org.apache.commons.cli.*;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import ru.bmstu.schedule.dao.*;
@@ -22,19 +23,16 @@ public class GenerateSchedule {
             "501ю",
     };
 
-    private static final String SPEC_CODE = "01.03.02_1";
-    private static final String DEPT_CIPHER = "ИУ9";
-    private static final int ENROLLMENT_YEAR = 2018;
-    private static final int TERM_NO = 2;
 
     private static final int NO_OF_STUDY_WEEKS = 17;
-    private static final int MAX_GROUPS_COUNT = 2;
     private static final String PARITY_ALWAYS = "ЧС/ЗН";
     private static final String PARITY_NUM = "ЧС";
     private static final String PARITY_DEN = "ЗН";
 
     private static final Map<String, LessonKind> CLASS_TYPE_TO_LESSON_KIND;
     private static SessionFactory sessionFactory;
+    private static List<String> requiredOptionsForSpec = new ArrayList<>();
+    private static CommandLine cmd;
 
     static {
         CLASS_TYPE_TO_LESSON_KIND = new HashMap<>();
@@ -46,6 +44,7 @@ public class GenerateSchedule {
     private Map<Subject, DepartmentSubject> departmentSubjectMap = new HashMap<>();
 
     private ScheduleDayDao scheduleDayDao;
+    private StudyGroupDao studyGroupDao;
     private LecturerSubjectDao lecSubjDao;
     private LecturerDao lecDao;
     private CalendarDao calendarDao;
@@ -57,6 +56,8 @@ public class GenerateSchedule {
     public static void main(String[] args) {
         GenerateSchedule genSchedule = new GenerateSchedule();
         try {
+            initCmdOptions(args);
+            checkArgs(cmd);
             genSchedule.initDaoObjects();
             genSchedule.runScheduleGeneration();
         } catch (Exception e) {
@@ -68,6 +69,7 @@ public class GenerateSchedule {
 
     private void initDaoObjects() {
         sessionFactory = new Configuration().configure().buildSessionFactory();
+        studyGroupDao = new StudyGroupDao(sessionFactory);
         scheduleDayDao = new ScheduleDayDao(sessionFactory);
         lecSubjDao = new LecturerSubjectDao(sessionFactory);
         classroomDao = new ClassroomDao(sessionFactory);
@@ -78,7 +80,7 @@ public class GenerateSchedule {
         weekDao = new WeekDao(sessionFactory);
     }
 
-    private void runScheduleGeneration() throws RuntimeException {
+    private void runScheduleGeneration() throws RuntimeException, ParseException {
         Map<StudyGroup, Schedule> schedules = generateSchedules();
         printSchedules(schedules);
         removeSchedules(schedules);
@@ -93,25 +95,65 @@ public class GenerateSchedule {
         }
     }
 
-    private Map<StudyGroup, Schedule> generateSchedules() throws RuntimeException {
-        Optional<Calendar> calendarOpt = calendarDao.findByStartYearAndDepartmentCodeAndSpecCode(ENROLLMENT_YEAR, DEPT_CIPHER, SPEC_CODE);
+    private void checkAllGroups(List<StudyGroup> groups) {
+        if (groups.size() == 0)
+            return;
 
-        if (!calendarOpt.isPresent()) {
-            throw new RuntimeException("Failed to find calendar with such parameters.");
+        Calendar firstCalendar = groups.get(0).getCalendar();
+        for (int i = 1; i < groups.size(); i++) {
+            if (!groups.get(i).getCalendar().equals(firstCalendar)) {
+                throw new RuntimeException("Unable to generate schedule: Provided groups has different calendar plan");
+            }
+        }
+    }
+
+    private Map<StudyGroup, Schedule> generateSchedules() throws RuntimeException {
+        List<StudyGroup> groups = new ArrayList<>();
+        Calendar calendar;
+        int term;
+        if (cmd.hasOption("g")) {
+            String[] groupsCiphers = cmd.getOptionValues("g");
+            for (String grCipher : groupsCiphers) {
+                Optional<StudyGroup> grOpt = studyGroupDao.findByCipher(grCipher);
+                if (!grOpt.isPresent()) {
+                    throw new RuntimeException("Group with such cipher not found: " + grCipher);
+                }
+                groups.add(grOpt.get());
+            }
+            checkAllGroups(groups);
+            calendar = groups.get(0).getCalendar();
+            term = groups.get(0).getTerm().getNumber();
+        } else {
+            int year = Integer.valueOf(cmd.getOptionValue("y"));
+            term = Integer.valueOf(cmd.getOptionValue("t"));
+            String deptCipher = cmd.getOptionValue("d");
+            String specCode = cmd.getOptionValue("s");
+
+            Optional<Calendar> calendarOpt = calendarDao.findByStartYearAndDepartmentCodeAndSpecCode(year, deptCipher, specCode);
+
+            if (!calendarOpt.isPresent()) {
+                throw new RuntimeException("Failed to find calendar with such parameters.");
+            }
+            calendar = calendarOpt.get();
+
+            for (StudyGroup group : calendar.getStudyGroups()) {
+                if (group.getTerm().getNumber() == term) {
+                    groups.add(group);
+                }
+            }
         }
 
         Map<Subject, SubjectsPerWeek> subjectsPerWeekMap = new HashMap<>();
         List<Classroom> classrooms = new ArrayList<>();
-        List<StudyGroup> groups = new ArrayList<>();
         List<LecturerSubject> lecturerSubjects = new ArrayList<>();
 
-        for (CalendarItem item : calendarOpt.get().getCalendarItems()) {
+        for (CalendarItem item : calendar.getCalendarItems()) {
             DepartmentSubject deptSubj = item.getDepartmentSubject();
             Subject subject = deptSubj.getSubject();
 
             departmentSubjectMap.put(subject, deptSubj);
             for (CalendarItemCell itemCell : item.getCalendarItemCells()) {
-                if (itemCell.getTerm().getNumber() == TERM_NO) {
+                if (itemCell.getTerm().getNumber() == term) {
                     SubjectsPerWeek subjPerWeek = new SubjectsPerWeek();
 
                     for (HoursPerClass hpc : itemCell.getHoursPerClasses()) {
@@ -131,13 +173,6 @@ public class GenerateSchedule {
                 if (subjectsPerWeekMap.containsKey(lecSubj.getDepartmentSubject().getSubject())) {
                     lecturerSubjects.add(lecSubj);
                 }
-            }
-        }
-        int groupIndex = 0;
-        for (StudyGroup group : calendarOpt.get().getStudyGroups()) {
-            if (group.getTerm().getNumber() == TERM_NO && groupIndex < MAX_GROUPS_COUNT) {
-                groups.add(group);
-                groupIndex++;
             }
         }
 
@@ -251,7 +286,7 @@ public class GenerateSchedule {
         Subject subject = lesson.getSubject();
 
         DepartmentSubject deptSubj = departmentSubjectMap.get(subject);
-        LecturerSubject lecSubj = null;
+        LecturerSubject lecSubj;
 
         if (lecturer == null) {
             Lecturer unknownLec = lecDao.fetchUnknownLecturer();
@@ -292,6 +327,55 @@ public class GenerateSchedule {
         itemParity.setLecturerSubject(lecSubj);
 
         return itemParity;
+    }
+
+    private static void initCmdOptions(String[] args) throws ParseException {
+        Options cmdOptions = new Options();
+
+        Option group = new Option("g", "List of groups ciphers");
+        group.setArgs(Option.UNLIMITED_VALUES);
+        group.setLongOpt("groups");
+
+        Option specCode = new Option("s", "Specialization code");
+        specCode.setArgs(1);
+        specCode.setType(String.class);
+
+        Option deptCipher = new Option("d", "Department cipher");
+        deptCipher.setArgs(1);
+        deptCipher.setType(String.class);
+
+        Option term = new Option("t", "Term number");
+        term.setArgs(1);
+        term.setType(Integer.class);
+
+        Option year = new Option("y", "Groups enrollment year");
+        year.setArgs(1);
+        term.setType(Integer.class);
+
+        cmdOptions.addOption(group);
+        cmdOptions.addOption(specCode);
+        cmdOptions.addOption(term);
+        cmdOptions.addOption(year);
+        cmdOptions.addOption(deptCipher);
+        cmdOptions.addOption(
+                Option.builder("h")
+                        .longOpt("help")
+                        .desc("Print help message")
+                        .hasArg(false)
+                        .build()
+        );
+
+        Collections.addAll(requiredOptionsForSpec, "s", "d", "t", "y");
+
+        cmd = new DefaultParser().parse(cmdOptions, args);
+    }
+
+    private static void checkArgs(CommandLine cmd) throws RuntimeException {
+        boolean hasAllSpecOptions = requiredOptionsForSpec.stream().allMatch(cmd::hasOption);
+
+        if (!cmd.hasOption("g") && !hasAllSpecOptions) {
+            throw new RuntimeException("Invalid options: you should specify neither groups list (-g) or year (-y), term (-t), specialization (-s), department (-d)");
+        }
     }
 
     private static void printSchedules(Map<StudyGroup, Schedule> scheduleMap) {

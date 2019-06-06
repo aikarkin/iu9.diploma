@@ -17,13 +17,13 @@ SET row_security = off;
 
 DROP DATABASE bmstu_schedule;
 --
--- Name: bmstu_schedule; Type: DATABASE; Schema: -; Owner: alex
+-- Name: bmstu_schedule; Type: DATABASE; Schema: -; Owner: admin
 --
 
 CREATE DATABASE bmstu_schedule WITH TEMPLATE = template0 ENCODING = 'UTF8' LC_COLLATE = 'en_US.UTF-8' LC_CTYPE = 'en_US.UTF-8';
 
 
-ALTER DATABASE bmstu_schedule OWNER TO alex;
+ALTER DATABASE bmstu_schedule OWNER TO admin;
 
 \connect bmstu_schedule
 
@@ -38,7 +38,7 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Name: check_class_time(); Type: FUNCTION; Schema: public; Owner: alex
+-- Name: check_class_time(); Type: FUNCTION; Schema: public; Owner: admin
 --
 
 CREATE FUNCTION public.check_class_time() RETURNS trigger
@@ -72,10 +72,10 @@ END;
 $$;
 
 
-ALTER FUNCTION public.check_class_time() OWNER TO alex;
+ALTER FUNCTION public.check_class_time() OWNER TO admin;
 
 --
--- Name: check_item_parity(); Type: FUNCTION; Schema: public; Owner: alex
+-- Name: check_item_parity(); Type: FUNCTION; Schema: public; Owner: admin
 --
 
 CREATE FUNCTION public.check_item_parity() RETURNS trigger
@@ -93,10 +93,10 @@ END;
 $$;
 
 
-ALTER FUNCTION public.check_item_parity() OWNER TO alex;
+ALTER FUNCTION public.check_item_parity() OWNER TO admin;
 
 --
--- Name: check_item_parity_to_lecturer(); Type: FUNCTION; Schema: public; Owner: alex
+-- Name: check_item_parity_to_lecturer(); Type: FUNCTION; Schema: public; Owner: admin
 --
 
 CREATE FUNCTION public.check_item_parity_to_lecturer() RETURNS trigger
@@ -112,10 +112,10 @@ END;
 $$;
 
 
-ALTER FUNCTION public.check_item_parity_to_lecturer() OWNER TO alex;
+ALTER FUNCTION public.check_item_parity_to_lecturer() OWNER TO admin;
 
 --
--- Name: check_schedule_item_parity(); Type: FUNCTION; Schema: public; Owner: alex
+-- Name: check_schedule_item_parity(); Type: FUNCTION; Schema: public; Owner: admin
 --
 
 CREATE FUNCTION public.check_schedule_item_parity() RETURNS trigger
@@ -146,10 +146,10 @@ END;
 $$;
 
 
-ALTER FUNCTION public.check_schedule_item_parity() OWNER TO alex;
+ALTER FUNCTION public.check_schedule_item_parity() OWNER TO admin;
 
 --
--- Name: is_schedule_item_parity_not_valid(integer); Type: FUNCTION; Schema: public; Owner: alex
+-- Name: is_schedule_item_parity_not_valid(integer); Type: FUNCTION; Schema: public; Owner: admin
 --
 
 CREATE FUNCTION public.is_schedule_item_parity_not_valid(_item_parity_id integer) RETURNS boolean
@@ -178,14 +178,14 @@ END
 $$;
 
 
-ALTER FUNCTION public.is_schedule_item_parity_not_valid(_item_parity_id integer) OWNER TO alex;
+ALTER FUNCTION public.is_schedule_item_parity_not_valid(_item_parity_id integer) OWNER TO admin;
 
 SET default_tablespace = '';
 
 SET default_with_oids = false;
 
 --
--- Name: calendar; Type: TABLE; Schema: public; Owner: alex
+-- Name: calendar; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.calendar (
@@ -196,10 +196,10 @@ CREATE TABLE public.calendar (
 );
 
 
-ALTER TABLE public.calendar OWNER TO alex;
+ALTER TABLE public.calendar OWNER TO admin;
 
 --
--- Name: calendar_id_seq; Type: SEQUENCE; Schema: public; Owner: alex
+-- Name: calendar_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
 CREATE SEQUENCE public.calendar_id_seq
@@ -211,17 +211,17 @@ CREATE SEQUENCE public.calendar_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.calendar_id_seq OWNER TO alex;
+ALTER TABLE public.calendar_id_seq OWNER TO admin;
 
 --
--- Name: calendar_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: alex
+-- Name: calendar_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
 ALTER SEQUENCE public.calendar_id_seq OWNED BY public.calendar.id;
 
 
 --
--- Name: calendar_item; Type: TABLE; Schema: public; Owner: alex
+-- Name: calendar_item; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.calendar_item (
@@ -231,10 +231,10 @@ CREATE TABLE public.calendar_item (
 );
 
 
-ALTER TABLE public.calendar_item OWNER TO alex;
+ALTER TABLE public.calendar_item OWNER TO admin;
 
 --
--- Name: calendar_item_calendar_item_id_seq; Type: SEQUENCE; Schema: public; Owner: alex
+-- Name: calendar_item_calendar_item_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
 CREATE SEQUENCE public.calendar_item_calendar_item_id_seq
@@ -246,17 +246,17 @@ CREATE SEQUENCE public.calendar_item_calendar_item_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.calendar_item_calendar_item_id_seq OWNER TO alex;
+ALTER TABLE public.calendar_item_calendar_item_id_seq OWNER TO admin;
 
 --
--- Name: calendar_item_calendar_item_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: alex
+-- Name: calendar_item_calendar_item_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
 ALTER SEQUENCE public.calendar_item_calendar_item_id_seq OWNED BY public.calendar_item.calendar_item_id;
 
 
 --
--- Name: calendar_item_cell; Type: TABLE; Schema: public; Owner: alex
+-- Name: calendar_item_cell; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.calendar_item_cell (
@@ -266,10 +266,10 @@ CREATE TABLE public.calendar_item_cell (
 );
 
 
-ALTER TABLE public.calendar_item_cell OWNER TO alex;
+ALTER TABLE public.calendar_item_cell OWNER TO admin;
 
 --
--- Name: calendar_item_cell_cell_id_seq; Type: SEQUENCE; Schema: public; Owner: alex
+-- Name: calendar_item_cell_cell_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
 CREATE SEQUENCE public.calendar_item_cell_cell_id_seq
@@ -281,17 +281,17 @@ CREATE SEQUENCE public.calendar_item_cell_cell_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.calendar_item_cell_cell_id_seq OWNER TO alex;
+ALTER TABLE public.calendar_item_cell_cell_id_seq OWNER TO admin;
 
 --
--- Name: calendar_item_cell_cell_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: alex
+-- Name: calendar_item_cell_cell_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
 ALTER SEQUENCE public.calendar_item_cell_cell_id_seq OWNED BY public.calendar_item_cell.cell_id;
 
 
 --
--- Name: class_type; Type: TABLE; Schema: public; Owner: alex
+-- Name: class_type; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.class_type (
@@ -300,10 +300,10 @@ CREATE TABLE public.class_type (
 );
 
 
-ALTER TABLE public.class_type OWNER TO alex;
+ALTER TABLE public.class_type OWNER TO admin;
 
 --
--- Name: department; Type: TABLE; Schema: public; Owner: alex
+-- Name: department; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.department (
@@ -315,10 +315,10 @@ CREATE TABLE public.department (
 );
 
 
-ALTER TABLE public.department OWNER TO alex;
+ALTER TABLE public.department OWNER TO admin;
 
 --
--- Name: department_subject; Type: TABLE; Schema: public; Owner: alex
+-- Name: department_subject; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.department_subject (
@@ -328,10 +328,10 @@ CREATE TABLE public.department_subject (
 );
 
 
-ALTER TABLE public.department_subject OWNER TO alex;
+ALTER TABLE public.department_subject OWNER TO admin;
 
 --
--- Name: department_to_specialization; Type: TABLE; Schema: public; Owner: alex
+-- Name: department_to_specialization; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.department_to_specialization (
@@ -341,10 +341,10 @@ CREATE TABLE public.department_to_specialization (
 );
 
 
-ALTER TABLE public.department_to_specialization OWNER TO alex;
+ALTER TABLE public.department_to_specialization OWNER TO admin;
 
 --
--- Name: edu_degree; Type: TABLE; Schema: public; Owner: alex
+-- Name: edu_degree; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.edu_degree (
@@ -355,10 +355,10 @@ CREATE TABLE public.edu_degree (
 );
 
 
-ALTER TABLE public.edu_degree OWNER TO alex;
+ALTER TABLE public.edu_degree OWNER TO admin;
 
 --
--- Name: faculty; Type: TABLE; Schema: public; Owner: alex
+-- Name: faculty; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.faculty (
@@ -368,10 +368,10 @@ CREATE TABLE public.faculty (
 );
 
 
-ALTER TABLE public.faculty OWNER TO alex;
+ALTER TABLE public.faculty OWNER TO admin;
 
 --
--- Name: hours_per_class; Type: TABLE; Schema: public; Owner: alex
+-- Name: hours_per_class; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.hours_per_class (
@@ -383,10 +383,10 @@ CREATE TABLE public.hours_per_class (
 );
 
 
-ALTER TABLE public.hours_per_class OWNER TO alex;
+ALTER TABLE public.hours_per_class OWNER TO admin;
 
 --
--- Name: speciality; Type: TABLE; Schema: public; Owner: alex
+-- Name: speciality; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.speciality (
@@ -398,10 +398,10 @@ CREATE TABLE public.speciality (
 );
 
 
-ALTER TABLE public.speciality OWNER TO alex;
+ALTER TABLE public.speciality OWNER TO admin;
 
 --
--- Name: specialization; Type: TABLE; Schema: public; Owner: alex
+-- Name: specialization; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.specialization (
@@ -412,10 +412,10 @@ CREATE TABLE public.specialization (
 );
 
 
-ALTER TABLE public.specialization OWNER TO alex;
+ALTER TABLE public.specialization OWNER TO admin;
 
 --
--- Name: subject; Type: TABLE; Schema: public; Owner: alex
+-- Name: subject; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.subject (
@@ -424,10 +424,10 @@ CREATE TABLE public.subject (
 );
 
 
-ALTER TABLE public.subject OWNER TO alex;
+ALTER TABLE public.subject OWNER TO admin;
 
 --
--- Name: term; Type: TABLE; Schema: public; Owner: alex
+-- Name: term; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.term (
@@ -437,10 +437,10 @@ CREATE TABLE public.term (
 );
 
 
-ALTER TABLE public.term OWNER TO alex;
+ALTER TABLE public.term OWNER TO admin;
 
 --
--- Name: calendar_plan; Type: VIEW; Schema: public; Owner: alex
+-- Name: calendar_plan; Type: VIEW; Schema: public; Owner: admin
 --
 
 CREATE VIEW public.calendar_plan AS
@@ -471,10 +471,10 @@ CREATE VIEW public.calendar_plan AS
      LEFT JOIN public.edu_degree ed ON ((st.degree_id = ed.degree_id)));
 
 
-ALTER TABLE public.calendar_plan OWNER TO alex;
+ALTER TABLE public.calendar_plan OWNER TO admin;
 
 --
--- Name: class_time; Type: TABLE; Schema: public; Owner: alex
+-- Name: class_time; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.class_time (
@@ -486,10 +486,10 @@ CREATE TABLE public.class_time (
 );
 
 
-ALTER TABLE public.class_time OWNER TO alex;
+ALTER TABLE public.class_time OWNER TO admin;
 
 --
--- Name: class_time_class_time_id_seq; Type: SEQUENCE; Schema: public; Owner: alex
+-- Name: class_time_class_time_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
 CREATE SEQUENCE public.class_time_class_time_id_seq
@@ -501,17 +501,17 @@ CREATE SEQUENCE public.class_time_class_time_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.class_time_class_time_id_seq OWNER TO alex;
+ALTER TABLE public.class_time_class_time_id_seq OWNER TO admin;
 
 --
--- Name: class_time_class_time_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: alex
+-- Name: class_time_class_time_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
 ALTER SEQUENCE public.class_time_class_time_id_seq OWNED BY public.class_time.class_time_id;
 
 
 --
--- Name: class_type_type_id_seq; Type: SEQUENCE; Schema: public; Owner: alex
+-- Name: class_type_type_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
 CREATE SEQUENCE public.class_type_type_id_seq
@@ -523,17 +523,17 @@ CREATE SEQUENCE public.class_type_type_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.class_type_type_id_seq OWNER TO alex;
+ALTER TABLE public.class_type_type_id_seq OWNER TO admin;
 
 --
--- Name: class_type_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: alex
+-- Name: class_type_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
 ALTER SEQUENCE public.class_type_type_id_seq OWNED BY public.class_type.type_id;
 
 
 --
--- Name: classroom; Type: TABLE; Schema: public; Owner: alex
+-- Name: classroom; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.classroom (
@@ -544,10 +544,10 @@ CREATE TABLE public.classroom (
 );
 
 
-ALTER TABLE public.classroom OWNER TO alex;
+ALTER TABLE public.classroom OWNER TO admin;
 
 --
--- Name: classroom_room_id_seq; Type: SEQUENCE; Schema: public; Owner: alex
+-- Name: classroom_room_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
 CREATE SEQUENCE public.classroom_room_id_seq
@@ -559,17 +559,17 @@ CREATE SEQUENCE public.classroom_room_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.classroom_room_id_seq OWNER TO alex;
+ALTER TABLE public.classroom_room_id_seq OWNER TO admin;
 
 --
--- Name: classroom_room_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: alex
+-- Name: classroom_room_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
 ALTER SEQUENCE public.classroom_room_id_seq OWNED BY public.classroom.room_id;
 
 
 --
--- Name: day_of_weak; Type: TABLE; Schema: public; Owner: alex
+-- Name: day_of_weak; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.day_of_weak (
@@ -579,10 +579,10 @@ CREATE TABLE public.day_of_weak (
 );
 
 
-ALTER TABLE public.day_of_weak OWNER TO alex;
+ALTER TABLE public.day_of_weak OWNER TO admin;
 
 --
--- Name: day_of_weak_weak_id_seq; Type: SEQUENCE; Schema: public; Owner: alex
+-- Name: day_of_weak_weak_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
 CREATE SEQUENCE public.day_of_weak_weak_id_seq
@@ -594,17 +594,17 @@ CREATE SEQUENCE public.day_of_weak_weak_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.day_of_weak_weak_id_seq OWNER TO alex;
+ALTER TABLE public.day_of_weak_weak_id_seq OWNER TO admin;
 
 --
--- Name: day_of_weak_weak_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: alex
+-- Name: day_of_weak_weak_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
 ALTER SEQUENCE public.day_of_weak_weak_id_seq OWNED BY public.day_of_weak.weak_id;
 
 
 --
--- Name: department_department_id_seq; Type: SEQUENCE; Schema: public; Owner: alex
+-- Name: department_department_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
 CREATE SEQUENCE public.department_department_id_seq
@@ -616,17 +616,17 @@ CREATE SEQUENCE public.department_department_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.department_department_id_seq OWNER TO alex;
+ALTER TABLE public.department_department_id_seq OWNER TO admin;
 
 --
--- Name: department_department_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: alex
+-- Name: department_department_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
 ALTER SEQUENCE public.department_department_id_seq OWNED BY public.department.department_id;
 
 
 --
--- Name: department_subject_id_seq; Type: SEQUENCE; Schema: public; Owner: alex
+-- Name: department_subject_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
 CREATE SEQUENCE public.department_subject_id_seq
@@ -638,17 +638,17 @@ CREATE SEQUENCE public.department_subject_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.department_subject_id_seq OWNER TO alex;
+ALTER TABLE public.department_subject_id_seq OWNER TO admin;
 
 --
--- Name: department_subject_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: alex
+-- Name: department_subject_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
 ALTER SEQUENCE public.department_subject_id_seq OWNED BY public.department_subject.id;
 
 
 --
--- Name: department_to_specialization_id_seq; Type: SEQUENCE; Schema: public; Owner: alex
+-- Name: department_to_specialization_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
 CREATE SEQUENCE public.department_to_specialization_id_seq
@@ -660,17 +660,17 @@ CREATE SEQUENCE public.department_to_specialization_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.department_to_specialization_id_seq OWNER TO alex;
+ALTER TABLE public.department_to_specialization_id_seq OWNER TO admin;
 
 --
--- Name: department_to_specialization_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: alex
+-- Name: department_to_specialization_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
 ALTER SEQUENCE public.department_to_specialization_id_seq OWNED BY public.department_to_specialization.id;
 
 
 --
--- Name: edu_degree_degree_id_seq; Type: SEQUENCE; Schema: public; Owner: alex
+-- Name: edu_degree_degree_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
 CREATE SEQUENCE public.edu_degree_degree_id_seq
@@ -682,17 +682,17 @@ CREATE SEQUENCE public.edu_degree_degree_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.edu_degree_degree_id_seq OWNER TO alex;
+ALTER TABLE public.edu_degree_degree_id_seq OWNER TO admin;
 
 --
--- Name: edu_degree_degree_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: alex
+-- Name: edu_degree_degree_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
 ALTER SEQUENCE public.edu_degree_degree_id_seq OWNED BY public.edu_degree.degree_id;
 
 
 --
--- Name: faculty_faculty_id_seq; Type: SEQUENCE; Schema: public; Owner: alex
+-- Name: faculty_faculty_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
 CREATE SEQUENCE public.faculty_faculty_id_seq
@@ -704,17 +704,17 @@ CREATE SEQUENCE public.faculty_faculty_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.faculty_faculty_id_seq OWNER TO alex;
+ALTER TABLE public.faculty_faculty_id_seq OWNER TO admin;
 
 --
--- Name: faculty_faculty_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: alex
+-- Name: faculty_faculty_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
 ALTER SEQUENCE public.faculty_faculty_id_seq OWNED BY public.faculty.faculty_id;
 
 
 --
--- Name: hours_per_class_hours_id_seq; Type: SEQUENCE; Schema: public; Owner: alex
+-- Name: hours_per_class_hours_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
 CREATE SEQUENCE public.hours_per_class_hours_id_seq
@@ -726,17 +726,17 @@ CREATE SEQUENCE public.hours_per_class_hours_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.hours_per_class_hours_id_seq OWNER TO alex;
+ALTER TABLE public.hours_per_class_hours_id_seq OWNER TO admin;
 
 --
--- Name: hours_per_class_hours_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: alex
+-- Name: hours_per_class_hours_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
 ALTER SEQUENCE public.hours_per_class_hours_id_seq OWNED BY public.hours_per_class.hours_id;
 
 
 --
--- Name: lecturer; Type: TABLE; Schema: public; Owner: alex
+-- Name: lecturer; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.lecturer (
@@ -749,10 +749,10 @@ CREATE TABLE public.lecturer (
 );
 
 
-ALTER TABLE public.lecturer OWNER TO alex;
+ALTER TABLE public.lecturer OWNER TO admin;
 
 --
--- Name: lecturer_for_calendar_item; Type: TABLE; Schema: public; Owner: alex
+-- Name: lecturer_for_calendar_item; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.lecturer_for_calendar_item (
@@ -762,10 +762,10 @@ CREATE TABLE public.lecturer_for_calendar_item (
 );
 
 
-ALTER TABLE public.lecturer_for_calendar_item OWNER TO alex;
+ALTER TABLE public.lecturer_for_calendar_item OWNER TO admin;
 
 --
--- Name: lecturer_for_calendar_item_id_seq; Type: SEQUENCE; Schema: public; Owner: alex
+-- Name: lecturer_for_calendar_item_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
 CREATE SEQUENCE public.lecturer_for_calendar_item_id_seq
@@ -777,17 +777,17 @@ CREATE SEQUENCE public.lecturer_for_calendar_item_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.lecturer_for_calendar_item_id_seq OWNER TO alex;
+ALTER TABLE public.lecturer_for_calendar_item_id_seq OWNER TO admin;
 
 --
--- Name: lecturer_for_calendar_item_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: alex
+-- Name: lecturer_for_calendar_item_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
 ALTER SEQUENCE public.lecturer_for_calendar_item_id_seq OWNED BY public.lecturer_for_calendar_item.id;
 
 
 --
--- Name: lecturer_lecturer_id_seq; Type: SEQUENCE; Schema: public; Owner: alex
+-- Name: lecturer_lecturer_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
 CREATE SEQUENCE public.lecturer_lecturer_id_seq
@@ -799,17 +799,17 @@ CREATE SEQUENCE public.lecturer_lecturer_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.lecturer_lecturer_id_seq OWNER TO alex;
+ALTER TABLE public.lecturer_lecturer_id_seq OWNER TO admin;
 
 --
--- Name: lecturer_lecturer_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: alex
+-- Name: lecturer_lecturer_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
 ALTER SEQUENCE public.lecturer_lecturer_id_seq OWNED BY public.lecturer.lecturer_id;
 
 
 --
--- Name: lecturer_subject; Type: TABLE; Schema: public; Owner: alex
+-- Name: lecturer_subject; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.lecturer_subject (
@@ -820,10 +820,10 @@ CREATE TABLE public.lecturer_subject (
 );
 
 
-ALTER TABLE public.lecturer_subject OWNER TO alex;
+ALTER TABLE public.lecturer_subject OWNER TO admin;
 
 --
--- Name: lecturer_subject_id_seq; Type: SEQUENCE; Schema: public; Owner: alex
+-- Name: lecturer_subject_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
 CREATE SEQUENCE public.lecturer_subject_id_seq
@@ -835,17 +835,17 @@ CREATE SEQUENCE public.lecturer_subject_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.lecturer_subject_id_seq OWNER TO alex;
+ALTER TABLE public.lecturer_subject_id_seq OWNER TO admin;
 
 --
--- Name: lecturer_subject_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: alex
+-- Name: lecturer_subject_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
 ALTER SEQUENCE public.lecturer_subject_id_seq OWNED BY public.lecturer_subject.id;
 
 
 --
--- Name: schedule_day; Type: TABLE; Schema: public; Owner: alex
+-- Name: schedule_day; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.schedule_day (
@@ -855,10 +855,10 @@ CREATE TABLE public.schedule_day (
 );
 
 
-ALTER TABLE public.schedule_day OWNER TO alex;
+ALTER TABLE public.schedule_day OWNER TO admin;
 
 --
--- Name: schedule_day_day_id_seq; Type: SEQUENCE; Schema: public; Owner: alex
+-- Name: schedule_day_day_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
 CREATE SEQUENCE public.schedule_day_day_id_seq
@@ -870,17 +870,17 @@ CREATE SEQUENCE public.schedule_day_day_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.schedule_day_day_id_seq OWNER TO alex;
+ALTER TABLE public.schedule_day_day_id_seq OWNER TO admin;
 
 --
--- Name: schedule_day_day_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: alex
+-- Name: schedule_day_day_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
 ALTER SEQUENCE public.schedule_day_day_id_seq OWNED BY public.schedule_day.day_id;
 
 
 --
--- Name: schedule_item; Type: TABLE; Schema: public; Owner: alex
+-- Name: schedule_item; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.schedule_item (
@@ -890,10 +890,10 @@ CREATE TABLE public.schedule_item (
 );
 
 
-ALTER TABLE public.schedule_item OWNER TO alex;
+ALTER TABLE public.schedule_item OWNER TO admin;
 
 --
--- Name: schedule_item_parity; Type: TABLE; Schema: public; Owner: alex
+-- Name: schedule_item_parity; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.schedule_item_parity (
@@ -907,10 +907,10 @@ CREATE TABLE public.schedule_item_parity (
 );
 
 
-ALTER TABLE public.schedule_item_parity OWNER TO alex;
+ALTER TABLE public.schedule_item_parity OWNER TO admin;
 
 --
--- Name: schedule_item_parity_schedule_item_parity_id_seq; Type: SEQUENCE; Schema: public; Owner: alex
+-- Name: schedule_item_parity_schedule_item_parity_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
 CREATE SEQUENCE public.schedule_item_parity_schedule_item_parity_id_seq
@@ -922,17 +922,17 @@ CREATE SEQUENCE public.schedule_item_parity_schedule_item_parity_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.schedule_item_parity_schedule_item_parity_id_seq OWNER TO alex;
+ALTER TABLE public.schedule_item_parity_schedule_item_parity_id_seq OWNER TO admin;
 
 --
--- Name: schedule_item_parity_schedule_item_parity_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: alex
+-- Name: schedule_item_parity_schedule_item_parity_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
 ALTER SEQUENCE public.schedule_item_parity_schedule_item_parity_id_seq OWNED BY public.schedule_item_parity.schedule_item_parity_id;
 
 
 --
--- Name: schedule_item_schedule_item_id_seq; Type: SEQUENCE; Schema: public; Owner: alex
+-- Name: schedule_item_schedule_item_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
 CREATE SEQUENCE public.schedule_item_schedule_item_id_seq
@@ -944,17 +944,17 @@ CREATE SEQUENCE public.schedule_item_schedule_item_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.schedule_item_schedule_item_id_seq OWNER TO alex;
+ALTER TABLE public.schedule_item_schedule_item_id_seq OWNER TO admin;
 
 --
--- Name: schedule_item_schedule_item_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: alex
+-- Name: schedule_item_schedule_item_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
 ALTER SEQUENCE public.schedule_item_schedule_item_id_seq OWNED BY public.schedule_item.schedule_item_id;
 
 
 --
--- Name: speciality_id_seq; Type: SEQUENCE; Schema: public; Owner: alex
+-- Name: speciality_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
 CREATE SEQUENCE public.speciality_id_seq
@@ -966,17 +966,17 @@ CREATE SEQUENCE public.speciality_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.speciality_id_seq OWNER TO alex;
+ALTER TABLE public.speciality_id_seq OWNER TO admin;
 
 --
--- Name: speciality_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: alex
+-- Name: speciality_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
 ALTER SEQUENCE public.speciality_id_seq OWNED BY public.speciality.id;
 
 
 --
--- Name: specialization_id_seq; Type: SEQUENCE; Schema: public; Owner: alex
+-- Name: specialization_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
 CREATE SEQUENCE public.specialization_id_seq
@@ -988,17 +988,17 @@ CREATE SEQUENCE public.specialization_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.specialization_id_seq OWNER TO alex;
+ALTER TABLE public.specialization_id_seq OWNER TO admin;
 
 --
--- Name: specialization_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: alex
+-- Name: specialization_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
 ALTER SEQUENCE public.specialization_id_seq OWNED BY public.specialization.id;
 
 
 --
--- Name: study_group; Type: TABLE; Schema: public; Owner: alex
+-- Name: study_group; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.study_group (
@@ -1011,10 +1011,10 @@ CREATE TABLE public.study_group (
 );
 
 
-ALTER TABLE public.study_group OWNER TO alex;
+ALTER TABLE public.study_group OWNER TO admin;
 
 --
--- Name: study_group_group_id_seq; Type: SEQUENCE; Schema: public; Owner: alex
+-- Name: study_group_group_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
 CREATE SEQUENCE public.study_group_group_id_seq
@@ -1026,17 +1026,17 @@ CREATE SEQUENCE public.study_group_group_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.study_group_group_id_seq OWNER TO alex;
+ALTER TABLE public.study_group_group_id_seq OWNER TO admin;
 
 --
--- Name: study_group_group_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: alex
+-- Name: study_group_group_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
 ALTER SEQUENCE public.study_group_group_id_seq OWNED BY public.study_group.group_id;
 
 
 --
--- Name: subject_subject_id_seq; Type: SEQUENCE; Schema: public; Owner: alex
+-- Name: subject_subject_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
 CREATE SEQUENCE public.subject_subject_id_seq
@@ -1048,17 +1048,17 @@ CREATE SEQUENCE public.subject_subject_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.subject_subject_id_seq OWNER TO alex;
+ALTER TABLE public.subject_subject_id_seq OWNER TO admin;
 
 --
--- Name: subject_subject_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: alex
+-- Name: subject_subject_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
 ALTER SEQUENCE public.subject_subject_id_seq OWNED BY public.subject.subject_id;
 
 
 --
--- Name: term_term_id_seq; Type: SEQUENCE; Schema: public; Owner: alex
+-- Name: term_term_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
 CREATE SEQUENCE public.term_term_id_seq
@@ -1070,185 +1070,185 @@ CREATE SEQUENCE public.term_term_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.term_term_id_seq OWNER TO alex;
+ALTER TABLE public.term_term_id_seq OWNER TO admin;
 
 --
--- Name: term_term_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: alex
+-- Name: term_term_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
 ALTER SEQUENCE public.term_term_id_seq OWNED BY public.term.term_id;
 
 
 --
--- Name: calendar id; Type: DEFAULT; Schema: public; Owner: alex
+-- Name: calendar id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.calendar ALTER COLUMN id SET DEFAULT nextval('public.calendar_id_seq'::regclass);
 
 
 --
--- Name: calendar_item calendar_item_id; Type: DEFAULT; Schema: public; Owner: alex
+-- Name: calendar_item calendar_item_id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.calendar_item ALTER COLUMN calendar_item_id SET DEFAULT nextval('public.calendar_item_calendar_item_id_seq'::regclass);
 
 
 --
--- Name: calendar_item_cell cell_id; Type: DEFAULT; Schema: public; Owner: alex
+-- Name: calendar_item_cell cell_id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.calendar_item_cell ALTER COLUMN cell_id SET DEFAULT nextval('public.calendar_item_cell_cell_id_seq'::regclass);
 
 
 --
--- Name: class_time class_time_id; Type: DEFAULT; Schema: public; Owner: alex
+-- Name: class_time class_time_id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.class_time ALTER COLUMN class_time_id SET DEFAULT nextval('public.class_time_class_time_id_seq'::regclass);
 
 
 --
--- Name: class_type type_id; Type: DEFAULT; Schema: public; Owner: alex
+-- Name: class_type type_id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.class_type ALTER COLUMN type_id SET DEFAULT nextval('public.class_type_type_id_seq'::regclass);
 
 
 --
--- Name: classroom room_id; Type: DEFAULT; Schema: public; Owner: alex
+-- Name: classroom room_id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.classroom ALTER COLUMN room_id SET DEFAULT nextval('public.classroom_room_id_seq'::regclass);
 
 
 --
--- Name: day_of_weak weak_id; Type: DEFAULT; Schema: public; Owner: alex
+-- Name: day_of_weak weak_id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.day_of_weak ALTER COLUMN weak_id SET DEFAULT nextval('public.day_of_weak_weak_id_seq'::regclass);
 
 
 --
--- Name: department department_id; Type: DEFAULT; Schema: public; Owner: alex
+-- Name: department department_id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.department ALTER COLUMN department_id SET DEFAULT nextval('public.department_department_id_seq'::regclass);
 
 
 --
--- Name: department_subject id; Type: DEFAULT; Schema: public; Owner: alex
+-- Name: department_subject id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.department_subject ALTER COLUMN id SET DEFAULT nextval('public.department_subject_id_seq'::regclass);
 
 
 --
--- Name: department_to_specialization id; Type: DEFAULT; Schema: public; Owner: alex
+-- Name: department_to_specialization id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.department_to_specialization ALTER COLUMN id SET DEFAULT nextval('public.department_to_specialization_id_seq'::regclass);
 
 
 --
--- Name: edu_degree degree_id; Type: DEFAULT; Schema: public; Owner: alex
+-- Name: edu_degree degree_id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.edu_degree ALTER COLUMN degree_id SET DEFAULT nextval('public.edu_degree_degree_id_seq'::regclass);
 
 
 --
--- Name: faculty faculty_id; Type: DEFAULT; Schema: public; Owner: alex
+-- Name: faculty faculty_id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.faculty ALTER COLUMN faculty_id SET DEFAULT nextval('public.faculty_faculty_id_seq'::regclass);
 
 
 --
--- Name: hours_per_class hours_id; Type: DEFAULT; Schema: public; Owner: alex
+-- Name: hours_per_class hours_id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.hours_per_class ALTER COLUMN hours_id SET DEFAULT nextval('public.hours_per_class_hours_id_seq'::regclass);
 
 
 --
--- Name: lecturer lecturer_id; Type: DEFAULT; Schema: public; Owner: alex
+-- Name: lecturer lecturer_id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.lecturer ALTER COLUMN lecturer_id SET DEFAULT nextval('public.lecturer_lecturer_id_seq'::regclass);
 
 
 --
--- Name: lecturer_for_calendar_item id; Type: DEFAULT; Schema: public; Owner: alex
+-- Name: lecturer_for_calendar_item id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.lecturer_for_calendar_item ALTER COLUMN id SET DEFAULT nextval('public.lecturer_for_calendar_item_id_seq'::regclass);
 
 
 --
--- Name: lecturer_subject id; Type: DEFAULT; Schema: public; Owner: alex
+-- Name: lecturer_subject id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.lecturer_subject ALTER COLUMN id SET DEFAULT nextval('public.lecturer_subject_id_seq'::regclass);
 
 
 --
--- Name: schedule_day day_id; Type: DEFAULT; Schema: public; Owner: alex
+-- Name: schedule_day day_id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.schedule_day ALTER COLUMN day_id SET DEFAULT nextval('public.schedule_day_day_id_seq'::regclass);
 
 
 --
--- Name: schedule_item schedule_item_id; Type: DEFAULT; Schema: public; Owner: alex
+-- Name: schedule_item schedule_item_id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.schedule_item ALTER COLUMN schedule_item_id SET DEFAULT nextval('public.schedule_item_schedule_item_id_seq'::regclass);
 
 
 --
--- Name: schedule_item_parity schedule_item_parity_id; Type: DEFAULT; Schema: public; Owner: alex
+-- Name: schedule_item_parity schedule_item_parity_id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.schedule_item_parity ALTER COLUMN schedule_item_parity_id SET DEFAULT nextval('public.schedule_item_parity_schedule_item_parity_id_seq'::regclass);
 
 
 --
--- Name: speciality id; Type: DEFAULT; Schema: public; Owner: alex
+-- Name: speciality id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.speciality ALTER COLUMN id SET DEFAULT nextval('public.speciality_id_seq'::regclass);
 
 
 --
--- Name: specialization id; Type: DEFAULT; Schema: public; Owner: alex
+-- Name: specialization id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.specialization ALTER COLUMN id SET DEFAULT nextval('public.specialization_id_seq'::regclass);
 
 
 --
--- Name: study_group group_id; Type: DEFAULT; Schema: public; Owner: alex
+-- Name: study_group group_id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.study_group ALTER COLUMN group_id SET DEFAULT nextval('public.study_group_group_id_seq'::regclass);
 
 
 --
--- Name: subject subject_id; Type: DEFAULT; Schema: public; Owner: alex
+-- Name: subject subject_id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.subject ALTER COLUMN subject_id SET DEFAULT nextval('public.subject_subject_id_seq'::regclass);
 
 
 --
--- Name: term term_id; Type: DEFAULT; Schema: public; Owner: alex
+-- Name: term term_id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.term ALTER COLUMN term_id SET DEFAULT nextval('public.term_term_id_seq'::regclass);
 
 
 --
--- Data for Name: calendar; Type: TABLE DATA; Schema: public; Owner: alex
+-- Data for Name: calendar; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
 INSERT INTO public.calendar (id, dept_to_spec_id, start_year) VALUES (10, 10, 2018);
@@ -2470,7 +2470,7 @@ INSERT INTO public.calendar (id, dept_to_spec_id, start_year) VALUES (342, 142, 
 
 
 --
--- Data for Name: calendar_item; Type: TABLE DATA; Schema: public; Owner: alex
+-- Data for Name: calendar_item; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
 INSERT INTO public.calendar_item (calendar_item_id, calendar_id, department_subject_id) VALUES (1178, 342, 472);
@@ -2638,7 +2638,7 @@ INSERT INTO public.calendar_item (calendar_item_id, calendar_id, department_subj
 
 
 --
--- Data for Name: calendar_item_cell; Type: TABLE DATA; Schema: public; Owner: alex
+-- Data for Name: calendar_item_cell; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
 INSERT INTO public.calendar_item_cell (cell_id, calendar_item_id, term_id) VALUES (1197, 1178, 3);
@@ -2854,7 +2854,7 @@ INSERT INTO public.calendar_item_cell (cell_id, calendar_item_id, term_id) VALUE
 
 
 --
--- Data for Name: class_time; Type: TABLE DATA; Schema: public; Owner: alex
+-- Data for Name: class_time; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
 INSERT INTO public.class_time (class_time_id, no_of_class, starts_at, ends_at) VALUES (43, 1, '08:30:00', '10:05:00');
@@ -2867,7 +2867,7 @@ INSERT INTO public.class_time (class_time_id, no_of_class, starts_at, ends_at) V
 
 
 --
--- Data for Name: class_type; Type: TABLE DATA; Schema: public; Owner: alex
+-- Data for Name: class_type; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
 INSERT INTO public.class_type (type_id, type_name) VALUES (37, 'семинар');
@@ -2878,7 +2878,7 @@ INSERT INTO public.class_type (type_id, type_name) VALUES (41, 'рубежный
 
 
 --
--- Data for Name: classroom; Type: TABLE DATA; Schema: public; Owner: alex
+-- Data for Name: classroom; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
 INSERT INTO public.classroom (room_id, room_number, capacity) VALUES (91, 'кк 111л', NULL);
@@ -3111,7 +3111,7 @@ INSERT INTO public.classroom (room_id, room_number, capacity) VALUES (317, '536�
 
 
 --
--- Data for Name: day_of_weak; Type: TABLE DATA; Schema: public; Owner: alex
+-- Data for Name: day_of_weak; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
 INSERT INTO public.day_of_weak (weak_id, short_title, full_title) VALUES (50, 'ПН ', 'Понедельник ');
@@ -3124,7 +3124,7 @@ INSERT INTO public.day_of_weak (weak_id, short_title, full_title) VALUES (56, '�
 
 
 --
--- Data for Name: department; Type: TABLE DATA; Schema: public; Owner: alex
+-- Data for Name: department; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
 INSERT INTO public.department (department_id, faculty_id, department_number, title) VALUES (164, 1, 1, 'Высшая математика');
@@ -3216,7 +3216,7 @@ INSERT INTO public.department (department_id, faculty_id, department_number, tit
 
 
 --
--- Data for Name: department_subject; Type: TABLE DATA; Schema: public; Owner: alex
+-- Data for Name: department_subject; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
 INSERT INTO public.department_subject (id, department_id, subject_id) VALUES (459, 198, 1);
@@ -3276,7 +3276,7 @@ INSERT INTO public.department_subject (id, department_id, subject_id) VALUES (51
 
 
 --
--- Data for Name: department_to_specialization; Type: TABLE DATA; Schema: public; Owner: alex
+-- Data for Name: department_to_specialization; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
 INSERT INTO public.department_to_specialization (id, department_id, specialization_id) VALUES (10, 240, 2458);
@@ -3744,7 +3744,7 @@ INSERT INTO public.department_to_specialization (id, department_id, specializati
 
 
 --
--- Data for Name: edu_degree; Type: TABLE DATA; Schema: public; Owner: alex
+-- Data for Name: edu_degree; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
 INSERT INTO public.edu_degree (degree_id, degree_name, min_number_of_study_years) VALUES (28, 'Бакалавр', 4);
@@ -3770,7 +3770,7 @@ INSERT INTO public.edu_degree (degree_id, degree_name, min_number_of_study_years
 
 
 --
--- Data for Name: faculty; Type: TABLE DATA; Schema: public; Owner: alex
+-- Data for Name: faculty; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
 INSERT INTO public.faculty (faculty_id, faculty_cipher, title) VALUES (12, 'ГУИМЦ   ', '"Головной учебно-исследовательский и методический центр"');
@@ -3795,7 +3795,7 @@ INSERT INTO public.faculty (faculty_id, faculty_cipher, title) VALUES (16, 'АК
 
 
 --
--- Data for Name: hours_per_class; Type: TABLE DATA; Schema: public; Owner: alex
+-- Data for Name: hours_per_class; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
 INSERT INTO public.hours_per_class (hours_id, calendar_cell_id, class_type_id, no_of_hours) VALUES (1994, 1197, 38, 17);
@@ -4164,7 +4164,7 @@ INSERT INTO public.hours_per_class (hours_id, calendar_cell_id, class_type_id, n
 
 
 --
--- Data for Name: lecturer; Type: TABLE DATA; Schema: public; Owner: alex
+-- Data for Name: lecturer; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
 INSERT INTO public.lecturer (lecturer_id, lecturer_email, first_name, middle_name, last_name, edu_degree) VALUES (1, NULL, 'Юрий', 'Федорович', 'Абакумов', 'к.т.н.');
@@ -7468,13 +7468,13 @@ INSERT INTO public.lecturer (lecturer_id, lecturer_email, first_name, middle_nam
 
 
 --
--- Data for Name: lecturer_for_calendar_item; Type: TABLE DATA; Schema: public; Owner: alex
+-- Data for Name: lecturer_for_calendar_item; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
 
 
 --
--- Data for Name: lecturer_subject; Type: TABLE DATA; Schema: public; Owner: alex
+-- Data for Name: lecturer_subject; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
 INSERT INTO public.lecturer_subject (id, lecturer_id, subject_on_department_id, class_type_id) VALUES (29, 875, 459, 38);
@@ -7500,7 +7500,7 @@ INSERT INTO public.lecturer_subject (id, lecturer_id, subject_on_department_id, 
 
 
 --
--- Data for Name: schedule_day; Type: TABLE DATA; Schema: public; Owner: alex
+-- Data for Name: schedule_day; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
 INSERT INTO public.schedule_day (day_id, weak_id, group_id) VALUES (52, 50, 1198);
@@ -7518,7 +7518,7 @@ INSERT INTO public.schedule_day (day_id, weak_id, group_id) VALUES (63, 55, 1197
 
 
 --
--- Data for Name: schedule_item; Type: TABLE DATA; Schema: public; Owner: alex
+-- Data for Name: schedule_item; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
 INSERT INTO public.schedule_item (schedule_item_id, day_id, class_time_id) VALUES (275, 52, 43);
@@ -7598,7 +7598,7 @@ INSERT INTO public.schedule_item (schedule_item_id, day_id, class_time_id) VALUE
 
 
 --
--- Data for Name: schedule_item_parity; Type: TABLE DATA; Schema: public; Owner: alex
+-- Data for Name: schedule_item_parity; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
 INSERT INTO public.schedule_item_parity (schedule_item_parity_id, schedule_item_id, day_parity, classroom_id, class_type_id, lec_subj_id) VALUES (202, 275, 'ЧС/ЗН', 208, 38, 34);
@@ -7638,7 +7638,7 @@ INSERT INTO public.schedule_item_parity (schedule_item_parity_id, schedule_item_
 
 
 --
--- Data for Name: speciality; Type: TABLE DATA; Schema: public; Owner: alex
+-- Data for Name: speciality; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
 INSERT INTO public.speciality (id, code, degree_id, title) VALUES (292, '27.02.04', 41, 'Автоматические системы управления');
@@ -7801,7 +7801,7 @@ INSERT INTO public.speciality (id, code, degree_id, title) VALUES (291, '25.06.0
 
 
 --
--- Data for Name: specialization; Type: TABLE DATA; Schema: public; Owner: alex
+-- Data for Name: specialization; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
 INSERT INTO public.specialization (id, speciality_id, number_in_speciality, title) VALUES (3288, 291, 4, 'Организация производства');
@@ -9565,7 +9565,7 @@ INSERT INTO public.specialization (id, speciality_id, number_in_speciality, titl
 
 
 --
--- Data for Name: study_group; Type: TABLE DATA; Schema: public; Owner: alex
+-- Data for Name: study_group; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
 INSERT INTO public.study_group (group_id, calendar_id, term_id, group_number, students_count) VALUES (819, 78, 3, 2, NULL);
@@ -11096,7 +11096,7 @@ INSERT INTO public.study_group (group_id, calendar_id, term_id, group_number, st
 
 
 --
--- Data for Name: subject; Type: TABLE DATA; Schema: public; Owner: alex
+-- Data for Name: subject; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
 INSERT INTO public.subject (subject_id, subject_name) VALUES (1, 'Основы информатики');
@@ -11156,7 +11156,7 @@ INSERT INTO public.subject (subject_id, subject_name) VALUES (54, 'Электи�
 
 
 --
--- Data for Name: term; Type: TABLE DATA; Schema: public; Owner: alex
+-- Data for Name: term; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
 INSERT INTO public.term (term_id, term_no) VALUES (1, 2);
@@ -11172,175 +11172,175 @@ INSERT INTO public.term (term_id, term_no) VALUES (10, 7);
 
 
 --
--- Name: calendar_id_seq; Type: SEQUENCE SET; Schema: public; Owner: alex
+-- Name: calendar_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
 SELECT pg_catalog.setval('public.calendar_id_seq', 1225, true);
 
 
 --
--- Name: calendar_item_calendar_item_id_seq; Type: SEQUENCE SET; Schema: public; Owner: alex
+-- Name: calendar_item_calendar_item_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
 SELECT pg_catalog.setval('public.calendar_item_calendar_item_id_seq', 1339, true);
 
 
 --
--- Name: calendar_item_cell_cell_id_seq; Type: SEQUENCE SET; Schema: public; Owner: alex
+-- Name: calendar_item_cell_cell_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
 SELECT pg_catalog.setval('public.calendar_item_cell_cell_id_seq', 1406, true);
 
 
 --
--- Name: class_time_class_time_id_seq; Type: SEQUENCE SET; Schema: public; Owner: alex
+-- Name: class_time_class_time_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
 SELECT pg_catalog.setval('public.class_time_class_time_id_seq', 49, true);
 
 
 --
--- Name: class_type_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: alex
+-- Name: class_type_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
 SELECT pg_catalog.setval('public.class_type_type_id_seq', 41, true);
 
 
 --
--- Name: classroom_room_id_seq; Type: SEQUENCE SET; Schema: public; Owner: alex
+-- Name: classroom_room_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
 SELECT pg_catalog.setval('public.classroom_room_id_seq', 317, true);
 
 
 --
--- Name: day_of_weak_weak_id_seq; Type: SEQUENCE SET; Schema: public; Owner: alex
+-- Name: day_of_weak_weak_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
 SELECT pg_catalog.setval('public.day_of_weak_weak_id_seq', 56, true);
 
 
 --
--- Name: department_department_id_seq; Type: SEQUENCE SET; Schema: public; Owner: alex
+-- Name: department_department_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
 SELECT pg_catalog.setval('public.department_department_id_seq', 250, true);
 
 
 --
--- Name: department_subject_id_seq; Type: SEQUENCE SET; Schema: public; Owner: alex
+-- Name: department_subject_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
 SELECT pg_catalog.setval('public.department_subject_id_seq', 512, true);
 
 
 --
--- Name: department_to_specialization_id_seq; Type: SEQUENCE SET; Schema: public; Owner: alex
+-- Name: department_to_specialization_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
 SELECT pg_catalog.setval('public.department_to_specialization_id_seq', 471, true);
 
 
 --
--- Name: edu_degree_degree_id_seq; Type: SEQUENCE SET; Schema: public; Owner: alex
+-- Name: edu_degree_degree_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
 SELECT pg_catalog.setval('public.edu_degree_degree_id_seq', 47, true);
 
 
 --
--- Name: faculty_faculty_id_seq; Type: SEQUENCE SET; Schema: public; Owner: alex
+-- Name: faculty_faculty_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
 SELECT pg_catalog.setval('public.faculty_faculty_id_seq', 19, true);
 
 
 --
--- Name: hours_per_class_hours_id_seq; Type: SEQUENCE SET; Schema: public; Owner: alex
+-- Name: hours_per_class_hours_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
 SELECT pg_catalog.setval('public.hours_per_class_hours_id_seq', 2356, true);
 
 
 --
--- Name: lecturer_for_calendar_item_id_seq; Type: SEQUENCE SET; Schema: public; Owner: alex
+-- Name: lecturer_for_calendar_item_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
 SELECT pg_catalog.setval('public.lecturer_for_calendar_item_id_seq', 1, false);
 
 
 --
--- Name: lecturer_lecturer_id_seq; Type: SEQUENCE SET; Schema: public; Owner: alex
+-- Name: lecturer_lecturer_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
 SELECT pg_catalog.setval('public.lecturer_lecturer_id_seq', 3298, true);
 
 
 --
--- Name: lecturer_subject_id_seq; Type: SEQUENCE SET; Schema: public; Owner: alex
+-- Name: lecturer_subject_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
 SELECT pg_catalog.setval('public.lecturer_subject_id_seq', 58, true);
 
 
 --
--- Name: schedule_day_day_id_seq; Type: SEQUENCE SET; Schema: public; Owner: alex
+-- Name: schedule_day_day_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
 SELECT pg_catalog.setval('public.schedule_day_day_id_seq', 63, true);
 
 
 --
--- Name: schedule_item_parity_schedule_item_parity_id_seq; Type: SEQUENCE SET; Schema: public; Owner: alex
+-- Name: schedule_item_parity_schedule_item_parity_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
 SELECT pg_catalog.setval('public.schedule_item_parity_schedule_item_parity_id_seq', 235, true);
 
 
 --
--- Name: schedule_item_schedule_item_id_seq; Type: SEQUENCE SET; Schema: public; Owner: alex
+-- Name: schedule_item_schedule_item_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
 SELECT pg_catalog.setval('public.schedule_item_schedule_item_id_seq', 348, true);
 
 
 --
--- Name: speciality_id_seq; Type: SEQUENCE SET; Schema: public; Owner: alex
+-- Name: speciality_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
 SELECT pg_catalog.setval('public.speciality_id_seq', 331, true);
 
 
 --
--- Name: specialization_id_seq; Type: SEQUENCE SET; Schema: public; Owner: alex
+-- Name: specialization_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
 SELECT pg_catalog.setval('public.specialization_id_seq', 3743, true);
 
 
 --
--- Name: study_group_group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: alex
+-- Name: study_group_group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
 SELECT pg_catalog.setval('public.study_group_group_id_seq', 2253, true);
 
 
 --
--- Name: subject_subject_id_seq; Type: SEQUENCE SET; Schema: public; Owner: alex
+-- Name: subject_subject_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
 SELECT pg_catalog.setval('public.subject_subject_id_seq', 54, true);
 
 
 --
--- Name: term_term_id_seq; Type: SEQUENCE SET; Schema: public; Owner: alex
+-- Name: term_term_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
 SELECT pg_catalog.setval('public.term_term_id_seq', 10, true);
 
 
 --
--- Name: calendar calendar_dept_to_spec_id_start_year_key; Type: CONSTRAINT; Schema: public; Owner: alex
+-- Name: calendar calendar_dept_to_spec_id_start_year_key; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.calendar
@@ -11348,7 +11348,7 @@ ALTER TABLE ONLY public.calendar
 
 
 --
--- Name: calendar_item_cell calendar_item_cell_calendar_item_id_term_id_key; Type: CONSTRAINT; Schema: public; Owner: alex
+-- Name: calendar_item_cell calendar_item_cell_calendar_item_id_term_id_key; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.calendar_item_cell
@@ -11356,7 +11356,7 @@ ALTER TABLE ONLY public.calendar_item_cell
 
 
 --
--- Name: calendar_item_cell calendar_item_cell_pkey; Type: CONSTRAINT; Schema: public; Owner: alex
+-- Name: calendar_item_cell calendar_item_cell_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.calendar_item_cell
@@ -11364,7 +11364,7 @@ ALTER TABLE ONLY public.calendar_item_cell
 
 
 --
--- Name: calendar_item calendar_item_pkey; Type: CONSTRAINT; Schema: public; Owner: alex
+-- Name: calendar_item calendar_item_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.calendar_item
@@ -11372,7 +11372,7 @@ ALTER TABLE ONLY public.calendar_item
 
 
 --
--- Name: calendar calendar_pkey; Type: CONSTRAINT; Schema: public; Owner: alex
+-- Name: calendar calendar_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.calendar
@@ -11380,7 +11380,7 @@ ALTER TABLE ONLY public.calendar
 
 
 --
--- Name: class_time class_time_pkey; Type: CONSTRAINT; Schema: public; Owner: alex
+-- Name: class_time class_time_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.class_time
@@ -11388,7 +11388,7 @@ ALTER TABLE ONLY public.class_time
 
 
 --
--- Name: class_time class_time_starts_at_ends_at_key; Type: CONSTRAINT; Schema: public; Owner: alex
+-- Name: class_time class_time_starts_at_ends_at_key; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.class_time
@@ -11396,7 +11396,7 @@ ALTER TABLE ONLY public.class_time
 
 
 --
--- Name: class_type class_type_pkey; Type: CONSTRAINT; Schema: public; Owner: alex
+-- Name: class_type class_type_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.class_type
@@ -11404,7 +11404,7 @@ ALTER TABLE ONLY public.class_type
 
 
 --
--- Name: class_type class_type_type_name_key; Type: CONSTRAINT; Schema: public; Owner: alex
+-- Name: class_type class_type_type_name_key; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.class_type
@@ -11412,7 +11412,7 @@ ALTER TABLE ONLY public.class_type
 
 
 --
--- Name: classroom classroom_pkey; Type: CONSTRAINT; Schema: public; Owner: alex
+-- Name: classroom classroom_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.classroom
@@ -11420,7 +11420,7 @@ ALTER TABLE ONLY public.classroom
 
 
 --
--- Name: classroom classroom_room_number_key; Type: CONSTRAINT; Schema: public; Owner: alex
+-- Name: classroom classroom_room_number_key; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.classroom
@@ -11428,7 +11428,7 @@ ALTER TABLE ONLY public.classroom
 
 
 --
--- Name: day_of_weak day_of_weak_full_title_key; Type: CONSTRAINT; Schema: public; Owner: alex
+-- Name: day_of_weak day_of_weak_full_title_key; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.day_of_weak
@@ -11436,7 +11436,7 @@ ALTER TABLE ONLY public.day_of_weak
 
 
 --
--- Name: day_of_weak day_of_weak_pkey; Type: CONSTRAINT; Schema: public; Owner: alex
+-- Name: day_of_weak day_of_weak_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.day_of_weak
@@ -11444,7 +11444,7 @@ ALTER TABLE ONLY public.day_of_weak
 
 
 --
--- Name: day_of_weak day_of_weak_short_title_key; Type: CONSTRAINT; Schema: public; Owner: alex
+-- Name: day_of_weak day_of_weak_short_title_key; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.day_of_weak
@@ -11452,7 +11452,7 @@ ALTER TABLE ONLY public.day_of_weak
 
 
 --
--- Name: department department_pkey; Type: CONSTRAINT; Schema: public; Owner: alex
+-- Name: department department_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.department
@@ -11460,7 +11460,7 @@ ALTER TABLE ONLY public.department
 
 
 --
--- Name: department_subject department_subject_pkey; Type: CONSTRAINT; Schema: public; Owner: alex
+-- Name: department_subject department_subject_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.department_subject
@@ -11468,7 +11468,7 @@ ALTER TABLE ONLY public.department_subject
 
 
 --
--- Name: department_to_specialization department_to_specialization_pkey; Type: CONSTRAINT; Schema: public; Owner: alex
+-- Name: department_to_specialization department_to_specialization_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.department_to_specialization
@@ -11476,7 +11476,7 @@ ALTER TABLE ONLY public.department_to_specialization
 
 
 --
--- Name: edu_degree edu_degree_degree_name_key; Type: CONSTRAINT; Schema: public; Owner: alex
+-- Name: edu_degree edu_degree_degree_name_key; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.edu_degree
@@ -11484,7 +11484,7 @@ ALTER TABLE ONLY public.edu_degree
 
 
 --
--- Name: edu_degree edu_degree_pkey; Type: CONSTRAINT; Schema: public; Owner: alex
+-- Name: edu_degree edu_degree_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.edu_degree
@@ -11492,7 +11492,7 @@ ALTER TABLE ONLY public.edu_degree
 
 
 --
--- Name: faculty faculty_faculty_cipher_key; Type: CONSTRAINT; Schema: public; Owner: alex
+-- Name: faculty faculty_faculty_cipher_key; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.faculty
@@ -11500,7 +11500,7 @@ ALTER TABLE ONLY public.faculty
 
 
 --
--- Name: faculty faculty_pkey; Type: CONSTRAINT; Schema: public; Owner: alex
+-- Name: faculty faculty_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.faculty
@@ -11508,7 +11508,7 @@ ALTER TABLE ONLY public.faculty
 
 
 --
--- Name: hours_per_class hours_per_class_calendar_cell_id_class_type_id_key; Type: CONSTRAINT; Schema: public; Owner: alex
+-- Name: hours_per_class hours_per_class_calendar_cell_id_class_type_id_key; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.hours_per_class
@@ -11516,7 +11516,7 @@ ALTER TABLE ONLY public.hours_per_class
 
 
 --
--- Name: hours_per_class hours_per_class_pkey; Type: CONSTRAINT; Schema: public; Owner: alex
+-- Name: hours_per_class hours_per_class_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.hours_per_class
@@ -11524,7 +11524,7 @@ ALTER TABLE ONLY public.hours_per_class
 
 
 --
--- Name: lecturer_for_calendar_item lecturer_for_calendar_item_pkey; Type: CONSTRAINT; Schema: public; Owner: alex
+-- Name: lecturer_for_calendar_item lecturer_for_calendar_item_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.lecturer_for_calendar_item
@@ -11532,7 +11532,7 @@ ALTER TABLE ONLY public.lecturer_for_calendar_item
 
 
 --
--- Name: lecturer lecturer_pkey; Type: CONSTRAINT; Schema: public; Owner: alex
+-- Name: lecturer lecturer_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.lecturer
@@ -11540,7 +11540,7 @@ ALTER TABLE ONLY public.lecturer
 
 
 --
--- Name: lecturer_subject lecturer_subject_pkey; Type: CONSTRAINT; Schema: public; Owner: alex
+-- Name: lecturer_subject lecturer_subject_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.lecturer_subject
@@ -11548,7 +11548,7 @@ ALTER TABLE ONLY public.lecturer_subject
 
 
 --
--- Name: schedule_day schedule_day_pkey; Type: CONSTRAINT; Schema: public; Owner: alex
+-- Name: schedule_day schedule_day_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.schedule_day
@@ -11556,7 +11556,7 @@ ALTER TABLE ONLY public.schedule_day
 
 
 --
--- Name: schedule_day schedule_day_weak_id_group_id_key; Type: CONSTRAINT; Schema: public; Owner: alex
+-- Name: schedule_day schedule_day_weak_id_group_id_key; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.schedule_day
@@ -11564,7 +11564,7 @@ ALTER TABLE ONLY public.schedule_day
 
 
 --
--- Name: schedule_item schedule_item_day_id_class_time_id_key; Type: CONSTRAINT; Schema: public; Owner: alex
+-- Name: schedule_item schedule_item_day_id_class_time_id_key; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.schedule_item
@@ -11572,7 +11572,7 @@ ALTER TABLE ONLY public.schedule_item
 
 
 --
--- Name: schedule_item_parity schedule_item_parity_pkey; Type: CONSTRAINT; Schema: public; Owner: alex
+-- Name: schedule_item_parity schedule_item_parity_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.schedule_item_parity
@@ -11580,7 +11580,7 @@ ALTER TABLE ONLY public.schedule_item_parity
 
 
 --
--- Name: schedule_item schedule_item_pkey; Type: CONSTRAINT; Schema: public; Owner: alex
+-- Name: schedule_item schedule_item_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.schedule_item
@@ -11588,7 +11588,7 @@ ALTER TABLE ONLY public.schedule_item
 
 
 --
--- Name: speciality speciality_code_key; Type: CONSTRAINT; Schema: public; Owner: alex
+-- Name: speciality speciality_code_key; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.speciality
@@ -11596,7 +11596,7 @@ ALTER TABLE ONLY public.speciality
 
 
 --
--- Name: speciality speciality_pkey; Type: CONSTRAINT; Schema: public; Owner: alex
+-- Name: speciality speciality_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.speciality
@@ -11604,7 +11604,7 @@ ALTER TABLE ONLY public.speciality
 
 
 --
--- Name: specialization specialization_pkey; Type: CONSTRAINT; Schema: public; Owner: alex
+-- Name: specialization specialization_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.specialization
@@ -11612,7 +11612,7 @@ ALTER TABLE ONLY public.specialization
 
 
 --
--- Name: specialization specialization_speciality_id_number_in_speciality_key; Type: CONSTRAINT; Schema: public; Owner: alex
+-- Name: specialization specialization_speciality_id_number_in_speciality_key; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.specialization
@@ -11620,7 +11620,7 @@ ALTER TABLE ONLY public.specialization
 
 
 --
--- Name: study_group study_group_calendar_id_term_id_group_number_key; Type: CONSTRAINT; Schema: public; Owner: alex
+-- Name: study_group study_group_calendar_id_term_id_group_number_key; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.study_group
@@ -11628,7 +11628,7 @@ ALTER TABLE ONLY public.study_group
 
 
 --
--- Name: study_group study_group_pkey; Type: CONSTRAINT; Schema: public; Owner: alex
+-- Name: study_group study_group_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.study_group
@@ -11636,7 +11636,7 @@ ALTER TABLE ONLY public.study_group
 
 
 --
--- Name: subject subject_pkey; Type: CONSTRAINT; Schema: public; Owner: alex
+-- Name: subject subject_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.subject
@@ -11644,7 +11644,7 @@ ALTER TABLE ONLY public.subject
 
 
 --
--- Name: term term_pkey; Type: CONSTRAINT; Schema: public; Owner: alex
+-- Name: term term_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.term
@@ -11652,7 +11652,7 @@ ALTER TABLE ONLY public.term
 
 
 --
--- Name: schedule_item_parity unq_cl_type; Type: CONSTRAINT; Schema: public; Owner: alex
+-- Name: schedule_item_parity unq_cl_type; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.schedule_item_parity
@@ -11660,7 +11660,7 @@ ALTER TABLE ONLY public.schedule_item_parity
 
 
 --
--- Name: schedule_item_parity unq_cr; Type: CONSTRAINT; Schema: public; Owner: alex
+-- Name: schedule_item_parity unq_cr; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.schedule_item_parity
@@ -11668,7 +11668,7 @@ ALTER TABLE ONLY public.schedule_item_parity
 
 
 --
--- Name: schedule_item_parity unq_parity; Type: CONSTRAINT; Schema: public; Owner: alex
+-- Name: schedule_item_parity unq_parity; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.schedule_item_parity
@@ -11676,7 +11676,7 @@ ALTER TABLE ONLY public.schedule_item_parity
 
 
 --
--- Name: schedule_item_parity unq_subj; Type: CONSTRAINT; Schema: public; Owner: alex
+-- Name: schedule_item_parity unq_subj; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.schedule_item_parity
@@ -11684,7 +11684,7 @@ ALTER TABLE ONLY public.schedule_item_parity
 
 
 --
--- Name: calendar calendar_dept_to_spec_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: alex
+-- Name: calendar calendar_dept_to_spec_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.calendar
@@ -11692,7 +11692,7 @@ ALTER TABLE ONLY public.calendar
 
 
 --
--- Name: calendar_item calendar_item_calendar_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: alex
+-- Name: calendar_item calendar_item_calendar_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.calendar_item
@@ -11700,7 +11700,7 @@ ALTER TABLE ONLY public.calendar_item
 
 
 --
--- Name: calendar_item_cell calendar_item_cell_calendar_item_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: alex
+-- Name: calendar_item_cell calendar_item_cell_calendar_item_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.calendar_item_cell
@@ -11708,7 +11708,7 @@ ALTER TABLE ONLY public.calendar_item_cell
 
 
 --
--- Name: calendar_item_cell calendar_item_cell_term_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: alex
+-- Name: calendar_item_cell calendar_item_cell_term_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.calendar_item_cell
@@ -11716,7 +11716,7 @@ ALTER TABLE ONLY public.calendar_item_cell
 
 
 --
--- Name: calendar_item calendar_item_department_subject_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: alex
+-- Name: calendar_item calendar_item_department_subject_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.calendar_item
@@ -11724,7 +11724,7 @@ ALTER TABLE ONLY public.calendar_item
 
 
 --
--- Name: department department_faculty_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: alex
+-- Name: department department_faculty_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.department
@@ -11732,7 +11732,7 @@ ALTER TABLE ONLY public.department
 
 
 --
--- Name: department_subject department_subject_department_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: alex
+-- Name: department_subject department_subject_department_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.department_subject
@@ -11740,7 +11740,7 @@ ALTER TABLE ONLY public.department_subject
 
 
 --
--- Name: department_subject department_subject_subject_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: alex
+-- Name: department_subject department_subject_subject_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.department_subject
@@ -11748,7 +11748,7 @@ ALTER TABLE ONLY public.department_subject
 
 
 --
--- Name: department_to_specialization department_to_specialization_department_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: alex
+-- Name: department_to_specialization department_to_specialization_department_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.department_to_specialization
@@ -11756,7 +11756,7 @@ ALTER TABLE ONLY public.department_to_specialization
 
 
 --
--- Name: department_to_specialization department_to_specialization_specialization_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: alex
+-- Name: department_to_specialization department_to_specialization_specialization_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.department_to_specialization
@@ -11764,7 +11764,7 @@ ALTER TABLE ONLY public.department_to_specialization
 
 
 --
--- Name: hours_per_class hours_per_class_calendar_cell_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: alex
+-- Name: hours_per_class hours_per_class_calendar_cell_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.hours_per_class
@@ -11772,7 +11772,7 @@ ALTER TABLE ONLY public.hours_per_class
 
 
 --
--- Name: hours_per_class hours_per_class_class_type_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: alex
+-- Name: hours_per_class hours_per_class_class_type_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.hours_per_class
@@ -11780,7 +11780,7 @@ ALTER TABLE ONLY public.hours_per_class
 
 
 --
--- Name: lecturer_subject lecturer_subject_class_type_type_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: alex
+-- Name: lecturer_subject lecturer_subject_class_type_type_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.lecturer_subject
@@ -11788,7 +11788,7 @@ ALTER TABLE ONLY public.lecturer_subject
 
 
 --
--- Name: lecturer_subject lecturer_subject_lecturer_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: alex
+-- Name: lecturer_subject lecturer_subject_lecturer_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.lecturer_subject
@@ -11796,7 +11796,7 @@ ALTER TABLE ONLY public.lecturer_subject
 
 
 --
--- Name: lecturer_subject lecturer_subject_subject_on_department_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: alex
+-- Name: lecturer_subject lecturer_subject_subject_on_department_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.lecturer_subject
@@ -11804,7 +11804,7 @@ ALTER TABLE ONLY public.lecturer_subject
 
 
 --
--- Name: schedule_day schedule_day_group_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: alex
+-- Name: schedule_day schedule_day_group_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.schedule_day
@@ -11812,7 +11812,7 @@ ALTER TABLE ONLY public.schedule_day
 
 
 --
--- Name: schedule_day schedule_day_weak_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: alex
+-- Name: schedule_day schedule_day_weak_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.schedule_day
@@ -11820,7 +11820,7 @@ ALTER TABLE ONLY public.schedule_day
 
 
 --
--- Name: schedule_item schedule_item_class_time_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: alex
+-- Name: schedule_item schedule_item_class_time_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.schedule_item
@@ -11828,7 +11828,7 @@ ALTER TABLE ONLY public.schedule_item
 
 
 --
--- Name: schedule_item schedule_item_day_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: alex
+-- Name: schedule_item schedule_item_day_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.schedule_item
@@ -11836,7 +11836,7 @@ ALTER TABLE ONLY public.schedule_item
 
 
 --
--- Name: schedule_item_parity schedule_item_parity_class_type_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: alex
+-- Name: schedule_item_parity schedule_item_parity_class_type_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.schedule_item_parity
@@ -11844,7 +11844,7 @@ ALTER TABLE ONLY public.schedule_item_parity
 
 
 --
--- Name: schedule_item_parity schedule_item_parity_classroom_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: alex
+-- Name: schedule_item_parity schedule_item_parity_classroom_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.schedule_item_parity
@@ -11852,7 +11852,7 @@ ALTER TABLE ONLY public.schedule_item_parity
 
 
 --
--- Name: schedule_item_parity schedule_item_parity_lec_subj_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: alex
+-- Name: schedule_item_parity schedule_item_parity_lec_subj_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.schedule_item_parity
@@ -11860,7 +11860,7 @@ ALTER TABLE ONLY public.schedule_item_parity
 
 
 --
--- Name: schedule_item_parity schedule_item_parity_schedule_item_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: alex
+-- Name: schedule_item_parity schedule_item_parity_schedule_item_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.schedule_item_parity
@@ -11868,7 +11868,7 @@ ALTER TABLE ONLY public.schedule_item_parity
 
 
 --
--- Name: speciality speciality_degree_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: alex
+-- Name: speciality speciality_degree_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.speciality
@@ -11876,7 +11876,7 @@ ALTER TABLE ONLY public.speciality
 
 
 --
--- Name: specialization specialization_speciality_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: alex
+-- Name: specialization specialization_speciality_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.specialization
@@ -11884,7 +11884,7 @@ ALTER TABLE ONLY public.specialization
 
 
 --
--- Name: study_group study_group_calendar_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: alex
+-- Name: study_group study_group_calendar_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.study_group
@@ -11892,7 +11892,7 @@ ALTER TABLE ONLY public.study_group
 
 
 --
--- Name: study_group study_group_term_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: alex
+-- Name: study_group study_group_term_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.study_group

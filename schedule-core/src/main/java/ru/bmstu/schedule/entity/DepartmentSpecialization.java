@@ -15,7 +15,7 @@ public class DepartmentSpecialization {
 
     private Specialization specialization;
 
-    private Set<Calendar> calendarSet = new HashSet<>();
+//    private Set<Calendar> calendarSet = new HashSet<>();
 
     @Id
     @Column(name = "id")
@@ -49,14 +49,14 @@ public class DepartmentSpecialization {
         this.specialization = specialization;
     }
 
-    @OneToMany(mappedBy = "departmentSpecialization", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    public Set<Calendar> getCalendarSet() {
-        return calendarSet;
-    }
-
-    public void setCalendarSet(Set<Calendar> calendarSet) {
-        this.calendarSet = calendarSet;
-    }
+//    @OneToMany(mappedBy = "departmentSpecialization", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//    public Set<Calendar> getCalendarSet() {
+//        return calendarSet;
+//    }
+//
+//    public void setCalendarSet(Set<Calendar> calendarSet) {
+//        this.calendarSet = calendarSet;
+//    }
 
     @Override
     public boolean equals(Object o) {
@@ -65,8 +65,8 @@ public class DepartmentSpecialization {
         DepartmentSpecialization that = (DepartmentSpecialization) o;
         return id == that.id &&
                 Objects.equals(department, that.department) &&
-                Objects.equals(specialization, that.specialization) &&
-                Objects.equals(calendarSet, that.calendarSet);
+                Objects.equals(specialization, that.specialization);
+//                Objects.equals(calendarSet, that.calendarSet);
     }
 
     @Override

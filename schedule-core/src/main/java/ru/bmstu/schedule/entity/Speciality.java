@@ -64,7 +64,7 @@ public class Speciality {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, code, degree, title);
+        return Objects.hash(id, code, degree == null ? 0 : degree.getId(), title);
     }
 
 }
