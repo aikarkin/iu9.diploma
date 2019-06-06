@@ -1,7 +1,6 @@
 package ru.bmstu.schedule.smtgen;
 
 import org.hibernate.SessionFactory;
-import org.hibernate.TransientObjectException;
 import org.hibernate.cfg.Configuration;
 import ru.bmstu.schedule.dao.*;
 import ru.bmstu.schedule.entity.Calendar;
@@ -29,7 +28,7 @@ public class GenerateSchedule {
     private static final int TERM_NO = 2;
 
     private static final int NO_OF_STUDY_WEEKS = 17;
-    private static final int MAX_GROUPS_COUNT = 1;
+    private static final int MAX_GROUPS_COUNT = 2;
     private static final String PARITY_ALWAYS = "ЧС/ЗН";
     private static final String PARITY_NUM = "ЧС";
     private static final String PARITY_DEN = "ЗН";
@@ -254,44 +253,41 @@ public class GenerateSchedule {
         DepartmentSubject deptSubj = departmentSubjectMap.get(subject);
         LecturerSubject lecSubj = null;
 
-        try {
-            if (lecturer == null) {
-                Lecturer unknownLec = lecDao.fetchUnknownLecturer();
-                Optional<LecturerSubject> lecSubjOpt = lecSubjDao.findByLecturerAndDepartmentSubjectAndClassType(
-                        unknownLec,
-                        deptSubj,
-                        classType
-                );
+        if (lecturer == null) {
+            Lecturer unknownLec = lecDao.fetchUnknownLecturer();
+            Optional<LecturerSubject> lecSubjOpt = lecSubjDao.findByLecturerAndDepartmentSubjectAndClassType(
+                    unknownLec,
+                    deptSubj,
+                    classType
+            );
 
-                if (!lecSubjOpt.isPresent()) {
-                    lecSubj = new LecturerSubject();
-                    lecSubj.setLecturer(unknownLec);
-                    lecSubj.setDepartmentSubject(deptSubj);
-                    lecSubj.setClassType(classType);
-                    Integer lecSubjId = lecSubjDao.create(lecSubj);
-                    lecSubj.setId(lecSubjId);
-                } else {
-                    lecSubj = lecSubjOpt.get();
-                }
+            if (!lecSubjOpt.isPresent()) {
+                lecSubj = new LecturerSubject();
+                lecSubj.setLecturer(unknownLec);
+                lecSubj.setDepartmentSubject(deptSubj);
+                lecSubj.setClassType(classType);
+                Integer lecSubjId = lecSubjDao.create(lecSubj);
+                lecSubj.setId(lecSubjId);
             } else {
-                Optional<LecturerSubject> lecSubjOpt = lecSubjDao.findByLecturerAndDepartmentSubjectAndClassType(
-                        lecturer,
-                        deptSubj,
-                        classType
-                );
-                if (!lecSubjOpt.isPresent()) {
-                    String msg = String.format(
-                            "Invalid SMT Model - illegal lecturer '%s' for subject '%s'",
-                            lecturer.getInitials(),
-                            subject.getName()
-                    );
-                    throw new RuntimeException(msg);
-                }
                 lecSubj = lecSubjOpt.get();
             }
-        } catch (TransientObjectException e) {
-            e.printStackTrace();
+        } else {
+            Optional<LecturerSubject> lecSubjOpt = lecSubjDao.findByLecturerAndDepartmentSubjectAndClassType(
+                    lecturer,
+                    deptSubj,
+                    classType
+            );
+            if (!lecSubjOpt.isPresent()) {
+                String msg = String.format(
+                        "Invalid SMT Model - illegal lecturer '%s' for subject '%s'",
+                        lecturer.getInitials(),
+                        subject.getName()
+                );
+                throw new RuntimeException(msg);
+            }
+            lecSubj = lecSubjOpt.get();
         }
+
 
         itemParity.setLecturerSubject(lecSubj);
 

@@ -7,11 +7,15 @@ import ru.bmstu.schedule.smtgen.SubjectsPerWeek;
 
 import java.util.*;
 
+import static java.lang.Math.abs;
 import static ru.bmstu.schedule.smtgen.Z3Utils.checkExprsSort;
 
 public class SmtScheduleModelGenerator {
 
     private Map<Integer, SubjectsPerWeek> totalSubjectsPerWeak;
+
+    private Map<SlotItemType, Integer> requiredCountOfSlotTypes;
+
     private Solver solver;
     private Status modelStatus;
     private Context ctx;
@@ -43,10 +47,33 @@ public class SmtScheduleModelGenerator {
         this.func = new ScheduleFunctions(sorts);
         this.asserts = new ScheduleAsserts(sorts, func);
 
+        countSlotsOfEachType();
+
         createSubjectsConstants();
         createRoomsConsts();
         createGroupsConstants();
         createTutorsConstants();
+    }
+
+    private void countSlotsOfEachType() {
+        requiredCountOfSlotTypes = new HashMap<>();
+        int noOfHalfLessonsCount = 0;
+        int noOfSingleLessonsCount = 0;
+
+        for(SubjectsPerWeek subjPerWeek : totalSubjectsPerWeak.values()) {
+            for(LessonKind kind : subjPerWeek.keySet()) {
+                double count = subjPerWeek.get(kind);
+                if(abs(Math.floor(count) - count) > 10e-6) {
+                    noOfHalfLessonsCount++;
+                }
+                noOfSingleLessonsCount += (int) count;
+            }
+        }
+
+        requiredCountOfSlotTypes.put(SlotItemType.pair, noOfHalfLessonsCount / 2);
+        requiredCountOfSlotTypes.put(SlotItemType.half, noOfHalfLessonsCount % 2);
+        requiredCountOfSlotTypes.put(SlotItemType.single, noOfSingleLessonsCount);
+
     }
 
     public Expr[] getGroupsConstants() {
@@ -78,9 +105,6 @@ public class SmtScheduleModelGenerator {
             if (solver == null) {
                 solver = ctx.mkSolver();
                 solver.add(validSchedule());
-//                optimize = ctx.mkOptimize();
-//                optimize.Add(validSchedule());
-//                optimize.MkMaximize(numberOfEmptySlots());
             }
             modelStatus = solver.check();
         }
@@ -248,9 +272,83 @@ public class SmtScheduleModelGenerator {
     private BoolExpr validScheduleForGroup(Expr group) {
         return ctx.mkAnd(
                 asserts.validDaysInWeak(group),
+                validSlotItemsCountOfEachType(group),
                 validSubjectsCountOfEachKind(group),
                 validLessonsInWeakForGroup(group)
         );
+    }
+
+    private BoolExpr validSlotItemsCountOfEachType(Expr group) {
+        SlotItemType[] types = SlotItemType.values();
+        int n = types.length;
+        BoolExpr[] validForEachType = new BoolExpr[n];
+
+        for (int i = 0; i < n; i++) {
+            validForEachType[i] = ctx.mkEq(countSlotItemsForWeek(group, types[i]), ctx.mkInt(requiredCountOfSlotTypes.get(types[i])));
+        }
+
+        return ctx.mkAnd(validForEachType);
+    }
+
+    private IntExpr countSlotItemsForWeek(Expr group, SlotItemType itemType) {
+        DayOfWeek[] days = DayOfWeek.values();
+        int n = days.length;
+        IntExpr[] validForEachDay = new IntExpr[n];
+
+        for (int i = 0; i < n; i++) {
+            validForEachDay[i] = countSlotItemsForDay(group, sorts.dayOfWeak(days[i]), itemType);
+        }
+
+        return (IntExpr) ctx.mkAdd(validForEachDay);
+    }
+
+    private IntExpr countSlotItemsForDay(Expr group, Expr day, SlotItemType itemType) {
+        LessonSlot[] slots = LessonSlot.values();
+        int n = slots.length;
+        IntExpr[] validForSlot = new IntExpr[n];
+
+        for (int i = 0; i < n; i++) {
+            validForSlot[i] = countSlotItemForSlot(group, day, sorts.slot(slots[i]), itemType);
+        }
+
+        return (IntExpr) ctx.mkAdd(validForSlot);
+    }
+
+    private IntExpr countSlotItemForSlot(Expr group, Expr day, Expr slot, SlotItemType itemType) {
+        Expr slotItem = ctx.mkApp(func.schedule(), group, day, slot);
+
+        switch (itemType) {
+            case half:
+                return (IntExpr) ctx.mkITE(
+                        ctx.mkAnd(
+                                sorts.isPairItemExpr(slotItem),
+                                ctx.mkXor(sorts.hasEmptyNumerator(slotItem), sorts.hasEmptyDenominator(slotItem))
+                        ),
+                        ctx.mkInt(1),
+                        ctx.mkInt(0)
+                );
+            case pair:
+                return (IntExpr) ctx.mkITE(
+                        ctx.mkAnd(
+                                sorts.isPairItemExpr(slotItem),
+                                sorts.hasNotEmptyNumerator(slotItem),
+                                sorts.hasNotEmptyDenominator(slotItem)
+                        ),
+                        ctx.mkInt(1),
+                        ctx.mkInt(0)
+                );
+            case single:
+                return (IntExpr) ctx.mkITE(
+                        ctx.mkAnd(
+                                sorts.isSingleItemExpr(slotItem),
+                                sorts.isNotBlankLessonExpr(sorts.singleItemLesson(slotItem))
+                        ),
+                        ctx.mkInt(1),
+                        ctx.mkInt(0)
+                );
+        }
+
+        return ctx.mkInt(0);
     }
 
     private BoolExpr validSchedule() {
@@ -269,16 +367,6 @@ public class SmtScheduleModelGenerator {
                 ctx.mkAnd(validForGroup),
                 ctx.mkAnd(validForTwoGroups)
         );
-    }
-
-    private IntExpr numberOfEmptySlots() {
-        IntExpr[] noOfSlots = new IntExpr[groupsConsts.size()];
-
-        for (int i = 0; i < groupsConsts.size(); i++) {
-            noOfSlots[i] = asserts.countEmptySlotsInWeek(groupsConsts.get(i));
-        }
-
-        return (IntExpr) ctx.mkAdd(noOfSlots);
     }
 
 }

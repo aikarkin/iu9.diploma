@@ -1,6 +1,9 @@
 package ru.bmstu.schedule.smtgen.model;
 
-import com.microsoft.z3.*;
+import com.microsoft.z3.BoolExpr;
+import com.microsoft.z3.Context;
+import com.microsoft.z3.Expr;
+import com.microsoft.z3.RealExpr;
 import ru.bmstu.schedule.smtgen.DayOfWeek;
 import ru.bmstu.schedule.smtgen.LessonKind;
 
@@ -91,48 +94,6 @@ public class ScheduleAsserts {
         }
 
         return (RealExpr) ctx.mkAdd(countLessonParity);
-    }
-
-    public IntExpr countEmptySlotsInWeek(Expr group) {
-        Expr[] days = sorts.dayOfWeak().getConsts();
-        int n = days.length;
-
-        IntExpr[] noOfEmptySlots = new IntExpr[n];
-
-        for (int i = 0; i < n; i++) {
-            noOfEmptySlots[i] = countEmptySlotsInDay(group, days[i]);
-        }
-
-        return (IntExpr) ctx.mkAdd(noOfEmptySlots);
-    }
-
-    private IntExpr countEmptySlotsInDay(Expr group, Expr day) {
-        Expr[] slots = sorts.slot().getConsts();
-        int n = slots.length;
-
-        IntExpr[] noOfEmptySlots = new IntExpr[n];
-
-        for (int i = 0; i < n; i++) {
-            noOfEmptySlots[i] = countEmptySlots(group, day, slots[i]);
-        }
-
-        return (IntExpr) ctx.mkAdd(noOfEmptySlots);
-    }
-
-    private IntExpr countEmptySlots(Expr group, Expr day, Expr slot) {
-        checkExprsSort(sorts.slot(), slot);
-        checkExprsSort(sorts.group(), group);
-        checkExprsSort(sorts.dayOfWeak(), day);
-
-        Expr slotItem = ctx.mkApp(func.schedule(), group, day, slot);
-        return (IntExpr) ctx.mkITE(
-                ctx.mkAnd(
-                        sorts.isSingleItemExpr(slotItem),
-                        sorts.isBlankLessonExpr(sorts.singleItemLesson(slotItem))
-                ),
-                ctx.mkInt(1),
-                ctx.mkInt(0)
-        );
     }
 
     private RealExpr countLessonsInSlots(Expr subject, Expr group, Expr kind, Expr day, Expr slot, LessonParity parity) {

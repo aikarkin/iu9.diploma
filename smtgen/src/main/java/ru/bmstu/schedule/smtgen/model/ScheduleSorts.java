@@ -220,6 +220,14 @@ public class ScheduleSorts {
         );
     }
 
+    BoolExpr hasEmptyNumerator(Expr slotItem) {
+        return ctx.mkNot(hasNotEmptyNumerator(slotItem));
+    }
+
+    BoolExpr hasEmptyDenominator(Expr slotItem) {
+        return ctx.mkNot(hasNotEmptyDenominator(slotItem));
+    }
+
     private void initSorts() {
         dayOfWeak = mkCustomEnumSort(ctx, DayOfWeek.class);
         kind = mkCustomEnumSort(ctx, LessonKind.class);
