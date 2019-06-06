@@ -1,3 +1,5 @@
+package ru.bmstu.schedule.pdfgen;
+
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import ru.bmstu.schedule.dao.StudyGroupDao;

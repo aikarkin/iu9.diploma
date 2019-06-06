@@ -1,3 +1,5 @@
+package ru.bmstu.schedule.pdfgen;
+
 import com.itextpdf.kernel.font.PdfFont;
 import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.kernel.pdf.PdfDocument;

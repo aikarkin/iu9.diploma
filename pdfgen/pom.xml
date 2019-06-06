@@ -14,7 +14,7 @@
     <packaging>jar</packaging>
 
     <properties>
-        <jar.executable.class>PdfPrinter</jar.executable.class>
+        <jar.executable.class>ru.bmstu.schedule.pdfgen.PdfPrinter</jar.executable.class>
     </properties>
 
     <build>
