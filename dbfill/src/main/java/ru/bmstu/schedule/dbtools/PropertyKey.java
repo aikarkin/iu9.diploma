@@ -7,7 +7,6 @@ import java.util.Properties;
 
 public class PropertyKey {
 
-    public static final String SCHEDULE_BASE_URL = "schedule.baseurl";
     public static final String REF_CLASS_TYPE = "csv.file.classtypes";
     public static final String REF_WEEKS = "csv.file.week";
     public static final String REF_DEPARTMENTS = "csv.file.departments";
@@ -18,9 +17,9 @@ public class PropertyKey {
     public static final String REF_CLASS_TIME = "csv.file.classtime";
     public static final String REF_FOLDER_CALENDAR = "csv.folder.calendar";
     public static final String REF_SUBJECTS = "csv.file.subjects";
+    public static final String REF_ROOMS = "csv.file.rooms";
 
     private static final List<String> REQUIRED_KEYS = Arrays.asList(
-            SCHEDULE_BASE_URL,
             REF_CLASS_TYPE,
             REF_WEEKS,
             REF_DEPARTMENTS,

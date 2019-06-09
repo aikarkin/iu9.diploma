@@ -118,7 +118,7 @@ CREATE TABLE lecturer_subject
   id                       SERIAL PRIMARY KEY,
   lecturer_id              INTEGER REFERENCES lecturer (lecturer_id),
   subject_on_department_id INTEGER REFERENCES department_subject (id),
-  class_type_id            INTEGER REFERENCES class_type (id),
+  class_type_id            INTEGER REFERENCES class_type (type_id),
   UNIQUE (lecturer_id, subject_on_department_id, class_type_id)
 );
 
