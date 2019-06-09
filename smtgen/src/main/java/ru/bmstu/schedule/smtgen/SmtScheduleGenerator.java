@@ -102,7 +102,6 @@ public class SmtScheduleGenerator {
             throw new RuntimeException("Unable to build model with provided parameters");
         }
 
-
         ModelToScheduleTransformer transformer = new ModelToScheduleTransformer(
                 modelGenerator,
                 subjectIdBiMap.inverse(),

@@ -16,13 +16,14 @@ public class GenerateSchedule {
             "330аю",
             "739л",
             "831л",
+            "830л",
+            "615л",
             "717л",
             "1015л",
             "1031л",
             "309ю",
             "501ю",
     };
-
 
     private static final int NO_OF_STUDY_WEEKS = 17;
     private static final String PARITY_ALWAYS = "ЧС/ЗН";
@@ -80,7 +81,7 @@ public class GenerateSchedule {
         weekDao = new WeekDao(sessionFactory);
     }
 
-    private void runScheduleGeneration() throws RuntimeException, ParseException {
+    private void runScheduleGeneration() throws RuntimeException {
         Map<StudyGroup, Schedule> schedules = generateSchedules();
         printSchedules(schedules);
         removeSchedules(schedules);
