@@ -43,7 +43,7 @@ public class StudyGroupDao extends HibernateDao<Integer, StudyGroup> {
                 degreeLetter = 'Б';
             } else {
                 String grCipherWithDegree = matcher.group();
-                grCipher = grCipherWithDegree.substring(0, grCipherWithDegree.length() - 2);
+                grCipher = grCipherWithDegree.substring(0, grCipherWithDegree.length() - 1);
                 degreeLetter = matcher.group(5).charAt(0);
             }
 

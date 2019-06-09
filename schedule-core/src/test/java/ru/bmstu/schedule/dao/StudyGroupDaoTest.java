@@ -12,7 +12,7 @@ class StudyGroupDaoTest extends DatabaseAccessTest {
     @Test
     void findByCipher() {
         StudyGroupDao groupDao = new StudyGroupDao(getSessionFactory());
-        Optional<StudyGroup> grOpt = groupDao.findByCipher("ИУ9-21");
+        Optional<StudyGroup> grOpt = groupDao.findByCipher("ИБМ7-82Б");
         assertTrue(grOpt.isPresent());
     }
 

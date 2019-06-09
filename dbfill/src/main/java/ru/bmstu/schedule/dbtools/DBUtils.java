@@ -20,6 +20,7 @@ import ru.bmstu.schedule.html.node.ScheduleItemParityNode;
 import ru.bmstu.schedule.html.parser.ScheduleParser;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
@@ -67,31 +68,8 @@ public class DBUtils {
         }
     }
 
-    public static void fillClassRooms(SessionFactory sessionFactory, ScheduleParser scheduleParser) {
-        ClassroomDao dao = new ClassroomDao(sessionFactory);
-        Set<String> roomsSet = new HashSet<>();
-
-        for (GroupNode g : scheduleParser.getAllGroups()) {
-            try {
-                for (ScheduleItemParityNode itemParity : scheduleParser.scheduleTravellerFor(g).entitiesListOf(ScheduleItemParityNode.class)) {
-                    if (StringUtils.isNotEmpty(itemParity.getClassroom())) {
-                        String[] classrooms = itemParity.getClassroom().split(",");
-                        for (String classroom1 : classrooms) {
-                            String crNum = classroom1.trim();
-                            if (!roomsSet.contains(crNum)) {
-                                roomsSet.add(classroom1.trim());
-                                Classroom classroom = new Classroom();
-                                classroom.setRoomNumber(crNum);
-                                dao.create(classroom);
-                            }
-                        }
-                    }
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-                System.out.printf("[warn] Failed to fetch schedule info for group: %s%n", g.getCipher());
-            }
-        }
+    public static void fillClassRooms(SessionFactory sessionFactory, String roomsRef) throws IOException {
+        CSVUtils.fillFromCsv(new ClassroomDao(sessionFactory), roomsRef);
     }
 
 

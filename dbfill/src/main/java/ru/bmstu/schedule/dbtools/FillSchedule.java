@@ -88,8 +88,6 @@ public class FillSchedule {
     }
 
     private static void fillData() throws IOException {
-        ScheduleParser scheduleParser = new ScheduleParser(props.getProperty(PropertyKey.SCHEDULE_BASE_URL));
-
         // Fill common entities from csv-references & https://students.bmstu.ru/schedule/:
         CSVUtils.fillFromCsv(new ClassTypeDao(sessionFactory), pathByKey(PropertyKey.REF_CLASS_TYPE));
         CSVUtils.fillFromCsv(new WeekDao(sessionFactory), pathByKey(PropertyKey.REF_WEEKS));
@@ -97,7 +95,7 @@ public class FillSchedule {
         DBUtils.fillSpecializationsAndDegrees(sessionFactory, pathByKey(PropertyKey.REF_SPECS));
         DBUtils.fillFaculties(sessionFactory, pathByKey(PropertyKey.REF_FACULTIES));
         DBUtils.fillDepartments(sessionFactory, pathByKey(PropertyKey.REF_DEPARTMENTS));
-        DBUtils.fillClassRooms(sessionFactory, scheduleParser);
+        DBUtils.fillClassRooms(sessionFactory, pathByKey(PropertyKey.REF_ROOMS));
         DBUtils.fillGroups(sessionFactory, pathByKey(PropertyKey.REF_GROUPS));
 
         // Fill calendar plans from csv-reference:

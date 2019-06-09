@@ -16,6 +16,8 @@ public class ParserFactory {
             return (EntryParser<E, ?>) new ClassTypeParser();
         } else if(parsedEntryClass == ClassTime.class) {
             return (EntryParser<E, ?>) new ClassTimeParser();
+        } else if(parsedEntryClass == Classroom.class) {
+            return (EntryParser<E, ?>) new ClassroomParser();
         } else if (parsedEntryClass == Faculty.class) {
             return (EntryParser<E, ?>) new FacultyParser();
         } else if(parsedEntryClass == Department.class) {
