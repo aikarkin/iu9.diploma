@@ -42,7 +42,7 @@ logs/
 .mtj.tmp/
 
 # Package Files #
-*.jar
+#*.jar
 *.war
 *.nar
 *.ear
@@ -55,6 +55,7 @@ hs_err_pid*
 
 # Maven
 target/
+libs/
 pom.xml.tag
 pom.xml.releaseBackup
 pom.xml.versionsBackup
