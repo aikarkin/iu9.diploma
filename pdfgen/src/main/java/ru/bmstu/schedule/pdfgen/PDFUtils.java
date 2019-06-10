@@ -23,7 +23,7 @@ import java.util.List;
 
 public class PDFUtils {
 
-    private static final String FREE_SANS_FONT_PATH = "./src/main/resources/font/FreeSans.ttf";
+    private static final String FREE_SANS_FONT_PATH = "/font/FreeSans.ttf";
     private static final float[] TABLE_COLUMN_WIDTHS = {64, 208, 208};
     private static final float TABLE_WIDTH = 480;
     private static final float TABLE_MARGIN_TOP = 10;
