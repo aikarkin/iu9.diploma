@@ -18,7 +18,15 @@ public class PdfPrinter {
 
         try (SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory()) {
             StudyGroupDao groupDao = new StudyGroupDao(sessionFactory);
-            String groupCipher = args[0];
+
+            if(args.length < 2) {
+                System.out.printf("[error] Invalid number of arguments: actual - %d, required - %d%n", args.length, 2);
+                return;
+            }
+
+            String outDir = args[0];
+            String groupCipher = args[1];
+
             Optional<StudyGroup> groupOpt = groupDao.findByCipher(groupCipher);
 
             if (!groupOpt.isPresent()) {
@@ -29,7 +37,7 @@ public class PdfPrinter {
             StudyGroup group = groupOpt.get();
             System.out.println("[info] Found matched group: " + group.toString());
             try {
-                String outFile = "./src/main/resources/out/" + groupCipher + ".pdf";
+                String outFile = outDir + "/" + groupCipher + ".pdf";
                 PDFUtils.exportToPdf(group, outFile);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
