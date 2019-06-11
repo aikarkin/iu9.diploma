@@ -50,7 +50,7 @@ public class SmtScheduleModelGenerator {
         countSlotsOfEachType();
 
         createSubjectsConstants();
-        createRoomsConsts();
+        createRoomsConstants();
         createGroupsConstants();
         createTutorsConstants();
     }
@@ -139,7 +139,7 @@ public class SmtScheduleModelGenerator {
         }
     }
 
-    private void createRoomsConsts() {
+    private void createRoomsConstants() {
         this.roomsConsts = new ArrayList<>();
 
         for (int rId : rooms) {
@@ -237,7 +237,7 @@ public class SmtScheduleModelGenerator {
         return ctx.mkAnd(validLessonsInSlot);
     }
 
-    private BoolExpr validLessonsInWeakForGroup(Expr group) {
+    private BoolExpr validLessonsInWeekForGroup(Expr group) {
         DayOfWeek[] days = DayOfWeek.values();
         int n = days.length;
         BoolExpr[] validDaysForGroup = new BoolExpr[n];
@@ -271,10 +271,10 @@ public class SmtScheduleModelGenerator {
 
     private BoolExpr validScheduleForGroup(Expr group) {
         return ctx.mkAnd(
-                asserts.validDaysInWeak(group),
+                asserts.validDaysInWeek(group),
                 validSlotItemsCountOfEachType(group),
                 validSubjectsCountOfEachKind(group),
-                validLessonsInWeakForGroup(group)
+                validLessonsInWeekForGroup(group)
         );
     }
 

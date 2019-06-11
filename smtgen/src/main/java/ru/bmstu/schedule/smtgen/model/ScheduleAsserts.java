@@ -15,7 +15,7 @@ import static ru.bmstu.schedule.smtgen.Z3Utils.checkExprsSort;
 public class ScheduleAsserts {
 
     private static final int MIN_LESSONS_PER_DAY = 2;
-    private static final int MAX_LESSONS_PER_DAY = 5;
+    private static final int MAX_LESSONS_PER_DAY = 4;
 
     private ScheduleSorts sorts;
     private ScheduleFunctions func;
@@ -28,7 +28,7 @@ public class ScheduleAsserts {
         this.func = scheduleFunctions;
     }
 
-    public BoolExpr validDaysInWeak(Expr group) throws IllegalArgumentException {
+    public BoolExpr validDaysInWeek(Expr group) throws IllegalArgumentException {
         checkExprsSort(sorts.group(), group);
         DayOfWeek[] days = DayOfWeek.values();
         BoolExpr[] validDays = new BoolExpr[days.length];
@@ -199,23 +199,20 @@ public class ScheduleAsserts {
 
         List<BoolExpr> validPatterns = new ArrayList<>();
         for (int k = MIN_LESSONS_PER_DAY; k <= MAX_LESSONS_PER_DAY; k++) {
-            for (int j = 0; j < slots.length - k; j++) {
+            for (int j = 0; j <= slots.length - k; j++) {
                 BoolExpr[] validSlots = new BoolExpr[slots.length];
                 System.arraycopy(emptySlots, 0, validSlots, 0, j);
-                for (int i = j; i < k; i++) {
-                    validSlots[i] = nonEmptySlots[j];
+                if (j + k - j >= 0) {
+                    System.arraycopy(nonEmptySlots, j, validSlots, j, j + k - j);
                 }
-                if (slots.length - k >= 0) {
-                    System.arraycopy(emptySlots, k, validSlots, k, slots.length - k);
+                if (slots.length - j + k >= 0) {
+                    System.arraycopy(emptySlots, j + k, validSlots, j + k, slots.length - j + k);
                 }
                 validPatterns.add(ctx.mkAnd(validSlots));
             }
         }
 
-        BoolExpr[] validSlots = new BoolExpr[slots.length];
-        System.arraycopy(emptySlots, 0, validSlots, 0, slots.length);
-
-        validPatterns.add(ctx.mkAnd(validSlots));
+        validPatterns.add(ctx.mkAnd(emptySlots));
         return ctx.mkOr(validPatterns.toArray(new BoolExpr[0]));
     }
 

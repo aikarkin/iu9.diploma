@@ -12,19 +12,6 @@ import java.util.*;
 
 public class GenerateSchedule {
 
-    private static final String[] rooms = new String[]{
-            "330аю",
-            "739л",
-            "831л",
-            "830л",
-            "615л",
-            "717л",
-            "1015л",
-            "1031л",
-            "309ю",
-            "501ю",
-    };
-
     private static final int NO_OF_STUDY_WEEKS = 17;
     private static final String PARITY_ALWAYS = "ЧС/ЗН";
     private static final String PARITY_NUM = "ЧС";
@@ -164,7 +151,6 @@ public class GenerateSchedule {
                         if (kind != null && noOfHours > 0) {
                             subjPerWeek.put(kind, (double) noOfHours / (NO_OF_STUDY_WEEKS * 2.0));
                         }
-
                     }
                     subjectsPerWeekMap.put(subject, subjPerWeek);
                 }
@@ -399,5 +385,18 @@ public class GenerateSchedule {
 
         return String.format("%s-%d%d (%s_%d)", deptCipher, termNo, groupNo, specCode, specNo);
     }
+
+    private static final String[] rooms = new String[]{
+            "330аю",
+            "739л",
+            "831л",
+            "830л",
+            "615л",
+            "717л",
+            "1015л",
+            "1031л",
+            "309ю",
+            "501ю",
+    };
 
 }
