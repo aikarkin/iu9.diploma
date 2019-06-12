@@ -1,5 +1,6 @@
 package ru.bmstu.schedule.smtgen;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -66,9 +67,15 @@ public class DayEntry {
 
     @Override
     public String toString() {
-        List<String> itemsStrs = Stream.of(items)
-                .map(item -> item == null ? "[ --- ]" : item.toString() )
-                .collect(Collectors.toList());
+        List<String> itemsStrs = new ArrayList<>();
+
+        for (int i = 0; i < items.length; i++) {
+            if(items[i] == null) {
+                itemsStrs.add(String.format("%d: [ --- ]", i + 1));
+            } else {
+                itemsStrs.add(items[i].toString());
+            }
+        }
 
         return String.format(
                 "'%s':%n%s",

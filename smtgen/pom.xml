@@ -15,7 +15,7 @@
 
     <properties>
         <jar.lib.path>libs/</jar.lib.path>
-        <jar.executable.class>ru.bmstu.schedule.smtgen.GenerateSchedule</jar.executable.class>
+        <jar.executable.class>ru.bmstu.schedule.smtgen.cli.GenerateSchedule</jar.executable.class>
     </properties>
 
     <build>
@@ -82,6 +82,12 @@
             <groupId>commons-cli</groupId>
             <artifactId>commons-cli</artifactId>
             <version>1.4</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-params</artifactId>
+            <version>${junit.jupiter.version}</version>
         </dependency>
     </dependencies>
 

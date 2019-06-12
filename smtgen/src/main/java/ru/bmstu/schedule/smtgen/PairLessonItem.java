@@ -60,7 +60,7 @@ public class PairLessonItem implements LessonItem {
     @Override
     public String toString() {
         return String.format("%d: [ %s ] | [ %s ]",
-                getIndex(),
+                getIndex() + 1,
                 numerator == null ? "---" : numerator,
                 denominator == null ? "---" : denominator
         );
