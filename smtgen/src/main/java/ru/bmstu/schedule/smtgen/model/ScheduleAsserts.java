@@ -201,13 +201,11 @@ public class ScheduleAsserts {
         for (int k = MIN_LESSONS_PER_DAY; k <= MAX_LESSONS_PER_DAY; k++) {
             for (int j = 0; j <= slots.length - k; j++) {
                 BoolExpr[] validSlots = new BoolExpr[slots.length];
-                System.arraycopy(emptySlots, 0, validSlots, 0, j);
-                if (j + k - j >= 0) {
-                    System.arraycopy(nonEmptySlots, j, validSlots, j, j + k - j);
+
+                for (int i = 0; i < slots.length; i++) {
+                    validSlots[i] = (i < j || i >= j + k) ? emptySlots[i] : nonEmptySlots[i];
                 }
-                if (slots.length - j + k >= 0) {
-                    System.arraycopy(emptySlots, j + k, validSlots, j + k, slots.length - j + k);
-                }
+
                 validPatterns.add(ctx.mkAnd(validSlots));
             }
         }

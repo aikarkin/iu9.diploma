@@ -1,16 +1,30 @@
-package ru.bmstu.schedule.smtgen;
+package ru.bmstu.schedule.smtgen.cli;
 
-import org.apache.commons.cli.*;
+import org.apache.commons.cli.ParseException;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import ru.bmstu.schedule.dao.*;
 import ru.bmstu.schedule.entity.Calendar;
 import ru.bmstu.schedule.entity.DayOfWeek;
 import ru.bmstu.schedule.entity.*;
+import ru.bmstu.schedule.smtgen.*;
 
 import java.util.*;
 
 public class GenerateSchedule {
+
+    private static final String[] rooms = new String[]{
+            "330аю",
+            "739л",
+            "831л",
+            "830л",
+            "615л",
+            "717л",
+            "1015л",
+            "1031л",
+            "309ю",
+            "501ю",
+    };
 
     private static final int NO_OF_STUDY_WEEKS = 17;
     private static final String PARITY_ALWAYS = "ЧС/ЗН";
@@ -19,8 +33,6 @@ public class GenerateSchedule {
 
     private static final Map<String, LessonKind> CLASS_TYPE_TO_LESSON_KIND;
     private static SessionFactory sessionFactory;
-    private static List<String> requiredOptionsForSpec = new ArrayList<>();
-    private static CommandLine cmd;
 
     static {
         CLASS_TYPE_TO_LESSON_KIND = new HashMap<>();
@@ -43,11 +55,15 @@ public class GenerateSchedule {
 
     public static void main(String[] args) {
         GenerateSchedule genSchedule = new GenerateSchedule();
+        CommandLineParser parser = new CommandLineParser();
         try {
-            initCmdOptions(args);
-            checkArgs(cmd);
             genSchedule.initDaoObjects();
-            genSchedule.runScheduleGeneration();
+            genSchedule.runScheduleGeneration(parser.parse(args));
+        } catch (ParseException e) {
+            if (e.getMessage() != null) {
+                System.err.println("Невалидные параметры командной строки: " + e.getMessage());
+            }
+            parser.printHelp();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -68,8 +84,8 @@ public class GenerateSchedule {
         weekDao = new WeekDao(sessionFactory);
     }
 
-    private void runScheduleGeneration() throws RuntimeException {
-        Map<StudyGroup, Schedule> schedules = generateSchedules();
+    private void runScheduleGeneration(ScheduleConfiguration config) throws RuntimeException {
+        Map<StudyGroup, Schedule> schedules = generateSchedules(config);
         printSchedules(schedules);
         removeSchedules(schedules);
         persistSchedules(schedules);
@@ -90,21 +106,20 @@ public class GenerateSchedule {
         Calendar firstCalendar = groups.get(0).getCalendar();
         for (int i = 1; i < groups.size(); i++) {
             if (!groups.get(i).getCalendar().equals(firstCalendar)) {
-                throw new RuntimeException("Unable to generate schedule: Provided groups has different calendar plan");
+                throw new RuntimeException("Невозможно сгенерировать рассписание для данных групп: группы имеют разные учебные планы");
             }
         }
     }
 
-    private Map<StudyGroup, Schedule> generateSchedules() throws RuntimeException {
+    private Map<StudyGroup, Schedule> generateSchedules(ScheduleConfiguration config) throws RuntimeException {
         List<StudyGroup> groups = new ArrayList<>();
         Calendar calendar;
         int term;
-        if (cmd.hasOption("g")) {
-            String[] groupsCiphers = cmd.getOptionValues("g");
-            for (String grCipher : groupsCiphers) {
+        if (config.getGroupCiphers() != null) {
+            for (String grCipher : config.getGroupCiphers()) {
                 Optional<StudyGroup> grOpt = studyGroupDao.findByCipher(grCipher);
                 if (!grOpt.isPresent()) {
-                    throw new RuntimeException("Group with such cipher not found: " + grCipher);
+                    throw new RuntimeException("Группа с таким шифром не найдена: " + grCipher);
                 }
                 groups.add(grOpt.get());
             }
@@ -112,15 +127,15 @@ public class GenerateSchedule {
             calendar = groups.get(0).getCalendar();
             term = groups.get(0).getTerm().getNumber();
         } else {
-            int year = Integer.valueOf(cmd.getOptionValue("y"));
-            term = Integer.valueOf(cmd.getOptionValue("t"));
-            String deptCipher = cmd.getOptionValue("d");
-            String specCode = cmd.getOptionValue("s");
+            int year = config.getEnrollmentYear();
+            term = config.getNoOfTerm();
+            String deptCipher = config.getDepartmentCipher();
+            String specCode = config.getSpecializationCode();
 
             Optional<Calendar> calendarOpt = calendarDao.findByStartYearAndDepartmentCodeAndSpecCode(year, deptCipher, specCode);
 
             if (!calendarOpt.isPresent()) {
-                throw new RuntimeException("Failed to find calendar with such parameters.");
+                throw new RuntimeException("Учебный план с заданными параметрами не найден");
             }
             calendar = calendarOpt.get();
 
@@ -172,7 +187,7 @@ public class GenerateSchedule {
         for (String typeName : CLASS_TYPE_TO_LESSON_KIND.keySet()) {
             Optional<ClassType> ctOpt = classTypeDao.findByName(typeName);
             if (!ctOpt.isPresent()) {
-                throw new IllegalStateException("Unknown class type: " + typeName);
+                throw new IllegalStateException("Не известный тип занятий: " + typeName);
             }
 
             classTypes.add(ctOpt.get());
@@ -198,7 +213,7 @@ public class GenerateSchedule {
                     scheduleDay = convertToScheduleDay(dayEntry);
                 } catch (RuntimeException e) {
                     e.printStackTrace();
-                    System.out.println("[error] " + e.getMessage());
+                    System.err.println("[ошибка] " + e.getMessage());
                     continue;
                 }
 
@@ -213,7 +228,7 @@ public class GenerateSchedule {
         Optional<DayOfWeek> weekOpt = weekDao.findByShortName(weekAlias);
 
         if (!weekOpt.isPresent()) {
-            throw new IllegalStateException("Invalid day of week alias: " + weekAlias);
+            throw new IllegalStateException("День недели не найден в базе: " + weekAlias);
         }
 
         ScheduleDay dayEntity = new ScheduleDay();
@@ -236,7 +251,7 @@ public class GenerateSchedule {
         ScheduleItem scheduleItem = new ScheduleItem();
         Optional<ClassTime> ctOpt = classTimeDao.findByOrderNumber(lessonItem.getIndex() + 1);
         if (!ctOpt.isPresent()) {
-            String msg = String.format("[error] Invalid class time number: %d%n", lessonItem.getIndex() + 1);
+            String msg = String.format("[ошибка] Не существует занятия с таким номером: %d%n", lessonItem.getIndex() + 1);
             throw new RuntimeException(msg);
         }
 
@@ -301,9 +316,10 @@ public class GenerateSchedule {
             );
             if (!lecSubjOpt.isPresent()) {
                 String msg = String.format(
-                        "Invalid SMT Model - illegal lecturer '%s' for subject '%s'",
+                        "Некорректные данные для построяения модели: не сеществует преподавателя '%s', который ведет предмет '%s' (%s.)",
                         lecturer.getInitials(),
-                        subject.getName()
+                        subject.getName(),
+                        classType.getName().substring(0, 3)
                 );
                 throw new RuntimeException(msg);
             }
@@ -316,58 +332,9 @@ public class GenerateSchedule {
         return itemParity;
     }
 
-    private static void initCmdOptions(String[] args) throws ParseException {
-        Options cmdOptions = new Options();
-
-        Option group = new Option("g", "List of groups ciphers");
-        group.setArgs(Option.UNLIMITED_VALUES);
-        group.setLongOpt("groups");
-
-        Option specCode = new Option("s", "Specialization code");
-        specCode.setArgs(1);
-        specCode.setType(String.class);
-
-        Option deptCipher = new Option("d", "Department cipher");
-        deptCipher.setArgs(1);
-        deptCipher.setType(String.class);
-
-        Option term = new Option("t", "Term number");
-        term.setArgs(1);
-        term.setType(Integer.class);
-
-        Option year = new Option("y", "Groups enrollment year");
-        year.setArgs(1);
-        term.setType(Integer.class);
-
-        cmdOptions.addOption(group);
-        cmdOptions.addOption(specCode);
-        cmdOptions.addOption(term);
-        cmdOptions.addOption(year);
-        cmdOptions.addOption(deptCipher);
-        cmdOptions.addOption(
-                Option.builder("h")
-                        .longOpt("help")
-                        .desc("Print help message")
-                        .hasArg(false)
-                        .build()
-        );
-
-        Collections.addAll(requiredOptionsForSpec, "s", "d", "t", "y");
-
-        cmd = new DefaultParser().parse(cmdOptions, args);
-    }
-
-    private static void checkArgs(CommandLine cmd) throws RuntimeException {
-        boolean hasAllSpecOptions = requiredOptionsForSpec.stream().allMatch(cmd::hasOption);
-
-        if (!cmd.hasOption("g") && !hasAllSpecOptions) {
-            throw new RuntimeException("Invalid options: you should specify neither groups list (-g) or year (-y), term (-t), specialization (-s), department (-d)");
-        }
-    }
-
     private static void printSchedules(Map<StudyGroup, Schedule> scheduleMap) {
         for (Map.Entry<StudyGroup, Schedule> scheduleEntry : scheduleMap.entrySet()) {
-            System.out.printf("Schedule for group: %s%n", groupRepr(scheduleEntry.getKey()));
+            System.out.printf("Расписание для группы: %s%n%n", groupRepr(scheduleEntry.getKey()));
             System.out.println(scheduleEntry.getValue());
             System.out.println("-----------------------------");
         }
@@ -385,18 +352,5 @@ public class GenerateSchedule {
 
         return String.format("%s-%d%d (%s_%d)", deptCipher, termNo, groupNo, specCode, specNo);
     }
-
-    private static final String[] rooms = new String[]{
-            "330аю",
-            "739л",
-            "831л",
-            "830л",
-            "615л",
-            "717л",
-            "1015л",
-            "1031л",
-            "309ю",
-            "501ю",
-    };
 
 }
