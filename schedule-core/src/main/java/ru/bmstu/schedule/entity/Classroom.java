@@ -10,7 +10,7 @@ public class Classroom {
     private int id;
     private String roomNumber;
     private Integer capacity;
-    private Collection<ScheduleItemParity> scheduleItem;
+    private Collection<ScheduleItemParity> scheduleItemParities;
 
     @Id
     @Column(name = "room_id", nullable = false)
@@ -60,12 +60,12 @@ public class Classroom {
     }
 
     @OneToMany(mappedBy = "classroom")
-    public Collection<ScheduleItemParity> getScheduleItem() {
-        return scheduleItem;
+    public Collection<ScheduleItemParity> getScheduleItemParities() {
+        return scheduleItemParities;
     }
 
-    public void setScheduleItem(Collection<ScheduleItemParity> scheduleItem) {
-        this.scheduleItem = scheduleItem;
+    public void setScheduleItemParities(Collection<ScheduleItemParity> scheduleItem) {
+        this.scheduleItemParities = scheduleItem;
     }
 
 }

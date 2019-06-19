@@ -13,19 +13,7 @@ import java.util.*;
 
 public class GenerateSchedule {
 
-    private static final String[] rooms = new String[]{
-            "330аю",
-            "739л",
-            "831л",
-            "830л",
-            "615л",
-            "717л",
-            "1015л",
-            "1031л",
-            "309ю",
-            "501ю",
-    };
-
+    private static final int NO_OF_CLASS_ROOMS = 10;
     private static final int NO_OF_STUDY_WEEKS = 17;
     private static final String PARITY_ALWAYS = "ЧС/ЗН";
     private static final String PARITY_NUM = "ЧС";
@@ -147,7 +135,6 @@ public class GenerateSchedule {
         }
 
         Map<Subject, SubjectsPerWeek> subjectsPerWeekMap = new HashMap<>();
-        List<Classroom> classrooms = new ArrayList<>();
         List<LecturerSubject> lecturerSubjects = new ArrayList<>();
 
         for (CalendarItem item : calendar.getCalendarItems()) {
@@ -178,10 +165,8 @@ public class GenerateSchedule {
             }
         }
 
-        for (String roomNumber : rooms) {
-            Optional<Classroom> roomOpt = classroomDao.findByRoomNumber(roomNumber);
-            roomOpt.ifPresent(classrooms::add);
-        }
+        List<Classroom> classrooms = classroomDao.findAll().subList(0, NO_OF_CLASS_ROOMS);
+
 
         List<ClassType> classTypes = new ArrayList<>();
         for (String typeName : CLASS_TYPE_TO_LESSON_KIND.keySet()) {

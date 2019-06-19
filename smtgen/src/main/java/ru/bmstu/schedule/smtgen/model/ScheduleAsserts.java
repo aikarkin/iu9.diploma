@@ -219,16 +219,18 @@ public class ScheduleAsserts {
         checkExprsSort(sorts.lesson(), lesson1, lesson2);
 
         return ctx.mkOr(
-                ctx.mkAnd(sorts.isBlankLessonExpr(lesson1), sorts.isBlankLessonExpr(lesson2)),
+                ctx.mkAnd(
+                        sorts.isBlankLessonExpr(lesson1),
+                        sorts.isBlankLessonExpr(lesson2)),
                 ctx.mkAnd(
                         sorts.isBlankLessonExpr(lesson1),
                         sorts.isNotBlankLessonExpr(lesson2),
-                        ctx.mkEq(sorts.lessonKind(lesson2), sorts.kind(LessonKind.lec))
+                        ctx.mkNot(ctx.mkEq(sorts.lessonKind(lesson2), sorts.kind(LessonKind.lec)))
                 ),
                 ctx.mkAnd(
                         sorts.isNotBlankLessonExpr(lesson1),
                         sorts.isBlankLessonExpr(lesson2),
-                        ctx.mkEq(sorts.lessonKind(lesson1), sorts.kind(LessonKind.lec))
+                        ctx.mkNot(ctx.mkEq(sorts.lessonKind(lesson1), sorts.kind(LessonKind.lec)))
                 ),
                 ctx.mkAnd(
                         sorts.isNotBlankLessonExpr(lesson1),
