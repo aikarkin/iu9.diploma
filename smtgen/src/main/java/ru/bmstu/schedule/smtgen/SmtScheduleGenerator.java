@@ -97,8 +97,8 @@ public class SmtScheduleGenerator {
                 new ArrayList<>(roomIdBiMap.values()),
                 new ArrayList<>(groupIdBiMap.values())
         );
-        Status check = modelGenerator.check();
-        if (check != Status.SATISFIABLE) {
+
+        if (!modelGenerator.satisfies()) {
             throw new RuntimeException("Unable to build model with provided parameters");
         }
 

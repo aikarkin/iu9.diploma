@@ -13,7 +13,6 @@ import java.util.*;
 
 public class GenerateSchedule {
 
-    private static final int NO_OF_CLASS_ROOMS = 10;
     private static final int NO_OF_STUDY_WEEKS = 17;
     private static final String PARITY_ALWAYS = "ЧС/ЗН";
     private static final String PARITY_NUM = "ЧС";
@@ -165,8 +164,7 @@ public class GenerateSchedule {
             }
         }
 
-        List<Classroom> classrooms = classroomDao.findAll().subList(0, NO_OF_CLASS_ROOMS);
-
+        List<Classroom> classrooms = classroomDao.findAll();
 
         List<ClassType> classTypes = new ArrayList<>();
         for (String typeName : CLASS_TYPE_TO_LESSON_KIND.keySet()) {
