@@ -9,8 +9,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;
-import java.util.function.Predicate;
-import java.util.stream.Stream;
 
 public abstract class HibernateDao<PK extends Serializable, E> implements Dao<PK, E> {
 
@@ -28,10 +26,14 @@ public abstract class HibernateDao<PK extends Serializable, E> implements Dao<PK
     }
 
     @Override
-    public E findByKey(PK primaryKey) {
-        return composeInTransaction(session ->
-                session.get(persistentClass, primaryKey)
-        );
+    public Optional<E> findByKey(PK primaryKey) {
+        try {
+            return Optional.of(composeInTransaction(session ->
+                    session.get(persistentClass, primaryKey)
+            ));
+        } catch (HibernateException e) {
+            return Optional.empty();
+        }
     }
 
     @Override
@@ -68,19 +70,6 @@ public abstract class HibernateDao<PK extends Serializable, E> implements Dao<PK
         });
     }
 
-    protected SessionFactory getSessionFactory() {
-        return sessionFactory;
-    }
-
-    @SuppressWarnings("unchecked")
-    protected List<E> findAllByProperty(String propertyName, Object value) {
-        return composeInTransaction(session -> {
-            Criteria criteria = createEntityCriteria();
-            criteria.add(Restrictions.eq(propertyName, value));
-            return (List<E>) criteria.list();
-        });
-    }
-
     @SuppressWarnings("unchecked")
     protected Optional<E> findUniqueByProperty(String propertyName, Object value) {
         return composeInTransaction(session -> {
@@ -95,34 +84,34 @@ public abstract class HibernateDao<PK extends Serializable, E> implements Dao<PK
         });
     }
 
-    protected Stream<E> filter(Predicate<E> predicate) {
-        return findAll().stream().filter(predicate);
-    }
-
-    protected void consumeInTransaction(Consumer<Session> consumer) {
-        composeInTransaction(session -> {
-            consumer.accept(session);
-            return null;
-        });
-    }
-
     protected Session getSession() {
         return sessionFactory.getCurrentSession();
     }
 
-    protected Criteria createEntityCriteria() {
+    Criteria createEntityCriteria() {
         return getSession().createCriteria(persistentClass);
     }
 
     protected <T> T composeInTransaction(Function<Session, T> func) throws HibernateException {
-        T entity;
         Session session = getSession();
-        session.beginTransaction();
-
-        entity = func.apply(session);
-
-        session.getTransaction().commit();
+        T entity;
+        try {
+            session.beginTransaction();
+            entity = func.apply(session);
+            session.getTransaction().commit();
+        } catch (Exception e){
+            session.getTransaction().rollback();
+            session.clear();
+            throw e;
+        }
         return entity;
+    }
+
+    private void consumeInTransaction(Consumer<Session> consumer) {
+        composeInTransaction(session -> {
+            consumer.accept(session);
+            return null;
+        });
     }
 
 

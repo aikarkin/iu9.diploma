@@ -83,6 +83,7 @@ CREATE TABLE class_time
   starts_at   time    NOT NULL,
   ends_at     time    NOT NULL,
   UNIQUE (starts_at, ends_at),
+  CHECK ( no_of_class >=0 ),
   CHECK (starts_at < ends_at)
 );
 

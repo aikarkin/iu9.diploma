@@ -14,6 +14,15 @@ public class ClassTime {
     private Time endsAt;
     private Collection<ScheduleItem> scheduleItems;
 
+    public ClassTime() {
+    }
+
+    public ClassTime(int noOfClass, Time startsAt, Time endsAt) {
+        this.noOfClass = noOfClass;
+        this.startsAt = startsAt;
+        this.endsAt = endsAt;
+    }
+
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)

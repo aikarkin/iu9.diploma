@@ -145,7 +145,8 @@ public class CSVUtils {
                     subj = subjOpt.get();
                 } else {
                     subj = new Subject(subjectName);
-                    subj = subjDao.findByKey(subjDao.create(subj));
+                    Integer subjId = subjDao.create(subj);
+                    subj.setId(subjId);
                 }
 
                 DepartmentSubject deptSubj;

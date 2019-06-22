@@ -12,6 +12,15 @@ public class Classroom {
     private Integer capacity;
     private Collection<ScheduleItemParity> scheduleItemParities;
 
+    public Classroom() {
+    }
+
+    public Classroom(String roomNumber, Integer capacity) {
+        this.id = id;
+        this.roomNumber = roomNumber;
+        this.capacity = capacity;
+    }
+
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
