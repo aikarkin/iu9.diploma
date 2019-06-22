@@ -166,10 +166,10 @@ public class PDFUtils {
         StringBuilder builder = new StringBuilder();
         ClassType ct = itemParity.getClassType();
         Classroom cr = itemParity.getClassroom();
-        LecturerSubject lecturerSubject = itemParity.getLecturerSubject();
+        TutorSubject tutorSubject = itemParity.getTutorSubject();
 
-        Subject subj = lecturerSubject.getDepartmentSubject().getSubject();
-        Lecturer lec = lecturerSubject.getLecturer();
+        Subject subj = tutorSubject.getDepartmentSubject().getSubject();
+        Tutor lec = tutorSubject.getTutor();
 
         if (ct != null) {
             builder.append("(")
@@ -193,8 +193,8 @@ public class PDFUtils {
     }
 
     private static String cipherOf(StudyGroup group) {
-        Calendar calendar = group.getCalendar();
-        EduDegree degree = calendar
+        StudyPlan studyPlan = group.getStudyPlan();
+        EduDegree degree = studyPlan
                 .getDepartmentSpecialization()
                 .getSpecialization()
                 .getSpeciality()
@@ -202,7 +202,7 @@ public class PDFUtils {
         char degreeLetter = degree.getName().toUpperCase().charAt(0);
         return String.format(
                 "%s-%d%d%s",
-                calendar.getDepartmentSpecialization().getDepartment().getCipher(),
+                studyPlan.getDepartmentSpecialization().getDepartment().getCipher(),
                 group.getTerm().getNumber(),
                 group.getNumber(),
                 (degreeLetter == 'Б' ? "" : degreeLetter)

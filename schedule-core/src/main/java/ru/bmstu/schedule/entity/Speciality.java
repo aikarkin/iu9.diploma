@@ -33,7 +33,7 @@ public class Speciality {
     }
 
     @ManyToOne
-    @JoinColumn(name = "degree_id", referencedColumnName = "degree_id")
+    @JoinColumn(name = "degree_id", referencedColumnName = "id")
     public EduDegree getDegree() {
         return degree;
     }

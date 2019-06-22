@@ -8,11 +8,11 @@ import java.util.Objects;
 public class Term {
     private int id;
     private int number;
-    private Collection<CalendarItemCell> calendarItemCells;
+    private Collection<StudyPlanItemCell> studyPlanItemCells;
     private Collection<StudyGroup> studyGroups;
 
     @Id
-    @Column(name = "term_id", nullable = false)
+    @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
@@ -48,12 +48,12 @@ public class Term {
     }
 
     @OneToMany(mappedBy = "term")
-    public Collection<CalendarItemCell> getCalendarItemCells() {
-        return calendarItemCells;
+    public Collection<StudyPlanItemCell> getStudyPlanItemCells() {
+        return studyPlanItemCells;
     }
 
-    public void setCalendarItemCells(Collection<CalendarItemCell> calendarItemCells) {
-        this.calendarItemCells = calendarItemCells;
+    public void setStudyPlanItemCells(Collection<StudyPlanItemCell> studyPlanItemCells) {
+        this.studyPlanItemCells = studyPlanItemCells;
     }
 
     @OneToMany(mappedBy = "term")

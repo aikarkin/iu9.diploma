@@ -60,9 +60,9 @@ public class DaoTest extends DatabaseAccessTest {
     @Test
     public void testFindLecturerByInitials() {
         String initials = "Голубков А. Ю.";
-        LecturerDao lecturerDao = new LecturerDao(getSessionFactory());
+        TutorDao tutorDao = new TutorDao(getSessionFactory());
 
-        System.out.println("Found lecturer: " + lecturerDao.findFirstByInitials(initials));
+        System.out.println("Found lecturer: " + tutorDao.findFirstByInitials(initials));
 
     }
 

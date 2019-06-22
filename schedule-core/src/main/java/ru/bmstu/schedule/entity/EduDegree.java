@@ -14,7 +14,7 @@ public class EduDegree {
     private Collection<Speciality> specialities;
 
     @Id
-    @Column(name = "degree_id", nullable = false)
+    @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;

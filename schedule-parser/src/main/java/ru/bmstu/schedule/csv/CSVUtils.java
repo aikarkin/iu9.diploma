@@ -49,7 +49,7 @@ public class CSVUtils {
     @SuppressWarnings("unchecked")
     public static void fillLecturers(String csvFile, SessionFactory sessionFactory) throws IOException {
         CSVParser parser = CSVFormat.EXCEL.withHeader().parse(new FileReader(csvFile));
-        LecturerDao lecturerDao = new LecturerDao(sessionFactory);
+        TutorDao tutorDao = new TutorDao(sessionFactory);
         EntryParser<LecturerEntry, LecturerHeader> lecParser = (EntryParser<LecturerEntry, LecturerHeader>) ParserFactory.parserFor(LecturerEntry.class);
 
         for (CSVRecord record : parser) {
@@ -63,24 +63,24 @@ public class CSVUtils {
                 continue;
             }
 
-            Lecturer lecEntity = new Lecturer();
-            lecEntity.setEduDegree(lec.getEduDegree());
+            Tutor lecEntity = new Tutor();
+            lecEntity.setScienceDegree(lec.getEduDegree());
             lecEntity.setFirstName(lec.getFirstName());
             lecEntity.setLastName(lec.getLastName());
             lecEntity.setMiddleName(lec.getMiddleName());
-            lecturerDao.create(lecEntity);
+            tutorDao.create(lecEntity);
         }
     }
 
     @SuppressWarnings("unchecked")
-    public static void fillCalendar(Calendar calendar, SessionFactory sessionFactory, String csvFile) throws IOException {
+    public static void fillCalendar(StudyPlan studyPlan, SessionFactory sessionFactory, String csvFile) throws IOException {
         CSVParser parser = CSVFormat.EXCEL.withHeader().parse(new FileReader(csvFile));
         ClassTypeDao ctDao = new ClassTypeDao(sessionFactory);
         DepartmentSubjectDao deptSubjDao = new DepartmentSubjectDao(sessionFactory);
         DepartmentDao deptDao = new DepartmentDao(sessionFactory);
         SubjectDao subjDao = new SubjectDao(sessionFactory);
         TermDao termDao = new TermDao(sessionFactory);
-        CalendarDao calendarDao = new CalendarDao(sessionFactory);
+        StudyPlanDao studyPlanDao = new StudyPlanDao(sessionFactory);
 
         boolean isOptionalSubject = false;
         String subjectName;
@@ -159,7 +159,7 @@ public class CSVUtils {
                     deptSubj.setId(deptSubjId);
                 }
 
-                CalendarItem item = new CalendarItem();
+                StudyPlanItem item = new StudyPlanItem();
                 item.setDepartmentSubject(deptSubj);
 
                 for (int termNo : terms) {
@@ -173,7 +173,7 @@ public class CSVUtils {
                         Integer termId = termDao.create(term);
                         term.setId(termId);
                     }
-                    CalendarItemCell itemCell = new CalendarItemCell();
+                    StudyPlanItemCell itemCell = new StudyPlanItemCell();
                     itemCell.setTerm(term);
 
                     int[] hoursPerCT = new int[]{laboratoryHours, lectureHours, seminarHours};
@@ -194,11 +194,11 @@ public class CSVUtils {
 
                 }
 
-                calendar.addCalendarItem(item);
+                studyPlan.addCalendarItem(item);
             }
         }
 
-        calendarDao.update(calendar);
+        studyPlanDao.update(studyPlan);
     }
 
 }

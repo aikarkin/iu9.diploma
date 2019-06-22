@@ -15,7 +15,7 @@ public class ClassTime {
     private Collection<ScheduleItem> scheduleItems;
 
     @Id
-    @Column(name = "class_time_id", nullable = false)
+    @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;

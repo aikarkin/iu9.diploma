@@ -4,14 +4,15 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-public class Lecturer {
+@Table(name = "tutor")
+public class Tutor {
 
     private int id;
     private String email;
     private String firstName;
     private String middleName;
     private String lastName;
-    private String eduDegree;
+    private String scienceDegree;
 
     @Override
     public String toString() {
@@ -20,12 +21,12 @@ public class Lecturer {
                 ", firstName='" + firstName + '\'' +
                 ", middleName='" + middleName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", eduDegree='" + eduDegree + '\'' +
+                ", degree='" + scienceDegree + '\'' +
                 '}';
     }
 
     @Id
-    @Column(name = "lecturer_id", nullable = false)
+    @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
@@ -36,7 +37,7 @@ public class Lecturer {
     }
 
     @Basic
-    @Column(name = "lecturer_email", length = -1)
+    @Column(name = "email", length = -1)
     public String getEmail() {
         return email;
     }
@@ -76,13 +77,13 @@ public class Lecturer {
     }
 
     @Basic
-    @Column(name = "edu_degree", length = -1)
-    public String getEduDegree() {
-        return eduDegree;
+    @Column(name = "science_degree", length = -1)
+    public String getScienceDegree() {
+        return scienceDegree;
     }
 
-    public void setEduDegree(String eduDegree) {
-        this.eduDegree = eduDegree;
+    public void setScienceDegree(String eduDegree) {
+        this.scienceDegree = eduDegree;
     }
 
     @Transient
@@ -90,26 +91,26 @@ public class Lecturer {
         return String.format("%s %s. %s.", getLastName(), firstUpperLetter(getFirstName()), firstUpperLetter(getMiddleName()));
     }
 
-    private static char firstUpperLetter(String name) {
-        return name.toUpperCase().charAt(0);
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Lecturer lecturer = (Lecturer) o;
-        return id == lecturer.id &&
-                Objects.equals(email, lecturer.email) &&
-                Objects.equals(firstName, lecturer.firstName) &&
-                Objects.equals(middleName, lecturer.middleName) &&
-                Objects.equals(lastName, lecturer.lastName) &&
-                Objects.equals(eduDegree, lecturer.eduDegree);
+        Tutor tutor = (Tutor) o;
+        return id == tutor.id &&
+                Objects.equals(email, tutor.email) &&
+                Objects.equals(firstName, tutor.firstName) &&
+                Objects.equals(middleName, tutor.middleName) &&
+                Objects.equals(lastName, tutor.lastName) &&
+                Objects.equals(scienceDegree, tutor.scienceDegree);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, email, firstName, middleName, lastName, eduDegree);
+        return Objects.hash(id, email, firstName, middleName, lastName, scienceDegree);
+    }
+
+    private static char firstUpperLetter(String name) {
+        return name.toUpperCase().charAt(0);
     }
 
 }

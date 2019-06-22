@@ -5,8 +5,8 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import ru.bmstu.schedule.csv.CSVUtils;
-import ru.bmstu.schedule.dao.CalendarDao;
-import ru.bmstu.schedule.entity.Calendar;
+import ru.bmstu.schedule.dao.StudyPlanDao;
+import ru.bmstu.schedule.entity.StudyPlan;
 
 import java.io.IOException;
 import java.net.URL;
@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class CalendarFillingTest {
+public class StudyPlanFillingTest {
     private static SessionFactory sessionFactory;
     private static final String CALENDAR_FILE_RES = "./references/calendar/csv/ИБМ5_27.03.05_2018_1.csv";
     private static String calendarFile;
@@ -23,7 +23,7 @@ public class CalendarFillingTest {
     @BeforeAll
     public static void beforeAll() throws IOException {
         sessionFactory = new Configuration().configure().buildSessionFactory();
-        URL calendarFileUrl = CalendarFillingTest.class.getClassLoader().getResource(CALENDAR_FILE_RES);
+        URL calendarFileUrl = StudyPlanFillingTest.class.getClassLoader().getResource(CALENDAR_FILE_RES);
         if(calendarFileUrl == null) {
             throw new RuntimeException("Resource not found: " + CALENDAR_FILE_RES);
         }
@@ -32,8 +32,8 @@ public class CalendarFillingTest {
         Session session = sessionFactory.getCurrentSession();
         session.beginTransaction();
             session.createQuery("delete HoursPerClass").executeUpdate();
-            session.createQuery("delete CalendarItemCell").executeUpdate();
-            session.createQuery("delete CalendarItem").executeUpdate();
+            session.createQuery("delete StudyPlanItemCell").executeUpdate();
+            session.createQuery("delete StudyPlanItem").executeUpdate();
         session.getTransaction().commit();
     }
 
@@ -44,8 +44,8 @@ public class CalendarFillingTest {
 
     @Test
     public void testCalendarFilling() throws IOException {
-        CalendarDao flowDao = new CalendarDao(sessionFactory);
-        Calendar flow = flowDao.findByKey(45);
+        StudyPlanDao flowDao = new StudyPlanDao(sessionFactory);
+        StudyPlan flow = flowDao.findByKey(45);
         CSVUtils.fillCalendar(flow, sessionFactory, calendarFile);
     }
 

@@ -15,7 +15,7 @@ public class ScheduleItem {
     private Set<ScheduleItemParity> scheduleItemParities = new HashSet<>();
 
     @Id
-    @Column(name = "schedule_item_id", nullable = false)
+    @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
@@ -27,7 +27,7 @@ public class ScheduleItem {
 
 
     @ManyToOne
-    @JoinColumn(name = "day_id", referencedColumnName = "day_id")
+    @JoinColumn(name = "day_id", referencedColumnName = "id")
     public ScheduleDay getScheduleDay() {
         return scheduleDay;
     }
@@ -37,7 +37,7 @@ public class ScheduleItem {
     }
 
     @ManyToOne
-    @JoinColumn(name = "class_time_id", referencedColumnName = "class_time_id")
+    @JoinColumn(name = "class_time_id", referencedColumnName = "id")
     public ClassTime getClassTime() {
         return classTime;
     }
@@ -61,15 +61,6 @@ public class ScheduleItem {
     }
 
     @Override
-    public String toString() {
-        return "ScheduleItem{" +
-                "id=" + id +
-                ", scheduleDay=" + scheduleDay.getDayOfWeek().getShortName() +
-                ", classTime=" + classTime.toString() +
-                '}';
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -82,6 +73,15 @@ public class ScheduleItem {
     @Override
     public int hashCode() {
         return Objects.hash(id, scheduleDay, classTime);
+    }
+
+    @Override
+    public String toString() {
+        return "ScheduleItem{" +
+                "id=" + id +
+                ", scheduleDay=" + scheduleDay.getDayOfWeek().getShortName() +
+                ", classTime=" + classTime.toString() +
+                '}';
     }
 
 }

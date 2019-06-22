@@ -14,7 +14,7 @@ public class ScheduleDay {
     private Set<ScheduleItem> scheduleItems = new HashSet<>();
 
     @Id
-    @Column(name = "day_id", nullable = false)
+    @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
@@ -40,7 +40,7 @@ public class ScheduleDay {
     }
 
     @ManyToOne
-    @JoinColumn(name = "weak_id", referencedColumnName = "weak_id")
+    @JoinColumn(name = "week_id", referencedColumnName = "id")
     public DayOfWeek getDayOfWeek() {
         return dayOfWeek;
     }
@@ -50,7 +50,7 @@ public class ScheduleDay {
     }
 
     @ManyToOne
-    @JoinColumn(name = "group_id", referencedColumnName = "group_id")
+    @JoinColumn(name = "group_id", referencedColumnName = "id")
     public StudyGroup getStudyGroup() {
         return studyGroup;
     }

@@ -10,35 +10,35 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-public class LecturerSubjectDao extends HibernateDao<Integer, LecturerSubject> {
+public class TutorSubjectDao extends HibernateDao<Integer, TutorSubject> {
 
-    public LecturerSubjectDao(SessionFactory factory) {
+    public TutorSubjectDao(SessionFactory factory) {
         super(factory);
     }
 
     @SuppressWarnings("unchecked")
-    public List<LecturerSubject> findByLecturerAndDepartmentSubject(Lecturer lecturer, DepartmentSubject departmentSubject) {
-        if (lecturer == null || departmentSubject == null) {
+    public List<TutorSubject> findByLecturerAndDepartmentSubject(Tutor tutor, DepartmentSubject departmentSubject) {
+        if (tutor == null || departmentSubject == null) {
             return Collections.emptyList();
         }
 
         return composeInTransaction(session -> {
-            Criteria criteria = session.createCriteria(LecturerSubject.class);
-            criteria.add(Restrictions.eq("lecturer", lecturer));
+            Criteria criteria = session.createCriteria(TutorSubject.class);
+            criteria.add(Restrictions.eq("lecturer", tutor));
             criteria.add(Restrictions.eq("departmentSubject", departmentSubject));
-            return (List<LecturerSubject>) criteria.list();
+            return (List<TutorSubject>) criteria.list();
         });
     }
 
-    public Optional<LecturerSubject> findByLecturerAndDepartmentSubjectAndClassType(Lecturer lecturer, DepartmentSubject subject, ClassType classType) {
+    public Optional<TutorSubject> findByLecturerAndDepartmentSubjectAndClassType(Tutor tutor, DepartmentSubject subject, ClassType classType) {
         return Optional.ofNullable(composeInTransaction(session -> {
             try {
-                Criteria criteria = session.createCriteria(LecturerSubject.class);
-                criteria.add(Restrictions.eq("lecturer", lecturer));
+                Criteria criteria = session.createCriteria(TutorSubject.class);
+                criteria.add(Restrictions.eq("lecturer", tutor));
                 criteria.add(Restrictions.eq("departmentSubject", subject));
                 criteria.add(Restrictions.eq("classType", classType));
 
-                return (LecturerSubject) criteria.uniqueResult();
+                return (TutorSubject) criteria.uniqueResult();
             } catch (HibernateException e) {
                 return null;
             }

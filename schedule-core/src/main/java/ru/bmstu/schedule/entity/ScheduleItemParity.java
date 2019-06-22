@@ -10,12 +10,12 @@ public class ScheduleItemParity {
     private int id;
     private String dayParity;
     private ScheduleItem scheduleItem;
-    private LecturerSubject lecturerSubject;
+    private TutorSubject tutorSubject;
     private Classroom classroom;
     private ClassType classType;
 
     @Id
-    @Column(name = "schedule_item_parity_id", nullable = false)
+    @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
@@ -36,7 +36,7 @@ public class ScheduleItemParity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "schedule_item_id", referencedColumnName = "schedule_item_id")
+    @JoinColumn(name = "schedule_item_id", referencedColumnName = "id")
     public ScheduleItem getScheduleItem() {
         return scheduleItem;
     }
@@ -46,7 +46,7 @@ public class ScheduleItemParity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "classroom_id", referencedColumnName = "room_id")
+    @JoinColumn(name = "classroom_id", referencedColumnName = "id")
     public Classroom getClassroom() {
         return classroom;
     }
@@ -56,7 +56,7 @@ public class ScheduleItemParity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "class_type_id", referencedColumnName = "type_id")
+    @JoinColumn(name = "class_type_id", referencedColumnName = "id")
     public ClassType getClassType() {
         return classType;
     }
@@ -66,13 +66,13 @@ public class ScheduleItemParity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "lec_subj_id", referencedColumnName = "id")
-    public LecturerSubject getLecturerSubject() {
-        return lecturerSubject;
+    @JoinColumn(name = "tutor_subject_id", referencedColumnName = "id")
+    public TutorSubject getTutorSubject() {
+        return tutorSubject;
     }
 
-    public void setLecturerSubject(LecturerSubject lecturerSubject) {
-        this.lecturerSubject = lecturerSubject;
+    public void setTutorSubject(TutorSubject tutorSubject) {
+        this.tutorSubject = tutorSubject;
     }
 
     @Override
@@ -83,27 +83,27 @@ public class ScheduleItemParity {
         return id == that.id &&
                 Objects.equals(dayParity, that.dayParity) &&
                 Objects.equals(scheduleItem, that.scheduleItem) &&
-                Objects.equals(lecturerSubject, that.lecturerSubject) &&
+                Objects.equals(tutorSubject, that.tutorSubject) &&
                 Objects.equals(classroom, that.classroom) &&
                 Objects.equals(classType, that.classType);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, dayParity, scheduleItem, lecturerSubject, classroom, classType);
+        return Objects.hash(id, dayParity, scheduleItem, tutorSubject, classroom, classType);
     }
 
     @Override
     public String toString() {
-        Lecturer lect = lecturerSubject == null ? null : lecturerSubject.getLecturer();
-        DepartmentSubject deptSubj = lecturerSubject == null ? null : lecturerSubject.getDepartmentSubject();
+        Tutor lect = tutorSubject == null ? null : tutorSubject.getTutor();
+        DepartmentSubject deptSubj = tutorSubject == null ? null : tutorSubject.getDepartmentSubject();
         Subject subj = deptSubj == null ? null : deptSubj.getSubject();
 
         return "ScheduleItemParity{" +
                 "id=" + id +
                 ", dayParity='" + dayParity + '\'' +
-                ", lecturer=" + (lect == null ? "" :  lect.getInitials()) +
-                ", subject=" + (subj == null ? "" :  subj.getName()) +
+                ", lecturer=" + (lect == null ? "" : lect.getInitials()) +
+                ", subject=" + (subj == null ? "" : subj.getName()) +
                 ", classroom=" + (classroom == null ? "" : classroom.getRoomNumber()) +
                 ", classType=" + (classType == null ? "" : classType.getName().substring(0, 3)) +
                 '}';

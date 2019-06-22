@@ -11,10 +11,6 @@ public class WeekDao extends HibernateDao<Integer, DayOfWeek> {
         super(factory);
     }
 
-    public Optional<DayOfWeek> findByName(String name) {
-        return findUniqueByProperty("name", name);
-    }
-
     public Optional<DayOfWeek> findByShortName(String shortName) {
         return findUniqueByProperty("shortName", shortName);
     }

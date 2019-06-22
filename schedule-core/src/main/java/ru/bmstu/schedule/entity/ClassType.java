@@ -13,7 +13,7 @@ public class ClassType {
     private Collection<ScheduleItemParity> scheduleItemParities;
 
     @Id
-    @Column(name = "type_id", nullable = false)
+    @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;

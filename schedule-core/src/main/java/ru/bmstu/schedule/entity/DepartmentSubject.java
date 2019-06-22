@@ -12,7 +12,7 @@ public class DepartmentSubject {
     private int id;
     private Department department;
     private Subject subject;
-    private Set<LecturerSubject> lecturerSubjects = new HashSet<>();
+    private Set<TutorSubject> tutorSubjects = new HashSet<>();
 
     public DepartmentSubject() {
     }
@@ -34,7 +34,7 @@ public class DepartmentSubject {
     }
 
     @ManyToOne
-    @JoinColumn(name = "department_id", referencedColumnName = "department_id")
+    @JoinColumn(name = "department_id", referencedColumnName = "id")
     public Department getDepartment() {
         return department;
     }
@@ -44,7 +44,7 @@ public class DepartmentSubject {
     }
 
     @ManyToOne
-    @JoinColumn(name = "subject_id", referencedColumnName = "subject_id")
+    @JoinColumn(name = "subject_id", referencedColumnName = "id")
     public Subject getSubject() {
         return subject;
     }
@@ -54,12 +54,12 @@ public class DepartmentSubject {
     }
 
     @OneToMany(mappedBy = "departmentSubject", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    public Set<LecturerSubject> getLecturerSubjects() {
-        return lecturerSubjects;
+    public Set<TutorSubject> getTutorSubjects() {
+        return tutorSubjects;
     }
 
-    public void setLecturerSubjects(Set<LecturerSubject> lecturerSubjects) {
-        this.lecturerSubjects = lecturerSubjects;
+    public void setTutorSubjects(Set<TutorSubject> tutorSubjects) {
+        this.tutorSubjects = tutorSubjects;
     }
 
     @Override

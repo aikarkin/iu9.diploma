@@ -4,14 +4,14 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "day_of_weak")
+@Table(name = "day_of_week")
 public class DayOfWeek {
     private int id;
     private String shortName;
     private String name;
 
     @Id
-    @Column(name = "weak_id", nullable = false)
+    @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
@@ -22,7 +22,7 @@ public class DayOfWeek {
     }
 
     @Basic
-    @Column(name = "short_title", columnDefinition = "bpchar", length = 3)
+    @Column(name = "short_form", columnDefinition = "bpchar", length = 3)
     public String getShortName() {
         return shortName;
     }
@@ -32,7 +32,7 @@ public class DayOfWeek {
     }
 
     @Basic
-    @Column(name = "full_title", columnDefinition = "bpchar", nullable = false, length = 12)
+    @Column(name = "title", columnDefinition = "bpchar", nullable = false, length = 12)
     public String getName() {
         return name;
     }

@@ -13,7 +13,7 @@ public class Classroom {
     private Collection<ScheduleItemParity> scheduleItemParities;
 
     @Id
-    @Column(name = "room_id", nullable = false)
+    @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
@@ -34,7 +34,7 @@ public class Classroom {
     }
 
     @Basic
-    @Column(name = "capacity", nullable = true)
+    @Column(name = "capacity")
     public Integer getCapacity() {
         return capacity;
     }

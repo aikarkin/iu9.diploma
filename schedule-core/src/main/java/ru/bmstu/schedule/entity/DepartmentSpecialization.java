@@ -1,12 +1,10 @@
 package ru.bmstu.schedule.entity;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
-@Table(name = "department_to_specialization")
+@Table(name = "department_specialization")
 public class DepartmentSpecialization {
 
     private int id;
@@ -14,8 +12,6 @@ public class DepartmentSpecialization {
     private Department department;
 
     private Specialization specialization;
-
-//    private Set<Calendar> calendarSet = new HashSet<>();
 
     @Id
     @Column(name = "id")
@@ -49,15 +45,6 @@ public class DepartmentSpecialization {
         this.specialization = specialization;
     }
 
-//    @OneToMany(mappedBy = "departmentSpecialization", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-//    public Set<Calendar> getCalendarSet() {
-//        return calendarSet;
-//    }
-//
-//    public void setCalendarSet(Set<Calendar> calendarSet) {
-//        this.calendarSet = calendarSet;
-//    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -66,7 +53,6 @@ public class DepartmentSpecialization {
         return id == that.id &&
                 Objects.equals(department, that.department) &&
                 Objects.equals(specialization, that.specialization);
-//                Objects.equals(calendarSet, that.calendarSet);
     }
 
     @Override

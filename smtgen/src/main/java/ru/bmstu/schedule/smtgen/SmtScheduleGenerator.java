@@ -2,7 +2,6 @@ package ru.bmstu.schedule.smtgen;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
-import com.microsoft.z3.Status;
 import ru.bmstu.schedule.entity.*;
 import ru.bmstu.schedule.smtgen.model.ModelToScheduleTransformer;
 import ru.bmstu.schedule.smtgen.model.SmtScheduleModelGenerator;
@@ -26,13 +25,13 @@ public class SmtScheduleGenerator {
     private BiMap<Subject, Integer> subjectIdBiMap = HashBiMap.create();
     private BiMap<StudyGroup, Integer> groupIdBiMap = HashBiMap.create();
     private BiMap<Classroom, Integer> roomIdBiMap = HashBiMap.create();
-    private Map<Integer, Lecturer> lecturerIdToTutor = new HashMap<>();
+    private Map<Integer, Tutor> lecturerIdToTutor = new HashMap<>();
     private Map<Integer, SubjectsPerWeek> subjectsPerWeakMap = new HashMap<>();
     private Map<LessonKind, ClassType> kindToClassType = new HashMap<>();
 
     public SmtScheduleGenerator(
             Map<Subject, SubjectsPerWeek> totalSubjectsPerWeak,
-            Collection<LecturerSubject> lecturerSubjects,
+            Collection<TutorSubject> tutorSubjects,
             List<Classroom> classrooms,
             List<StudyGroup> groups,
             List<ClassType> classTypes
@@ -58,11 +57,11 @@ public class SmtScheduleGenerator {
         }
 
         Set<Integer> subjectsSetForTutor = new HashSet<>();
-        for (LecturerSubject lecSubj : lecturerSubjects) {
+        for (TutorSubject lecSubj : tutorSubjects) {
             TutorForLesson tutorForLesson = new TutorForLesson();
             String kindName = lecSubj.getClassType().getName();
             Subject subj = lecSubj.getDepartmentSubject().getSubject();
-            Lecturer lec = lecSubj.getLecturer();
+            Tutor lec = lecSubj.getTutor();
             int subjId = subj.getId();
             int lecId = lec.getId();
 

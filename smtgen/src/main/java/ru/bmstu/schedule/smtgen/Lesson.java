@@ -2,7 +2,7 @@ package ru.bmstu.schedule.smtgen;
 
 import ru.bmstu.schedule.entity.ClassType;
 import ru.bmstu.schedule.entity.Classroom;
-import ru.bmstu.schedule.entity.Lecturer;
+import ru.bmstu.schedule.entity.Tutor;
 import ru.bmstu.schedule.entity.Subject;
 
 import java.util.Objects;
@@ -10,7 +10,7 @@ import java.util.Objects;
 public class Lesson {
 
     private Classroom classroom;
-    private Lecturer lecturer;
+    private Tutor tutor;
     private Subject subject;
     private ClassType classType;
 
@@ -25,12 +25,12 @@ public class Lesson {
         this.classroom = classroom;
     }
 
-    public Lecturer getLecturer() {
-        return lecturer;
+    public Tutor getTutor() {
+        return tutor;
     }
 
-    public void setLecturer(Lecturer lecturer) {
-        this.lecturer = lecturer;
+    public void setTutor(Tutor tutor) {
+        this.tutor = tutor;
     }
 
     public Subject getSubject() {
@@ -55,14 +55,14 @@ public class Lesson {
         if (o == null || getClass() != o.getClass()) return false;
         Lesson lesson = (Lesson) o;
         return Objects.equals(classroom, lesson.classroom) &&
-                Objects.equals(lecturer, lesson.lecturer) &&
+                Objects.equals(tutor, lesson.tutor) &&
                 Objects.equals(subject, lesson.subject) &&
                 Objects.equals(classType, lesson.classType);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(classroom, lecturer, subject, classType);
+        return Objects.hash(classroom, tutor, subject, classType);
     }
 
     @Override
@@ -72,7 +72,7 @@ public class Lesson {
                 getClassType().getName().substring(0, 3),
                 getSubject().getName(),
                 classroom == null ? "" : classroom.getRoomNumber(),
-                lecturer == null ? "" : lecturer.getInitials()
+                tutor == null ? "" : tutor.getInitials()
         );
     }
 

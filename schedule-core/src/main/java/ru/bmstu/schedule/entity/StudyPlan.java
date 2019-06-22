@@ -6,16 +6,16 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Table(name = "calendar")
-public class Calendar {
+@Table(name = "study_plan")
+public class StudyPlan {
 
     private int id;
     private int startYear;
     private DepartmentSpecialization departmentSpecialization;
-    private Set<CalendarItem> calendarItems = new HashSet<>();
+    private Set<StudyPlanItem> studyPlanItems = new HashSet<>();
     private Set<StudyGroup> studyGroups = new HashSet<>();
 
-    public Calendar() {
+    public StudyPlan() {
     }
 
     @Id
@@ -39,7 +39,7 @@ public class Calendar {
     }
 
     @ManyToOne
-    @JoinColumn(name = "dept_to_spec_id", referencedColumnName = "id")
+    @JoinColumn(name = "department_specialization_id", referencedColumnName = "id")
     public DepartmentSpecialization getDepartmentSpecialization() {
         return departmentSpecialization;
     }
@@ -48,16 +48,16 @@ public class Calendar {
         this.departmentSpecialization = departmentSpecialization;
     }
 
-    @OneToMany(mappedBy = "calendar", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    public Set<CalendarItem> getCalendarItems() {
-        return calendarItems;
+    @OneToMany(mappedBy = "studyPlan", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    public Set<StudyPlanItem> getStudyPlanItems() {
+        return studyPlanItems;
     }
 
-    public void setCalendarItems(Set<CalendarItem> calendarItems) {
-        this.calendarItems = calendarItems;
+    public void setStudyPlanItems(Set<StudyPlanItem> studyPlanItems) {
+        this.studyPlanItems = studyPlanItems;
     }
 
-    @OneToMany(mappedBy = "calendar", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "studyPlan", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     public Set<StudyGroup> getStudyGroups() {
         return studyGroups;
     }
@@ -66,19 +66,19 @@ public class Calendar {
         this.studyGroups = studyGroups;
     }
 
-    public void addCalendarItem(CalendarItem item) {
-        item.setCalendar(this);
-        getCalendarItems().add(item);
+    public void addCalendarItem(StudyPlanItem item) {
+        item.setStudyPlan(this);
+        getStudyPlanItems().add(item);
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Calendar calendar = (Calendar) o;
-        return id == calendar.id &&
-                startYear == calendar.startYear &&
-                Objects.equals(departmentSpecialization, calendar.departmentSpecialization);
+        StudyPlan studyPlan = (StudyPlan) o;
+        return id == studyPlan.id &&
+                startYear == studyPlan.startYear &&
+                Objects.equals(departmentSpecialization, studyPlan.departmentSpecialization);
     }
 
     @Override

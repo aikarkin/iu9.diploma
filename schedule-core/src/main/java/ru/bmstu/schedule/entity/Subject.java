@@ -9,7 +9,7 @@ import java.util.Objects;
 public class Subject {
     private int id;
     private String name;
-    private Collection<CalendarItem> calendarItems;
+    private Collection<StudyPlanItem> studyPlanItems;
 
     public Subject() {
     }
@@ -19,7 +19,7 @@ public class Subject {
     }
 
     @Id
-    @Column(name = "subject_id", nullable = false)
+    @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
@@ -40,12 +40,12 @@ public class Subject {
     }
 
     @OneToMany(mappedBy = "departmentSubject")
-    public Collection<CalendarItem> getCalendarItems() {
-        return calendarItems;
+    public Collection<StudyPlanItem> getStudyPlanItems() {
+        return studyPlanItems;
     }
 
-    public void setCalendarItems(Collection<CalendarItem> calendarItems) {
-        this.calendarItems = calendarItems;
+    public void setStudyPlanItems(Collection<StudyPlanItem> studyPlanItems) {
+        this.studyPlanItems = studyPlanItems;
     }
 
     @Override

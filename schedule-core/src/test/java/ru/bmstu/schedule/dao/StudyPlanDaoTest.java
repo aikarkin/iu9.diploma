@@ -4,7 +4,7 @@ import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import ru.bmstu.schedule.entity.Calendar;
+import ru.bmstu.schedule.entity.StudyPlan;
 import ru.bmstu.schedule.entity.Department;
 import ru.bmstu.schedule.entity.DepartmentSpecialization;
 import ru.bmstu.schedule.entity.Specialization;
@@ -13,14 +13,14 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class CalendarDaoTest extends DatabaseAccessTest {
+class StudyPlanDaoTest extends DatabaseAccessTest {
 
     private static final String VALID_SPEC_CODE = "01.03.02_1";
     private static final String INVALID_SPEC_CODE = "01.03.02_156";
     private static final String VALID_DEPT_CIPHER = "ИУ9";
     private static final int VALID_ENROLLMENT_YEAR = 2018;
 
-    private static Calendar VALID_CALENDAR;
+    private static StudyPlan validStudyPlan;
     private static DepartmentSpecialization VALID_DEPT_SPEC;
 
     @SuppressWarnings("Duplicates")
@@ -46,19 +46,19 @@ class CalendarDaoTest extends DatabaseAccessTest {
         Integer deptSpecId = deptSpecDao.create(VALID_DEPT_SPEC);
         VALID_DEPT_SPEC.setId(deptSpecId);
 
-        CalendarDao calendarDao = new CalendarDao(factory);
-        VALID_CALENDAR = new Calendar();
-        VALID_CALENDAR.setDepartmentSpecialization(VALID_DEPT_SPEC);
-        VALID_CALENDAR.setStartYear(VALID_ENROLLMENT_YEAR);
+        StudyPlanDao studyPlanDao = new StudyPlanDao(factory);
+        validStudyPlan = new StudyPlan();
+        validStudyPlan.setDepartmentSpecialization(VALID_DEPT_SPEC);
+        validStudyPlan.setStartYear(VALID_ENROLLMENT_YEAR);
 
-        Integer calendarId = calendarDao.create(VALID_CALENDAR);
-        VALID_CALENDAR.setId(calendarId);
+        Integer calendarId = studyPlanDao.create(validStudyPlan);
+        validStudyPlan.setId(calendarId);
     }
 
     @Test
     void findByStartYearAndDepartmentCodeAndSpecCode() {
-        CalendarDao calendarDao = new CalendarDao(getSessionFactory());
-        Optional<Calendar> validCalendarOpt = calendarDao.findByStartYearAndDepartmentCodeAndSpecCode(
+        StudyPlanDao studyPlanDao = new StudyPlanDao(getSessionFactory());
+        Optional<StudyPlan> validCalendarOpt = studyPlanDao.findByStartYearAndDepartmentCodeAndSpecCode(
                 VALID_ENROLLMENT_YEAR,
                 VALID_DEPT_CIPHER,
                 VALID_SPEC_CODE
@@ -68,7 +68,7 @@ class CalendarDaoTest extends DatabaseAccessTest {
         assertEquals(validCalendarOpt.get().getDepartmentSpecialization().getDepartment().getNumber(), 9);
         assertEquals(validCalendarOpt.get().getDepartmentSpecialization().getSpecialization().getNumberInSpeciality(), 1);
 
-        Optional<Calendar> invalidCalendarOpt = calendarDao.findByStartYearAndDepartmentCodeAndSpecCode(
+        Optional<StudyPlan> invalidCalendarOpt = studyPlanDao.findByStartYearAndDepartmentCodeAndSpecCode(
                 VALID_ENROLLMENT_YEAR,
                 VALID_DEPT_CIPHER,
                 INVALID_SPEC_CODE
@@ -81,8 +81,8 @@ class CalendarDaoTest extends DatabaseAccessTest {
     static void removeCalendars() {
         SessionFactory factory = getSessionFactory();
         DepartmentSpecializationDao deptSpecDao = new DepartmentSpecializationDao(factory);
-        CalendarDao calendarDao = new CalendarDao(factory);
-        calendarDao.delete(VALID_CALENDAR);
+        StudyPlanDao studyPlanDao = new StudyPlanDao(factory);
+        studyPlanDao.delete(validStudyPlan);
         deptSpecDao.delete(VALID_DEPT_SPEC);
     }
 

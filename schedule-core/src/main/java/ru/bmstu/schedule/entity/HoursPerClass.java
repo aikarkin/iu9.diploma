@@ -8,11 +8,11 @@ import java.util.Objects;
 public class HoursPerClass {
     private int id;
     private int noOfHours;
-    private CalendarItemCell calendarItemCell;
+    private StudyPlanItemCell studyPlanItemCell;
     private ClassType classType;
 
     @Id
-    @Column(name = "hours_id", nullable = false)
+    @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
@@ -48,17 +48,17 @@ public class HoursPerClass {
     }
 
     @ManyToOne
-    @JoinColumn(name = "calendar_cell_id", referencedColumnName = "cell_id")
-    public CalendarItemCell getCalendarItemCell() {
-        return calendarItemCell;
+    @JoinColumn(name = "study_plan_item_cell_id", referencedColumnName = "id")
+    public StudyPlanItemCell getStudyPlanItemCell() {
+        return studyPlanItemCell;
     }
 
-    public void setCalendarItemCell(CalendarItemCell calendarItemCell) {
-        this.calendarItemCell = calendarItemCell;
+    public void setStudyPlanItemCell(StudyPlanItemCell studyPlanItemCell) {
+        this.studyPlanItemCell = studyPlanItemCell;
     }
 
     @ManyToOne
-    @JoinColumn(name = "class_type_id", referencedColumnName = "type_id")
+    @JoinColumn(name = "class_type_id", referencedColumnName = "id")
     public ClassType getClassType() {
         return classType;
     }

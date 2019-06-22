@@ -2,10 +2,8 @@ package ru.bmstu.schedule.entity;
 
 import javax.persistence.*;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "department")
@@ -34,7 +32,7 @@ public class Department {
     }
 
     @Id
-    @Column(name = "department_id", nullable = false)
+    @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
@@ -70,28 +68,13 @@ public class Department {
     }
 
     @ManyToOne
-    @JoinColumn(name = "faculty_id", referencedColumnName = "faculty_id")
+    @JoinColumn(name = "faculty_id", referencedColumnName = "id")
     public Faculty getFaculty() {
         return faculty;
     }
 
     public void setFaculty(Faculty faculty) {
         this.faculty = faculty;
-    }
-
-    public void addSpecialization(Specialization spec) {
-        DepartmentSpecialization depSpec = new DepartmentSpecialization();
-        depSpec.setSpecialization(spec);
-        depSpec.setDepartment(this);
-        getDepartmentSpecializations().add(depSpec);
-    }
-
-    @Transient
-    public List<Specialization> getSpecializations() {
-        return getDepartmentSpecializations()
-                .stream()
-                .map(DepartmentSpecialization::getSpecialization)
-                .collect(Collectors.toList());
     }
 
     @Override

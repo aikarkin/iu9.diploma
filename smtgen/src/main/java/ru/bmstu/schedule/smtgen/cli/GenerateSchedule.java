@@ -4,7 +4,7 @@ import org.apache.commons.cli.ParseException;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import ru.bmstu.schedule.dao.*;
-import ru.bmstu.schedule.entity.Calendar;
+import ru.bmstu.schedule.entity.StudyPlan;
 import ru.bmstu.schedule.entity.DayOfWeek;
 import ru.bmstu.schedule.entity.*;
 import ru.bmstu.schedule.smtgen.*;
@@ -32,9 +32,9 @@ public class GenerateSchedule {
 
     private ScheduleDayDao scheduleDayDao;
     private StudyGroupDao studyGroupDao;
-    private LecturerSubjectDao lecSubjDao;
-    private LecturerDao lecDao;
-    private CalendarDao calendarDao;
+    private TutorSubjectDao lecSubjDao;
+    private TutorDao lecDao;
+    private StudyPlanDao studyPlanDao;
     private ClassroomDao classroomDao;
     private ClassTimeDao classTimeDao;
     private ClassTypeDao classTypeDao;
@@ -62,12 +62,12 @@ public class GenerateSchedule {
         sessionFactory = new Configuration().configure().buildSessionFactory();
         studyGroupDao = new StudyGroupDao(sessionFactory);
         scheduleDayDao = new ScheduleDayDao(sessionFactory);
-        lecSubjDao = new LecturerSubjectDao(sessionFactory);
+        lecSubjDao = new TutorSubjectDao(sessionFactory);
         classroomDao = new ClassroomDao(sessionFactory);
         classTypeDao = new ClassTypeDao(sessionFactory);
         classTimeDao = new ClassTimeDao(sessionFactory);
-        calendarDao = new CalendarDao(sessionFactory);
-        lecDao = new LecturerDao(sessionFactory);
+        studyPlanDao = new StudyPlanDao(sessionFactory);
+        lecDao = new TutorDao(sessionFactory);
         weekDao = new WeekDao(sessionFactory);
     }
 
@@ -90,9 +90,9 @@ public class GenerateSchedule {
         if (groups.size() == 0)
             return;
 
-        Calendar firstCalendar = groups.get(0).getCalendar();
+        StudyPlan firstStudyPlan = groups.get(0).getStudyPlan();
         for (int i = 1; i < groups.size(); i++) {
-            if (!groups.get(i).getCalendar().equals(firstCalendar)) {
+            if (!groups.get(i).getStudyPlan().equals(firstStudyPlan)) {
                 throw new RuntimeException("Невозможно сгенерировать рассписание для данных групп: группы имеют разные учебные планы");
             }
         }
@@ -100,7 +100,7 @@ public class GenerateSchedule {
 
     private Map<StudyGroup, Schedule> generateSchedules(ScheduleConfiguration config) throws RuntimeException {
         List<StudyGroup> groups = new ArrayList<>();
-        Calendar calendar;
+        StudyPlan studyPlan;
         int term;
         if (config.getGroupCiphers() != null) {
             for (String grCipher : config.getGroupCiphers()) {
@@ -111,7 +111,7 @@ public class GenerateSchedule {
                 groups.add(grOpt.get());
             }
             checkAllGroups(groups);
-            calendar = groups.get(0).getCalendar();
+            studyPlan = groups.get(0).getStudyPlan();
             term = groups.get(0).getTerm().getNumber();
         } else {
             int year = config.getEnrollmentYear();
@@ -119,14 +119,14 @@ public class GenerateSchedule {
             String deptCipher = config.getDepartmentCipher();
             String specCode = config.getSpecializationCode();
 
-            Optional<Calendar> calendarOpt = calendarDao.findByStartYearAndDepartmentCodeAndSpecCode(year, deptCipher, specCode);
+            Optional<StudyPlan> calendarOpt = studyPlanDao.findByStartYearAndDepartmentCodeAndSpecCode(year, deptCipher, specCode);
 
             if (!calendarOpt.isPresent()) {
                 throw new RuntimeException("Учебный план с заданными параметрами не найден");
             }
-            calendar = calendarOpt.get();
+            studyPlan = calendarOpt.get();
 
-            for (StudyGroup group : calendar.getStudyGroups()) {
+            for (StudyGroup group : studyPlan.getStudyGroups()) {
                 if (group.getTerm().getNumber() == term) {
                     groups.add(group);
                 }
@@ -134,14 +134,14 @@ public class GenerateSchedule {
         }
 
         Map<Subject, SubjectsPerWeek> subjectsPerWeekMap = new HashMap<>();
-        List<LecturerSubject> lecturerSubjects = new ArrayList<>();
+        List<TutorSubject> tutorSubjects = new ArrayList<>();
 
-        for (CalendarItem item : calendar.getCalendarItems()) {
+        for (StudyPlanItem item : studyPlan.getStudyPlanItems()) {
             DepartmentSubject deptSubj = item.getDepartmentSubject();
             Subject subject = deptSubj.getSubject();
 
             departmentSubjectMap.put(subject, deptSubj);
-            for (CalendarItemCell itemCell : item.getCalendarItemCells()) {
+            for (StudyPlanItemCell itemCell : item.getStudyPlanItemCells()) {
                 if (itemCell.getTerm().getNumber() == term) {
                     SubjectsPerWeek subjPerWeek = new SubjectsPerWeek();
 
@@ -157,9 +157,9 @@ public class GenerateSchedule {
                 }
             }
 
-            for (LecturerSubject lecSubj : deptSubj.getLecturerSubjects()) {
+            for (TutorSubject lecSubj : deptSubj.getTutorSubjects()) {
                 if (subjectsPerWeekMap.containsKey(lecSubj.getDepartmentSubject().getSubject())) {
-                    lecturerSubjects.add(lecSubj);
+                    tutorSubjects.add(lecSubj);
                 }
             }
         }
@@ -178,7 +178,7 @@ public class GenerateSchedule {
 
         SmtScheduleGenerator scheduleGenerator = new SmtScheduleGenerator(
                 subjectsPerWeekMap,
-                lecturerSubjects,
+                tutorSubjects,
                 classrooms,
                 groups,
                 classTypes
@@ -267,23 +267,23 @@ public class GenerateSchedule {
         itemParity.setClassroom(lesson.getClassroom());
         itemParity.setClassType(classType);
         itemParity.setDayParity(parity);
-        Lecturer lecturer = lesson.getLecturer();
+        Tutor tutor = lesson.getTutor();
         Subject subject = lesson.getSubject();
 
         DepartmentSubject deptSubj = departmentSubjectMap.get(subject);
-        LecturerSubject lecSubj;
+        TutorSubject lecSubj;
 
-        if (lecturer == null) {
-            Lecturer unknownLec = lecDao.fetchUnknownLecturer();
-            Optional<LecturerSubject> lecSubjOpt = lecSubjDao.findByLecturerAndDepartmentSubjectAndClassType(
+        if (tutor == null) {
+            Tutor unknownLec = lecDao.fetchUnknownLecturer();
+            Optional<TutorSubject> lecSubjOpt = lecSubjDao.findByLecturerAndDepartmentSubjectAndClassType(
                     unknownLec,
                     deptSubj,
                     classType
             );
 
             if (!lecSubjOpt.isPresent()) {
-                lecSubj = new LecturerSubject();
-                lecSubj.setLecturer(unknownLec);
+                lecSubj = new TutorSubject();
+                lecSubj.setTutor(unknownLec);
                 lecSubj.setDepartmentSubject(deptSubj);
                 lecSubj.setClassType(classType);
                 Integer lecSubjId = lecSubjDao.create(lecSubj);
@@ -292,15 +292,15 @@ public class GenerateSchedule {
                 lecSubj = lecSubjOpt.get();
             }
         } else {
-            Optional<LecturerSubject> lecSubjOpt = lecSubjDao.findByLecturerAndDepartmentSubjectAndClassType(
-                    lecturer,
+            Optional<TutorSubject> lecSubjOpt = lecSubjDao.findByLecturerAndDepartmentSubjectAndClassType(
+                    tutor,
                     deptSubj,
                     classType
             );
             if (!lecSubjOpt.isPresent()) {
                 String msg = String.format(
                         "Некорректные данные для построяения модели: не сеществует преподавателя '%s', который ведет предмет '%s' (%s.)",
-                        lecturer.getInitials(),
+                        tutor.getInitials(),
                         subject.getName(),
                         classType.getName().substring(0, 3)
                 );
@@ -310,7 +310,7 @@ public class GenerateSchedule {
         }
 
 
-        itemParity.setLecturerSubject(lecSubj);
+        itemParity.setTutorSubject(lecSubj);
 
         return itemParity;
     }
@@ -324,7 +324,7 @@ public class GenerateSchedule {
     }
 
     private static String groupRepr(StudyGroup studyGroup) {
-        DepartmentSpecialization deptSpec = studyGroup.getCalendar().getDepartmentSpecialization();
+        DepartmentSpecialization deptSpec = studyGroup.getStudyPlan().getDepartmentSpecialization();
         Specialization spec = deptSpec.getSpecialization();
         Department dept = deptSpec.getDepartment();
         int groupNo = studyGroup.getNumber();

@@ -4,11 +4,11 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "lecturer_subject")
-public class LecturerSubject {
+@Table(name = "tutor_subject")
+public class TutorSubject {
 
     private int id;
-    private Lecturer lecturer;
+    private Tutor tutor;
     private DepartmentSubject departmentSubject;
     private ClassType classType;
 
@@ -24,17 +24,17 @@ public class LecturerSubject {
     }
 
     @ManyToOne
-    @JoinColumn(name = "lecturer_id", referencedColumnName = "lecturer_id")
-    public Lecturer getLecturer() {
-        return lecturer;
+    @JoinColumn(name = "tutor_id", referencedColumnName = "id")
+    public Tutor getTutor() {
+        return tutor;
     }
 
-    public void setLecturer(Lecturer lecturer) {
-        this.lecturer = lecturer;
+    public void setTutor(Tutor tutor) {
+        this.tutor = tutor;
     }
 
     @ManyToOne
-    @JoinColumn(name = "subject_on_department_id", referencedColumnName = "id")
+    @JoinColumn(name = "department_subject_id", referencedColumnName = "id")
     public DepartmentSubject getDepartmentSubject() {
         return departmentSubject;
     }
@@ -44,7 +44,7 @@ public class LecturerSubject {
     }
 
     @ManyToOne
-    @JoinColumn(name = "class_type_id", referencedColumnName = "type_id")
+    @JoinColumn(name = "class_type_id", referencedColumnName = "id")
     public ClassType getClassType() {
         return classType;
     }
@@ -57,16 +57,16 @@ public class LecturerSubject {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        LecturerSubject that = (LecturerSubject) o;
+        TutorSubject that = (TutorSubject) o;
         return id == that.id &&
-                Objects.equals(lecturer, that.lecturer) &&
+                Objects.equals(tutor, that.tutor) &&
                 Objects.equals(departmentSubject, that.departmentSubject) &&
                 Objects.equals(classType, that.classType);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, lecturer, departmentSubject, classType);
+        return Objects.hash(id, tutor, departmentSubject, classType);
     }
 
 }

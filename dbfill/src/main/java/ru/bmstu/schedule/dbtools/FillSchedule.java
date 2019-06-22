@@ -9,7 +9,6 @@ import ru.bmstu.schedule.dao.ClassTimeDao;
 import ru.bmstu.schedule.dao.ClassTypeDao;
 import ru.bmstu.schedule.dao.WeekDao;
 import ru.bmstu.schedule.entity.*;
-import ru.bmstu.schedule.html.parser.ScheduleParser;
 
 import javax.naming.ConfigurationException;
 import java.io.File;
@@ -62,16 +61,16 @@ public class FillSchedule {
                 sessionFactory,
                 Classroom.class,
                 HoursPerClass.class,
-                CalendarItemCell.class,
-                CalendarItem.class,
+                StudyPlanItemCell.class,
+                StudyPlanItem.class,
                 ScheduleItemParity.class,
                 ScheduleItem.class,
                 ScheduleDay.class,
                 StudyGroup.class,
-                Calendar.class,
-                LecturerSubject.class,
+                StudyPlan.class,
+                TutorSubject.class,
                 DepartmentSubject.class,
-                Lecturer.class,
+                Tutor.class,
                 ClassTime.class,
                 DayOfWeek.class,
                 ClassType.class,

@@ -13,11 +13,11 @@ public class StudyGroup {
     private int number;
     private Integer studentsCount;
     private Set<ScheduleDay> scheduleDays = new HashSet<>();
-    private Calendar calendar;
+    private StudyPlan studyPlan;
     private Term term;
 
     @Id
-    @Column(name = "group_id", nullable = false)
+    @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
@@ -56,12 +56,12 @@ public class StudyGroup {
                 number == that.number &&
                 Objects.equals(studentsCount, that.studentsCount) &&
                 term.equals(that.term) &&
-                calendar.equals(that.calendar);
+                studyPlan.equals(that.studyPlan);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, number, studentsCount, calendar, term);
+        return Objects.hash(id, number, studentsCount, studyPlan, term);
     }
 
     @OneToMany(mappedBy = "studyGroup", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -73,23 +73,18 @@ public class StudyGroup {
         this.scheduleDays = scheduleDays;
     }
 
-    public void addScheduleDay(ScheduleDay day) {
-        day.setStudyGroup(this);
-        getScheduleDays().add(day);
+    @ManyToOne
+    @JoinColumn(name = "study_plan_id", referencedColumnName = "id")
+    public StudyPlan getStudyPlan() {
+        return studyPlan;
+    }
+
+    public void setStudyPlan(StudyPlan studyPlan) {
+        this.studyPlan = studyPlan;
     }
 
     @ManyToOne
-    @JoinColumn(name = "calendar_id", referencedColumnName = "id")
-    public Calendar getCalendar() {
-        return calendar;
-    }
-
-    public void setCalendar(Calendar calendar) {
-        this.calendar = calendar;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "term_id", referencedColumnName = "term_id")
+    @JoinColumn(name = "term_id", referencedColumnName = "id")
     public Term getTerm() {
         return term;
     }

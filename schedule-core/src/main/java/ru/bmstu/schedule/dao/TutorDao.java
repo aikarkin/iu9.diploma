@@ -3,7 +3,7 @@ package ru.bmstu.schedule.dao;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
-import ru.bmstu.schedule.entity.Lecturer;
+import ru.bmstu.schedule.entity.Tutor;
 
 import java.util.Collections;
 import java.util.List;
@@ -11,16 +11,16 @@ import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class LecturerDao extends HibernateDao<Integer, Lecturer> {
+public class TutorDao extends HibernateDao<Integer, Tutor> {
 
     private static final String UNKNOWN_LEC_NAME = "[UNKNOWN]";
 
-    public LecturerDao(SessionFactory factory) {
+    public TutorDao(SessionFactory factory) {
         super(factory);
     }
 
     @SuppressWarnings("unchecked")
-    public List<Lecturer> findByInitials(String initials) {
+    public List<Tutor> findByInitials(String initials) {
         if (initials == null)
             return Collections.emptyList();
 
@@ -38,7 +38,7 @@ public class LecturerDao extends HibernateDao<Integer, Lecturer> {
                 criteria.add(Restrictions.like("firstName", fnLetter + "%"));
                 criteria.add(Restrictions.like("middleName", mnLetter + "%"));
 
-                return (List<Lecturer>) criteria.list();
+                return (List<Tutor>) criteria.list();
             });
 
         } else {
@@ -46,16 +46,16 @@ public class LecturerDao extends HibernateDao<Integer, Lecturer> {
         }
     }
 
-    public Optional<Lecturer> findFirstByInitials(String initials) {
-        List<Lecturer> found = findByInitials(initials);
+    public Optional<Tutor> findFirstByInitials(String initials) {
+        List<Tutor> found = findByInitials(initials);
         return Optional.ofNullable(found.size() > 0 ? found.get(0) : null);
     }
 
-    public Lecturer fetchUnknownLecturer() {
-        Optional<Lecturer> lecOpt = findUniqueByProperty("lastName", UNKNOWN_LEC_NAME);
-        Lecturer lec;
+    public Tutor fetchUnknownLecturer() {
+        Optional<Tutor> lecOpt = findUniqueByProperty("lastName", UNKNOWN_LEC_NAME);
+        Tutor lec;
         if(!lecOpt.isPresent()) {
-            lec = new Lecturer();
+            lec = new Tutor();
             lec.setLastName(UNKNOWN_LEC_NAME);
             lec.setMiddleName(UNKNOWN_LEC_NAME);
             lec.setFirstName(UNKNOWN_LEC_NAME);

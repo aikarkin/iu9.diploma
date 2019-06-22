@@ -22,7 +22,7 @@ public class ModelToScheduleTransformer {
     private ScheduleSorts sorts;
 
     private Map<Integer, Subject> idToSubj;
-    private Map<Integer, Lecturer> idToLecturer;
+    private Map<Integer, Tutor> idToLecturer;
     private Map<Integer, StudyGroup> idToStudyGroup;
     private Map<Integer, Classroom> idToClassroom;
     private Map<LessonKind, ClassType> idToClassType;
@@ -30,7 +30,7 @@ public class ModelToScheduleTransformer {
     public ModelToScheduleTransformer(
             SmtScheduleModelGenerator modelGenerator,
             Map<Integer, Subject> idToSubj,
-            Map<Integer, Lecturer> idToLecturer,
+            Map<Integer, Tutor> idToLecturer,
             Map<Integer, StudyGroup> idToStudyGroup,
             Map<Integer, Classroom> idToClassroom,
             Map<LessonKind, ClassType> kindToClassType
@@ -143,7 +143,7 @@ public class ModelToScheduleTransformer {
         LessonKind kind = sorts.kindEnum(sorts.lessonKind(lessonExpr));
 
         lesson.setSubject(idToSubj.get(subjId));
-        lesson.setLecturer(idToLecturer.get(tutorId));
+        lesson.setTutor(idToLecturer.get(tutorId));
         lesson.setClassroom(idToClassroom.get(roomId));
         lesson.setClassType(idToClassType.get(kind));
 
