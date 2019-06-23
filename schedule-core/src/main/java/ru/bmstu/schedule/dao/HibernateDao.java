@@ -85,7 +85,8 @@ public abstract class HibernateDao<PK extends Serializable, E> implements Dao<PK
     }
 
     protected Session getSession() {
-        return sessionFactory.getCurrentSession();
+        Session session = sessionFactory.getCurrentSession();
+        return session.isOpen() ? session : sessionFactory.openSession();
     }
 
     Criteria createEntityCriteria() {

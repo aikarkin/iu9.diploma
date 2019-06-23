@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 
 public class DBUtils {
 
-    public static void fillCalendars(SessionFactory factory, String path) {
+    public static void fillStudyPlans(SessionFactory factory, String path) {
         File dir = new File(path);
         Pattern cfnPtr = Pattern.compile("(\\p{Lu}+\\d+)__(\\d+[.]\\d+[.]\\d+_\\d+)__(\\d{4})[.]csv");
         StudyPlanDao studyPlanDao = new StudyPlanDao(factory);
@@ -42,13 +42,13 @@ public class DBUtils {
                         String specCode = cfnMatcher.group(2);
                         int year = Integer.parseInt(cfnMatcher.group(3));
                         System.out.println("Looking for calendar: " + String.format("{year: %d, dep: %s, spec: %s}", year, depCipher, specCode));
-                        Optional<StudyPlan> calendarOpt = studyPlanDao.findByStartYearAndDepartmentCodeAndSpecCode(year, depCipher, specCode);
+                        Optional<StudyPlan> calendarOpt = studyPlanDao.findByStartYearAndDepartmentCipherAndSpecCode(year, depCipher, specCode);
                         String csvFile = file.getAbsolutePath();
 
                         if (calendarOpt.isPresent()) {
                             System.out.println("[info] Fill calendar from file: " + csvFile);
                             try {
-                                CSVUtils.fillCalendar(calendarOpt.get(), factory, csvFile);
+                                CSVUtils.fillStudyPlan(calendarOpt.get(), factory, csvFile);
                             } catch (IOException e) {
                                 System.out.println("[error] Failed to parse file: " + csvFile + ". Error message: " + e.getMessage());
                             }
@@ -159,7 +159,7 @@ public class DBUtils {
         StudyGroupDao groupDao = new StudyGroupDao(sessionFactory);
 
         StudyPlanDao studyPlanDao = new StudyPlanDao(sessionFactory);
-        java.util.Calendar dateCalendarInst = java.util.Calendar.getInstance();
+        Calendar dateCalendarInst = java.util.Calendar.getInstance();
         int curYear = dateCalendarInst.get(java.util.Calendar.YEAR);
 
         CSVParser records = CSVFormat.EXCEL.withHeader().parse(new FileReader(new File(refPath)));
@@ -195,15 +195,15 @@ public class DBUtils {
             }
 
             int enrollmentYear = curYear - groupEntry.getTermNumber() / 2;
-            Optional<StudyPlan> calendarOpt = studyPlanDao.findByStartYearAndDepartmentCodeAndSpecCode(
+            Optional<StudyPlan> studyPlanOpt = studyPlanDao.findByStartYearAndDepartmentCipherAndSpecCode(
                     enrollmentYear,
                     groupEntry.getDepartmentCipher(),
                     groupEntry.getSpecializationCode()
             );
             StudyPlan studyPlan;
 
-            if (calendarOpt.isPresent()) {
-                studyPlan = calendarOpt.get();
+            if (studyPlanOpt.isPresent()) {
+                studyPlan = studyPlanOpt.get();
             } else {
                 studyPlan = new StudyPlan();
                 studyPlan.setStartYear(enrollmentYear);
@@ -231,14 +231,14 @@ public class DBUtils {
         }
     }
 
-    public static void fillLecturerSubjects(SessionFactory sessionFactory, String refPath) throws IOException {
+    public static void fillTutorSubjects(SessionFactory sessionFactory, String refPath) throws IOException {
         File refFile = new File(refPath);
 
-        TutorDao lecDao = new TutorDao(sessionFactory);
+        TutorDao tutorDao = new TutorDao(sessionFactory);
         SubjectDao subjDao = new SubjectDao(sessionFactory);
         DepartmentDao deptDao = new DepartmentDao(sessionFactory);
         ClassTypeDao classTypeDao = new ClassTypeDao(sessionFactory);
-        TutorSubjectDao lecSubjDao = new TutorSubjectDao(sessionFactory);
+        TutorSubjectDao tutorSubjDao = new TutorSubjectDao(sessionFactory);
         DepartmentSubjectDao deptSubjDao = new DepartmentSubjectDao(sessionFactory);
 
         CSVParser records = CSVFormat.EXCEL.withHeader().parse(new FileReader(refFile));
@@ -247,14 +247,14 @@ public class DBUtils {
         for (CSVRecord record : records) {
             RecordHolder<LecturerSubjectsHeader> holder = new RecordHolder<>(record);
             LecturerSubjectEntry entry = parser.parse(holder);
-            String lecInitials = entry.getLecturer();
+            String tutorInitials = entry.getLecturer();
             String deptCipher = entry.getDepartment();
 
-            List<Tutor> foundTutors = lecDao.findByInitials(lecInitials);
+            List<Tutor> foundTutors = tutorDao.findByInitials(tutorInitials);
             Optional<Department> deptOpt = deptDao.findByCipher(deptCipher);
 
             if (foundTutors.isEmpty() || !deptOpt.isPresent()) {
-                System.out.printf("[error] Lecturer or department not found: lecturer - %s, department - %s.%n", lecInitials, deptCipher);
+                System.out.printf("[error] Lecturer or department not found: lecturer - %s, department - %s.%n", tutorInitials, deptCipher);
                 continue;
             }
 
@@ -283,7 +283,7 @@ public class DBUtils {
                     deptSubj = deptSubjOpt.get();
                 }
 
-                List<TutorSubject> lecSubjsList = lecSubjDao.findByLecturerAndDepartmentSubject(foundTutors.get(0), deptSubj);
+                List<TutorSubject> lecSubjsList = tutorSubjDao.findByTutorAndDepartmentSubject(foundTutors.get(0), deptSubj);
                 Set<String> classTypes = lecSubjsList
                         .stream()
                         .map(lecSubj -> lecSubj.getClassType().getName().substring(3))
@@ -302,7 +302,7 @@ public class DBUtils {
                         lecSubj.setClassType(ctOpt.get());
                         lecSubj.setTutor(foundTutors.get(0));
                         lecSubj.setDepartmentSubject(deptSubj);
-                        Integer lecSubjId = lecSubjDao.create(lecSubj);
+                        Integer lecSubjId = tutorSubjDao.create(lecSubj);
                         lecSubj.setId(lecSubjId);
                     }
                 };

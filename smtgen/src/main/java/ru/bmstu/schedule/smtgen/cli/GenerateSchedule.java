@@ -119,7 +119,7 @@ public class GenerateSchedule {
             String deptCipher = config.getDepartmentCipher();
             String specCode = config.getSpecializationCode();
 
-            Optional<StudyPlan> calendarOpt = studyPlanDao.findByStartYearAndDepartmentCodeAndSpecCode(year, deptCipher, specCode);
+            Optional<StudyPlan> calendarOpt = studyPlanDao.findByStartYearAndDepartmentCipherAndSpecCode(year, deptCipher, specCode);
 
             if (!calendarOpt.isPresent()) {
                 throw new RuntimeException("Учебный план с заданными параметрами не найден");
@@ -275,7 +275,7 @@ public class GenerateSchedule {
 
         if (tutor == null) {
             Tutor unknownLec = lecDao.fetchUnknownLecturer();
-            Optional<TutorSubject> lecSubjOpt = lecSubjDao.findByLecturerAndDepartmentSubjectAndClassType(
+            Optional<TutorSubject> lecSubjOpt = lecSubjDao.findByTutorAndDepartmentSubjectAndClassType(
                     unknownLec,
                     deptSubj,
                     classType
@@ -292,7 +292,7 @@ public class GenerateSchedule {
                 lecSubj = lecSubjOpt.get();
             }
         } else {
-            Optional<TutorSubject> lecSubjOpt = lecSubjDao.findByLecturerAndDepartmentSubjectAndClassType(
+            Optional<TutorSubject> lecSubjOpt = lecSubjDao.findByTutorAndDepartmentSubjectAndClassType(
                     tutor,
                     deptSubj,
                     classType

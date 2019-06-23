@@ -73,7 +73,7 @@ public class CSVUtils {
     }
 
     @SuppressWarnings("unchecked")
-    public static void fillCalendar(StudyPlan studyPlan, SessionFactory sessionFactory, String csvFile) throws IOException {
+    public static void fillStudyPlan(StudyPlan studyPlan, SessionFactory sessionFactory, String csvFile) throws IOException {
         CSVParser parser = CSVFormat.EXCEL.withHeader().parse(new FileReader(csvFile));
         ClassTypeDao ctDao = new ClassTypeDao(sessionFactory);
         DepartmentSubjectDao deptSubjDao = new DepartmentSubjectDao(sessionFactory);

@@ -25,7 +25,7 @@ class StudyPlanDaoTest extends DatabaseAccessTest {
 
     @SuppressWarnings("Duplicates")
     @BeforeAll
-    static void addCalendars() {
+    static void addStudyPlans() {
         SessionFactory factory = getSessionFactory();
         SpecializationDao specializationDao = new SpecializationDao(factory);
         Optional<Specialization> specOpt = specializationDao.findByCode(VALID_SPEC_CODE);
@@ -51,34 +51,34 @@ class StudyPlanDaoTest extends DatabaseAccessTest {
         validStudyPlan.setDepartmentSpecialization(VALID_DEPT_SPEC);
         validStudyPlan.setStartYear(VALID_ENROLLMENT_YEAR);
 
-        Integer calendarId = studyPlanDao.create(validStudyPlan);
-        validStudyPlan.setId(calendarId);
+        Integer studyPlanId = studyPlanDao.create(validStudyPlan);
+        validStudyPlan.setId(studyPlanId);
     }
 
     @Test
     void findByStartYearAndDepartmentCodeAndSpecCode() {
         StudyPlanDao studyPlanDao = new StudyPlanDao(getSessionFactory());
-        Optional<StudyPlan> validCalendarOpt = studyPlanDao.findByStartYearAndDepartmentCodeAndSpecCode(
+        Optional<StudyPlan> validStudyPlanOpt = studyPlanDao.findByStartYearAndDepartmentCipherAndSpecCode(
                 VALID_ENROLLMENT_YEAR,
                 VALID_DEPT_CIPHER,
                 VALID_SPEC_CODE
         );
-        assertTrue(validCalendarOpt.isPresent());
-        assertEquals(validCalendarOpt.get().getStartYear(), VALID_ENROLLMENT_YEAR);
-        assertEquals(validCalendarOpt.get().getDepartmentSpecialization().getDepartment().getNumber(), 9);
-        assertEquals(validCalendarOpt.get().getDepartmentSpecialization().getSpecialization().getNumberInSpeciality(), 1);
+        assertTrue(validStudyPlanOpt.isPresent());
+        assertEquals(validStudyPlanOpt.get().getStartYear(), VALID_ENROLLMENT_YEAR);
+        assertEquals(validStudyPlanOpt.get().getDepartmentSpecialization().getDepartment().getNumber(), 9);
+        assertEquals(validStudyPlanOpt.get().getDepartmentSpecialization().getSpecialization().getNumberInSpeciality(), 1);
 
-        Optional<StudyPlan> invalidCalendarOpt = studyPlanDao.findByStartYearAndDepartmentCodeAndSpecCode(
+        Optional<StudyPlan> invalidStudyPlanOpt = studyPlanDao.findByStartYearAndDepartmentCipherAndSpecCode(
                 VALID_ENROLLMENT_YEAR,
                 VALID_DEPT_CIPHER,
                 INVALID_SPEC_CODE
         );
 
-        assertFalse(invalidCalendarOpt.isPresent());
+        assertFalse(invalidStudyPlanOpt.isPresent());
     }
 
     @AfterAll
-    static void removeCalendars() {
+    static void removeStudyPlans() {
         SessionFactory factory = getSessionFactory();
         DepartmentSpecializationDao deptSpecDao = new DepartmentSpecializationDao(factory);
         StudyPlanDao studyPlanDao = new StudyPlanDao(factory);

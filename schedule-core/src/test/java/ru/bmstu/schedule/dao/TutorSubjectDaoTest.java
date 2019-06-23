@@ -26,7 +26,7 @@ class TutorSubjectDaoTest extends DatabaseAccessTest {
         assertTrue(ctOpt.isPresent());
 
 
-        Optional<TutorSubject> lecSubjOpt = lecSubjDao.findByLecturerAndDepartmentSubjectAndClassType(tutors.get(0), deptSubj.get(), ctOpt.get());
+        Optional<TutorSubject> lecSubjOpt = lecSubjDao.findByTutorAndDepartmentSubjectAndClassType(tutors.get(0), deptSubj.get(), ctOpt.get());
         assertTrue(lecSubjOpt.isPresent());
         assertEquals(lecSubjOpt.get().getClassType(), ctOpt.get());
         assertEquals(lecSubjOpt.get().getDepartmentSubject().getSubject(), deptSubj.get().getSubject());

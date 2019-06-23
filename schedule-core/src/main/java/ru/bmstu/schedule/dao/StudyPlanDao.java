@@ -13,15 +13,15 @@ public class StudyPlanDao extends HibernateDao<Integer, StudyPlan> {
         super(factory);
     }
 
-    public Optional<StudyPlan> findByStartYearAndDepartmentCodeAndSpecCode(int year, String deptCipher, String specCode) {
+    public Optional<StudyPlan> findByStartYearAndDepartmentCipherAndSpecCode(int year, String deptCipher, String specCode) {
         List<StudyPlan> studyPlanList = composeInTransaction(session -> {
-            Query calendarQuery = session.createQuery("SELECT c FROM StudyPlan c " +
-                    "LEFT OUTER JOIN c.departmentSpecialization ds " +
-                    "LEFT OUTER JOIN c.departmentSpecialization.department dept " +
-                    "LEFT OUTER JOIN c.departmentSpecialization.department.faculty fact " +
-                    "LEFT OUTER JOIN c.departmentSpecialization.specialization spec " +
-                    "LEFT OUTER JOIN c.departmentSpecialization.specialization.speciality st " +
-                    "WHERE c.startYear = :startYear " +
+            Query calendarQuery = session.createQuery("SELECT sp FROM StudyPlan sp " +
+                    "LEFT OUTER JOIN sp.departmentSpecialization ds " +
+                    "LEFT OUTER JOIN sp.departmentSpecialization.department dept " +
+                    "LEFT OUTER JOIN sp.departmentSpecialization.department.faculty fact " +
+                    "LEFT OUTER JOIN sp.departmentSpecialization.specialization spec " +
+                    "LEFT OUTER JOIN sp.departmentSpecialization.specialization.speciality st " +
+                    "WHERE sp.startYear = :startYear " +
                     "AND CONCAT(dept.faculty.cipher, CAST(dept.number AS string)) = :department " +
                     "AND CONCAT(st.code, '_', CAST(spec.numberInSpeciality AS string)) = :specialization");
 

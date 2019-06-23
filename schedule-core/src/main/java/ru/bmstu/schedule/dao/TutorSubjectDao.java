@@ -17,24 +17,24 @@ public class TutorSubjectDao extends HibernateDao<Integer, TutorSubject> {
     }
 
     @SuppressWarnings("unchecked")
-    public List<TutorSubject> findByLecturerAndDepartmentSubject(Tutor tutor, DepartmentSubject departmentSubject) {
+    public List<TutorSubject> findByTutorAndDepartmentSubject(Tutor tutor, DepartmentSubject departmentSubject) {
         if (tutor == null || departmentSubject == null) {
             return Collections.emptyList();
         }
 
         return composeInTransaction(session -> {
             Criteria criteria = session.createCriteria(TutorSubject.class);
-            criteria.add(Restrictions.eq("lecturer", tutor));
+            criteria.add(Restrictions.eq("tutor", tutor));
             criteria.add(Restrictions.eq("departmentSubject", departmentSubject));
             return (List<TutorSubject>) criteria.list();
         });
     }
 
-    public Optional<TutorSubject> findByLecturerAndDepartmentSubjectAndClassType(Tutor tutor, DepartmentSubject subject, ClassType classType) {
+    public Optional<TutorSubject> findByTutorAndDepartmentSubjectAndClassType(Tutor tutor, DepartmentSubject subject, ClassType classType) {
         return Optional.ofNullable(composeInTransaction(session -> {
             try {
                 Criteria criteria = session.createCriteria(TutorSubject.class);
-                criteria.add(Restrictions.eq("lecturer", tutor));
+                criteria.add(Restrictions.eq("tutor", tutor));
                 criteria.add(Restrictions.eq("departmentSubject", subject));
                 criteria.add(Restrictions.eq("classType", classType));
 
