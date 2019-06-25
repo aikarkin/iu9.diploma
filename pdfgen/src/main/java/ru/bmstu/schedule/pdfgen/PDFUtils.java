@@ -29,6 +29,7 @@ public class PDFUtils {
     private static final float TABLE_MARGIN_TOP = 10;
     private static final float TABLE_MARGIN_BOTTOM = 10;
     private static final int DAYS_PER_PAGE = 3;
+    private static final int NUMBER_OF_ITEMS = 7;
     private static PdfFont font;
 
     static {
@@ -41,7 +42,7 @@ public class PDFUtils {
     }
 
 
-    public static void exportToPdf(StudyGroup group, String filePath) throws FileNotFoundException {
+    public static void exportToPdf(List<ClassTime> classTimes, StudyGroup group, String filePath) throws FileNotFoundException {
         File outFile = new File(filePath);
         System.out.println("file path: " + filePath);
         String[] slash = outFile.getAbsolutePath().split("/");
@@ -55,7 +56,8 @@ public class PDFUtils {
             Document doc = new Document(pdfDoc);
             doc.setTextAlignment(TextAlignment.CENTER);
 
-            doc.add(docHeaderParagraph(cipherOf(group)));
+            String docTitle = String.format("Расписание %s", cipherOf(group));
+            doc.add(docHeaderParagraph(docTitle));
 
             int noOfWeak = 0;
 
@@ -75,7 +77,7 @@ public class PDFUtils {
             for (ScheduleDay day : dayList) {
                 if (noOfWeak == DAYS_PER_PAGE)
                     doc.add(new AreaBreak());
-                appendScheduleDay(doc, day);
+                appendScheduleDay(classTimes, doc, day);
                 noOfWeak++;
             }
 
@@ -85,7 +87,7 @@ public class PDFUtils {
         }
     }
 
-    private static void appendScheduleDay(Document doc, ScheduleDay scheduleDay) {
+    private static void appendScheduleDay(List<ClassTime> classTimes, Document doc, ScheduleDay scheduleDay) {
         Table table = new Table(TABLE_COLUMN_WIDTHS);
         table.setWidth(TABLE_WIDTH);
         table.setHorizontalAlignment(HorizontalAlignment.CENTER);
@@ -102,62 +104,71 @@ public class PDFUtils {
         List<ScheduleItem> items = new ArrayList<>(scheduleDay.getScheduleItems());
         items.sort(Comparator.comparing(c -> c.getClassTime().getStartsAt()));
 
-        for (ScheduleItem item : items) {
-            ClassTime ct = item.getClassTime();
+        for (int i = 0; i < NUMBER_OF_ITEMS; i++) {
+            ClassTime ct = classTimes.get(i);
             if (ct == null)
                 continue;
 
             table.addCell(cellParagraph(ct.toString()));
-            List<ScheduleItemParity> parities = new ArrayList<>(item.getScheduleItemParities());
-            parities.sort((p1, p2) -> {
-                if (p1.getDayParity().equals("ЧС") && p2.getDayParity().equals("ЗН"))
-                    return 1;
-                else if (p1.getDayParity().equals("ЗН") && p2.getDayParity().equals("ЧС"))
-                    return -1;
+            if(i < items.size()) {
+                ScheduleItem item = items.get(i);
 
-                return 0;
-            });
+                List<ScheduleItemParity> parities = new ArrayList<>(item.getScheduleItemParities());
+                parities.sort((p1, p2) -> {
+                    if (p1.getDayParity().equals("ЧС") && p2.getDayParity().equals("ЗН"))
+                        return 1;
+                    else if (p1.getDayParity().equals("ЗН") && p2.getDayParity().equals("ЧС"))
+                        return -1;
 
-            System.out.println(item);
+                    return 0;
+                });
 
-            if (parities.size() == 1) {
-                ScheduleItemParity parity = parities.get(0);
-                System.out.println("\t" + parity.toString());
+                System.out.println(item);
 
-                parityType = parity.getDayParity().trim();
+                if (parities.size() == 1) {
+                    ScheduleItemParity parity = parities.get(0);
+                    System.out.println("\t" + parity.toString());
 
-                if (parityType.equals("ЧС/ЗН")) {
-                    table.addCell(mergedCell(1, 2, readableItemParity(parity)));
-                } else if (parityType.equals("ЧС")) {
-                    table.addCell(cellParagraph(readableItemParity(parity)));
-                    table.addCell(emptyParagraph());
-                } else if (parityType.equals("ЗН")) {
-                    table.addCell(emptyParagraph());
-                    table.addCell(cellParagraph(readableItemParity(parity)));
+                    parityType = parity.getDayParity().trim();
+
+                    if (parityType.equals("ЧС/ЗН")) {
+                        table.addCell(mergedCell(1, 2, readableItemParity(parity)));
+                    } else if (parityType.equals("ЧС")) {
+                        table.addCell(cellParagraph(readableItemParity(parity)));
+                        table.addCell(emptyParagraph());
+                    } else if (parityType.equals("ЗН")) {
+                        table.addCell(emptyParagraph());
+                        table.addCell(cellParagraph(readableItemParity(parity)));
+                    }
+                } else if (parities.size() == 2) {
+
+                    ScheduleItemParity parity1 = parities.get(0), parity2 = parities.get(1);
+
+                    System.out.println("\t" + parity1.toString());
+                    System.out.println("\t" + parity2.toString());
+
+                    if (parity1.getDayParity().trim().equals("ЧС")) {
+                        table.addCell(cellParagraph(readableItemParity(parity1)));
+                        table.addCell(cellParagraph(readableItemParity(parity2)));
+                    } else if (parity2.getDayParity().trim().equals("ЧС")) {
+                        table.addCell(cellParagraph(readableItemParity(parity2)));
+                        table.addCell(cellParagraph(readableItemParity(parity1)));
+                    }
+                } else {
+                    table.addCell(mergedCell(1, 2, ""));
                 }
-            } else if (parities.size() == 2) {
 
-                ScheduleItemParity parity1 = parities.get(0), parity2 = parities.get(1);
-
-                System.out.println("\t" + parity1.toString());
-                System.out.println("\t" + parity2.toString());
-
-                if (parity1.getDayParity().trim().equals("ЧС")) {
-                    table.addCell(cellParagraph(readableItemParity(parity1)));
-                    table.addCell(cellParagraph(readableItemParity(parity2)));
-                } else if (parity2.getDayParity().trim().equals("ЧС")) {
-                    table.addCell(cellParagraph(readableItemParity(parity2)));
-                    table.addCell(cellParagraph(readableItemParity(parity1)));
-                }
+                table.startNewRow();
+                System.out.println();
             } else {
                 table.addCell(mergedCell(1, 2, ""));
+                if(i < NUMBER_OF_ITEMS - 1) {
+                    table.startNewRow();
+                }
             }
-
-            table.startNewRow();
-            System.out.println();
         }
 
-        doc.add(dayHeaderParagraph(scheduleDay.getDayOfWeek().getShortName()));
+        doc.add(dayHeaderParagraph(scheduleDay.getDayOfWeek().getName()));
         doc.add(table);
 
     }
@@ -212,7 +223,7 @@ public class PDFUtils {
     private static Paragraph docHeaderParagraph(String text) {
         return new Paragraph(text)
                 .setFont(font)
-                .setFontSize(20)
+                .setFontSize(22)
                 .setBold()
                 .setMarginBottom(15);
     }
@@ -222,7 +233,10 @@ public class PDFUtils {
     }
 
     private static Paragraph dayHeaderParagraph(String text) {
-        return new Paragraph(text).setFont(font).setBold();
+        return new Paragraph(text)
+                .setFontSize(18)
+                .setFont(font)
+                .setBold();
     }
 
     private static Paragraph cellParagraph(String text) {
