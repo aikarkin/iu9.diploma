@@ -69,7 +69,7 @@ psql=# alter user admin with encrypted password 'admin';
 3. Запустить скрипт для создания таблиц базы данных:
 
 ```console
-$ psql --username postgres --dbname postgres -a -f ./sql/create_tables.sql
+$ psql --username postgres --dbname postgres -a -f ./sql/init.sql
 ```
 
 4. Заполнить базу тестовыми данными, выполнив команду
