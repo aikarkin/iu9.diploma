@@ -44,47 +44,39 @@ public class PDFUtils {
 
     public static void exportToPdf(List<ClassTime> classTimes, StudyGroup group, String filePath) throws FileNotFoundException {
         File outFile = new File(filePath);
-        System.out.println("file path: " + filePath);
-        String[] slash = outFile.getAbsolutePath().split("/");
-        File baseDir = new File(String.join("/", Arrays.copyOfRange(slash, 0, slash.length - 2)));
 
-        System.out.println("dir path: " + baseDir.getAbsolutePath());
+        System.out.println("directory exists");
+        PdfDocument pdfDoc = new PdfDocument(new PdfWriter(outFile));
+        Document doc = new Document(pdfDoc);
+        doc.setTextAlignment(TextAlignment.CENTER);
 
-        if (baseDir.exists() && baseDir.isDirectory()) {
-            System.out.println("directory exists");
-            PdfDocument pdfDoc = new PdfDocument(new PdfWriter(outFile));
-            Document doc = new Document(pdfDoc);
-            doc.setTextAlignment(TextAlignment.CENTER);
+        String docTitle = String.format("Расписание %s", cipherOf(group));
+        doc.add(docHeaderParagraph(docTitle));
 
-            String docTitle = String.format("Расписание %s", cipherOf(group));
-            doc.add(docHeaderParagraph(docTitle));
+        int noOfWeak = 0;
 
-            int noOfWeak = 0;
+        List<ScheduleDay> dayList = new ArrayList<>(group.getScheduleDays());
 
-            List<ScheduleDay> dayList = new ArrayList<>(group.getScheduleDays());
+        final List<String> WEEK_ORDER = Arrays.asList("ПН", "ВТ", "СР", "ЧТ", "ПТ", "СБ");
 
-            final List<String> WEEK_ORDER = Arrays.asList("ПН", "ВТ", "СР", "ЧТ", "ПТ", "СБ");
+        dayList.sort((d1, d2) -> {
+            int d1Idx = WEEK_ORDER.indexOf(d1.getDayOfWeek().getShortName().trim());
+            int d2Idx = WEEK_ORDER.indexOf(d2.getDayOfWeek().getShortName().trim());
 
-            dayList.sort((d1, d2) -> {
-                int d1Idx = WEEK_ORDER.indexOf(d1.getDayOfWeek().getShortName().trim());
-                int d2Idx = WEEK_ORDER.indexOf(d2.getDayOfWeek().getShortName().trim());
+            return d1Idx - d2Idx;
+        });
 
-                return d1Idx - d2Idx;
-            });
+        System.out.println(dayList);
 
-            System.out.println(dayList);
-
-            for (ScheduleDay day : dayList) {
-                if (noOfWeak == DAYS_PER_PAGE)
-                    doc.add(new AreaBreak());
-                appendScheduleDay(classTimes, doc, day);
-                noOfWeak++;
-            }
-
-            doc.close();
-        } else {
-            System.out.println("[error] Matched directory not exists: " + baseDir);
+        for (ScheduleDay day : dayList) {
+            if (noOfWeak == DAYS_PER_PAGE)
+                doc.add(new AreaBreak());
+            appendScheduleDay(classTimes, doc, day);
+            noOfWeak++;
         }
+
+        doc.close();
+
     }
 
     private static void appendScheduleDay(List<ClassTime> classTimes, Document doc, ScheduleDay scheduleDay) {
@@ -110,7 +102,7 @@ public class PDFUtils {
                 continue;
 
             table.addCell(cellParagraph(ct.toString()));
-            if(i < items.size()) {
+            if (i < items.size()) {
                 ScheduleItem item = items.get(i);
 
                 List<ScheduleItemParity> parities = new ArrayList<>(item.getScheduleItemParities());
@@ -162,7 +154,7 @@ public class PDFUtils {
                 System.out.println();
             } else {
                 table.addCell(mergedCell(1, 2, ""));
-                if(i < NUMBER_OF_ITEMS - 1) {
+                if (i < NUMBER_OF_ITEMS - 1) {
                     table.startNewRow();
                 }
             }
