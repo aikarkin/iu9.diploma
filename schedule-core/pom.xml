@@ -28,7 +28,7 @@
 
     <properties>
         <hibernate.version>5.1.0.Final</hibernate.version>
-        <postgres.version>42.2.5</postgres.version>
+        <postgres.version>42.2.25</postgres.version>
     </properties>
 
     <dependencies>
